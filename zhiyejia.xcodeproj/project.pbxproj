@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 		10AFF8D3221D281600657217 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8D2221D281600657217 /* main.m */; };
 		10AFF8DD221D281600657217 /* zhiyejiaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8DC221D281600657217 /* zhiyejiaTests.m */; };
 		10AFF8E8221D281600657217 /* zhiyejiaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8E7221D281600657217 /* zhiyejiaUITests.m */; };
+		403A930435932C1A5FE6ACDF /* libPods-zhiyejia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6243D04BC31F95086D3CA9A /* libPods-zhiyejia.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +56,9 @@
 		10AFF8E3221D281600657217 /* zhiyejiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = zhiyejiaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8E7221D281600657217 /* zhiyejiaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhiyejiaUITests.m; sourceTree = "<group>"; };
 		10AFF8E9221D281600657217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EC3D1E52707E23FD5371AEB /* Pods-zhiyejia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhiyejia.release.xcconfig"; path = "Pods/Target Support Files/Pods-zhiyejia/Pods-zhiyejia.release.xcconfig"; sourceTree = "<group>"; };
+		D6243D04BC31F95086D3CA9A /* libPods-zhiyejia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zhiyejia.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC519D415C13B0B4CE251E90 /* Pods-zhiyejia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhiyejia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-zhiyejia/Pods-zhiyejia.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				403A930435932C1A5FE6ACDF /* libPods-zhiyejia.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0CE8218B221D31C600576742 /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				0CE8218C221D31E900576742 /* BaseViewController.h */,
+				0CE8218D221D31E900576742 /* BaseViewController.m */,
+			);
+			path = BaseClass;
+			sourceTree = "<group>";
+		};
+		0CE8218F221D335800576742 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0CE82190221D336F00576742 /* PrefixHeader.pch */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		10AFF8B7221D281300657217 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +111,8 @@
 				10AFF8DB221D281600657217 /* zhiyejiaTests */,
 				10AFF8E6221D281600657217 /* zhiyejiaUITests */,
 				10AFF8C1221D281300657217 /* Products */,
+				338EA31E340FD81D5864C398 /* Pods */,
+				34231090D8B702F3CB685DCB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +129,8 @@
 		10AFF8C2221D281300657217 /* zhiyejia */ = {
 			isa = PBXGroup;
 			children = (
+				0CE8218F221D335800576742 /* Resource */,
+				0CE8218B221D31C600576742 /* BaseClass */,
 				10AFF8C3221D281300657217 /* AppDelegate.h */,
 				10AFF8C4221D281300657217 /* AppDelegate.m */,
 				10AFF8C6221D281300657217 /* ViewController.h */,
@@ -132,6 +162,23 @@
 			path = zhiyejiaUITests;
 			sourceTree = "<group>";
 		};
+		338EA31E340FD81D5864C398 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DC519D415C13B0B4CE251E90 /* Pods-zhiyejia.debug.xcconfig */,
+				8EC3D1E52707E23FD5371AEB /* Pods-zhiyejia.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		34231090D8B702F3CB685DCB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D6243D04BC31F95086D3CA9A /* libPods-zhiyejia.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,9 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10AFF8EC221D281600657217 /* Build configuration list for PBXNativeTarget "zhiyejia" */;
 			buildPhases = (
+				65EE15E80589BFEEFD792DD1 /* [CP] Check Pods Manifest.lock */,
 				10AFF8BC221D281300657217 /* Sources */,
 				10AFF8BD221D281300657217 /* Frameworks */,
 				10AFF8BE221D281300657217 /* Resources */,
+				9DDA8A20FFB3C0089F5CF289 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,12 +306,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		65EE15E80589BFEEFD792DD1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-zhiyejia-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DDA8A20FFB3C0089F5CF289 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-zhiyejia/Pods-zhiyejia-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-zhiyejia/Pods-zhiyejia-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		10AFF8BC221D281300657217 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				10AFF8C8221D281300657217 /* ViewController.m in Sources */,
+				0CE8218E221D31E900576742 /* BaseViewController.m in Sources */,
 				10AFF8D3221D281600657217 /* main.m in Sources */,
 				10AFF8C5221D281300657217 /* AppDelegate.m in Sources */,
 			);
@@ -433,35 +524,41 @@
 		};
 		10AFF8ED221D281600657217 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC519D415C13B0B4CE251E90 /* Pods-zhiyejia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/zhiyejia/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = zhiyejia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhiyejia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		10AFF8EE221D281600657217 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EC3D1E52707E23FD5371AEB /* Pods-zhiyejia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/zhiyejia/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = zhiyejia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhiyejia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

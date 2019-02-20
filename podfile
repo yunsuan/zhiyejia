@@ -1,0 +1,11 @@
+platform:ios,'9.0'
+target 'zhiyejia' do
+
+ pod 'AFNetworking'
+ pod 'SDWebImage'
+ pod 'MJRefresh'
+ pod 'IQKeyboardManager'
+ pod 'JPush'
+ pod 'Masonry'
+
+end
