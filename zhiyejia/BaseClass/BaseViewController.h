@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)UIView *navBackgroundView;
 //Nav标题
 @property (nonatomic, strong)UILabel *titleLabel;
+//返回按钮
+@property (nonatomic, strong)UIButton *leftButton;
+
+@property (nonatomic, strong)UIButton *rightBtn;
 
 @property (nonatomic, strong) UIView *line;
 
