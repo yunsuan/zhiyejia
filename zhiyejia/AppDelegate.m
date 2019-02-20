@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "CYLTabBarControllerConfig.h"
+
 @interface AppDelegate ()
 
 @end
@@ -16,7 +18,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
+    _window.rootViewController = tabBarControllerConfig.tabBarController;
     return YES;
 }
 

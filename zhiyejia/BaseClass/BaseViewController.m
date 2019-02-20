@@ -117,7 +117,6 @@
         _line.backgroundColor = CLBackColor;
         [_navBackgroundView addSubview:_line];
         
-        _navBackgroundView.hidden = YES;
     }
     return _navBackgroundView;
 }
@@ -133,18 +132,6 @@
     }
     return _titleLabel;
 }
-
-//- (UIButton *)leftButton {
-//    if (!_leftButton) {
-//        _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        //        _leftButton.center = CGPointMake(25 * SIZE, 20 + 22);
-//        //        _leftButton.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
-//        _leftButton.center = CGPointMake(25 * SIZE, STATUS_BAR_HEIGHT + 20);
-//        _leftButton.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
-//        [_leftButton setImage:[UIImage imageNamed:@"leftarrow.png"] forState:UIControlStateNormal];
-//    }
-//    return _leftButton;
-//}
 
 - (UIButton *)leftButton {
     if (!_leftButton) {
