@@ -14,6 +14,19 @@
 //基础接口测试
 static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
+#pragma mark -- 登录、注册 --
+
+//登录
+static NSString *const Login_URL = @"user/login";
+
+//发送验证码
+static NSString *const Captcha_URL = @"user/captcha";
+
+//注册
+static NSString *const Register_URL = @"user/register";
+
+//忘记密码
+static NSString *const ResetPassword_URL = @"user/user/resetPassword";
 #pragma mark ---  房源  ---
 
 //房源列表

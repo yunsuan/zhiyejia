@@ -58,11 +58,12 @@
 //设置颜色
 #define COLOR(_R,_G,_B,_A) [UIColor colorWithRed:_R / 255.0f green: _G / 255.0f blue:_B / 255.0f alpha:_A]
 
-#define CLBackColor  COLOR(240, 240, 240, 1)
+#define CLBackColor  [UIColor whiteColor]
 #define CLTitleLabColor  COLOR(51, 51, 51, 1)
 #define CLContentLabColor  COLOR(115, 115, 115, 1)
 #define CL86Color   COLOR(86, 86, 86, 1)
 #define CL170Color   COLOR(170, 170, 170, 1)
+#define CL240Color   COLOR(240, 240, 240, 1)
 #define CLGreenColor  COLOR(60, 191, 75, 1)
 #define CLLoginBtnColor   COLOR(0x1b, 0x80, 0xfe, 1)
 #define CLBlueBtnColor   COLOR(27, 152, 255, 1)

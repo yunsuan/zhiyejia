@@ -43,6 +43,11 @@
 		0CE82213221E771000576742 /* GZQGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8220F221E771000576742 /* GZQGifFooter.m */; };
 		0CE82214221E771000576742 /* GZQGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82210221E771000576742 /* GZQGifHeader.m */; };
 		0CE8221A221E850600576742 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82219221E850600576742 /* LoginVC.m */; };
+		0CE82221221E9BF800576742 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8221F221E9BF800576742 /* RegisterVC.m */; };
+		0CE82225221EA01600576742 /* FindPassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82224221EA01600576742 /* FindPassWordVC.m */; };
+		0CE82229221EA6B600576742 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82228221EA6B600576742 /* MineCell.m */; };
+		0CE8222C221EB2A500576742 /* MineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8222B221EB2A500576742 /* MineHeader.m */; };
+		0CE8222F221EB37000576742 /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8222E221EB37000576742 /* MineHeaderView.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -146,6 +151,16 @@
 		0CE82210221E771000576742 /* GZQGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZQGifHeader.m; sourceTree = "<group>"; };
 		0CE82218221E850600576742 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		0CE82219221E850600576742 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		0CE8221F221E9BF800576742 /* RegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
+		0CE82220221E9BF800576742 /* RegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterVC.h; sourceTree = "<group>"; };
+		0CE82223221EA01600576742 /* FindPassWordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindPassWordVC.h; sourceTree = "<group>"; };
+		0CE82224221EA01600576742 /* FindPassWordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindPassWordVC.m; sourceTree = "<group>"; };
+		0CE82227221EA6B600576742 /* MineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
+		0CE82228221EA6B600576742 /* MineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
+		0CE8222A221EB2A500576742 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
+		0CE8222B221EB2A500576742 /* MineHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeader.m; sourceTree = "<group>"; };
+		0CE8222D221EB37000576742 /* MineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeaderView.h; sourceTree = "<group>"; };
+		0CE8222E221EB37000576742 /* MineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -263,6 +278,7 @@
 		0CE821AA221D53FA00576742 /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				0CE82226221EA6A700576742 /* view */,
 				0CE821AE221D540C00576742 /* MineVC.h */,
 				0CE821AF221D540C00576742 /* MineVC.m */,
 			);
@@ -423,8 +439,9 @@
 		0CE82215221E818300576742 /* 登录注册 */ = {
 			isa = PBXGroup;
 			children = (
+				0CE82222221E9F8800576742 /* 找回密码 */,
+				0CE8221E221E9BF800576742 /* 注册 */,
 				0CE82216221E81A200576742 /* 登录 */,
-				0CE82217221E81A200576742 /* 注册 */,
 			);
 			path = "登录注册";
 			sourceTree = "<group>";
@@ -438,11 +455,35 @@
 			path = "登录";
 			sourceTree = "<group>";
 		};
-		0CE82217221E81A200576742 /* 注册 */ = {
+		0CE8221E221E9BF800576742 /* 注册 */ = {
 			isa = PBXGroup;
 			children = (
+				0CE8221F221E9BF800576742 /* RegisterVC.m */,
+				0CE82220221E9BF800576742 /* RegisterVC.h */,
 			);
 			path = "注册";
+			sourceTree = "<group>";
+		};
+		0CE82222221E9F8800576742 /* 找回密码 */ = {
+			isa = PBXGroup;
+			children = (
+				0CE82223221EA01600576742 /* FindPassWordVC.h */,
+				0CE82224221EA01600576742 /* FindPassWordVC.m */,
+			);
+			path = "找回密码";
+			sourceTree = "<group>";
+		};
+		0CE82226221EA6A700576742 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CE82227221EA6B600576742 /* MineCell.h */,
+				0CE82228221EA6B600576742 /* MineCell.m */,
+				0CE8222A221EB2A500576742 /* MineHeader.h */,
+				0CE8222B221EB2A500576742 /* MineHeader.m */,
+				0CE8222D221EB37000576742 /* MineHeaderView.h */,
+				0CE8222E221EB37000576742 /* MineHeaderView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		10AFF8B7221D281300657217 = {
@@ -698,12 +739,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CE8222F221EB37000576742 /* MineHeaderView.m in Sources */,
 				0CE821B3221D541600576742 /* AgentVC.m in Sources */,
 				0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */,
 				0CE82207221E706F00576742 /* BaseModel.m in Sources */,
 				0CE821A7221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m in Sources */,
 				0CE821DD221E368700576742 /* HNTitleView.m in Sources */,
 				0CE821CC221E35B500576742 /* WMScrollView.m in Sources */,
+				0CE82221221E9BF800576742 /* RegisterVC.m in Sources */,
 				0CE8220A221E709700576742 /* NewRoomModel.m in Sources */,
 				0CE82214221E771000576742 /* GZQGifHeader.m in Sources */,
 				0CE821CA221E35B500576742 /* WMPageController.m in Sources */,
@@ -721,7 +764,10 @@
 				0CE821E0221E368700576742 /* HNChannelModel.m in Sources */,
 				0CE821CD221E35B500576742 /* WMMenuView.m in Sources */,
 				0CE821CE221E35B500576742 /* WMProgressView.m in Sources */,
+				0CE82225221EA01600576742 /* FindPassWordVC.m in Sources */,
 				0CE82203221E701B00576742 /* NewRoomCell.m in Sources */,
+				0CE82229221EA6B600576742 /* MineCell.m in Sources */,
+				0CE8222C221EB2A500576742 /* MineHeader.m in Sources */,
 				0CE821E3221E380B00576742 /* RoomChildVC.m in Sources */,
 				0CE821A4221D53A900576742 /* CYLTabBarController.m in Sources */,
 				0CE821B6221D542C00576742 /* DemandVC.m in Sources */,

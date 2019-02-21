@@ -10,7 +10,16 @@
 
 #import "LoginVC.h"
 
-@interface MineVC ()
+#import "MineHeader.h"
+#import "MineCell.h"
+
+@interface MineVC ()<UITableViewDelegate,UITableViewDataSource>
+{
+    
+    NSArray *_titleArr;
+    NSArray *_imgArr;
+}
+@property (nonatomic, strong) UITableView *table;
 
 @end
 
@@ -19,7 +28,95 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController pushViewController:[[LoginVC alloc] init] animated:YES];
+    [self initDataSource];
+    [self initUI];
+}
+
+- (void)initDataSource{
+    
+    _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"意见反馈",@"关于宜家"];
+    _imgArr = @[@"personaldata",@"work",@"makeanappointment",@"subscribe",@"opinion",@"about"];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return _titleArr.count;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    MineHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"MineHeader"];
+    if (!header) {
+        
+        header = [[MineHeader alloc] initWithReuseIdentifier:@"MineHeader"];
+    }
+    
+    if ([UserModel defaultModel].token.length) {
+        
+        
+    }else{
+        
+        header.headerImg.image = IMAGE_WITH_NAME(@"def_head");
+        header.nameL.text = @"登录/注册";
+    }
+    
+    header.mineHeaderNameBlock = ^{
+        
+        if ([UserModel defaultModel].token.length) {
+            
+            
+        }else{
+            
+            [self.navigationController pushViewController:[[LoginVC alloc] init] animated:YES];
+        }
+    };
+    
+    header.mineHeaderImgBlock = ^{
+      
+        if ([UserModel defaultModel].token.length) {
+            
+            
+        }else{
+            
+            
+        }
+    };
+    return header;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    MineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineCell"];
+    if (!cell) {
+        
+        cell = [[MineCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MineCell"];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.titleL.text = _titleArr[indexPath.row];
+    cell.titleImg.image = IMAGE_WITH_NAME(_imgArr[indexPath.row]);
+    cell.rightImg.image = IMAGE_WITH_NAME(@"rightarrow");
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+}
+
+- (void)initUI{
+    
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
+    _table.bounces = NO;
+    _table.rowHeight = UITableViewAutomaticDimension;
+    _table.estimatedRowHeight = 40 *SIZE;
+    _table.sectionHeaderHeight = UITableViewAutomaticDimension;
+    _table.estimatedSectionHeaderHeight = 220 *SIZE;
+    _table.backgroundColor = CLWhiteColor;
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _table.delegate = self;
+    _table.dataSource = self;
+    [self.view addSubview:_table];
 }
 
 @end

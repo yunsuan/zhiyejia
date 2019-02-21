@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserModel : NSObject
 
+@property (nonatomic, strong) NSString *time;
+
+@property (nonatomic, strong) NSString *token;
+
 @property (nonatomic, strong) NSMutableArray *tagAllArr;
 
 @property (nonatomic, strong) NSMutableArray *tagSelectArr;

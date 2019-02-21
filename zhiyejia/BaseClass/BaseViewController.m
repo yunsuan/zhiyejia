@@ -101,6 +101,27 @@
 //    [hud hideAnimated:YES afterDelay:1.5];
 }
 
+//判断字符串为空
+- (BOOL)isEmpty:(NSString *)str{
+    
+    if (!str) {
+        return true;
+    } else {
+        //A character set containing only the whitespace characters space (U+0020) and tab (U+0009) and the newline and nextline characters (U+000A–U+000D, U+0085).
+        NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        
+        //Returns a new string made by removing from both ends of the receiver characters contained in a given character set.
+        NSString *trimedString = [str stringByTrimmingCharactersInSet:set];
+        
+        if ([trimedString length] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
 - (UIView *)navBackgroundView {
     
     if (!_navBackgroundView) {
@@ -139,7 +160,7 @@
         //        _maskButton.frame = CGRectMake(0, 20 * SIZE, 60 * SIZE, 44);
         _leftButton.frame = CGRectMake(0, STATUS_BAR_HEIGHT, 60 * SIZE, 44);
         [_leftButton setBackgroundColor:[UIColor clearColor]];
-        [_leftButton setImage:[UIImage imageNamed:@"leftarrow.png"] forState:UIControlStateNormal];
+        [_leftButton setImage:[UIImage imageNamed:@"return.png"] forState:UIControlStateNormal];
         [_leftButton addTarget:self action:@selector(ActionMaskBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftButton;
