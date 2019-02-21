@@ -58,8 +58,8 @@
     [_nameL addGestureRecognizer:nameTap];
     [self.contentView addSubview:_nameL];
     
-    _backView = [[MineHeaderView alloc] init];
-    _backView.backgroundColor = CLBlueBtnColor;
+    _backView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, 340 *SIZE, 77 *SIZE)];
+//    _backView.backgroundColor = CLBlueBtnColor;
     [self.contentView addSubview:_backView];
     
     [self MasonryUI];
