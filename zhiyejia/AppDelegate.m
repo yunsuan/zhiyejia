@@ -10,9 +10,16 @@
 
 #import "CYLTabBarControllerConfig.h"
 
+//云渠道百度地图
+static NSString *const kBaiduSDK = @"KUHjui3ENsYlHml2lOqGUGOLhuPDDbWq";
+//云渠道极光
+static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
+
+
 @interface AppDelegate ()
 
 @end
+
 
 @implementation AppDelegate
 

@@ -6,11 +6,11 @@
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "WMPageController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RoomVC : BaseViewController
+@interface RoomVC : WMPageController
 
 @end
 
