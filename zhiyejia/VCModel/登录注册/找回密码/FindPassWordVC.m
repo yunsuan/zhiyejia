@@ -137,9 +137,9 @@
             else{
                 [self showContent:resposeObject[@"msg"]];
             }
-            _GetCodeBtn.userInteractionEnabled = YES;
+            self->_GetCodeBtn.userInteractionEnabled = YES;
         } failure:^(NSError *error) {
-            _GetCodeBtn.userInteractionEnabled = YES;
+            self->_GetCodeBtn.userInteractionEnabled = YES;
             [self showContent:@"网络错误"];
         }];
     }

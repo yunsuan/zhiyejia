@@ -6,9 +6,9 @@
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import <CoreLocation/CoreLocation.h>
 
 #import "RoomVC.h"
+#import "NewRoomProjectDetailVC.h"
 
 #import "RoomChildVC.h"
 #import "CityVC.h"
@@ -22,7 +22,7 @@
     NSString *_city;
     NSString *_cityName;
     NSMutableArray *_titlearr;
-    
+//    BMKLocationManager *_locationManager;
 }
 @property (nonatomic , strong) UIView *headerView;
 
@@ -50,6 +50,8 @@
     
 //    _titlearr = [UserModel defaultModel].tagSelectArr;
 //
+    
+
     if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
 
         [self StartLocation];
@@ -72,7 +74,6 @@
 
 - (void)StartLocation{
     
-//    LocationManager *manager =  [LocationManager Manager];
 //    [manager startLocationSuccess:^(NSString *cityname, NSString *citycode) {
 //
 //        [_cityBtn setTitle:cityname forState:UIControlStateNormal];
@@ -157,14 +158,14 @@
     HNChannelView *view = [[HNChannelView alloc]initWithFrame:CGRectMake(0, SCREEN_Height, SCREEN_Width, SCREEN_Height -STATUS_BAR_HEIGHT)];
     
     view.clickblook = ^(int selctnum) {
-        
+        self->
         _titlearr = [UserModel defaultModel].tagSelectArr;
         self.selectIndex = selctnum;
         [self reloadData];
     };
     
     view.hideblook = ^{
-        
+        self->
         _titlearr = [UserModel defaultModel].tagSelectArr;
         [self reloadData];
         [self forceLayoutSubviews];
@@ -172,10 +173,6 @@
     [[UIApplication sharedApplication].keyWindow addSubview:view];
     [view show];
 }
-
-
-
-
 
 - (void)initUI{
     
@@ -204,7 +201,7 @@
     [self.headerView addSubview:_cityBtn];
     
     _searchBar = [[UIView alloc] initWithFrame:CGRectMake(58 *SIZE, 13 *SIZE + STATUS_BAR_HEIGHT, 291 *SIZE, 33 *SIZE)];
-    _searchBar.backgroundColor = CLBackColor;
+    _searchBar.backgroundColor = CLLineColor;
     [self.headerView addSubview:_searchBar];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(11 *SIZE, 11 *SIZE, 100 *SIZE, 12 *SIZE)];
@@ -289,6 +286,12 @@
 //    vc.typeId = [NSString stringWithFormat:@"%@",dic[@"type_id"]];
 //    vc.param = [NSString stringWithFormat:@"%@",dic[@"param"]];
     vc.city = _city;
+    
+    vc.roomChildVCNewRoomProjectBlock = ^(NewRoomModel * _Nonnull model) {
+      
+        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    };
 //    vc.roomChildVCRoomModelBlock = ^(RoomListModel *model) {
 //
 //        if ([dic[@"tag"] isEqualToString:@"关注"]) {

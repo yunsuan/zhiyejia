@@ -7,5 +7,6 @@ target 'zhiyejia' do
  pod 'IQKeyboardManager'
  pod 'JPush'
  pod 'Masonry'
-# pod 'BaiduMapKit' #百度地图SDK
+ pod 'BaiduMapKit' #百度地图SDK
+ pod 'BMKLocationKit' #百度定位SDK
 end

@@ -14,6 +14,8 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - BaiduMapKit (4.2.1)
+  - BMKLocationKit (1.4.0)
   - IQKeyboardManager (6.2.0)
   - JCore (1.2.5)
   - JPush (3.1.1.1):
@@ -26,6 +28,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - BaiduMapKit
+  - BMKLocationKit
   - IQKeyboardManager
   - JPush
   - Masonry
@@ -35,6 +39,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - BaiduMapKit
+    - BMKLocationKit
     - IQKeyboardManager
     - JCore
     - JPush
@@ -44,6 +50,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  BaiduMapKit: b7430823de488bb6d082e4e1d356dadf09d3edb2
+  BMKLocationKit: ca1343eea19b2f2e999d1ad51bd6a1f1220f3456
   IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   JCore: 14706de2640b25fb77dbd02332696491407f37c9
   JPush: 25dd9013fbe106082c14f9f30a82364ee98852fb
@@ -51,6 +59,6 @@ SPEC CHECKSUMS:
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
 
-PODFILE CHECKSUM: f1fd20cda208480026305265b1013bfda1cf4d40
+PODFILE CHECKSUM: 792f5461cc84aac70eaf746a8d1c214f9dc87a39
 
 COCOAPODS: 1.6.0

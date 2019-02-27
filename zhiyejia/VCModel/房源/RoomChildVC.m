@@ -8,10 +8,6 @@
 
 #import "RoomChildVC.h"
 
-#import "NewRoomCell.h"
-
-#import "NewRoomModel.h"
-
 @interface RoomChildVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -862,6 +858,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    NewRoomModel *model = _dataArr[indexPath.row];
+    if (self.roomChildVCNewRoomProjectBlock) {
+        
+        self.roomChildVCNewRoomProjectBlock(model);
+    }
 //    if (_AllType == 0) {
 //
 //        if ([self.param isEqualToString:@"house"]) {
@@ -998,7 +999,7 @@
     
     _MainTableView.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
 
-        _page = 1;
+        self->_page = 1;
         [self RequestMethod];
     }];
 

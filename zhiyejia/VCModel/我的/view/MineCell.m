@@ -41,7 +41,7 @@
     [self.contentView addSubview:_contentL];
     
     _line = [[UIView alloc] init];
-    _line.backgroundColor = CLBackColor;
+    _line.backgroundColor = CLLineColor;
     [self.contentView addSubview:_line];
     
     [self MasonryUI];

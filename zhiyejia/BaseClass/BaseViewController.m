@@ -135,7 +135,7 @@
 //
 //        [_navBackgroundView addSubview:imageview];
         _line = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT - SIZE, SCREEN_Width, SIZE)];
-        _line.backgroundColor = CLBackColor;
+        _line.backgroundColor = CLLineColor;
         [_navBackgroundView addSubview:_line];
         
     }

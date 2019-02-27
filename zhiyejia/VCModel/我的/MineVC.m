@@ -9,6 +9,7 @@
 #import "MineVC.h"
 
 #import "LoginVC.h"
+#import "PersonalVC.h"
 
 #import "MineHeader.h"
 #import "MineCell.h"
@@ -101,7 +102,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    switch (indexPath.row) {
+        case 0:
+        {
+            PersonalVC *nextVC = [[PersonalVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (void)initUI{

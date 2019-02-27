@@ -151,20 +151,20 @@
         [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
             NSLog(@"%@",resposeObject);
             if ([resposeObject[@"code"] integerValue] == 200) {
-                _GetCodeBtn.hidden = YES;
-                _timeLabel.hidden = NO;
-                surplusTime = 60;
-                _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
+                self->_GetCodeBtn.hidden = YES;
+                self->_timeLabel.hidden = NO;
+                self->surplusTime = 60;
+                self->_timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
                 //倒计时
-                time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                self->time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
                 
             }
             else{
                 [self showContent:resposeObject[@"msg"]];
             }
-            _GetCodeBtn.userInteractionEnabled = YES;
+            self->_GetCodeBtn.userInteractionEnabled = YES;
         } failure:^(NSError *error) {
-            _GetCodeBtn.userInteractionEnabled = YES;
+            self->_GetCodeBtn.userInteractionEnabled = YES;
             [self showContent:@"网络错误"];
         }];
     }

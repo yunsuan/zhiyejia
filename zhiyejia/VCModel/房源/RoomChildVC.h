@@ -8,9 +8,17 @@
 
 #import "BaseViewController.h"
 
+#import "NewRoomCell.h"
+
+//#import "NewRoomModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^RoomChildVCNewRoomProjectBlock)(NewRoomModel *model);
+
 @interface RoomChildVC : BaseViewController
+
+@property (nonatomic, copy) RoomChildVCNewRoomProjectBlock roomChildVCNewRoomProjectBlock;
 
 @property (nonatomic, strong) NSString *status;
 

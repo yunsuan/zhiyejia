@@ -19,6 +19,9 @@ static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 //登录
 static NSString *const Login_URL = @"user/login";
 
+//登出
+static NSString *const LogOut_URL = @"user/logOut";
+
 //发送验证码
 static NSString *const Captcha_URL = @"user/captcha";
 
@@ -31,5 +34,9 @@ static NSString *const ResetPassword_URL = @"user/user/resetPassword";
 
 //房源列表
 static NSString *const HomeProjectList_URL = @"home/project/list";
+
+//项目详情
+static NSString *const HomeProjectDetail_URL = @"home/project/detail";
+
 
 #endif /* NetConfig_h */

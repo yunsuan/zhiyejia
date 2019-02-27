@@ -5,6 +5,7 @@
 //  Created by xiaoq on 2019/2/20.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
+#import <BMKLocationkit/BMKLocationComponent.h>
 
 #import "AppDelegate.h"
 
@@ -25,6 +26,8 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[BMKLocationAuth sharedInstance] checkPermisionWithKey:kBaiduSDK authDelegate:self];
     
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     _window.rootViewController = tabBarControllerConfig.tabBarController;

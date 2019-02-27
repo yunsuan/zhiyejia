@@ -9,6 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#import <CoreLocation/CoreLocation.h>
+
 #import "UserModel.h"
 #import "UserModelArchiver.h"
 #import "NetConfig.h"
@@ -67,6 +69,7 @@
 #define CLGreenColor  COLOR(60, 191, 75, 1)
 #define CLLoginBtnColor   COLOR(0x1b, 0x80, 0xfe, 1)
 #define CLBlueBtnColor   COLOR(27, 152, 255, 1)
+#define CLLineColor  COLOR(240, 240, 240, 1)
 
 #define CLWhiteColor  [UIColor whiteColor]
 #define CLClearColor [UIColor clearColor]
