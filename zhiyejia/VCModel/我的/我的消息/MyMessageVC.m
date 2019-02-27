@@ -58,6 +58,8 @@
     self.titleLabel.text = @"我的消息";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
+    _table.rowHeight = UITableViewAutomaticDimension;
+    _table.estimatedRowHeight = 100 *SIZE;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.backgroundColor = CLLineColor;
     _table.delegate = self;

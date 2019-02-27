@@ -12,6 +12,8 @@
 #import "PersonalVC.h"
 #import "MyMessageVC.h"
 #import "MyAppointVC.h"
+#import "MySubscibeVC.h"
+#import "FeedbackVC.h"
 
 
 #import "MineHeader.h"
@@ -122,6 +124,18 @@
         case 2:{
             
             MyAppointVC *nextVC = [[MyAppointVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            break;
+        }
+        case 3:{
+            
+            MySubscibeVC *nextVC = [[MySubscibeVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            break;
+        }
+        case 4:{
+            
+            FeedbackVC *nextVC = [[FeedbackVC alloc] init];
             [self.navigationController pushViewController:nextVC animated:YES];
             break;
         }

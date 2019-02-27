@@ -70,6 +70,9 @@
 		0CF46DB622266C30008816E6 /* MyMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DB522266C30008816E6 /* MyMessageCell.m */; };
 		0CF46DBA22267444008816E6 /* MyAppointVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DB922267444008816E6 /* MyAppointVC.m */; };
 		0CF46DBE22267468008816E6 /* MyAppointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DBD22267468008816E6 /* MyAppointCell.m */; };
+		0CF46DC222267D80008816E6 /* MySubscibeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DC122267D80008816E6 /* MySubscibeVC.m */; };
+		0CF46DC622267EBB008816E6 /* MySubscibeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DC522267EBB008816E6 /* MySubscibeCell.m */; };
+		0CF46DCA222685C5008816E6 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DC9222685C4008816E6 /* FeedbackVC.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -227,6 +230,12 @@
 		0CF46DB922267444008816E6 /* MyAppointVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAppointVC.m; sourceTree = "<group>"; };
 		0CF46DBC22267468008816E6 /* MyAppointCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppointCell.h; sourceTree = "<group>"; };
 		0CF46DBD22267468008816E6 /* MyAppointCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAppointCell.m; sourceTree = "<group>"; };
+		0CF46DC022267D80008816E6 /* MySubscibeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySubscibeVC.h; sourceTree = "<group>"; };
+		0CF46DC122267D80008816E6 /* MySubscibeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySubscibeVC.m; sourceTree = "<group>"; };
+		0CF46DC422267EBB008816E6 /* MySubscibeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySubscibeCell.h; sourceTree = "<group>"; };
+		0CF46DC522267EBB008816E6 /* MySubscibeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySubscibeCell.m; sourceTree = "<group>"; };
+		0CF46DC8222685C4008816E6 /* FeedbackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackVC.h; sourceTree = "<group>"; };
+		0CF46DC9222685C4008816E6 /* FeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackVC.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -344,6 +353,8 @@
 		0CE821AA221D53FA00576742 /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46DC7222685C4008816E6 /* 意见反馈 */,
+				0CF46DBF22267D4C008816E6 /* 我的订阅 */,
 				0CF46DB722267432008816E6 /* 我的预约 */,
 				0CF46DAF22266BA5008816E6 /* 我的消息 */,
 				0CF46D5622237B37008816E6 /* 个人资料 */,
@@ -740,6 +751,34 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0CF46DBF22267D4C008816E6 /* 我的订阅 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DC322267D9B008816E6 /* view */,
+				0CF46DC022267D80008816E6 /* MySubscibeVC.h */,
+				0CF46DC122267D80008816E6 /* MySubscibeVC.m */,
+			);
+			path = "我的订阅";
+			sourceTree = "<group>";
+		};
+		0CF46DC322267D9B008816E6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DC422267EBB008816E6 /* MySubscibeCell.h */,
+				0CF46DC522267EBB008816E6 /* MySubscibeCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CF46DC7222685C4008816E6 /* 意见反馈 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DC8222685C4008816E6 /* FeedbackVC.h */,
+				0CF46DC9222685C4008816E6 /* FeedbackVC.m */,
+			);
+			path = "意见反馈";
+			sourceTree = "<group>";
+		};
 		10AFF8B7221D281300657217 = {
 			isa = PBXGroup;
 			children = (
@@ -1012,6 +1051,7 @@
 				0CE82214221E771000576742 /* GZQGifHeader.m in Sources */,
 				0CE821CA221E35B500576742 /* WMPageController.m in Sources */,
 				0CE821DE221E368700576742 /* HNChannelView.m in Sources */,
+				0CF46DCA222685C5008816E6 /* FeedbackVC.m in Sources */,
 				0CF46DB622266C30008816E6 /* MyMessageCell.m in Sources */,
 				0CE821B9221D543700576742 /* RoomVC.m in Sources */,
 				0CE821CB221E35B500576742 /* WMMenuItem.m in Sources */,
@@ -1057,8 +1097,10 @@
 				0CE821EF221E3DC800576742 /* UserModel.m in Sources */,
 				0CE821B0221D540C00576742 /* MineVC.m in Sources */,
 				0CE821F2221E3E0A00576742 /* UserModelArchiver.m in Sources */,
+				0CF46DC222267D80008816E6 /* MySubscibeVC.m in Sources */,
 				0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */,
 				0CF46DA622262CFD008816E6 /* LisenceCell.m in Sources */,
+				0CF46DC622267EBB008816E6 /* MySubscibeCell.m in Sources */,
 				10AFF8C5221D281300657217 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
