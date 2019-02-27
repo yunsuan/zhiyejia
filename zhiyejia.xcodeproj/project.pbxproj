@@ -64,6 +64,8 @@
 		0CF46D9E22262724008816E6 /* NewRoomProjectDetailDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46D9D22262724008816E6 /* NewRoomProjectDetailDetailVC.m */; };
 		0CF46DA322262B72008816E6 /* TitleContentBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DA222262B72008816E6 /* TitleContentBaseCell.m */; };
 		0CF46DA622262CFD008816E6 /* LisenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DA522262CFD008816E6 /* LisenceCell.m */; };
+		0CF46DAA222632D2008816E6 /* AppointSeeRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DA9222632D2008816E6 /* AppointSeeRoomVC.m */; };
+		0CF46DAE22265BF0008816E6 /* AppointSeeRoomSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DAD22265BF0008816E6 /* AppointSeeRoomSuccessView.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -209,6 +211,10 @@
 		0CF46DA222262B72008816E6 /* TitleContentBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TitleContentBaseCell.m; sourceTree = "<group>"; };
 		0CF46DA422262CFD008816E6 /* LisenceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LisenceCell.h; sourceTree = "<group>"; };
 		0CF46DA522262CFD008816E6 /* LisenceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LisenceCell.m; sourceTree = "<group>"; };
+		0CF46DA8222632D2008816E6 /* AppointSeeRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppointSeeRoomVC.h; sourceTree = "<group>"; };
+		0CF46DA9222632D2008816E6 /* AppointSeeRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointSeeRoomVC.m; sourceTree = "<group>"; };
+		0CF46DAC22265BF0008816E6 /* AppointSeeRoomSuccessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppointSeeRoomSuccessView.h; sourceTree = "<group>"; };
+		0CF46DAD22265BF0008816E6 /* AppointSeeRoomSuccessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointSeeRoomSuccessView.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -560,6 +566,7 @@
 		0CF46D6322238718008816E6 /* 房源详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46DA722263294008816E6 /* 预约看房 */,
 				0CF46D9B22262684008816E6 /* 项目信息 */,
 				0CF46D6D2223978D008816E6 /* view */,
 				0CF46D6422238734008816E6 /* NewRoomProjectDetailVC.h */,
@@ -660,6 +667,25 @@
 				0CF46DA222262B72008816E6 /* TitleContentBaseCell.m */,
 			);
 			path = "标题内容left基本cell";
+			sourceTree = "<group>";
+		};
+		0CF46DA722263294008816E6 /* 预约看房 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DAB2226577D008816E6 /* view */,
+				0CF46DA8222632D2008816E6 /* AppointSeeRoomVC.h */,
+				0CF46DA9222632D2008816E6 /* AppointSeeRoomVC.m */,
+			);
+			path = "预约看房";
+			sourceTree = "<group>";
+		};
+		0CF46DAB2226577D008816E6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DAC22265BF0008816E6 /* AppointSeeRoomSuccessView.h */,
+				0CF46DAD22265BF0008816E6 /* AppointSeeRoomSuccessView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		10AFF8B7221D281300657217 = {
@@ -936,6 +962,8 @@
 				0CE821DE221E368700576742 /* HNChannelView.m in Sources */,
 				0CE821B9221D543700576742 /* RoomVC.m in Sources */,
 				0CE821CB221E35B500576742 /* WMMenuItem.m in Sources */,
+				0CF46DAA222632D2008816E6 /* AppointSeeRoomVC.m in Sources */,
+				0CF46DAE22265BF0008816E6 /* AppointSeeRoomSuccessView.m in Sources */,
 				0CE821BE221D54D500576742 /* CYLTabBarControllerConfig.m in Sources */,
 				0CE821DC221E368700576742 /* HNButton.m in Sources */,
 				0CF46D5922237B47008816E6 /* PersonalVC.m in Sources */,

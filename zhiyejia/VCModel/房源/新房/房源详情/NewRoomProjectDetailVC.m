@@ -9,6 +9,7 @@
 #import "NewRoomProjectDetailVC.h"
 
 #import "NewRoomProjectDetailDetailVC.h"
+#import "AppointSeeRoomVC.h"
 
 #import "NewRoomProjectHeader.h"
 #import "TitleBaseHeader.h"
@@ -84,7 +85,8 @@
 
 - (void)ActionAppointionBtn:(UIButton *)btn{
     
-    
+    AppointSeeRoomVC *nextVC = [[AppointSeeRoomVC alloc] init];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 #pragma mark -- tableview
