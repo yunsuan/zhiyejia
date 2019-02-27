@@ -10,6 +10,9 @@
 
 #import "LoginVC.h"
 #import "PersonalVC.h"
+#import "MyMessageVC.h"
+#import "MyAppointVC.h"
+
 
 #import "MineHeader.h"
 #import "MineCell.h"
@@ -106,6 +109,19 @@
         case 0:
         {
             PersonalVC *nextVC = [[PersonalVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            break;
+        }
+            
+        case 1:{
+            
+            MyMessageVC *nextVC = [[MyMessageVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            break;
+        }
+        case 2:{
+            
+            MyAppointVC *nextVC = [[MyAppointVC alloc] init];
             [self.navigationController pushViewController:nextVC animated:YES];
             break;
         }

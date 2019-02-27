@@ -66,6 +66,10 @@
 		0CF46DA622262CFD008816E6 /* LisenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DA522262CFD008816E6 /* LisenceCell.m */; };
 		0CF46DAA222632D2008816E6 /* AppointSeeRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DA9222632D2008816E6 /* AppointSeeRoomVC.m */; };
 		0CF46DAE22265BF0008816E6 /* AppointSeeRoomSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DAD22265BF0008816E6 /* AppointSeeRoomSuccessView.m */; };
+		0CF46DB222266BE4008816E6 /* MyMessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DB122266BE4008816E6 /* MyMessageVC.m */; };
+		0CF46DB622266C30008816E6 /* MyMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DB522266C30008816E6 /* MyMessageCell.m */; };
+		0CF46DBA22267444008816E6 /* MyAppointVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DB922267444008816E6 /* MyAppointVC.m */; };
+		0CF46DBE22267468008816E6 /* MyAppointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DBD22267468008816E6 /* MyAppointCell.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -215,6 +219,14 @@
 		0CF46DA9222632D2008816E6 /* AppointSeeRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointSeeRoomVC.m; sourceTree = "<group>"; };
 		0CF46DAC22265BF0008816E6 /* AppointSeeRoomSuccessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppointSeeRoomSuccessView.h; sourceTree = "<group>"; };
 		0CF46DAD22265BF0008816E6 /* AppointSeeRoomSuccessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointSeeRoomSuccessView.m; sourceTree = "<group>"; };
+		0CF46DB022266BE4008816E6 /* MyMessageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyMessageVC.h; sourceTree = "<group>"; };
+		0CF46DB122266BE4008816E6 /* MyMessageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyMessageVC.m; sourceTree = "<group>"; };
+		0CF46DB422266C30008816E6 /* MyMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyMessageCell.h; sourceTree = "<group>"; };
+		0CF46DB522266C30008816E6 /* MyMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyMessageCell.m; sourceTree = "<group>"; };
+		0CF46DB822267444008816E6 /* MyAppointVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppointVC.h; sourceTree = "<group>"; };
+		0CF46DB922267444008816E6 /* MyAppointVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAppointVC.m; sourceTree = "<group>"; };
+		0CF46DBC22267468008816E6 /* MyAppointCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppointCell.h; sourceTree = "<group>"; };
+		0CF46DBD22267468008816E6 /* MyAppointCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAppointCell.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -332,6 +344,8 @@
 		0CE821AA221D53FA00576742 /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46DB722267432008816E6 /* 我的预约 */,
+				0CF46DAF22266BA5008816E6 /* 我的消息 */,
 				0CF46D5622237B37008816E6 /* 个人资料 */,
 				0CE82226221EA6A700576742 /* view */,
 				0CE821AE221D540C00576742 /* MineVC.h */,
@@ -688,6 +702,44 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0CF46DAF22266BA5008816E6 /* 我的消息 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DB322266C19008816E6 /* view */,
+				0CF46DB022266BE4008816E6 /* MyMessageVC.h */,
+				0CF46DB122266BE4008816E6 /* MyMessageVC.m */,
+			);
+			path = "我的消息";
+			sourceTree = "<group>";
+		};
+		0CF46DB322266C19008816E6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DB422266C30008816E6 /* MyMessageCell.h */,
+				0CF46DB522266C30008816E6 /* MyMessageCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CF46DB722267432008816E6 /* 我的预约 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DBB22267457008816E6 /* view */,
+				0CF46DB822267444008816E6 /* MyAppointVC.h */,
+				0CF46DB922267444008816E6 /* MyAppointVC.m */,
+			);
+			path = "我的预约";
+			sourceTree = "<group>";
+		};
+		0CF46DBB22267457008816E6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DBC22267468008816E6 /* MyAppointCell.h */,
+				0CF46DBD22267468008816E6 /* MyAppointCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		10AFF8B7221D281300657217 = {
 			isa = PBXGroup;
 			children = (
@@ -960,6 +1012,7 @@
 				0CE82214221E771000576742 /* GZQGifHeader.m in Sources */,
 				0CE821CA221E35B500576742 /* WMPageController.m in Sources */,
 				0CE821DE221E368700576742 /* HNChannelView.m in Sources */,
+				0CF46DB622266C30008816E6 /* MyMessageCell.m in Sources */,
 				0CE821B9221D543700576742 /* RoomVC.m in Sources */,
 				0CE821CB221E35B500576742 /* WMMenuItem.m in Sources */,
 				0CF46DAA222632D2008816E6 /* AppointSeeRoomVC.m in Sources */,
@@ -975,6 +1028,9 @@
 				0CE821DB221E368700576742 /* UIView+Frame.m in Sources */,
 				0CE821A5221D53A900576742 /* CYLTabBar.m in Sources */,
 				0CF46D922225117D008816E6 /* NewRoomMapCollCell.m in Sources */,
+				0CF46DBE22267468008816E6 /* MyAppointCell.m in Sources */,
+				0CF46DB222266BE4008816E6 /* MyMessageVC.m in Sources */,
+				0CF46DBA22267444008816E6 /* MyAppointVC.m in Sources */,
 				0CE821E0221E368700576742 /* HNChannelModel.m in Sources */,
 				0CF46D9E22262724008816E6 /* NewRoomProjectDetailDetailVC.m in Sources */,
 				0CE821CD221E35B500576742 /* WMMenuView.m in Sources */,
