@@ -1,16 +1,16 @@
 //
-//  SecRoomProjectHeader.m
+//  RentRoomProjectHeader.m
 //  zhiyejia
 //
 //  Created by 谷治墙 on 2019/2/28.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "SecRoomProjectHeader.h"
+#import "RentRoomProjectHeader.h"
 
 #import "TagCollCell.h"
 
-@interface SecRoomProjectHeader ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface RentRoomProjectHeader ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
     NSMutableArray *_propertyArr;
@@ -18,8 +18,8 @@
 }
 @end
 
-@implementation SecRoomProjectHeader
 
+@implementation RentRoomProjectHeader
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithReuseIdentifier:reuseIdentifier];
@@ -52,9 +52,9 @@
 
 - (void)ActionMoreBtn:(UIButton *)btn{
     
-    if (self.secRoomProjectHeaderBlock) {
+    if (self.rentRoomProjectHeaderBlock) {
         
-        self.secRoomProjectHeaderBlock();
+        self.rentRoomProjectHeaderBlock();
     }
 }
 
@@ -213,7 +213,7 @@
     line.backgroundColor = CLLineColor;
     [_btnView addSubview:line];
     
-    NSArray *titleArr = @[@"我要买房",@"我要卖房",@"二手房源",@"买房成交"];
+    NSArray *titleArr = @[@"我要租房",@"我要出租",@"租房房源",@"租房成交"];
     NSArray *imgArr = @[@"release",@"secondhand",@"clinch",@"summarize"];
     for (int i = 0; i < 4; i++) {
         
@@ -235,7 +235,7 @@
         [_btnView addSubview:btn];
     }
     [self.contentView addSubview:_btnView];
-
+    
     [self MasonryUI];
 }
 
@@ -327,7 +327,7 @@
         make.left.equalTo(self.contentView).offset(31 *SIZE);
         make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
         make.right.equalTo(self.contentView).offset(-70 *SIZE);
-//        make.bottom.equalTo(self.contentView).offset(-22 *SIZE);
+        //        make.bottom.equalTo(self.contentView).offset(-22 *SIZE);
     }];
     
     [_btnView mas_makeConstraints:^(MASConstraintMaker *make) {
