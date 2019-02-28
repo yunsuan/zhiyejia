@@ -36,6 +36,30 @@
     }
 }
 
+- (void)ActionRoomBtn:(UIButton *)btn{
+    
+    if (self.mineHeaderRoomBtnBlock) {
+        
+        self.mineHeaderRoomBtnBlock();
+    }
+}
+
+- (void)ActionAgentBtn:(UIButton *)btn{
+    
+    if (self.mineHeaderAgentBtnBlock) {
+        
+        self.mineHeaderAgentBtnBlock();
+    }
+}
+
+- (void)ActionHistoryBtn:(UIButton *)btn{
+    
+    if (self.mineHeaderHistoryBtnBlock) {
+        
+        self.mineHeaderHistoryBtnBlock();
+    }
+}
+
 - (void)initUI{
     
     self.contentView.backgroundColor = CLBackColor;
@@ -60,6 +84,10 @@
     
     _backView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, 340 *SIZE, 77 *SIZE)];
 //    _backView.backgroundColor = CLBlueBtnColor;
+    
+    [_backView.roomBtn addTarget:self action:@selector(ActionRoomBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_backView.agentBtn addTarget:self action:@selector(ActionAgentBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_backView.historyBtn addTarget:self action:@selector(ActionHistoryBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_backView];
     
     [self MasonryUI];

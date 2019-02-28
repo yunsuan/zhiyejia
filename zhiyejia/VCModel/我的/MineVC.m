@@ -14,6 +14,7 @@
 #import "MyAppointVC.h"
 #import "MySubscibeVC.h"
 #import "FeedbackVC.h"
+#import "MyAttentionAgentVC.h"
 
 
 #import "MineHeader.h"
@@ -86,6 +87,20 @@
             
             
         }
+    };
+    
+    header.mineHeaderRoomBtnBlock = ^{
+        
+    };
+    
+    header.mineHeaderAgentBtnBlock = ^{
+      
+        MyAttentionAgentVC *nextVC = [[MyAttentionAgentVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    };
+    
+    header.mineHeaderHistoryBtnBlock = ^{
+        
     };
     return header;
 }

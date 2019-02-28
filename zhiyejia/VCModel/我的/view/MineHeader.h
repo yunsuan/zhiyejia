@@ -14,6 +14,12 @@ typedef void(^MineHeaderImgBlock)(void);
 
 typedef void(^MineHeaderNameBlock)(void);
 
+typedef void(^MineHeaderRoomBtnBlock)(void);
+
+typedef void(^MineHeaderAgentBtnBlock)(void);
+
+typedef void(^MineHeaderHistoryBtnBlock)(void);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MineHeader : UITableViewHeaderFooterView
@@ -21,6 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) MineHeaderImgBlock mineHeaderImgBlock;
 
 @property (nonatomic, copy) MineHeaderNameBlock mineHeaderNameBlock;
+
+@property (nonatomic, copy) MineHeaderRoomBtnBlock mineHeaderRoomBtnBlock;
+
+@property (nonatomic, copy) MineHeaderAgentBtnBlock mineHeaderAgentBtnBlock;
+
+@property (nonatomic, copy) MineHeaderHistoryBtnBlock mineHeaderHistoryBtnBlock;
 
 @property (nonatomic, strong) UIImageView *headerImg;
 

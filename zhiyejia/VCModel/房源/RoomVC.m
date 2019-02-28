@@ -9,6 +9,7 @@
 
 #import "RoomVC.h"
 #import "NewRoomProjectDetailVC.h"
+#import "SecRoomProjectDetailVC.h"
 
 #import "RoomChildVC.h"
 #import "CityVC.h"
@@ -289,8 +290,10 @@
     
     vc.roomChildVCNewRoomProjectBlock = ^(NewRoomModel * _Nonnull model) {
       
-        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
         [self.navigationController pushViewController:nextVC animated:YES];
+//        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     };
 //    vc.roomChildVCRoomModelBlock = ^(RoomListModel *model) {
 //

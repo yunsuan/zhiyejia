@@ -73,6 +73,11 @@
 		0CF46DC222267D80008816E6 /* MySubscibeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DC122267D80008816E6 /* MySubscibeVC.m */; };
 		0CF46DC622267EBB008816E6 /* MySubscibeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DC522267EBB008816E6 /* MySubscibeCell.m */; };
 		0CF46DCA222685C5008816E6 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DC9222685C4008816E6 /* FeedbackVC.m */; };
+		0CF46DCE222688F5008816E6 /* MyAttentionAgentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DCD222688F5008816E6 /* MyAttentionAgentVC.m */; };
+		0CF46DD222268947008816E6 /* MyAttentionAgentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DD122268947008816E6 /* MyAttentionAgentCell.m */; };
+		0CF46DDA222786BA008816E6 /* SecRoomProjectDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DD9222786BA008816E6 /* SecRoomProjectDetailVC.m */; };
+		0CF46DE022278CB9008816E6 /* SecRoomProjectHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DDF22278CB9008816E6 /* SecRoomProjectHeader.m */; };
+		0CF46DE32227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46DE22227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -236,6 +241,16 @@
 		0CF46DC522267EBB008816E6 /* MySubscibeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySubscibeCell.m; sourceTree = "<group>"; };
 		0CF46DC8222685C4008816E6 /* FeedbackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackVC.h; sourceTree = "<group>"; };
 		0CF46DC9222685C4008816E6 /* FeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackVC.m; sourceTree = "<group>"; };
+		0CF46DCC222688F5008816E6 /* MyAttentionAgentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAttentionAgentVC.h; sourceTree = "<group>"; };
+		0CF46DCD222688F5008816E6 /* MyAttentionAgentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionAgentVC.m; sourceTree = "<group>"; };
+		0CF46DD022268947008816E6 /* MyAttentionAgentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAttentionAgentCell.h; sourceTree = "<group>"; };
+		0CF46DD122268947008816E6 /* MyAttentionAgentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionAgentCell.m; sourceTree = "<group>"; };
+		0CF46DD8222786BA008816E6 /* SecRoomProjectDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomProjectDetailVC.h; sourceTree = "<group>"; };
+		0CF46DD9222786BA008816E6 /* SecRoomProjectDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomProjectDetailVC.m; sourceTree = "<group>"; };
+		0CF46DDE22278CB9008816E6 /* SecRoomProjectHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomProjectHeader.h; sourceTree = "<group>"; };
+		0CF46DDF22278CB9008816E6 /* SecRoomProjectHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomProjectHeader.m; sourceTree = "<group>"; };
+		0CF46DE12227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomProjectPropertyTypeInfoCell.h; sourceTree = "<group>"; };
+		0CF46DE22227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomProjectPropertyTypeInfoCell.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -353,6 +368,7 @@
 		0CE821AA221D53FA00576742 /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46DCB222688DB008816E6 /* 我关注的经纪人 */,
 				0CF46DC7222685C4008816E6 /* 意见反馈 */,
 				0CF46DBF22267D4C008816E6 /* 我的订阅 */,
 				0CF46DB722267432008816E6 /* 我的预约 */,
@@ -386,6 +402,8 @@
 		0CE821AD221D53FA00576742 /* 房源 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46DD422278470008816E6 /* 二手房 */,
+				0CF46DD522278470008816E6 /* 租房 */,
 				0CE821FC221E6FE300576742 /* 新房 */,
 				0CE821E4221E3A4400576742 /* 城市 */,
 				0CE821B7221D543700576742 /* RoomVC.h */,
@@ -482,6 +500,7 @@
 		0CE821FC221E6FE300576742 /* 新房 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46DD622278499008816E6 /* 单个房间详情 */,
 				0CF46D6322238718008816E6 /* 房源详情 */,
 				0CE82204221E703E00576742 /* model */,
 				0CE82200221E701B00576742 /* view */,
@@ -779,6 +798,84 @@
 			path = "意见反馈";
 			sourceTree = "<group>";
 		};
+		0CF46DCB222688DB008816E6 /* 我关注的经纪人 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DCF22268904008816E6 /* view */,
+				0CF46DCC222688F5008816E6 /* MyAttentionAgentVC.h */,
+				0CF46DCD222688F5008816E6 /* MyAttentionAgentVC.m */,
+			);
+			path = "我关注的经纪人";
+			sourceTree = "<group>";
+		};
+		0CF46DCF22268904008816E6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DD022268947008816E6 /* MyAttentionAgentCell.h */,
+				0CF46DD122268947008816E6 /* MyAttentionAgentCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CF46DD422278470008816E6 /* 二手房 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DD722278683008816E6 /* 房源详情 */,
+			);
+			path = "二手房";
+			sourceTree = "<group>";
+		};
+		0CF46DD522278470008816E6 /* 租房 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "租房";
+			sourceTree = "<group>";
+		};
+		0CF46DD622278499008816E6 /* 单个房间详情 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "单个房间详情";
+			sourceTree = "<group>";
+		};
+		0CF46DD722278683008816E6 /* 房源详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DDB22278C8B008816E6 /* view */,
+				0CF46DD8222786BA008816E6 /* SecRoomProjectDetailVC.h */,
+				0CF46DD9222786BA008816E6 /* SecRoomProjectDetailVC.m */,
+			);
+			path = "房源详情";
+			sourceTree = "<group>";
+		};
+		0CF46DDB22278C8B008816E6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DDC22278C8B008816E6 /* cell */,
+				0CF46DDD22278C8B008816E6 /* header */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CF46DDC22278C8B008816E6 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DE12227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.h */,
+				0CF46DE22227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CF46DDD22278C8B008816E6 /* header */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46DDE22278CB9008816E6 /* SecRoomProjectHeader.h */,
+				0CF46DDF22278CB9008816E6 /* SecRoomProjectHeader.m */,
+			);
+			path = header;
+			sourceTree = "<group>";
+		};
 		10AFF8B7221D281300657217 = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1140,7 @@
 				0CE821A7221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m in Sources */,
 				0CF46D8F22250F79008816E6 /* NewRoomProjectMapCell.m in Sources */,
 				0CF46D7722239D6D008816E6 /* TitleContentRightBaseCell.m in Sources */,
+				0CF46DE022278CB9008816E6 /* SecRoomProjectHeader.m in Sources */,
 				0CF46D892224DA00008816E6 /* HouseTypeRoomCellCollCell.m in Sources */,
 				0CE821DD221E368700576742 /* HNTitleView.m in Sources */,
 				0CE821CC221E35B500576742 /* WMScrollView.m in Sources */,
@@ -1071,9 +1169,12 @@
 				0CF46DBE22267468008816E6 /* MyAppointCell.m in Sources */,
 				0CF46DB222266BE4008816E6 /* MyMessageVC.m in Sources */,
 				0CF46DBA22267444008816E6 /* MyAppointVC.m in Sources */,
+				0CF46DE32227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.m in Sources */,
 				0CE821E0221E368700576742 /* HNChannelModel.m in Sources */,
+				0CF46DCE222688F5008816E6 /* MyAttentionAgentVC.m in Sources */,
 				0CF46D9E22262724008816E6 /* NewRoomProjectDetailDetailVC.m in Sources */,
 				0CE821CD221E35B500576742 /* WMMenuView.m in Sources */,
+				0CF46DDA222786BA008816E6 /* SecRoomProjectDetailVC.m in Sources */,
 				0CE821CE221E35B500576742 /* WMProgressView.m in Sources */,
 				0CE82225221EA01600576742 /* FindPassWordVC.m in Sources */,
 				0CE82203221E701B00576742 /* NewRoomCell.m in Sources */,
@@ -1081,6 +1182,7 @@
 				0CF46D7A2223D826008816E6 /* TagCollCell.m in Sources */,
 				0CE8222C221EB2A500576742 /* MineHeader.m in Sources */,
 				0CE821E3221E380B00576742 /* RoomChildVC.m in Sources */,
+				0CF46DD222268947008816E6 /* MyAttentionAgentCell.m in Sources */,
 				0CF46D8C2224DF06008816E6 /* NewRoomProjectAnalyzeCell.m in Sources */,
 				0CE821A4221D53A900576742 /* CYLTabBarController.m in Sources */,
 				0CE821B6221D542C00576742 /* DemandVC.m in Sources */,
