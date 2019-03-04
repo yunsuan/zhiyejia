@@ -9,8 +9,12 @@
 #import "SecRoomHouseDetailVC.h"
 
 #import "SecRoomHouseDetailHeader.h"
+#import "SecRoomHouseInfoCell.h"
+#import "SecRoomHouseDynamicCell.h"
+#import "SecRoomHouseProjectCell.h"
+#import "SecRoomHouseOtherHouseCell.h"
 
-@interface SecRoomHouseDetailVC ()
+@interface SecRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *roomTable;
 
@@ -44,6 +48,17 @@
 - (void)RequestMethod{
      
 }
+
+- (void)ActionRecommendBtn:(UIButton *)btn{
+    
+    
+}
+
+- (void)ActionAttentBtn:(UIButton *)btn{
+    
+    
+}
+
 
 #pragma mark -- tableview
 
@@ -85,7 +100,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return [UITableViewCell alloc];
+    SecRoomHouseInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseInfoCell"];
+    if (!cell) {
+        
+        cell = [[SecRoomHouseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseInfoCell"];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

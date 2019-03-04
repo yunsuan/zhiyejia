@@ -93,8 +93,8 @@
     
     NSArray *viewControllers = @[
                                  room_nav,
-                                 agent_nav,
-                                 demand_nav,
+//                                 agent_nav,
+//                                 demand_nav,
                                  mine_nav
                                  ];
     return viewControllers;
@@ -129,8 +129,8 @@
     NSArray *tabBarItemsAttributes;
     tabBarItemsAttributes = @[
                               dict1,
-                              dict2,
-                              dict3,
+//                              dict2,
+//                              dict3,
                               dict4
                               ];
     return tabBarItemsAttributes;
