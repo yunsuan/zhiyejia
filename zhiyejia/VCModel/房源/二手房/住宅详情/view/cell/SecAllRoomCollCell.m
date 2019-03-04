@@ -30,17 +30,17 @@
     [self.contentView addSubview:_typeImg];
     
     _nameL = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 134 *SIZE, 100 *SIZE, 11 *SIZE)];
-    _nameL.textColor = YJTitleLabColor;
+    _nameL.textColor = CLTitleLabColor;
     _nameL.font = [UIFont systemFontOfSize:12 *SIZE];
     [self.contentView addSubview:_nameL];
     
     _priceL = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 150 *SIZE, 100 *SIZE, 12 *SIZE)];
-    _priceL.textColor = YJBlueBtnColor;
+    _priceL.textColor = CLBlueBtnColor;
     _priceL.font = [UIFont systemFontOfSize:12 *SIZE];
     [self.contentView addSubview:_priceL];
     
     _areaL = [[UILabel alloc] initWithFrame:CGRectMake(11 *SIZE, 167 *SIZE, 70 *SIZE, 12 *SIZE)];
-    _areaL.textColor = YJTitleLabColor;
+    _areaL.textColor = CLTitleLabColor;
     _areaL.font = [UIFont systemFontOfSize:12 *SIZE];
     [self.contentView addSubview:_areaL];
     

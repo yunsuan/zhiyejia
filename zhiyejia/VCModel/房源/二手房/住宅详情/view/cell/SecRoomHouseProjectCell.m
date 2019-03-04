@@ -23,25 +23,25 @@
 - (void)initUI{
     
     _priceL = [[UILabel alloc] init];
-    _priceL.textColor = YJTitleLabColor;
+    _priceL.textColor = CLTitleLabColor;
     _priceL.font = [UIFont systemFontOfSize:13 *SIZE];
     _priceL.numberOfLines = 0;
     [self.contentView addSubview:_priceL];
     
     _timeL = [[UILabel alloc] init];
-    _timeL.textColor = YJTitleLabColor;
+    _timeL.textColor = CLTitleLabColor;
     _timeL.font = [UIFont systemFontOfSize:13 *SIZE];
     _timeL.numberOfLines = 0;
     [self.contentView addSubview:_timeL];
     
     _buildL = [[UILabel alloc] init];
-    _buildL.textColor = YJTitleLabColor;
+    _buildL.textColor = CLTitleLabColor;
     _buildL.font = [UIFont systemFontOfSize:13 *SIZE];
     _buildL.numberOfLines = 0;
     [self.contentView addSubview:_buildL];
     
     _roomL = [[UILabel alloc] init];
-    _roomL.textColor = YJTitleLabColor;
+    _roomL.textColor = CLTitleLabColor;
     _roomL.font = [UIFont systemFontOfSize:13 *SIZE];
     _roomL.numberOfLines = 0;
     [self.contentView addSubview:_roomL];
@@ -65,7 +65,7 @@
     [_buildL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_priceL.mas_bottom).offset(13 *SIZE);
+        make.top.equalTo(self->_priceL.mas_bottom).offset(13 *SIZE);
         make.right.equalTo(self.contentView).offset(-120 *SIZE);
     }];
     
@@ -81,7 +81,7 @@
     [_roomL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_buildL.mas_bottom).offset(13 *SIZE);
+        make.top.equalTo(self->_buildL.mas_bottom).offset(13 *SIZE);
         make.right.equalTo(self.contentView).offset(-120 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-36 *SIZE);
     }];

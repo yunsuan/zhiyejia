@@ -1,20 +1,19 @@
 //
-//  SecRoomHouseDetailVC.m
+//  SecRoomOfficeDetailVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/2/28.
+//  Created by 谷治墙 on 2019/3/4.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "SecRoomHouseDetailVC.h"
+#import "SecRoomOfficeDetailVC.h"
 
 #import "SecRoomHouseDetailHeader.h"
-#import "SecRoomHouseInfoCell.h"
-#import "SecRoomHouseDynamicCell.h"
+#import "SecRoomOfficeInfoCell.h"
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 
-@interface SecRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface SecRoomOfficeDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *roomTable;
 
@@ -30,7 +29,7 @@
 
 @end
 
-@implementation SecRoomHouseDetailVC
+@implementation SecRoomOfficeDetailVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,14 +42,14 @@
 
 - (void)initDataSource{
     
-//    _imgArr = [@[] mutableCopy];
-//    _model = [[SecAllRoomProjectModel alloc] init];
-//    _focusDic = [@{} mutableCopy];
-//    _houseArr = [@[] mutableCopy];
+    //    _imgArr = [@[] mutableCopy];
+    //    _model = [[SecAllRoomProjectModel alloc] init];
+    //    _focusDic = [@{} mutableCopy];
+    //    _houseArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
-     
+    
 }
 
 - (void)ActionRecommendBtn:(UIButton *)btn{
@@ -109,10 +108,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    SecRoomHouseInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseInfoCell"];
+    SecRoomOfficeInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomOfficeInfoCell"];
     if (!cell) {
         
-        cell = [[SecRoomHouseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseInfoCell"];
+        cell = [[SecRoomOfficeInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomOfficeInfoCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -187,7 +186,7 @@
     label.textAlignment = NSTextAlignmentCenter;;
     [_consultBtn addSubview:label];
     [self.view addSubview:_consultBtn];
-
+    
     
     _appointBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _appointBtn.frame = CGRectMake(217 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 133 *SIZE, 43 *SIZE + TAB_BAR_MORE);
@@ -214,5 +213,5 @@
     [_appointBtn addSubview:label1];
     [self.view addSubview:_appointBtn];
 }
-    
+
 @end

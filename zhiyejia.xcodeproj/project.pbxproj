@@ -88,6 +88,8 @@
 		0CF46E05222CD3B3008816E6 /* SecRoomHouseProjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E04222CD3B3008816E6 /* SecRoomHouseProjectCell.m */; };
 		0CF46E08222CD43D008816E6 /* SecRoomHouseOtherHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E07222CD43D008816E6 /* SecRoomHouseOtherHouseCell.m */; };
 		0CF46E0B222CD68F008816E6 /* SecAllRoomCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E0A222CD68F008816E6 /* SecAllRoomCollCell.m */; };
+		0CF46E0E222CF85F008816E6 /* SecRoomOfficeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E0D222CF85F008816E6 /* SecRoomOfficeDetailVC.m */; };
+		0CF46E13222CFBD6008816E6 /* SecRoomOfficeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E12222CFBD6008816E6 /* SecRoomOfficeInfoCell.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -281,6 +283,10 @@
 		0CF46E07222CD43D008816E6 /* SecRoomHouseOtherHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomHouseOtherHouseCell.m; sourceTree = "<group>"; };
 		0CF46E09222CD68F008816E6 /* SecAllRoomCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecAllRoomCollCell.h; sourceTree = "<group>"; };
 		0CF46E0A222CD68F008816E6 /* SecAllRoomCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecAllRoomCollCell.m; sourceTree = "<group>"; };
+		0CF46E0C222CF85F008816E6 /* SecRoomOfficeDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomOfficeDetailVC.h; sourceTree = "<group>"; };
+		0CF46E0D222CF85F008816E6 /* SecRoomOfficeDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomOfficeDetailVC.m; sourceTree = "<group>"; };
+		0CF46E11222CFBD6008816E6 /* SecRoomOfficeInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomOfficeInfoCell.h; sourceTree = "<group>"; };
+		0CF46E12222CFBD6008816E6 /* SecRoomOfficeInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomOfficeInfoCell.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -948,6 +954,9 @@
 		0CF46DEE2227C7E7008816E6 /* 写字楼详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46E0F222CFBC2008816E6 /* view */,
+				0CF46E0C222CF85F008816E6 /* SecRoomOfficeDetailVC.h */,
+				0CF46E0D222CF85F008816E6 /* SecRoomOfficeDetailVC.m */,
 			);
 			path = "写字楼详情";
 			sourceTree = "<group>";
@@ -1004,6 +1013,23 @@
 				0CF46DF82227D201008816E6 /* SecRoomHouseDetailHeader.m */,
 			);
 			path = header;
+			sourceTree = "<group>";
+		};
+		0CF46E0F222CFBC2008816E6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46E10222CFBC2008816E6 /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CF46E10222CFBC2008816E6 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46E11222CFBD6008816E6 /* SecRoomOfficeInfoCell.h */,
+				0CF46E12222CFBD6008816E6 /* SecRoomOfficeInfoCell.m */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		10AFF8B7221D281300657217 = {
@@ -1311,6 +1337,7 @@
 				0CE821CD221E35B500576742 /* WMMenuView.m in Sources */,
 				0CF46DDA222786BA008816E6 /* SecRoomProjectDetailVC.m in Sources */,
 				0CF46DF32227CE76008816E6 /* SecRoomHouseDetailVC.m in Sources */,
+				0CF46E0E222CF85F008816E6 /* SecRoomOfficeDetailVC.m in Sources */,
 				0CE821CE221E35B500576742 /* WMProgressView.m in Sources */,
 				0CE82225221EA01600576742 /* FindPassWordVC.m in Sources */,
 				0CE82203221E701B00576742 /* NewRoomCell.m in Sources */,
@@ -1330,6 +1357,7 @@
 				10AFF8D3221D281600657217 /* main.m in Sources */,
 				0CE821A8221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m in Sources */,
 				0CF46D6622238734008816E6 /* NewRoomProjectDetailVC.m in Sources */,
+				0CF46E13222CFBD6008816E6 /* SecRoomOfficeInfoCell.m in Sources */,
 				0CE821EB221E3A8C00576742 /* BMChineseSort.m in Sources */,
 				0CF46D7D2224D5A2008816E6 /* NewRoomProjectDynamicCell.m in Sources */,
 				0CE821EF221E3DC800576742 /* UserModel.m in Sources */,
