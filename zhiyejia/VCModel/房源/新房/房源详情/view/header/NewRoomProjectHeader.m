@@ -111,7 +111,7 @@
     
     if (dataDic[@"developer_name"]) {
         
-        _payL.text = [NSString stringWithFormat:@"开发商：%@",dataDic[@"developer_name"]];
+        _developerL.text = [NSString stringWithFormat:@"开发商：%@",dataDic[@"developer_name"]];
     }
     
     if (dataDic[@"latitude"]) {
@@ -137,9 +137,9 @@
         _statusL.text = [NSString stringWithFormat:@"%@",dataDic[@"sale_state"]];
     }
     
-//    [_wuyeview setData:model.property_type];
-//    [_tagview setData:model.project_tags];
     
+    _propertyArr = [NSMutableArray arrayWithArray:dataDic[@"property_type"]];
+    _tagArr = [NSMutableArray arrayWithArray:dataDic[@"project_tags"]];
     
     if (dataDic[@"average_price"]) {
         
@@ -164,6 +164,23 @@
         [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, 3)];
         _priceL.attributedText = attr;
     }
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+    [_propertyColl reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self ReMasonryUI];
+//        [self->_propertyColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(10 *SIZE);
+//            make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
+//            make.width.mas_equalTo(260 *SIZE);
+//            make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
+//        }];
+    });
+    
+    
 }
 
 - (void)ActionImgBtn{
@@ -196,12 +213,11 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 20;
-//    if (section == 1) {
-//
-//        return _tagArr.count;
-//    }
-//    return _propertyArr.count;
+    if (section == 1) {
+
+        return _tagArr.count;
+    }
+    return _propertyArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -209,21 +225,16 @@
     TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 60 *SIZE, 20 *SIZE)];
+        cell = [[TagCollCell alloc] init];//WithFrame:CGRectMake(0, 0, 60 *SIZE, 20 *SIZE)];
     }
     
     if (indexPath.section == 1) {
         
-        cell.contentL.text = @"学区房学区房学区房学区房";
-        cell.contentView.backgroundColor = CLWhiteColor;
-        cell.layer.borderWidth = SIZE;
-        cell.layer.borderColor = COLOR(181, 181, 181, 1).CGColor;
+        [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
         
     }else{
         
-        cell.layer.borderWidth = 0;
-        cell.contentView.backgroundColor = CLContentLabColor;
-        cell.contentL.text = @"住宅";
+        [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
     }
     
     return cell;
@@ -255,26 +266,22 @@
     _titleL.textColor = CLTitleLabColor;
     _titleL.numberOfLines = 0;
     _titleL.font = [UIFont systemFontOfSize:13 *SIZE];
-    _titleL.text = @"DUNX自由青年公寓";
     [self.contentView addSubview:_titleL];
     
     _statusL = [[UILabel alloc] init];
     _statusL.textColor = COLOR(27, 152, 255, 1);
     _statusL.font = [UIFont systemFontOfSize:12 *SIZE];
     _statusL.textAlignment = NSTextAlignmentRight;
-    _statusL.text = @"在售";
     [self.contentView addSubview:_statusL];
     
-    _propertyFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:4 *SIZE];
     _propertyFlowLayout.estimatedItemSize = CGSizeMake(40 *SIZE, 20 *SIZE);
     if (@available(iOS 10.0, *)) {
         _propertyFlowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;
     } else {
         // Fallback on earlier versions
     }
-    _propertyFlowLayout.minimumInteritemSpacing = 4 *SIZE;
     
-//    _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_propertyFlowLayout];
     _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectMake(10 *SIZE, 33 *SIZE + CGRectGetMaxY(_imgScroll.frame), 260 *SIZE, 20 *SIZE) collectionViewLayout:_propertyFlowLayout];
     _propertyColl.backgroundColor = CLWhiteColor;
     _propertyColl.delegate = self;
@@ -286,19 +293,16 @@
     _attentL.textColor = CLContentLabColor;
     _attentL.font = [UIFont systemFontOfSize:12 *SIZE];
     _attentL.textAlignment = NSTextAlignmentRight;
-    _attentL.text = @"关注人数：23";
     [self.contentView addSubview:_attentL];
     
     _developerL = [[UILabel alloc] init];
     _developerL.textColor = CL86Color;
     _developerL.font = [UIFont systemFontOfSize:12 *SIZE];
-    _developerL.text = @"开发商：运算房产";
     [self.contentView addSubview:_developerL];
     
     _priceL = [[UILabel alloc] init];
     _priceL.textColor = COLOR(250, 70, 70, 1);
     _priceL.font = [UIFont systemFontOfSize:16 *SIZE];
-    _priceL.text = @"均价：￥16000元/㎡";
     [self.contentView addSubview:_priceL];
     
     _addressImg = [[UIImageView alloc] init];
@@ -308,7 +312,6 @@
     _addressL = [[UILabel alloc] init];
     _addressL.textColor = CLContentLabColor;
     _addressL.font = [UIFont systemFontOfSize:12 *SIZE];
-    _addressL.text = @"高新区-天府五街230号";
     [self.contentView addSubview:_addressL];
     _addressL.userInteractionEnabled = YES;
     [_addressL addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionTapMethod)]];
@@ -406,6 +409,92 @@
         make.right.equalTo(self.contentView).offset(-70 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-22 *SIZE);
     }];
+}
+
+- (void)ReMasonryUI{
+    
+    [_imgScroll mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0);
+        make.top.equalTo(self.contentView).offset(0);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(202.5 *SIZE);
+    }];
+    
+    [_numL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-11 *SIZE);
+        make.bottom.equalTo(self->_imgScroll.mas_bottom).offset(-9 *SIZE);
+        make.width.height.mas_equalTo(30 *SIZE);
+    }];
+    
+    [_titleL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_imgScroll.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-50 *SIZE);
+    }];
+    
+    [_statusL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self->_imgScroll.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(30 *SIZE);
+    }];
+    
+    [_propertyColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(260 *SIZE);
+        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
+    }];
+    
+    
+    [_attentL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_developerL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+    }];
+    
+    [_priceL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_developerL.mas_bottom).offset(11 *SIZE);
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+    }];
+    
+    [_addressImg mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_priceL.mas_bottom).offset(8 *SIZE);
+        make.width.height.mas_equalTo(16 *SIZE);
+    }];
+    
+    [_moreBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(287 *SIZE);
+        make.top.equalTo(self->_priceL.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(65 *SIZE);
+        make.height.mas_equalTo(20 *SIZE);
+    }];
+    
+    [_addressL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(31 *SIZE);
+        make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-70 *SIZE);
+        make.bottom.equalTo(self.contentView).offset(-22 *SIZE);
+    }];
+
 }
 
 @end

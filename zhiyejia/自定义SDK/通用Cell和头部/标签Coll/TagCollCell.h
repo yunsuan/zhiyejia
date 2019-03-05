@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *contentL;
 
+- (void)setStyleByType:(NSString *)type lab:(NSString *)str;
+
 @end
 
 NS_ASSUME_NONNULL_END

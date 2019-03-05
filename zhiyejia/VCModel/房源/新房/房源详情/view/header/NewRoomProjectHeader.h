@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "TagCollCell.h"
+#import "GZQFlowLayout.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,13 +35,11 @@ typedef void(^NewRoomProjectHeaderImgBtnBlock)(NSInteger num,NSArray *imgArr);
 
 @property (nonatomic, strong) UILabel *numL;
 
-@property (nonatomic, strong) UICollectionViewFlowLayout *propertyFlowLayout;
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+//@property (nonatomic, strong) UICollectionViewFlowLayout *propertyFlowLayout;
 
 @property (nonatomic, strong) UICollectionView *propertyColl;
-
-@property (nonatomic, strong) UICollectionViewFlowLayout *tagFlowLayout;
-
-@property (nonatomic, strong) UICollectionView *tagColl;
 
 @property (nonatomic, strong) UILabel *payL;
 

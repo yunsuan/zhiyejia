@@ -133,7 +133,7 @@
         }
         
         [header setImgArr:_dataDic[@"project_img"][@"url"]];
-        header.dataDic = _dataDic;
+        header.dataDic = _dataDic[@"project_basic_info"];
         header.newRoomProjectHeaderMoreBlock = ^{
           
             NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] init];

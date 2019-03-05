@@ -97,6 +97,7 @@
 		0CF46E22222D0A7E008816E6 /* SecRoomStoreDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E21222D0A7E008816E6 /* SecRoomStoreDetailVC.m */; };
 		0CF46E27222D0F68008816E6 /* SecRoomStoreDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E26222D0F68008816E6 /* SecRoomStoreDetailHeader.m */; };
 		0CF46E2B222D1158008816E6 /* SecRoomStoreInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E2A222D1158008816E6 /* SecRoomStoreInfoCell.m */; };
+		0CF46E2F222E7048008816E6 /* GZQFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46E2E222E7048008816E6 /* GZQFlowLayout.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -308,6 +309,8 @@
 		0CF46E26222D0F68008816E6 /* SecRoomStoreDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomStoreDetailHeader.m; sourceTree = "<group>"; };
 		0CF46E29222D1158008816E6 /* SecRoomStoreInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomStoreInfoCell.h; sourceTree = "<group>"; };
 		0CF46E2A222D1158008816E6 /* SecRoomStoreInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomStoreInfoCell.m; sourceTree = "<group>"; };
+		0CF46E2D222E7048008816E6 /* GZQFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GZQFlowLayout.h; sourceTree = "<group>"; };
+		0CF46E2E222E7048008816E6 /* GZQFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GZQFlowLayout.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -679,6 +682,7 @@
 		0CF46D6D2223978D008816E6 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				0CF46E2C222E7033008816E6 /* flowLayout */,
 				0CF46D6E2223978D008816E6 /* cell */,
 				0CF46D6F2223978D008816E6 /* header */,
 			);
@@ -1091,6 +1095,15 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		0CF46E2C222E7033008816E6 /* flowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				0CF46E2D222E7048008816E6 /* GZQFlowLayout.h */,
+				0CF46E2E222E7048008816E6 /* GZQFlowLayout.m */,
+			);
+			path = flowLayout;
+			sourceTree = "<group>";
+		};
 		10AFF8B7221D281300657217 = {
 			isa = PBXGroup;
 			children = (
@@ -1407,6 +1420,7 @@
 				0CE82203221E701B00576742 /* NewRoomCell.m in Sources */,
 				0CE82229221EA6B600576742 /* MineCell.m in Sources */,
 				0CF46D7A2223D826008816E6 /* TagCollCell.m in Sources */,
+				0CF46E2F222E7048008816E6 /* GZQFlowLayout.m in Sources */,
 				0CE8222C221EB2A500576742 /* MineHeader.m in Sources */,
 				0CE821E3221E380B00576742 /* RoomChildVC.m in Sources */,
 				0CF46DD222268947008816E6 /* MyAttentionAgentCell.m in Sources */,
