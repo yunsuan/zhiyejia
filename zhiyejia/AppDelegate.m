@@ -31,7 +31,36 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
     
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     _window.rootViewController = tabBarControllerConfig.tabBarController;
+    
+    [self NetWorkingRequest];
     return YES;
+}
+
+- (void)NetWorkingRequest{
+    
+    [BaseRequest GET:ProjectResources_URL parameters:nil success:^(id resposeObject) {
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            NSArray *arr = resposeObject[@"data"];
+            NSMutableDictionary *dic =[NSMutableDictionary dictionary];
+            NSMutableArray *allarr = [NSMutableArray array];
+            NSMutableArray *selctarr = [NSMutableArray array];
+            for (NSUInteger i = 0; i < arr.count; i++) {
+                [dic setValue:arr[i] forKey:arr[i][@"tag"]];
+                [allarr addObject:arr[i][@"tag"]];
+            }
+            [UserModel defaultModel].tagDic = dic;
+            [UserModel defaultModel].tagAllArr = allarr;
+            if (![UserModel defaultModel].tagSelectArr) {
+                for (NSUInteger i = 0; i < 5; i++) {
+                    [selctarr addObject:arr[i][@"tag"]];
+                }
+                [UserModel defaultModel].tagSelectArr = selctarr;
+            }
+            [UserModelArchiver archive];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 

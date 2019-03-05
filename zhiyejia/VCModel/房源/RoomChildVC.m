@@ -75,41 +75,40 @@
 
 - (void)RequestMethod{
     
-//    if (_AllType == 0) {
-//
-//        _urlString = HouseHouseList_URL;
-//        if ([self.param isEqualToString:@"houseProject"]) {
-//
+    if (_AllType == 0) {
+
+        _urlString = HomeHouseProjectDetail_URL;
+        if ([self.param isEqualToString:@"houseProject"]) {
+
 //            _urlString = HouseProjectList_URL;
-//        }
-//    }else if (_AllType == 1){
-//
-//        if ([self.status isEqualToString:@"关注"]) {
-//
+        }
+    }else if (_AllType == 1){
+
+        if ([self.status isEqualToString:@"关注"]) {
+
 //            _urlString = UserFocusNews_URL;
-//        }else{
-//
+        }else{
+
 //            _urlString = ProjectRecommendInfo_URL;
-//        }
-//    }else if(_AllType == 3){
-//
+        }
+    }else if(_AllType == 3){
+
 //        _urlString = RentProjectList_URL;
-//        if ([self.param isEqualToString:@"rent"]) {
-//
+        if ([self.param isEqualToString:@"rent"]) {
+
 //            _urlString = RentHouseList_URL;
-//        }
-//    }else{
-//
+        }
+    }else{
+
         _urlString = HomeProjectList_URL;
-//    }
-//
-//    if (_page == 1) {
-//
-//        _MainTableView.mj_footer.state = MJRefreshStateIdle;
-//    }
-//
+    }
+
+    if (_page == 1) {
+
+        _MainTableView.mj_footer.state = MJRefreshStateIdle;
+    }
+
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"page":@(_page)}];
-//    [dic setObject:[UserModel defaultModel].agent_id forKey:@"agent_id"];
 
     [dic setObject:@"asc" forKey:@"sort_type"];
 
@@ -198,8 +197,8 @@
                     }
                 }else{
 
-                    [self SetData:resposeObject[@"data"][@"data"]];
-                    if ([resposeObject[@"data"][@"data"] count] < 15) {
+                    [self SetData:resposeObject[@"data"]];
+                    if ([resposeObject[@"data"] count] < 15) {
 
                         self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
                     }

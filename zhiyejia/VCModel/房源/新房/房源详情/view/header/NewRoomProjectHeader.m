@@ -11,6 +11,10 @@
 @interface NewRoomProjectHeader ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
 
+    NSInteger _num;
+    NSInteger _nowNum;
+    float _longitude;
+    float _latitude;
     NSMutableArray *_propertyArr;
     NSMutableArray *_tagArr;
 }
@@ -42,46 +46,142 @@
 
 - (void)ActionMoreBtn:(UIButton *)btn{
     
-    if (self.newRoomProjectHeaderBlock) {
+    if (self.newRoomProjectHeaderMoreBlock) {
         
-        self.newRoomProjectHeaderBlock();
+        self.newRoomProjectHeaderMoreBlock();
     }
 }
 
 - (void)setImgArr:(NSMutableArray *)imgArr{
     
+    _imgArr = [NSMutableArray arrayWithArray:imgArr];
+    _num = imgArr.count;
+    if (imgArr.count) {
+        
+        _numL.text = [NSString stringWithFormat:@"1/%lu",(unsigned long)imgArr.count];
+    }else{
+        
+        _numL.text = @"0/0";
+    }
+    [_imgScroll setContentSize:CGSizeMake(imgArr.count *SCREEN_Width, 202.5 *SIZE)];
+    for (UIView *view in _imgScroll.subviews) {
+        
+        [view removeFromSuperview];
+    }
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        self->_propertyColl.frame = CGRectMake(10 *SIZE, 33 *SIZE + CGRectGetMaxY(self->_imgScroll.frame), 260 *SIZE,self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
-//    });
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//
-//        [self->_propertyColl mas_remakeConstraints:^(MASConstraintMaker *make) {
-//
-//            make.left.equalTo(self.contentView).offset(10 *SIZE);
-//            make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
-//            make.width.mas_equalTo(260 *SIZE);
-//            make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
-//        }];
-//    });
-//    [self->_propertyColl mas_remakeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self.contentView).offset(10 *SIZE);
-//        make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
-//        make.width.mas_equalTo(260 *SIZE);
-//        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
-//    }];
-//
-//    [_propertyColl reloadData];
-//    [_propertyColl layoutIfNeeded];
-//    [_propertyColl mas_updateConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self.contentView).offset(10 *SIZE);
-//        make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
-//        make.width.mas_equalTo(260 *SIZE);
-////        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height + _propertyFlowLayout.minimumLineSpacing * );
-//        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
-//    }];
+    if (imgArr.count) {
+        
+        for (int i = 0; i < imgArr.count; i++) {
+            
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_Width * i, 0, SCREEN_Width, 202.5 *SIZE)];
+            img.contentMode = UIViewContentModeScaleAspectFill;
+            img.clipsToBounds = YES;
+            NSString *imgname = imgArr[i][@"img_url"];
+            
+            if (imgname.length > 0) {
+                
+                [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,imgArr[i][@"img_url"]]] placeholderImage:[UIImage imageNamed:@"banner_default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                    
+                    if (error) {
+                        
+                        img.image = [UIImage imageNamed:@"banner_default_2"];
+                    }
+                }];
+                
+            }else{
+                
+                img.image = [UIImage imageNamed:@"banner_default_2"];
+            }
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionImgBtn)];
+            [img addGestureRecognizer:tap];
+            img.userInteractionEnabled = YES;
+            [_imgScroll addSubview:img];
+        }
+    }else{
+        
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 202.5 *SIZE)];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.clipsToBounds = YES;
+        img.image = [UIImage imageNamed:@"banner_default_2"];
+        [_imgScroll addSubview:img];
+    }
+}
+
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
+    
+    if (dataDic[@"developer_name"]) {
+        
+        _payL.text = [NSString stringWithFormat:@"开发商：%@",dataDic[@"developer_name"]];
+    }
+    
+    if (dataDic[@"latitude"]) {
+        _latitude = [dataDic[@"latitude"] floatValue];
+    }
+    
+    if (dataDic[@"longitude"]) {
+        _longitude = [dataDic[@"longitude"] floatValue];
+    }
+    
+    if (dataDic[@"project_name"]) {
+        
+        _titleL.text = dataDic[@"project_name"];
+    }
+    
+    if (dataDic[@"absolute_address"]) {
+        
+        _addressL.text = dataDic[@"absolute_address"];
+    }
+    
+    if (dataDic[@"sale_state"]) {
+        
+        _statusL.text = [NSString stringWithFormat:@"%@",dataDic[@"sale_state"]];
+    }
+    
+//    [_wuyeview setData:model.property_type];
+//    [_tagview setData:model.project_tags];
+    
+    
+    if (dataDic[@"average_price"]) {
+        
+        if (![dataDic[@"average_price"] integerValue]) {
+            
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"均价 暂无数据"]];
+            [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10 *SIZE] range:NSMakeRange(0, attr.length)];
+            [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, attr.length)];
+            _priceL.attributedText = attr;
+        }else{
+            
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"均价 ￥%@/㎡",dataDic[@"average_price"]]];
+            [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10 *SIZE] range:NSMakeRange(0, 3)];
+            [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13 *SIZE] range:NSMakeRange(3, 1)];
+            [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, 3)];
+            _priceL.attributedText = attr;
+        }
+    }else{
+        
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"均价 "]];
+        [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10 *SIZE] range:NSMakeRange(0, 3)];
+        [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, 3)];
+        _priceL.attributedText = attr;
+    }
+}
+
+- (void)ActionImgBtn{
+    
+    if (self.newRoomProjectHeaderImgBtnBlock) {
+        
+        if (_imgArr.count) {
+            
+            self.newRoomProjectHeaderImgBtnBlock(_nowNum, _imgArr);
+            
+        }
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    _nowNum = scrollView.contentOffset.x / SCREEN_Width;
+    _numL.text = [NSString stringWithFormat:@"%.0f/%ld",(scrollView.contentOffset.x / SCREEN_Width) + 1, (long)_num];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -138,7 +238,7 @@
     _imgScroll.delegate = self;
     _imgScroll.showsVerticalScrollIndicator = NO;
     _imgScroll.showsHorizontalScrollIndicator = NO;
-    _imgScroll.backgroundColor = [UIColor redColor];
+//    _imgScroll.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_imgScroll];
     
     _numL = [[UILabel alloc] init];

@@ -49,8 +49,8 @@ static CGFloat labelHeight = 40;
 {
     self = [super initWithFrame:frame];
     if (self) {
-//        _myChannelArr =  [UserModel defaultModel].tagSelectArr;
-//        _recommendChannelArr = [NSMutableArray arrayWithArray:[UserModel defaultModel].tagAllArr];
+        _myChannelArr =  [UserModel defaultModel].tagSelectArr;
+        _recommendChannelArr = [NSMutableArray arrayWithArray:[UserModel defaultModel].tagAllArr];
         for (int i=0; i<_myChannelArr.count; i++) {
             [_recommendChannelArr removeObject:_myChannelArr[i]];
         }
@@ -155,8 +155,8 @@ static CGFloat labelHeight = 40;
                             [arr addObject:model.name];
                         }
                     }
-//                    [UserModel defaultModel].tagSelectArr = arr;
-//                    [UserModelArchiver archive];
+                    [UserModel defaultModel].tagSelectArr = arr;
+                    [UserModelArchiver archive];
                     self.clickblook(btn.model.tag);
                     [self hide];
                 }
@@ -199,8 +199,8 @@ static CGFloat labelHeight = 40;
             [arr addObject:model.name];
         }
     }
-//    [UserModel defaultModel].tagSelectArr = arr;
-//    [UserModelArchiver archive];
+    [UserModel defaultModel].tagSelectArr = arr;
+    [UserModelArchiver archive];
     self.hideblook();
     [UIView animateWithDuration:0.25 animations:^{
         self.frame = CGRectMake(0, self.height, self.width, self.height);

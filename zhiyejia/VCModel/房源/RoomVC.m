@@ -49,9 +49,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionGoto:) name:@"goto" object:nil];
     
-//    _titlearr = [UserModel defaultModel].tagSelectArr;
-//
-    
+    _titlearr = [UserModel defaultModel].tagSelectArr;
 
     if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
 
@@ -232,14 +230,13 @@
 
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     
-    return 1;
-//    if (_titlearr.count == 0) {
-//        return 0;
-//    }
-//    else{
-//        return _titlearr.count;
-//    }
-    
+    if (_titlearr.count == 0) {
+       
+        return 0;
+    }else{
+        
+        return _titlearr.count;
+    }
 }
 
 - (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
@@ -266,34 +263,32 @@
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
     
-//    NSString *tempStr = _titlearr[index];
-//    NSDictionary *dic;
-//    dic = [UserModel defaultModel].tagDic[tempStr];
+    NSString *tempStr = _titlearr[index];
+    NSDictionary *dic;
+    dic = [UserModel defaultModel].tagDic[tempStr];
     RoomChildVC *vc;
-//    if ([((NSString *)dic[@"tag"]) containsString:@"新房"]) {
-//
+    if ([((NSString *)dic[@"tag"]) containsString:@"新房"]) {
+
         vc = [[RoomChildVC alloc] initWithType:2];
-//    }else if([((NSString *)dic[@"tag"]) containsString:@"推荐"] || [((NSString *)dic[@"tag"]) containsString:@"关注"]) {
-//
-//        vc = [[RoomChildVC alloc] initWithType:1];
-//    }else if([((NSString *)dic[@"tag"]) containsString:@"租房"]){
-//
-//        vc = [[RoomChildVC alloc] initWithType:3];
-//    }else{
-//
-//        vc = [[RoomChildVC alloc] initWithType:0];
-//    }
-//    vc.status = dic[@"tag"];
-//    vc.typeId = [NSString stringWithFormat:@"%@",dic[@"type_id"]];
-//    vc.param = [NSString stringWithFormat:@"%@",dic[@"param"]];
+    }else if([((NSString *)dic[@"tag"]) containsString:@"推荐"] || [((NSString *)dic[@"tag"]) containsString:@"关注"]) {
+
+        vc = [[RoomChildVC alloc] initWithType:1];
+    }else if([((NSString *)dic[@"tag"]) containsString:@"租房"]){
+
+        vc = [[RoomChildVC alloc] initWithType:3];
+    }else{
+
+        vc = [[RoomChildVC alloc] initWithType:0];
+    }
+    vc.status = dic[@"tag"];
+    vc.typeId = [NSString stringWithFormat:@"%@",dic[@"type_id"]];
+    vc.param = [NSString stringWithFormat:@"%@",dic[@"param"]];
     vc.city = _city;
     
     vc.roomChildVCNewRoomProjectBlock = ^(NewRoomModel * _Nonnull model) {
       
-        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
         [self.navigationController pushViewController:nextVC animated:YES];
-//        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
-//        [self.navigationController pushViewController:nextVC animated:YES];
     };
 //    vc.roomChildVCRoomModelBlock = ^(RoomListModel *model) {
 //
@@ -424,7 +419,7 @@
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     
-    return @"新房";//_titlearr[index];
+    return _titlearr[index];
 }
 
 

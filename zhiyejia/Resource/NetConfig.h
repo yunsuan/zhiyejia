@@ -32,11 +32,21 @@ static NSString *const Register_URL = @"user/register";
 static NSString *const ResetPassword_URL = @"user/user/resetPassword";
 #pragma mark ---  房源  ---
 
+#pragma mark -- 新房
+//获取源标签
+static NSString *const ProjectResources_URL = @"user/project/resources";
+
 //房源列表
 static NSString *const HomeProjectList_URL = @"home/project/list";
 
 //项目详情
 static NSString *const HomeProjectDetail_URL = @"home/project/detail";
 
+#pragma mark -- 二手房 --
 
+static NSString *const HomeHouseProjectDetail_URL = @"home/house/project/detail";
+
+#pragma mark -- 租房 --
+
+//static NSString *const HomeHouseProjectDetail_URL = @"home/house/project/detail";
 #endif /* NetConfig_h */

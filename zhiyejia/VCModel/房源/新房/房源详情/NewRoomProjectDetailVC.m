@@ -22,6 +22,7 @@
 {
     
     NSString *_projectId;
+    NSDictionary *_dataDic;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -61,11 +62,14 @@
     
     [BaseRequest GET:HomeProjectDetail_URL parameters:@{@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
         
+        NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+            self->_dataDic = resposeObject[@"data"];
+            [self->_roomTable reloadData];
         }else{
             
-            
+            [self showContent:resposeObject[@"msg"]];
         }
     } failure:^(NSError * _Nonnull error) {
        
@@ -113,6 +117,11 @@
     return CGFLOAT_MIN;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return [[UIView alloc] init];
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     if (section == 0) {
@@ -123,8 +132,9 @@
             header = [[NewRoomProjectHeader alloc] initWithReuseIdentifier:@"NewRoomProjectHeader"];
         }
         
-        [header setImgArr:@[]];
-        header.newRoomProjectHeaderBlock = ^{
+        [header setImgArr:_dataDic[@"project_img"][@"url"]];
+        header.dataDic = _dataDic;
+        header.newRoomProjectHeaderMoreBlock = ^{
           
             NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] init];
             [self.navigationController pushViewController:nextVC animated:YES];
@@ -158,10 +168,14 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.titleL.text = @"11111111";
-            cell.contentL.text = @"222222222222222222222";
-            cell.numL.text = @"共20条";
-            cell.timeL.text = @"123123123123123";
+            cell.moreBtn.tag = indexPath.section;
+            if (_dataDic[@"dynamic"]) {
+                
+                cell.numL.text = [NSString stringWithFormat: @"（共%@条）",_dataDic[@"dynamic"][@"count"]];
+                cell.titleL.text = _dataDic[@"dynamic"][@"first"][@"title"];
+                cell.timeL.text = _dataDic[@"dynamic"][@"first"][@"update_time"];
+                cell.contentL.text = _dataDic[@"dynamic"][@"first"][@"abstract"];
+            }
             
             return cell;
             break;
@@ -175,6 +189,19 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
+            if(_dataDic[@"project_basic_info"][@"total_float_url.length"] > 0){
+                
+                [cell.bigImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataDic[@"project_basic_info"][@"total_float_url.length"]]] placeholderImage:[UIImage imageNamed:@"banner_default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                    
+                    if (error) {
+                        
+                        [UIImage imageNamed:@"banner_default_2"];
+                    }
+                }];
+            }else{
+                
+                cell.bigImg.image = [UIImage imageNamed:@"banner_default_2"];
+            }
             return cell;
             break;
         }
@@ -187,25 +214,25 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-//            cell.num = _houseArr.count;
-//            if (_houseArr.count) {
-//
-//                cell.dataArr = [NSMutableArray arrayWithArray:_houseArr];
-//                [cell.cellColl reloadData];
-//            }else{
-//
-//                [cell.cellColl reloadData];
-//            }
-//
-//            cell.collCellBlock = ^(NSInteger index) {
-//
+            cell.num = [_dataDic[@"house_type"] count];
+            if ([_dataDic[@"house_type"] count]) {
+
+                cell.dataArr = [NSMutableArray arrayWithArray:_dataDic[@"house_type"]];
+                [cell.cellColl reloadData];
+            }else{
+
+                [cell.cellColl reloadData];
+            }
+
+            cell.collCellBlock = ^(NSInteger index) {
+
 //                if (_houseArr.count) {
 //                    HouseTypeDetailVC *nextVC = [[HouseTypeDetailVC alloc]initWithHouseTypeId:[NSString stringWithFormat:@"%@",_houseArr[index][@"id"]] index:index dataArr:_houseArr projectId:_projectId infoid:_info_id];
 //
 //                    nextVC.model = _model;
 //                    [self.navigationController pushViewController:nextVC animated:YES];
 //                }
-//            };
+            };
             return cell;
             break;
         }
@@ -247,7 +274,7 @@
     
     self.titleLabel.text = @"项目详情";
     
-    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
+    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStylePlain];
     _roomTable.sectionHeaderHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedSectionHeaderHeight = 100 *SIZE;
     _roomTable.rowHeight = UITableViewAutomaticDimension;
