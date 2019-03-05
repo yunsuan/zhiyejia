@@ -36,10 +36,11 @@
     if ([type isEqualToString:@"1"]) {
         
         self.layer.borderWidth = SIZE;
+        self.backgroundColor = CLWhiteColor;
         self.layer.borderColor = COLOR(181, 181, 181, 1).CGColor;
-    }
-    else
-    {
+    }else{
+        
+        self.layer.borderWidth = 0;
         if ([str isEqualToString:@"住宅"]) {
             self.backgroundColor = COLOR(213, 243, 255, 1);
             _contentL.textColor = COLOR(67, 171, 255, 1);

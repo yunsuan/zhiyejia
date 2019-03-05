@@ -12,11 +12,13 @@
 #import "AppointSeeRoomVC.h"
 
 #import "NewRoomProjectHeader.h"
+#import "NewRoomProjectDetailFooter.h"
 #import "TitleBaseHeader.h"
 #import "NewRoomProjectDynamicCell.h"
 #import "NewRoomProjectBuildingCell.h"
 #import "NewRoomProjectHouseTypeCell.h"
 #import "NewRoomProjectAnalyzeCell.h"
+
 
 @interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -133,7 +135,16 @@
         }
         
         [header setImgArr:_dataDic[@"project_img"][@"url"]];
-        header.dataDic = _dataDic[@"project_basic_info"];
+        if (_dataDic[@"project_basic_info"]) {
+            
+            header.dataDic = _dataDic[@"project_basic_info"];
+        }
+        
+        header.newRoomProjectHeaderImgBtnBlock = ^(NSInteger num, NSArray *imgArr) {
+            
+            
+        };
+        
         header.newRoomProjectHeaderMoreBlock = ^{
           
             NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] init];
@@ -151,8 +162,16 @@
         header.titleL.text = @"项目分析";
         
         return header;
+    }else{
+        
+        NewRoomProjectDetailFooter *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"NewRoomProjectDetailFooter"];
+        if (!header) {
+            
+            header = [[NewRoomProjectDetailFooter alloc] initWithReuseIdentifier:@"NewRoomProjectDetailFooter"];
+        }
+        
+        return header;
     }
-    return [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -245,8 +264,60 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.titleL.text = @"项目优势";
-            cell.contentL.text = @"房子二梯三户边套，南北通透户型，产证面积89平实用95平，可谈朝南带阳台，厨房朝北带很大生活阳台，一个卧室朝南，二个朝南。";
+            switch (indexPath.row) {
+                case 0:
+                {
+                    cell.titleL.text = @"项目优势";
+                    if ([_dataDic[@"analyse"][@"advantage"] length]) {
+                        
+                        cell.contentL.text = _dataDic[@"analyse"][@"advantage"];
+                    }else{
+                        
+                        cell.contentL.text = @"暂无数据";
+                    }
+                    break;
+                }
+                case 1:
+                {
+                    cell.titleL.text = @"周边分析";
+                    if ([_dataDic[@"analyse"][@"rim"] length]) {
+                        
+                        cell.contentL.text = _dataDic[@"analyse"][@"rim"];
+                    }else{
+                        
+                        cell.contentL.text = @"暂无数据";
+                    }
+                    break;
+                }
+                case 2:
+                {
+                    cell.titleL.text = @"升值空间";
+                    if ([_dataDic[@"analyse"][@"increase_value"] length]) {
+                        
+                        cell.contentL.text = _dataDic[@"analyse"][@"increase_value"];
+                    }else{
+                        
+                        cell.contentL.text = @"暂无数据";
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    cell.titleL.text = @"适合人群";
+                    if ([_dataDic[@"analyse"][@"fetch"] length]) {
+                        
+                        cell.contentL.text = _dataDic[@"analyse"][@"fetch"];
+                    }else{
+                        
+                        cell.contentL.text = @"暂无数据";
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+//            cell.titleL.text = @"项目优势";
+//            cell.contentL.text = @"房子二梯三户边套，南北通透户型，产证面积89平实用95平，可谈朝南带阳台，厨房朝北带很大生活阳台，一个卧室朝南，二个朝南。";
             return cell;
             break;
         }
@@ -274,7 +345,7 @@
     
     self.titleLabel.text = @"项目详情";
     
-    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStylePlain];
+    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
     _roomTable.sectionHeaderHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedSectionHeaderHeight = 100 *SIZE;
     _roomTable.rowHeight = UITableViewAutomaticDimension;
