@@ -32,6 +32,17 @@ static NSString *const Register_URL = @"user/register";
 static NSString *const ResetPassword_URL = @"user/user/resetPassword";
 #pragma mark ---  房源  ---
 
+//获取开放区域
+static NSString *const OpenCity_URL = @"user/project/openCity";
+
+#pragma mark -- 推荐 --
+
+//推荐
+static NSString *const ProjectRecommendInfo_URL = @"user/project/recommendInfo";
+
+//房源-关注
+static NSString *const UserFocusNews_URL = @"user/focusNews/list";
+
 #pragma mark -- 新房
 //获取源标签
 static NSString *const ProjectResources_URL = @"user/project/resources";
@@ -43,10 +54,23 @@ static NSString *const HomeProjectList_URL = @"home/project/list";
 static NSString *const HomeProjectDetail_URL = @"home/project/detail";
 
 #pragma mark -- 二手房 --
+//项目列表
+static NSString *const HouseProjectList_URL = @"user/house/project/list";
 
+//房源列表
+static NSString *const HouseHouseList_URL = @"user/house/house/list";
+
+//项目详情
 static NSString *const HomeHouseProjectDetail_URL = @"home/house/project/detail";
 
 #pragma mark -- 租房 --
 
+//项目列表
+static NSString *const RentProjectList_URL = @"user/rent/project/list";
+
+//房源列表
+static NSString *const RentHouseList_URL = @"user/rent/house/list";
+
+//项目详情
 //static NSString *const HomeHouseProjectDetail_URL = @"home/house/project/detail";
 #endif /* NetConfig_h */

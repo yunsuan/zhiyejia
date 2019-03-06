@@ -107,11 +107,23 @@
     if (section == 0) {
         
         return 0;
+    }else if(section == 2){
+     
+        if ([_dataDic[@"dynamic"][@"first"] count]) {
+            
+            return 1;
+        }else{
+            
+            return 0;
+        }
     }else if (section == 4){
         
         return 4;
+    }else{
+        
+        return 1;
     }
-    return 1;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -208,9 +220,9 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            if(_dataDic[@"project_basic_info"][@"total_float_url.length"] > 0){
+            if([_dataDic[@"project_basic_info"][@"total_float_url"] length]> 0){
                 
-                [cell.bigImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataDic[@"project_basic_info"][@"total_float_url.length"]]] placeholderImage:[UIImage imageNamed:@"banner_default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                [cell.bigImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataDic[@"project_basic_info"][@"total_float_url"]]] placeholderImage:[UIImage imageNamed:@"banner_default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                     
                     if (error) {
                         

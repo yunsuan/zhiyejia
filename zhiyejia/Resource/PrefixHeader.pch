@@ -13,6 +13,7 @@
 
 #import "UserModel.h"
 #import "UserModelArchiver.h"
+#import "LocationManager.h"
 #import "NetConfig.h"
 #import "BaseRequest.h"
 #import "GZQGifHeader.h"

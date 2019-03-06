@@ -55,33 +55,33 @@
 - (void)initDataSource{
     
     _cityArr = [@[] mutableCopy];
-//    _cityArr = [UserModel defaultModel].cityArr;
+    _cityArr = [UserModel defaultModel].cityArr;
 }
 
 - (void)CityListRequest{
     
-//    [BaseRequest GET:OpenCity_URL parameters:nil success:^(id resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            _cityArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-//            [self SetData:_cityArr];
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:OpenCity_URL parameters:nil success:^(id resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            _cityArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+            [self SetData:_cityArr];
+        }else{
+
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SetData:(NSArray *)data{
     
     _nameArr = [BMChineseSort IndexWithArray:_cityArr Key:@"city_name"];
     _dataArr = [BMChineseSort sortObjectArray:_cityArr Key:@"city_name"];
-//    [UserModel defaultModel].cityArr = [NSMutableArray arrayWithArray:data];
-//    [UserModelArchiver archive];
+    [UserModel defaultModel].cityArr = [NSMutableArray arrayWithArray:data];
+    [UserModelArchiver archive];
     [_cityTable reloadData];
 }
 

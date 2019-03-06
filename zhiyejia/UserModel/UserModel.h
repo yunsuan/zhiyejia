@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *token;
 
+@property (nonatomic, strong) NSMutableArray *cityArr;
+
 @property (nonatomic, strong) NSMutableDictionary *tagDic;
 
 @property (nonatomic, strong) NSMutableArray *tagAllArr;

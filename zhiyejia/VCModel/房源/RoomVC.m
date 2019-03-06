@@ -73,20 +73,22 @@
 
 - (void)StartLocation{
     
-//    [manager startLocationSuccess:^(NSString *cityname, NSString *citycode) {
-//
-//        [_cityBtn setTitle:cityname forState:UIControlStateNormal];
-//        _city = citycode;
-//        _cityName = cityname;
-//        [self pageController:self willEnterViewController:self.childViewControllers[0] withInfo:@{}];
-//    } Faild:^{
-//        [self alertControllerWithNsstring:@"定位失败" And:@"是否要重新定位" WithCancelBlack:^{
-//
-//        } WithDefaultBlack:^{
-//
-//            [self StartLocation];
-//        }];
-//    }];
+    LocationManager *manager =  [LocationManager Manager];
+    [manager startLocationSuccess:^(NSString * _Nonnull cityname, NSString * _Nonnull citycode) {
+        
+        [self->_cityBtn setTitle:cityname forState:UIControlStateNormal];
+        self->_city = citycode;
+        self->_cityName = cityname;
+        [self pageController:self willEnterViewController:self.childViewControllers[0] withInfo:@{}];
+    } Faild:^{
+        
+        [self alertControllerWithNsstring:@"定位失败" And:@"是否要重新定位" WithCancelBlack:^{
+            
+        } WithDefaultBlack:^{
+            
+            [self StartLocation];
+        }];
+    }];
 }
 
 #pragma mark -- Method
@@ -262,7 +264,7 @@
 
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
-    
+
     NSString *tempStr = _titlearr[index];
     NSDictionary *dic;
     dic = [UserModel defaultModel].tagDic[tempStr];

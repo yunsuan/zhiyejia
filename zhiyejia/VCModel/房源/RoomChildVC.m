@@ -49,7 +49,7 @@
     [self initDataSource];
     [self initUI];
     
-    _city = @"510100";
+//    _city = @"510100";
     if (_city.length) {
         
         [self RequestMethod];
@@ -57,10 +57,10 @@
         
         if ([self.status isEqualToString:@"推荐"]) {
             
-            [self RequestMethod];
+//            [self RequestMethod];
         }else if([self.status isEqualToString:@"关注"]){
             
-            [self RequestMethod];
+//            [self RequestMethod];
         }
     }
 }
@@ -77,10 +77,10 @@
     
     if (_AllType == 0) {
 
-        _urlString = HomeHouseProjectDetail_URL;
+        _urlString = HouseHouseList_URL;
         if ([self.param isEqualToString:@"houseProject"]) {
 
-//            _urlString = HouseProjectList_URL;
+            _urlString = HouseProjectList_URL;
         }
     }else if (_AllType == 1){
 
@@ -93,10 +93,10 @@
         }
     }else if(_AllType == 3){
 
-//        _urlString = RentProjectList_URL;
+        _urlString = RentProjectList_URL;
         if ([self.param isEqualToString:@"rent"]) {
 
-//            _urlString = RentHouseList_URL;
+            _urlString = RentHouseList_URL;
         }
     }else{
 
@@ -176,6 +176,7 @@
 
         [self.MainTableView.mj_header endRefreshing];
 
+        NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
 
             [self->_dataArr removeAllObjects];
@@ -233,150 +234,150 @@
 
 - (void)RequestAddMethod{
     
-//    if (_AllType == 0) {
-//
-//        _urlString = HouseHouseList_URL;
-//        if ([self.param isEqualToString:@"houseProject"]) {
-//
-//            _urlString = HouseProjectList_URL;
-//        }
-//    }else if (_AllType == 1){
-//
-//        if ([self.status isEqualToString:@"关注"]) {
-//
-//            _urlString = UserFocusNews_URL;
-//        }else{
-//
-//            _urlString = ProjectRecommendInfo_URL;
-//        }
-//    }else if(_AllType == 3){
-//
-//        _urlString = RentProjectList_URL;
-//        if ([self.param isEqualToString:@"rent"]) {
-//
-//            _urlString = RentHouseList_URL;
-//        }
-//    }else{
-//
-//        _urlString = ProjectList_URL;
-//    }
-//
-//    _page += 1;
-//    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"page":@(_page)}];
+    if (_AllType == 0) {
+        
+        _urlString = HouseHouseList_URL;
+        if ([self.param isEqualToString:@"houseProject"]) {
+            
+            _urlString = HouseProjectList_URL;
+        }
+    }else if (_AllType == 1){
+        
+        if ([self.status isEqualToString:@"关注"]) {
+            
+            //            _urlString = UserFocusNews_URL;
+        }else{
+            
+            //            _urlString = ProjectRecommendInfo_URL;
+        }
+    }else if(_AllType == 3){
+        
+        _urlString = RentProjectList_URL;
+        if ([self.param isEqualToString:@"rent"]) {
+            
+            _urlString = RentHouseList_URL;
+        }
+    }else{
+        
+        _urlString = HomeProjectList_URL;
+    }
+
+    _page += 1;
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"page":@(_page)}];
 //    [dic setObject:[UserModel defaultModel].agent_id forKey:@"agent_id"];
-//
-//    if (_city.length) {
-//
-//        [dic setObject:_city forKey:@"city"];
-//    }else{
-//
-//        [_MainTableView.mj_footer endRefreshing];
-//        [self alertControllerWithNsstring:@"温馨提示" And:@"请选择城市"];
-//        return;
-//    }
-//
-//    if (_AllType == 1) {
-//
-//        if ([self.status isEqualToString:@"关注"]) {
-//
-//            [dic removeObjectForKey:@"page"];
-//            [dic removeObjectForKey:@"sort_type"];
-//            [dic removeObjectForKey:@"city"];
-//        }
-//    }else{
-//
-//        if ([self.param isEqualToString:@"houseProject"]) {
-//
-//            if (self.typeId.length && [self.typeId integerValue]) {
-//
-//                [dic setObject:self.typeId forKey:@"property_id"];
-//            }
-//        }else{
-//
-//            if (self.typeId.length && [self.typeId integerValue]) {
-//
-//                [dic setObject:self.typeId forKey:@"type"];
-//            }
-//        }
-//    }
-//
-//    if (_district.length && [_district isEqualToString:@"0"]) {
-//
-//        [dic setObject:_district forKey:@"district"];
-//    }
-//    if (![_price isEqualToString:@"0"] && _price) {
-//
-//        [dic setObject:[NSString stringWithFormat:@"%@",_price] forKey:@"average_price"];
-//    }
-//    if (![_type isEqualToString:@"0"] && _type) {
-//
-//        [dic setObject:[NSString stringWithFormat:@"%@",_type] forKey:@"property_id"];
-//    }
-//    if (_tag.length) {
-//
-//        [dic setObject:[NSString stringWithFormat:@"%@",_tag] forKey:@"project_tags"];
-//    }
-//    if (_houseType.length) {
-//
-//        [dic setObject:[NSString stringWithFormat:@"%@",_houseType] forKey:@"house_type"];
-//    }
-//    [dic setObject:_asc forKey:@"sort_type"];
-//
-//    [BaseRequest GET:_urlString parameters:dic success:^(id resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            if (_AllType == 0) {
-//
-//                [self SetData:resposeObject[@"data"][@"data"]];
-//                if ([resposeObject[@"data"][@"data"] count] < 15) {
-//
-//                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
-//                }
-//            }else if (_AllType == 1){
-//
-//                if ([self.status isEqualToString:@"关注"]) {
-//
-//                    [self SetData:resposeObject[@"data"]];
-//                    if ([resposeObject[@"data"] count] < 15) {
-//
-//                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
-//                    }
-//                }else{
-//
-//                    [self SetData:resposeObject[@"data"][@"data"]];
-//                    if ([resposeObject[@"data"][@"data"] count] < 15) {
-//
-//                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
-//                    }
-//                }
-//            }else if (_AllType == 3){
-//
-//                [self SetData:resposeObject[@"data"][@"data"]];
-//                if ([resposeObject[@"data"] count] < 15) {
-//
-//                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
-//                }
-//            }else{
-//
-//                [self SetData:resposeObject[@"data"]];
-//                if ([resposeObject[@"data"] count] < 15) {
-//
-//                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
-//                }
-//            }
-//        }else{
-//
-//            _page -= 1;
-//            [self showContent:resposeObject[@"msg"]];
-//            [self.MainTableView.mj_footer endRefreshing];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        _page -= 1;
-//        [self showContent:@"网络错误"];
-//        [self.MainTableView.mj_footer endRefreshing];
-//    }];    
+
+    if (_city.length) {
+
+        [dic setObject:_city forKey:@"city"];
+    }else{
+
+        [_MainTableView.mj_footer endRefreshing];
+        [self alertControllerWithNsstring:@"温馨提示" And:@"请选择城市"];
+        return;
+    }
+
+    if (_AllType == 1) {
+
+        if ([self.status isEqualToString:@"关注"]) {
+
+            [dic removeObjectForKey:@"page"];
+            [dic removeObjectForKey:@"sort_type"];
+            [dic removeObjectForKey:@"city"];
+        }
+    }else{
+
+        if ([self.param isEqualToString:@"houseProject"]) {
+
+            if (self.typeId.length && [self.typeId integerValue]) {
+
+                [dic setObject:self.typeId forKey:@"property_id"];
+            }
+        }else{
+
+            if (self.typeId.length && [self.typeId integerValue]) {
+
+                [dic setObject:self.typeId forKey:@"type"];
+            }
+        }
+    }
+
+    if (_district.length && [_district isEqualToString:@"0"]) {
+
+        [dic setObject:_district forKey:@"district"];
+    }
+    if (![_price isEqualToString:@"0"] && _price) {
+
+        [dic setObject:[NSString stringWithFormat:@"%@",_price] forKey:@"average_price"];
+    }
+    if (![_type isEqualToString:@"0"] && _type) {
+
+        [dic setObject:[NSString stringWithFormat:@"%@",_type] forKey:@"property_id"];
+    }
+    if (_tag.length) {
+
+        [dic setObject:[NSString stringWithFormat:@"%@",_tag] forKey:@"project_tags"];
+    }
+    if (_houseType.length) {
+
+        [dic setObject:[NSString stringWithFormat:@"%@",_houseType] forKey:@"house_type"];
+    }
+    [dic setObject:_asc forKey:@"sort_type"];
+
+    [BaseRequest GET:_urlString parameters:dic success:^(id resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            if (_AllType == 0) {
+
+                [self SetData:resposeObject[@"data"][@"data"]];
+                if ([resposeObject[@"data"][@"data"] count] < 15) {
+
+                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                }
+            }else if (_AllType == 1){
+
+                if ([self.status isEqualToString:@"关注"]) {
+
+                    [self SetData:resposeObject[@"data"]];
+                    if ([resposeObject[@"data"] count] < 15) {
+
+                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    }
+                }else{
+
+                    [self SetData:resposeObject[@"data"][@"data"]];
+                    if ([resposeObject[@"data"][@"data"] count] < 15) {
+
+                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    }
+                }
+            }else if (_AllType == 3){
+
+                [self SetData:resposeObject[@"data"][@"data"]];
+                if ([resposeObject[@"data"] count] < 15) {
+
+                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                }
+            }else{
+
+                [self SetData:resposeObject[@"data"]];
+                if ([resposeObject[@"data"] count] < 15) {
+
+                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                }
+            }
+        }else{
+
+            _page -= 1;
+            [self showContent:resposeObject[@"msg"]];
+            [self.MainTableView.mj_footer endRefreshing];
+        }
+    } failure:^(NSError *error) {
+
+        _page -= 1;
+        [self showContent:@"网络错误"];
+        [self.MainTableView.mj_footer endRefreshing];
+    }];    
 }
 
 
@@ -436,9 +437,8 @@
                     [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
                 }];
                 
-                
-//                SecdaryComModel *model = [[SecdaryComModel alloc] initWithDictionary:tempDic];
-//                [_dataArr addObject:model];
+                SecProjectModel *model = [[SecProjectModel alloc] initWithDictionary:tempDic];
+                [_dataArr addObject:model];
             }
         }
     }else if (_AllType == 1){
@@ -643,11 +643,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    switch (_AllType) {
-//        case 0:
-//        {
-//            if ([self.param isEqualToString:@"house"]) {
-//
+    switch (_AllType) {
+        case 0:
+        {
+            if ([self.param isEqualToString:@"house"]) {
+
+                return [[UITableViewCell alloc] init];
 //                SecdaryAllTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecdaryAllTableCell"];
 //                if (!cell) {
 //
@@ -659,23 +660,20 @@
 //                cell.model = model;
 //
 //                return cell;
-//            }else{
-//
-//                SecdaryComTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecdaryComTableCell"];
-//                if (!cell) {
-//
-//                    cell = [[SecdaryComTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecdaryComTableCell"];
-//                }
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                cell.model = _dataArr[indexPath.row];
-//
-//                return cell;
-//            }
-//            break;
-//        }
+            }else{
+
+                SecRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomCell"];
+                if (!cell) {
+
+                    cell = [[SecRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomCell"];
+                }
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.model = _dataArr[indexPath.row];
+
+                return cell;
+            }
+            break;
+        }
 //        case 1:{
 //
 //            if ([self.status isEqualToString:@"关注"]) {
@@ -804,20 +802,20 @@
 //                return cell;
 //            }
 //        }
-//        case 2:{
-//
+        case 2:{
+
     
-    NewRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomCell"];
-    if (!cell) {
+            NewRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomCell"];
+            if (!cell) {
         
-        cell = [[NewRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomCell"];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell = [[NewRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.model = _dataArr[indexPath.row];
-    return cell;
-//            break;
-//        }
+            cell.model = _dataArr[indexPath.row];
+            return cell;
+            break;
+        }
 //        case 3:{
 //
 //            if ([self.param isEqualToString:@"rent"]) {
@@ -848,11 +846,11 @@
 //            }
 //            break;
 //        }
-//        default:
-//            return [[UITableViewCell alloc] init];
-//            break;
-//    }
-    return [UITableViewCell alloc];
+        default:
+            return [[UITableViewCell alloc] init];
+            break;
+    }
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

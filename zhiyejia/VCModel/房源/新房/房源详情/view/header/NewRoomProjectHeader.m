@@ -175,17 +175,20 @@
 //    [self layoutIfNeeded];
     [_propertyColl reloadData];
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    
-//        [self ReMasonryUI];
-        [self->_propertyColl mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-            make.left.equalTo(self.contentView).offset(10 *SIZE);
-            make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
-            make.width.mas_equalTo(260 *SIZE);
-            make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
-        }];
+////
+////        [self ReMasonryUI];
+//        [self->_propertyColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(10 *SIZE);
+//            make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
+//            make.width.mas_equalTo(260 *SIZE);
+//            make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
+//            [self setNeedsLayout];
+//            [self layoutIfNeeded];
+//        }];
 //    });
-    
+//    [self setNeedsLayout];
+//    [self layoutIfNeeded];
     
 }
 
@@ -238,9 +241,22 @@
     if (indexPath.section == 1) {
         
         [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
-        
+//        if (indexPath.row == 3) {
+//
+//            [cell setStyleByType:@"1" lab:@"123123123123123123"];
+//        }else{
+//
+//            [cell setStyleByType:@"1" lab:@"111111"];
+//        }
     }else{
         
+//        if (indexPath.row == 3) {
+//
+//            [cell setStyleByType:@"1" lab:@"7654345678976543456787654345"];
+//        }else{
+//
+//            [cell setStyleByType:@"1" lab:@"2222"];
+//        }
         [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
     }
     
@@ -256,7 +272,6 @@
     _imgScroll.delegate = self;
     _imgScroll.showsVerticalScrollIndicator = NO;
     _imgScroll.showsHorizontalScrollIndicator = NO;
-//    _imgScroll.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_imgScroll];
     
     _numL = [[UILabel alloc] init];
@@ -281,7 +296,7 @@
     _statusL.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_statusL];
     
-    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:SIZE];
+    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:4 *SIZE];
     _propertyFlowLayout.estimatedItemSize = CGSizeMake(40 *SIZE, 20 *SIZE);
     if (@available(iOS 10.0, *)) {
         _propertyFlowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;
@@ -370,6 +385,7 @@
         make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
         make.width.mas_equalTo(260 *SIZE);
         make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
+//        make.height.mas_equalTo(self->_propertyColl.contentSize.height);
     }];
 
     
