@@ -18,6 +18,7 @@
 #import "NewRoomProjectBuildingCell.h"
 #import "NewRoomProjectHouseTypeCell.h"
 #import "NewRoomProjectAnalyzeCell.h"
+#import "NewRoomProjectMapCell.h"
 
 
 @interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -107,9 +108,18 @@
     if (section == 0) {
         
         return 0;
-    }else if(section == 2){
+    }else if(section == 1){
      
         if ([_dataDic[@"dynamic"][@"first"] count]) {
+            
+            return 1;
+        }else{
+            
+            return 0;
+        }
+    }else if(section == 3){
+        
+        if ([_dataDic[@"house_type"] count]) {
             
             return 1;
         }else{
@@ -123,7 +133,32 @@
         
         return 1;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
+    if (section == 1) {
+        
+        if ([_dataDic[@"dynamic"][@"first"] count]) {
+            
+            return UITableViewAutomaticDimension;
+        }else{
+            
+            return CGFLOAT_MIN;
+        }
+    }else if (section == 3){
+        
+        if ([_dataDic[@"house_type"] count]) {
+            
+            return UITableViewAutomaticDimension;
+        }else{
+            
+            return CGFLOAT_MIN;
+        }
+    }else{
+        
+        return UITableViewAutomaticDimension;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -220,7 +255,7 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            if([_dataDic[@"project_basic_info"][@"total_float_url"] length]> 0){
+            if([_dataDic[@"project_basic_info"][@"total_float_url"] length] > 0){
                 
                 [cell.bigImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataDic[@"project_basic_info"][@"total_float_url"]]] placeholderImage:[UIImage imageNamed:@"banner_default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                     
@@ -328,24 +363,17 @@
                 default:
                     break;
             }
-//            cell.titleL.text = @"项目优势";
-//            cell.contentL.text = @"房子二梯三户边套，南北通透户型，产证面积89平实用95平，可谈朝南带阳台，厨房朝北带很大生活阳台，一个卧室朝南，二个朝南。";
             return cell;
             break;
         }
         default:{
             
-            NewRoomProjectDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomProjectDynamicCell"];
+            NewRoomProjectMapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomProjectMapCell"];
             if (!cell) {
                 
-                cell = [[NewRoomProjectDynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomProjectDynamicCell"];
+                cell = [[NewRoomProjectMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomProjectMapCell"];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            cell.titleL.text = @"11111111";
-            cell.contentL.text = @"222222222222222222222";
-            cell.numL.text = @"共20条";
-            cell.timeL.text = @"123123123123123";
             
             return cell;
             break;
@@ -353,13 +381,29 @@
     }
 }
 
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    if ([cell isKindOfClass:[NewRoomProjectMapCell class]]) {
+//
+//
+//        [((NewRoomProjectMapCell *)cell).mapView viewWillAppear];
+//    }
+//}
+//
+//- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    if ([cell isKindOfClass:[NewRoomProjectMapCell class]]) {
+//
+//
+//        [((NewRoomProjectMapCell *)cell).mapView viewWillDisappear];
+//    }
+//}
+
 - (void)initUI{
     
     self.titleLabel.text = @"项目详情";
     
     _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
-    _roomTable.sectionHeaderHeight = UITableViewAutomaticDimension;
-    _roomTable.estimatedSectionHeaderHeight = 100 *SIZE;
     _roomTable.rowHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedRowHeight = 360 *SIZE;
     _roomTable.backgroundColor = self.view.backgroundColor;

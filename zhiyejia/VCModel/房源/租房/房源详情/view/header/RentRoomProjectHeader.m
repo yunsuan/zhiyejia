@@ -13,6 +13,10 @@
 @interface RentRoomProjectHeader ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
+    NSInteger _num;
+    NSInteger _nowNum;
+    float _longitude;
+    float _latitude;
     NSMutableArray *_propertyArr;
     NSMutableArray *_tagArr;
 }
@@ -34,27 +38,139 @@
 - (void)initDataSource{
     
     _propertyArr = [@[] mutableCopy];
+    _tagArr = [@[] mutableCopy];
 }
 
 - (void)ActionTapMethod{
     
-    
+    CLLocationCoordinate2D endCoor = CLLocationCoordinate2DMake(_latitude, _longitude);
+    MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+    MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:endCoor addressDictionary:nil]];
+    toLocation.name = _addressL.text;
+    [MKMapItem openMapsWithItems:@[currentLocation, toLocation] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
 }
 
 - (void)setImgArr:(NSMutableArray *)imgArr{
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    _imgArr = [NSMutableArray arrayWithArray:imgArr];
+    _num = imgArr.count;
+    if (imgArr.count) {
         
-        [self MasonryUI];
-    });
+        _numL.text = [NSString stringWithFormat:@"1/%lu",(unsigned long)imgArr.count];
+    }else{
+        
+        _numL.text = @"0/0";
+    }
+    [_imgScroll setContentSize:CGSizeMake(imgArr.count *SCREEN_Width, 202.5 *SIZE)];
+    for (UIView *view in _imgScroll.subviews) {
+        
+        [view removeFromSuperview];
+    }
+    
+    if (imgArr.count) {
+        
+        for (int i = 0; i < imgArr.count; i++) {
+            
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_Width * i, 0, SCREEN_Width, 202.5 *SIZE)];
+            img.contentMode = UIViewContentModeScaleAspectFill;
+            img.clipsToBounds = YES;
+            NSString *imgname = imgArr[i][@"img_url"];
+            
+            if (imgname.length > 0) {
+                
+                [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,imgArr[i][@"img_url"]]] placeholderImage:[UIImage imageNamed:@"banner_default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                    
+                    if (error) {
+                        
+                        img.image = [UIImage imageNamed:@"banner_default_2"];
+                    }
+                }];
+                
+            }else{
+                
+                img.image = [UIImage imageNamed:@"banner_default_2"];
+            }
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionImgBtn)];
+            [img addGestureRecognizer:tap];
+            img.userInteractionEnabled = YES;
+            [_imgScroll addSubview:img];
+        }
+    }else{
+        
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 202.5 *SIZE)];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.clipsToBounds = YES;
+        img.image = [UIImage imageNamed:@"banner_default_2"];
+        [_imgScroll addSubview:img];
+    }
+}
+
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
+    
+    //    if (dataDic[@"developer_name"]) {
+    //
+    //        _developerL.text = [NSString stringWithFormat:@"开发商：%@",dataDic[@"developer_name"]];
+    //    }
+    
+    if (dataDic[@"latitude"]) {
+        _latitude = [dataDic[@"latitude"] floatValue];
+    }
+    
+    if (dataDic[@"longitude"]) {
+        _longitude = [dataDic[@"longitude"] floatValue];
+    }
+    
+    if (dataDic[@"project_name"]) {
+        
+        _titleL.text = dataDic[@"project_name"];
+    }
+    
+    if (dataDic[@"absolute_address"]) {
+        
+        _addressL.text = dataDic[@"absolute_address"];
+    }
+    
+    if (dataDic[@"sale_state"]) {
+        
+        _statusL.text = [NSString stringWithFormat:@"%@",dataDic[@"sale_state"]];
+    }
+    
+    
+    _propertyArr = [NSMutableArray arrayWithArray:dataDic[@"property_type"]];
+    _tagArr = [NSMutableArray arrayWithArray:dataDic[@"project_tags"]];
+    
+    if (dataDic[@"average_price"]) {
+        
+        if (![dataDic[@"average_price"] integerValue]) {
+            
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"均价 暂无数据"]];
+            [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10 *SIZE] range:NSMakeRange(0, attr.length)];
+            [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, attr.length)];
+            _priceL.attributedText = attr;
+        }else{
+            
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"均价 ￥%@/㎡",dataDic[@"average_price"]]];
+            [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10 *SIZE] range:NSMakeRange(0, 3)];
+            [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13 *SIZE] range:NSMakeRange(3, 1)];
+            [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, 3)];
+            _priceL.attributedText = attr;
+        }
+    }else{
+        
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"均价 "]];
+        [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10 *SIZE] range:NSMakeRange(0, 3)];
+        [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, 3)];
+        _priceL.attributedText = attr;
+    }
+    
+    [_propertyColl reloadData];
 }
 
 - (void)ActionMoreBtn:(UIButton *)btn{
     
-    if (self.rentRoomProjectHeaderBlock) {
+    if (self.rentRoomProjectHeaderMoreBlock) {
         
-        self.rentRoomProjectHeaderBlock();
+        self.rentRoomProjectHeaderMoreBlock();
     }
 }
 
@@ -75,12 +191,11 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 20;
-    //    if (section == 1) {
-    //
-    //        return _tagArr.count;
-    //    }
-    //    return _propertyArr.count;
+    if (section == 1) {
+        
+        return _tagArr.count;
+    }
+    return _propertyArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -93,16 +208,11 @@
     
     if (indexPath.section == 1) {
         
-        cell.contentL.text = @"学区房学区";
-        cell.contentView.backgroundColor = CLWhiteColor;
-        cell.layer.borderWidth = SIZE;
-        cell.layer.borderColor = COLOR(181, 181, 181, 1).CGColor;
+        [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
         
     }else{
         
-        cell.layer.borderWidth = 0;
-        cell.contentView.backgroundColor = CLContentLabColor;
-        cell.contentL.text = @"住宅";
+        [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
     }
     
     return cell;
@@ -134,14 +244,14 @@
     _titleL.textColor = CLTitleLabColor;
     _titleL.numberOfLines = 0;
     _titleL.font = [UIFont systemFontOfSize:13 *SIZE];
-    _titleL.text = @"DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓";
+//    _titleL.text = @"DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓DUNX自由青年公寓";
     [self.contentView addSubview:_titleL];
     
     _statusL = [[UILabel alloc] init];
     _statusL.textColor = COLOR(27, 152, 255, 1);
     _statusL.font = [UIFont systemFontOfSize:12 *SIZE];
     _statusL.textAlignment = NSTextAlignmentRight;
-    _statusL.text = @"在售";
+//    _statusL.text = @"在售";
     [self.contentView addSubview:_statusL];
     
     _propertyFlowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -165,27 +275,27 @@
     _attentL.textColor = CLContentLabColor;
     _attentL.font = [UIFont systemFontOfSize:12 *SIZE];
     _attentL.textAlignment = NSTextAlignmentRight;
-    _attentL.text = @"关注人数：23";
+//    _attentL.text = @"关注人数：23";
     [self.contentView addSubview:_attentL];
     
     _saleNumL = [[UILabel alloc] init];
     _saleNumL.textColor = CLContentLabColor;
     _saleNumL.font = [UIFont systemFontOfSize:12 *SIZE];
     _saleNumL.textAlignment = NSTextAlignmentRight;
-    _saleNumL.text = @"在租：23套";
+//    _saleNumL.text = @"在租：23套";
     [self.contentView addSubview:_saleNumL];
     
     _priceL = [[UILabel alloc] init];
     _priceL.textColor = COLOR(250, 70, 70, 1);
     _priceL.font = [UIFont systemFontOfSize:16 *SIZE];
-    _priceL.text = @"均价：￥16000元/㎡";
+//    _priceL.text = @"均价：￥16000元/㎡";
     [self.contentView addSubview:_priceL];
     
     _codeL = [[UILabel alloc] init];
     _codeL.textColor = CLContentLabColor;
     _codeL.font = [UIFont systemFontOfSize:12 *SIZE];
     _codeL.textAlignment = NSTextAlignmentRight;
-    _codeL.text = @"项目编号：XQBH-19987";
+//    _codeL.text = @"项目编号：XQBH-19987";
     [self.contentView addSubview:_codeL];
     
     _addressImg = [[UIImageView alloc] init];

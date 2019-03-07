@@ -45,5 +45,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/&#x65b0;&#x623f;/&#x623f;&#x6e90;&#x8be6;&#x60c5;/view/cell/NewRoomProjectMapCell.m"
+            timestampString = "573636318.640541"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-mapViewDidFinishLoading:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/&#x65b0;&#x623f;/&#x623f;&#x6e90;&#x8be6;&#x60c5;/view/cell/NewRoomProjectMapCell.m"
+            timestampString = "573636318.640703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "-addAnimatedAnnotationWithName:withAddress:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/&#x65b0;&#x623f;/&#x623f;&#x6e90;&#x8be6;&#x60c5;/view/cell/NewRoomProjectMapCell.m"
+            timestampString = "573636318.640831"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "-mapView:regionDidChangeAnimated:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

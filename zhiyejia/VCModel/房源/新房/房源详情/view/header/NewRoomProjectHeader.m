@@ -8,8 +8,6 @@
 
 #import "NewRoomProjectHeader.h"
 
-#import <MapKit/MapKit.h>
-
 @interface NewRoomProjectHeader ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
 

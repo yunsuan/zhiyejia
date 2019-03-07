@@ -10,21 +10,24 @@
 
 #import "NewRoomCell.h"
 #import "SecRoomCell.h"
-//#import "SecProjectModel.h"
+#import "RentRoomCell.h"
 
-//#import "NewRoomModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^RoomChildVCNewRoomProjectBlock)(NewRoomModel *model);
 
-typedef void(^RoomChildVCNewSecProjectBlock)(SecProjectModel *model);
+typedef void(^RoomChildVCSecRoomProjectBlock)(SecProjectModel *model);
+
+typedef void(^RoomChildVCRentRoomProjectBlock)(RentProjectModel *model);
 
 @interface RoomChildVC : BaseViewController
 
 @property (nonatomic, copy) RoomChildVCNewRoomProjectBlock roomChildVCNewRoomProjectBlock;
 
-@property (nonatomic, copy) RoomChildVCNewSecProjectBlock roomChildVCNewSecProjectBlock;
+@property (nonatomic, copy) RoomChildVCSecRoomProjectBlock roomChildVCSecRoomProjectBlock;
+
+@property (nonatomic, copy) RoomChildVCRentRoomProjectBlock roomChildVCRentRoomProjectBlock;
 
 @property (nonatomic, strong) NSString *status;
 

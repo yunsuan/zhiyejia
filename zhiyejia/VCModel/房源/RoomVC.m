@@ -10,6 +10,7 @@
 #import "RoomVC.h"
 #import "NewRoomProjectDetailVC.h"
 #import "SecRoomProjectDetailVC.h"
+#import "RentRoomProjectDetailVC.h"
 
 #import "RoomChildVC.h"
 #import "CityVC.h"
@@ -287,9 +288,30 @@
     vc.param = [NSString stringWithFormat:@"%@",dic[@"param"]];
     vc.city = _city;
     
+    __weak RoomChildVC *weakvc = vc;
+    //新房项目
     vc.roomChildVCNewRoomProjectBlock = ^(NewRoomModel * _Nonnull model) {
       
         NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    };
+    
+    //二手房项目
+    vc.roomChildVCSecRoomProjectBlock = ^(SecProjectModel * _Nonnull model) {
+        
+        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        
+        nextVC.type = weakvc.typeId;
+        nextVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    };
+    
+    vc.roomChildVCRentRoomProjectBlock = ^(RentProjectModel * _Nonnull model) {
+        
+        RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        
+        nextVC.type = weakvc.typeId;
+        nextVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:nextVC animated:YES];
     };
 //    vc.roomChildVCRoomModelBlock = ^(RoomListModel *model) {
@@ -359,15 +381,7 @@
 //        [self.navigationController pushViewController:nextVC animated:YES];
 //    };
 //
-//    __weak RoomChildVC *weakvc = vc;
-//    vc.roomChildVCSecComModelBlock = ^(SecdaryComModel *model) {
-//
-//        SecComRoomDetailVC *nextVC = [[SecComRoomDetailVC alloc] initWithProjectId:model.project_id infoid:model.info_id city:_city];
-//
-//        nextVC.type = weakvc.typeId;
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    };
+
 //
 //    vc.roomChildVCAttentionSecComModelBlock = ^(AttetionComModel *model) {
 //

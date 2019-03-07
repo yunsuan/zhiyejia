@@ -6,11 +6,29 @@
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RentProjectModel : UITableViewCell
+@interface RentProjectModel : BaseModel
+
+@property (nonatomic, strong) NSString *absolute_address;
+
+@property (nonatomic, strong) NSString *average_price;
+
+@property (nonatomic, strong) NSString *img_url;
+
+@property (nonatomic, strong) NSString *info_id;
+
+@property (nonatomic, strong) NSString *on_rent;
+
+@property (nonatomic, strong) NSString *project_code;
+
+@property (nonatomic, strong) NSString *project_id;
+
+@property (nonatomic, strong) NSString *project_name;
+
+@property (nonatomic, strong) NSString *subs_num;
 
 @end
 

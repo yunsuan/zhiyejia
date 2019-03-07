@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RentRoomProjectDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSString *type;
+
 - (instancetype)initWithProjectId:(NSString *)projectId;
 
 @end

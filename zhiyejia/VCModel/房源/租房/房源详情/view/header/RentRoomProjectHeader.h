@@ -10,11 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^RentRoomProjectHeaderBlock)(void);
+typedef void(^RentRoomProjectHeaderMoreBlock)(void);
+
+typedef void(^RentRoomProjectHeaderImgBtnBlock)(NSInteger num,NSArray *imgArr);
 
 @interface RentRoomProjectHeader : UITableViewHeaderFooterView
 
-@property (nonatomic, copy) RentRoomProjectHeaderBlock rentRoomProjectHeaderBlock;
+@property (nonatomic, copy) RentRoomProjectHeaderMoreBlock rentRoomProjectHeaderMoreBlock;
+
+@property (nonatomic, copy) RentRoomProjectHeaderImgBtnBlock rentRoomProjectHeaderImgBtnBlock;
 
 @property (nonatomic, strong) UIScrollView *imgScroll;
 
@@ -42,11 +46,13 @@ typedef void(^RentRoomProjectHeaderBlock)(void);
 
 @property (nonatomic, strong) UILabel *addressL;
 
-@property (nonatomic, strong) NSMutableArray *imgArr;
-
 @property (nonatomic, strong) UIButton *moreBtn;
 
 @property (nonatomic, strong) UIView *btnView;
+
+@property (nonatomic, strong) NSMutableArray *imgArr;
+
+@property (nonatomic, strong) NSMutableDictionary *dataDic;
 
 @end
 

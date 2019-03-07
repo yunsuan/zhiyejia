@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RentRoomCell : UITableViewCell
 
-@property (nonatomic, strong) RentProjectModel *rentProjectModel;
+@property (nonatomic, strong) RentProjectModel *model;
 
 @property (nonatomic, strong) UIImageView *headImg;
 

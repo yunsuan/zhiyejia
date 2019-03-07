@@ -72,5 +72,5 @@ static NSString *const RentProjectList_URL = @"user/rent/project/list";
 static NSString *const RentHouseList_URL = @"user/rent/house/list";
 
 //项目详情
-//static NSString *const HomeHouseProjectDetail_URL = @"home/house/project/detail";
+static NSString *const HomeRentProjectDetail_URL = @"home/rent/project/detail";
 #endif /* NetConfig_h */

@@ -10,11 +10,17 @@
 
 #import "NewRoomMapCollCell.h"
 
-@interface NewRoomProjectMapCell()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+@interface NewRoomProjectMapCell()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,BMKMapViewDelegate,BMKPoiSearchDelegate>
 {
+    
+    CLLocationCoordinate2D _leftBottomPoint;
+    CLLocationCoordinate2D _rightBottomPoint;//地图矩形的顶点
     NSArray *namearr;
     NSArray *_color;
     NSArray *_namecolor;
+    BMKPointAnnotation *_annotation;
+    CLLocationCoordinate2D _cllocation;
+    NSString *_name;
 }
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
@@ -35,6 +41,136 @@
         [self initUI];
     }
     return self;
+}
+
+- (void)SetLatitude:(NSString *)latitude longitude:(NSString *)longitude project:(NSString *)project{
+    
+    
+    _cllocation = CLLocationCoordinate2DMake([latitude floatValue] , [longitude floatValue]);
+    _annotation.coordinate = _cllocation;
+    _annotation.title = project;
+    [_mapView setCenterCoordinate:_cllocation animated:YES];
+}
+
+- (void)mapViewDidFinishLoading:(BMKMapView *)mapView{
+    
+    _leftBottomPoint = [_mapView convertPoint:CGPointMake(0,_mapView.frame.size.height) toCoordinateFromView:mapView];  // //西南角（左下角） 屏幕坐标转地理经纬度
+    _rightBottomPoint = [_mapView convertPoint:CGPointMake(_mapView.frame.size.width,0) toCoordinateFromView:mapView];  //东北角（右上角）同上
+    //开始搜索
+}
+
+- (void)beginSearchWithname:(NSString *)name{
+    
+    _name = name;
+    _poisearch = [self poisearch];
+//    BMKBoundSearchOption *boundSearchOption = [[BMKBoundSearchOption alloc]init];
+//    boundSearchOption.pageIndex = 0;
+//    boundSearchOption.pageCapacity = 20;
+//    boundSearchOption.keyword = name;
+//    boundSearchOption.leftBottom =_leftBottomPoint;
+//    boundSearchOption.rightTop =_rightBottomPoint;
+//
+//    BOOL flag = [_poisearch poiSearchInbounds:boundSearchOption];
+//    if(flag)
+//    {
+//        NSLog(@"范围内检索发送成功");
+//    }
+//    else
+//    {
+//        NSLog(@"范围内检索发送失败");
+//    }
+}
+
+//#pragma mark implement BMKSearchDelegate
+//- (void)onGetPoiResult:(BMKPoiSearch *)searcher result:(BMKPoiResult*)result errorCode:(BMKSearchErrorCode)error
+//{
+//    if (error == BMK_SEARCH_NO_ERROR) {
+//        NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+//        [_mapView removeAnnotations:array];
+//        array = [NSArray arrayWithArray:_mapView.overlays];
+//        [_mapView removeOverlays:array];
+//        //在此处理正常结果
+//        for (int i = 0; i < result.poiInfoList.count; i++)
+//        {
+//            BMKPoiInfo* poi = [result.poiInfoList objectAtIndex:i];
+//            [self addAnimatedAnnotationWithName:poi.name withAddress:poi.pt];
+//        }
+//
+//        CLLocationCoordinate2D cllocation = CLLocationCoordinate2DMake([_model.latitude floatValue] , [_model.longitude floatValue]);
+//        [_mapView setCenterCoordinate:cllocation animated:YES];
+//        BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+//        annotation.coordinate = cllocation;
+//        annotation.title = _model.project_name;
+//        [_mapView addAnnotation:annotation];
+//
+//    } else if (error == BMK_SEARCH_AMBIGUOUS_ROURE_ADDR){
+//        NSLog(@"起始点有歧义");
+//    } else {
+//        // 各种情况的判断。。。
+//    }
+//}
+
+// 添加动画Annotation
+- (void)addAnimatedAnnotationWithName:(NSString *)name withAddress:(CLLocationCoordinate2D)coor {
+    
+    BMKPointAnnotation*animatedAnnotation = [[BMKPointAnnotation alloc]init];
+    animatedAnnotation.coordinate = coor;
+    animatedAnnotation.title = name;
+    [_mapView addAnnotation:animatedAnnotation];
+}
+//-(BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation
+//{
+//    if ([annotation isKindOfClass:[BMKPointAnnotation class]]) {
+//        
+//        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+//        newAnnotationView.pinColor = BMKPinAnnotationColorRed;
+//        newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
+//        if ([annotation.title isEqualToString:_model.project_name]) {
+//            newAnnotationView.image = [UIImage imageNamed:@"coordinates"];
+//        }
+//        else
+//        {
+//            NSArray *arr= @[@"教育",@"公交站点",@"医院",@"购物",@"餐饮"];
+//            if ([_name isEqualToString:arr[0]]) {
+//                newAnnotationView.image = [UIImage imageNamed:@"education"];
+//            }
+//            else if ([_name isEqualToString:arr[1]]) {
+//                newAnnotationView.image = [UIImage imageNamed:@"traffic"];
+//            }
+//            else if ([_name isEqualToString:arr[2]]) {
+//                newAnnotationView.image = [UIImage imageNamed:@"hospital"];
+//            }
+//            else if ([_name isEqualToString:arr[3]]) {
+//                newAnnotationView.image = [UIImage imageNamed:@"shopping"];
+//            }
+//            else
+//            {
+//                newAnnotationView.image = [UIImage imageNamed:@"caterin"];
+//            }
+//            
+//        }
+//        
+//        return newAnnotationView;
+//    }
+//    return nil;
+//    
+//}
+
+
+
+- (void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
+    
+    _leftBottomPoint = [_mapView convertPoint:CGPointMake(0,_mapView.frame.size.height) toCoordinateFromView:mapView];  // //西南角（左下角） 屏幕坐标转地理经纬度
+    _rightBottomPoint = [_mapView convertPoint:CGPointMake(_mapView.frame.size.width,0) toCoordinateFromView:mapView];  //东北角（右上角）同上
+}
+
+-(BMKPoiSearch *)poisearch
+{
+    if (!_poisearch) {
+        _poisearch =[[BMKPoiSearch alloc]init];
+        _poisearch.delegate = self;
+    }
+    return _poisearch;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -78,6 +214,15 @@
     label.text = @"周边及配套";
     [self.contentView addSubview:label];
     
+//    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
+//    _mapView.delegate = self;
+//    _mapView.zoomLevel = 15;
+//    _mapView.isSelectedAnnotationViewFront = YES;
+//    [self.contentView addSubview:_mapView];
+    
+//    _annotation = [[BMKPointAnnotation alloc]init];
+//    [_mapView addAnnotation:_annotation];
+    
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.itemSize = CGSizeMake(60 *SIZE, 27 *SIZE);
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -93,6 +238,23 @@
     [_POIColl registerClass:[NewRoomMapCollCell class] forCellWithReuseIdentifier:@"NewRoomMapCollCell"];
     [self.contentView addSubview:_POIColl];
     
+//    [self MasonryUI];
+}
+
+- (void)MasonryUI{
+    
+    [_mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(0);
+        make.top.equalTo(self.contentView).offset(33 *SIZE);
+        make.right.equalTo(self.contentView).offset(0);
+        make.width.equalTo(@(360 *SIZE));
+        make.height.equalTo(@(187 *SIZE));
+        make.bottom.equalTo(self.contentView).offset(-59 *SIZE);
+    }];
+    
+//    [_POIColl mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//    }];
 }
 
 @end

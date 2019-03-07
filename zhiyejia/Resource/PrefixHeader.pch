@@ -11,6 +11,10 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+#import <BaiduMapAPI_Base/BMKBaseComponent.h>
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <MapKit/MapKit.h>
+
 #import "UserModel.h"
 #import "UserModelArchiver.h"
 #import "LocationManager.h"

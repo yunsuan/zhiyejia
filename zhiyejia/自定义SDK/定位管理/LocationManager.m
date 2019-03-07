@@ -83,7 +83,7 @@
         }else{
             
             NSString *cityname = location.rgcData.city;
-            NSInteger cityInteger = [location.rgcData.cityCode integerValue] /100*100;
+            NSInteger cityInteger = [location.rgcData.adCode integerValue] /100*100;
             NSString *citycode = [NSString stringWithFormat:@"%ld",cityInteger];
             NSUserDefaults *location = [NSUserDefaults standardUserDefaults];
             [location setObject:cityname forKey:@"cityName"];
