@@ -937,12 +937,16 @@
 
 - (void)initUI{
     
+    self.view.backgroundColor = CLLineColor;
+    
+    self.navBackgroundView.hidden = YES;
+    
     _MainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, SCREEN_Width, SCREEN_Height - 46 - 46 *SIZE - STATUS_BAR_HEIGHT - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
     
     _MainTableView.rowHeight = UITableViewAutomaticDimension;
     _MainTableView.estimatedRowHeight = 120 *SIZE;
     
-    _MainTableView.backgroundColor = self.view.backgroundColor;
+    _MainTableView.backgroundColor = CLWhiteColor;
     _MainTableView.delegate = self;
     _MainTableView.dataSource = self;
     _MainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;

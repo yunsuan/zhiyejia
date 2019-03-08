@@ -448,7 +448,7 @@
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     
-    return CGRectMake(0, NAVIGATION_BAR_HEIGHT+60*SIZE, 360*SIZE, SCREEN_Height-NAVIGATION_BAR_HEIGHT-60*SIZE);
+    return CGRectMake(0, NAVIGATION_BAR_HEIGHT+60*SIZE, 360*SIZE, SCREEN_Height-NAVIGATION_BAR_HEIGHT- 60*SIZE);
     
 }
 
