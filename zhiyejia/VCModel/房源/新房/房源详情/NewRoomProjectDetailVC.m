@@ -26,6 +26,7 @@
     
     NSString *_projectId;
     NSDictionary *_dataDic;
+    NSString *_phone;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -69,6 +70,10 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = resposeObject[@"data"];
+            if (self->_dataDic[@"butter_tel"]) {
+                
+                self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
+            }
             [self->_roomTable reloadData];
         }else{
             
@@ -87,7 +92,16 @@
 
 - (void)ActionCounselBtn:(UIButton *)btn{
     
-    
+    if (_phone.length) {
+        
+        //获取目标号码字符串,转换成URL
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_phone]];
+        //调用系统方法拨号
+        [[UIApplication sharedApplication] openURL:url];
+    }else{
+        
+        [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+    }
 }
 
 - (void)ActionAppointionBtn:(UIButton *)btn{
@@ -186,6 +200,8 @@
             
             header.dataDic = _dataDic[@"project_basic_info"];
         }
+        
+        header.attentL.text = [NSString stringWithFormat:@"订阅人数：%@",_dataDic[@"focus"][@"num"]];
         
         header.newRoomProjectHeaderImgBtnBlock = ^(NSInteger num, NSArray *imgArr) {
             
@@ -417,7 +433,7 @@
     _attentBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_attentBtn addTarget:self action:@selector(ActionAttentionBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_attentBtn setImage:IMAGE_WITH_NAME(@"Focus") forState:UIControlStateNormal];
-    [_attentBtn setTitle:@"关注" forState:UIControlStateNormal];
+    [_attentBtn setTitle:@"订阅" forState:UIControlStateNormal];
     [_attentBtn setBackgroundColor:CLWhiteColor];
     [_attentBtn setTitleColor:CL86Color forState:UIControlStateNormal];
     [self.view addSubview:_attentBtn];

@@ -163,6 +163,13 @@
         _priceL.attributedText = attr;
     }
     
+    [_titleL mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+//        make.left.equalTo(self.contentView).offset(10 *SIZE);
+//        make.top.equalTo(self->_imgScroll.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(self->_titleL.mj_textWith + 5 *SIZE);
+//        make.right.mas_lessThanOrEqualTo(self.contentView).offset(-120 *SIZE);
+    }];
     [_propertyColl reloadData];
 }
 
@@ -171,6 +178,18 @@
     if (self.rentRoomProjectHeaderMoreBlock) {
         
         self.rentRoomProjectHeaderMoreBlock();
+    }
+}
+
+- (void)ActionImgBtn{
+    
+    if (self.rentRoomProjectHeaderImgBtnBlock) {
+        
+        if (_imgArr.count) {
+            
+            self.rentRoomProjectHeaderImgBtnBlock(_nowNum, _imgArr);
+            
+        }
     }
 }
 
@@ -370,7 +389,7 @@
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_imgScroll.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(self->_titleL.mj_textWith);
+        make.width.mas_equalTo(self->_titleL.mj_textWith + 5 *SIZE);
         make.right.mas_lessThanOrEqualTo(self.contentView).offset(-120 *SIZE);
     }];
     

@@ -41,15 +41,6 @@
     _tagArr = [@[] mutableCopy];
 }
 
-- (void)ActionTapMethod{
-    
-    CLLocationCoordinate2D endCoor = CLLocationCoordinate2DMake(_latitude, _longitude);
-    MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
-    MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:endCoor addressDictionary:nil]];
-    toLocation.name = _addressL.text;
-    [MKMapItem openMapsWithItems:@[currentLocation, toLocation] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
-}
-
 - (void)setImgArr:(NSMutableArray *)imgArr{
     
     _imgArr = [NSMutableArray arrayWithArray:imgArr];
@@ -105,20 +96,12 @@
     }
 }
 
-- (void)ActionMoreBtn:(UIButton *)btn{
-    
-    if (self.secRoomProjectHeaderMoreBlock) {
-        
-        self.secRoomProjectHeaderMoreBlock();
-    }
-}
-
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-//    if (dataDic[@"developer_name"]) {
-//
-//        _developerL.text = [NSString stringWithFormat:@"开发商：%@",dataDic[@"developer_name"]];
-//    }
+    //    if (dataDic[@"developer_name"]) {
+    //
+    //        _developerL.text = [NSString stringWithFormat:@"开发商：%@",dataDic[@"developer_name"]];
+    //    }
     
     if (dataDic[@"latitude"]) {
         _latitude = [dataDic[@"latitude"] floatValue];
@@ -170,8 +153,45 @@
         [attr addAttribute:NSForegroundColorAttributeName value:CLContentLabColor range:NSMakeRange(0, 3)];
         _priceL.attributedText = attr;
     }
-
+    
+    [_titleL mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+//        make.left.equalTo(self.contentView).offset(10 *SIZE);
+//        make.top.equalTo(self->_imgScroll.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(self->_titleL.mj_textWith + 5 *SIZE);
+//        make.right.mas_lessThanOrEqualTo(self.contentView).offset(-120 *SIZE);
+    }];
+    
     [_propertyColl reloadData];
+}
+
+- (void)ActionMoreBtn:(UIButton *)btn{
+    
+    if (self.secRoomProjectHeaderMoreBlock) {
+        
+        self.secRoomProjectHeaderMoreBlock();
+    }
+}
+
+- (void)ActionTapMethod{
+    
+    CLLocationCoordinate2D endCoor = CLLocationCoordinate2DMake(_latitude, _longitude);
+    MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+    MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:endCoor addressDictionary:nil]];
+    toLocation.name = _addressL.text;
+    [MKMapItem openMapsWithItems:@[currentLocation, toLocation] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
+}
+
+- (void)ActionImgBtn{
+    
+    if (self.secRoomProjectHeaderImgBtnBlock) {
+        
+        if (_imgArr.count) {
+            
+            self.secRoomProjectHeaderImgBtnBlock(_nowNum, _imgArr);
+            
+        }
+    }
 }
 
 - (void)ActionTagBtn:(UIButton *)btn{
@@ -370,7 +390,7 @@
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_imgScroll.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(self->_titleL.mj_textWith);
+        make.width.mas_equalTo(self->_titleL.mj_textWith + 5 *SIZE);
         make.right.mas_lessThanOrEqualTo(self.contentView).offset(-120 *SIZE);
     }];
     

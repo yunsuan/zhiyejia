@@ -24,6 +24,7 @@
     
     NSString *_projectId;
     NSDictionary *_dataDic;
+    NSString *_phone;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -70,6 +71,10 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
 
             self->_dataDic = resposeObject[@"data"];
+            if (self->_dataDic[@"butter_tel"]) {
+                
+                self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
+            }
             [self->_roomTable reloadData];
         }else{
 
@@ -88,7 +93,16 @@
 
 - (void)ActionCounselBtn:(UIButton *)btn{
     
-    
+    if (_phone.length) {
+        
+        //获取目标号码字符串,转换成URL
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_phone]];
+        //调用系统方法拨号
+        [[UIApplication sharedApplication] openURL:url];
+    }else{
+        
+        [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+    }
 }
 
 
@@ -159,6 +173,7 @@
             header = [[SecRoomProjectHeader alloc] initWithReuseIdentifier:@"SecRoomProjectHeader"];
         }
         
+        header.attentL.text = [NSString stringWithFormat:@"订阅人数：%@",_dataDic[@"focus"][@"num"]];
         [header setImgArr:_dataDic[@"project_img"][@"url"]];
         if (_dataDic[@"project_basic_info"]) {
             
