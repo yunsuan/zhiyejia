@@ -63,6 +63,9 @@ static NSString *const HouseHouseList_URL = @"user/house/house/list";
 //项目详情
 static NSString *const HomeHouseProjectDetail_URL = @"home/house/project/detail";
 
+//房源详情
+static NSString *const HouseHouseDetail_URL = @"user/house/house/detail";
+
 #pragma mark -- 租房 --
 
 //项目列表

@@ -11,6 +11,7 @@
 		0C58936022375754005B78A6 /* SecHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935F22375754005B78A6 /* SecHouseModel.m */; };
 		0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936222375D11005B78A6 /* RentHouseModel.m */; };
 		0C58936622375FFA005B78A6 /* RentHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936522375FFA005B78A6 /* RentHouseCell.m */; };
+		0C58936A2237A1AE005B78A6 /* SecRoomHouseDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5893692237A1AE005B78A6 /* SecRoomHouseDetailModel.m */; };
 		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
 		0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */; };
 		0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */; };
@@ -145,6 +146,8 @@
 		0C58936222375D11005B78A6 /* RentHouseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentHouseModel.m; sourceTree = "<group>"; };
 		0C58936422375FFA005B78A6 /* RentHouseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RentHouseCell.h; sourceTree = "<group>"; };
 		0C58936522375FFA005B78A6 /* RentHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentHouseCell.m; sourceTree = "<group>"; };
+		0C5893682237A1AE005B78A6 /* SecRoomHouseDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomHouseDetailModel.h; sourceTree = "<group>"; };
+		0C5893692237A1AE005B78A6 /* SecRoomHouseDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomHouseDetailModel.m; sourceTree = "<group>"; };
 		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -388,6 +391,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C5893672237A181005B78A6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				0C5893682237A1AE005B78A6 /* SecRoomHouseDetailModel.h */,
+				0C5893692237A1AE005B78A6 /* SecRoomHouseDetailModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		0CE8218B221D31C600576742 /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -1036,6 +1048,7 @@
 		0CF46DF02227C7E7008816E6 /* 住宅详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C5893672237A181005B78A6 /* model */,
 				0CF46DF42227D1D0008816E6 /* view */,
 				0CF46DF12227CE76008816E6 /* SecRoomHouseDetailVC.h */,
 				0CF46DF22227CE76008816E6 /* SecRoomHouseDetailVC.m */,
@@ -1549,6 +1562,7 @@
 				0CF46E2B222D1158008816E6 /* SecRoomStoreInfoCell.m in Sources */,
 				0CF46DC622267EBB008816E6 /* MySubscibeCell.m in Sources */,
 				0CF46DFC2227D36A008816E6 /* HeaderImgCollCell.m in Sources */,
+				0C58936A2237A1AE005B78A6 /* SecRoomHouseDetailModel.m in Sources */,
 				0CF46E05222CD3B3008816E6 /* SecRoomHouseProjectCell.m in Sources */,
 				0CF46E22222D0A7E008816E6 /* SecRoomStoreDetailVC.m in Sources */,
 				10AFF8C5221D281300657217 /* AppDelegate.m in Sources */,

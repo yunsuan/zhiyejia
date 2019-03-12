@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SecRoomHouseDetailVC : BaseViewController
 
+- (instancetype)initWithHouseId:(NSString *)houseId city:(NSString *)city;
+
 @end
 
 NS_ASSUME_NONNULL_END

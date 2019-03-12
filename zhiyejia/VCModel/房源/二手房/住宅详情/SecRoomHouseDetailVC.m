@@ -14,8 +14,21 @@
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 
-@interface SecRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "SecRoomHouseDetailModel.h"
 
+@interface SecRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+{
+    
+    NSString *_houseId;
+    NSString *_city;
+    
+    SecRoomHouseDetailModel *_model;
+    NSString *_phone;
+    NSMutableArray *_imgArr;
+    NSMutableDictionary *_focusDic;
+    NSString *_focusId;
+    NSMutableArray *_houseArr;
+}
 @property (nonatomic, strong) UITableView *roomTable;
 
 @property (nonatomic, strong) UIButton *attentBtn;
@@ -32,6 +45,17 @@
 
 @implementation SecRoomHouseDetailVC
 
+- (instancetype)initWithHouseId:(NSString *)houseId city:(NSString *)city
+{
+    self = [super init];
+    if (self) {
+        
+        _houseId = houseId;
+        _city = city;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -43,14 +67,91 @@
 
 - (void)initDataSource{
     
-//    _imgArr = [@[] mutableCopy];
-//    _model = [[SecAllRoomProjectModel alloc] init];
-//    _focusDic = [@{} mutableCopy];
-//    _houseArr = [@[] mutableCopy];
+    _imgArr = [@[] mutableCopy];
+    _model = [[SecRoomHouseDetailModel alloc] init];
+    _focusDic = [@{} mutableCopy];
+    _houseArr = [@[] mutableCopy];
+    
 }
 
 - (void)RequestMethod{
-     
+    
+    NSDictionary *dic = @{@"house_id":_houseId,
+                          @"agent_id":@"21",
+                          @"type":@(1)
+                          };
+    [BaseRequest GET:HouseHouseDetail_URL parameters:dic success:^(id resposeObject) {
+        
+        NSLog(@"%@",resposeObject);
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self SetData:resposeObject[@"data"]];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSDictionary *)data{
+    
+    _phone = [NSString stringWithFormat:@"%@",data[@"agent_info"]];
+    
+    if ([data[@"basic_info"] isKindOfClass:[NSDictionary class]]) {
+        
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data[@"basic_info"]];
+        [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            
+            if ([obj isKindOfClass:[NSNull class]]) {
+                
+                [tempDic setObject:@"" forKey:key];
+            }else{
+                
+                if ([obj isKindOfClass:[NSNumber class]]) {
+                    
+                    [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                }
+            }
+        }];
+        _model = [[SecRoomHouseDetailModel alloc] initWithDictionary:tempDic];
+    }
+    
+    [_imgArr removeAllObjects];
+    if ([data[@"img"] isKindOfClass:[NSArray class]]) {
+        
+        NSArray *arr = data[@"img"];
+        for ( int i = 0; i < arr.count; i++) {
+            
+            if ([arr[i] isKindOfClass:[NSDictionary class]]) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:arr[i]];
+                
+                [_imgArr addObject:tempDic];
+            }
+        }
+    }
+    
+    if ([data[@"focus"] isKindOfClass:[NSDictionary class]]) {
+        
+        if ([data[@"focus"][@"is_focus"] integerValue]) {
+            
+            _focusId = [NSString stringWithFormat:@"%@",data[@"focus"][@"is_focus"]];
+            [_attentBtn setTitle:@"取消关注" forState:UIControlStateNormal];
+        }
+        _focusDic = [NSMutableDictionary dictionaryWithDictionary:data[@"focus"]];
+    }
+    _attentBtn.userInteractionEnabled = YES;
+    
+    if ([data[@"other"] isKindOfClass:[NSArray class]]) {
+        
+        _houseArr = [NSMutableArray arrayWithArray:data[@"other"]];
+    }
+    
+    [_roomTable reloadData];
 }
 
 - (void)ActionRecommendBtn:(UIButton *)btn{
@@ -99,6 +200,10 @@
         header = [[SecRoomHouseDetailHeader alloc] initWithReuseIdentifier:@"SecRoomHouseDetailHeader"];
     }
     
+    header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
+    
+    header.model = _model;
+    
     return header;
 }
 
@@ -127,7 +232,7 @@
 - (void)initUI{
     
     
-    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
+    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
     
     _roomTable.rowHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedRowHeight = 200 *SIZE;

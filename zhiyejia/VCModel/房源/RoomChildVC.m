@@ -833,6 +833,11 @@
 
         if ([self.param isEqualToString:@"house"]) {
 
+            SecHouseModel *model = _dataArr[indexPath.row];
+            if (self.roomChildVCSecRoomHouseBlock) {
+                
+                self.roomChildVCSecRoomHouseBlock(model);
+            }
 //            SecdaryAllTableModel *model = _dataArr[indexPath.row];
 //
 //            if (self.roomChildVCSecModelBlock) {

@@ -13,7 +13,10 @@
 @interface SecRoomHouseDetailHeader()<UIScrollViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     
-
+    NSInteger _num;
+    NSInteger _nowNum;
+    NSMutableArray *_allArr;
+    NSInteger _total;
 }
 
 @end
@@ -47,7 +50,107 @@
 
 - (void)setImgArr:(NSMutableArray *)imgArr{
     
+    _total = 0;
+    [_allArr removeAllObjects];
+    if (!imgArr.count) {
+        
+        UIImageView *img = [[UIImageView alloc] initWithFrame:_imgScroll.frame];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.image = [UIImage imageNamed:@"default_3"];
+        img.clipsToBounds = YES;
+        
+        [_imgScroll setContentSize:CGSizeMake(SCREEN_Width, _imgScroll.frame.size.height)];
+        [_imgScroll addSubview:img];
+        _numL.text = @"0/0";
+        //        [self.contentView addSubview:img];
+    }else{
+        
+        for (UIView *view in _imgScroll.subviews) {
+            
+            [view removeFromSuperview];
+        }
+        _imgArr = [NSMutableArray arrayWithArray:imgArr];
+        for ( int i = 0; i < imgArr.count; i++) {
+            
+            if ([imgArr[i] isKindOfClass:[NSDictionary class]]) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:imgArr[i]];
+                
+                if ([tempDic[@"list"] count]) {
+                    for (int j = 0; j < [tempDic[@"list"] count]; j++) {
+                        
+                        _total = _total + 1;
+                        [_allArr addObject:tempDic[@"list"][j]];
+                    }
+                }else{
+                    
+                    _total += 1;
+                    [_allArr addObject:@{@"img_url":@"default_3"}];
+                }
+            }
+        }
+        [_imgScroll setContentSize:CGSizeMake(SCREEN_Width * _total, _imgScroll.frame.size.height)];
+        
+        for (int i = 0; i < _total; i++) {
+            
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_Width * i, 0, SCREEN_Width, _imgScroll.frame.size.height)];
+            img.backgroundColor = [UIColor whiteColor];
+            img.contentMode = UIViewContentModeScaleAspectFill;
+            img.clipsToBounds = YES;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionImgBtn)];
+            [img addGestureRecognizer:tap];
+            img.userInteractionEnabled = YES;
+            [_imgScroll addSubview:img];
+            if ([_allArr[i][@"img_url"] isEqualToString:@"default_3"]) {
+                
+                img.image = [UIImage imageNamed:@"default_3"];
+            }else{
+                
+                NSString *imgurl =_allArr[i][@"img_url"];
+                if (imgurl.length>0) {
+                    [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_allArr[i][@"img_url"]]] placeholderImage:[UIImage imageNamed:@"default_3"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                        
+                        if (error) {
+                            
+                            img.image = [UIImage imageNamed:@"default_3"];
+                        }
+                    }];
+                }
+                else{
+                    img.image = [UIImage imageNamed:@"default_3"];
+                }
+            }
+            
+        }
+        _numL.text = [NSString stringWithFormat:@"1/%ld",_total];
+        [_imgColl reloadData];
+        [_imgColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:0];
+    }
+}
+
+- (void)setModel:(SecRoomHouseDetailModel *)model{
     
+    _titleL.text = model.title;
+    
+    _propertyL.text = model.property_type;
+    
+    _priceL.text = [NSString stringWithFormat:@"￥%@万",model.price];
+    
+    _typeL.text = model.house_type;
+    
+    _areaL.text = [NSString stringWithFormat:@"%@㎡",model.build_area];
+    _areaTL.text = @"面积";
+    
+    if ([model.price_change integerValue] == 0) {
+        
+        _statusImg.image = [UIImage imageNamed:@""];
+    }else if ([model.price_change integerValue] == 1){
+        
+        _statusImg.image = [UIImage imageNamed:@"rising"];
+    }else{
+        
+        _statusImg.image = [UIImage imageNamed:@"falling"];
+    }
 }
 
 #pragma mark -- ScrollViewDelegate
@@ -112,16 +215,15 @@
     
     self.contentView.backgroundColor = [UIColor whiteColor];
     
-    _imgScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 202.5 *SIZE)];
+    _imgScroll = [[UIScrollView alloc] init];
     _imgScroll.pagingEnabled = YES;
-    //    _imgScroll.backgroundColor = [UIColor blackColor];
     _imgScroll.delegate = self;
     _imgScroll.showsVerticalScrollIndicator = NO;
     _imgScroll.showsHorizontalScrollIndicator = NO;
     _imgScroll.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:_imgScroll];
     
-    _alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 162.5 *SIZE, SCREEN_Width, 40 *SIZE)];
+    _alphaView = [[UIView alloc] init];
     _alphaView.backgroundColor = [UIColor blackColor];
     _alphaView.alpha = 0.2;
     [self.contentView addSubview:_alphaView];
@@ -141,7 +243,7 @@
     [self.contentView addSubview:_imgColl];
     
     
-    _numL = [[UILabel alloc] initWithFrame:CGRectMake(319 *SIZE, 144 *SIZE, 30 *SIZE, 30 *SIZE)];
+    _numL = [[UILabel alloc] init];//WithFrame:CGRectMake(319 *SIZE, 144 *SIZE, 30 *SIZE, 30 *SIZE)];
     _numL.backgroundColor = COLOR(255, 255, 255, 0.6);
     _numL.textColor = CLTitleLabColor;
     _numL.font = [UIFont systemFontOfSize:10 *SIZE];
@@ -251,26 +353,56 @@
 
 - (void)MasonryUI{
     
+    [_imgScroll mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.top.equalTo(self.contentView).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(202.5 *SIZE);
+    }];
+    
+    [_alphaView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.bottom.equalTo(self->_imgScroll.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(40 *SIZE);
+    }];
+    
+    [_imgColl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.bottom.equalTo(self->_imgScroll.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(40 *SIZE);
+    }];
+    
+    [_numL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(319 *SIZE);
+        make.bottom.equalTo(self->_imgScroll.mas_bottom).offset(-6 *SIZE);
+        make.width.height.mas_equalTo(30 *SIZE);
+    }];
+    
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self.contentView).offset(216.5 *SIZE);
+        make.top.equalTo(self->_imgScroll.mas_bottom).offset(14 *SIZE);
         make.right.equalTo(self.contentView).offset(-60 *SIZE);
     }];
     
     [_propertyL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self.contentView).offset(-11 *SIZE);
-        make.top.equalTo(self.contentView).offset(213.5 *SIZE);
+        make.top.equalTo(self->_imgScroll.mas_bottom).offset(11 *SIZE);
         make.height.mas_equalTo(17 *SIZE);
     }];
     
     [_attentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(230 *SIZE);
-        make.top.equalTo(self->_titleL.mas_bottom).offset(8 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(6 *SIZE);
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        //        make.width.mas_equalTo(_attentL.mj_textWith + 6 *SIZE);
     }];
     
     [_moreView mas_makeConstraints:^(MASConstraintMaker *make) {

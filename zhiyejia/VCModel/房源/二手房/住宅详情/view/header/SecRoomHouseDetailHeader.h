@@ -8,17 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SecRoomHouseDetailModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SecRoomHouseDetailHeaderImgBlock)(NSInteger num,NSArray *imgArr);
+
 @interface SecRoomHouseDetailHeader : UITableViewHeaderFooterView
+
+@property (nonatomic, strong) SecRoomHouseDetailModel *model;
+
+@property (nonatomic, strong) NSMutableArray *imgArr;
+
+@property (nonatomic, strong) NSMutableDictionary *focusDic;
+
+@property (nonatomic, copy) SecRoomHouseDetailHeaderImgBlock secRoomHouseDetailHeaderImgBlock;
 
 @property (nonatomic, strong) UIScrollView *imgScroll;
 
 @property (nonatomic, strong) UIView *alphaView;
 
 @property (nonatomic, strong) UICollectionView *imgColl;
-
-@property (nonatomic, strong) NSMutableArray *imgArr;
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 
@@ -29,8 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *numL;
 
 @property (nonatomic, strong) UILabel *attentL;
-
-//@property (nonatomic, strong) UIButton *attentBtn;
 
 @property (nonatomic, strong) UILabel *priceL;
 

@@ -8,9 +8,14 @@
 
 
 #import "RoomVC.h"
+//项目
 #import "NewRoomProjectDetailVC.h"
 #import "SecRoomProjectDetailVC.h"
 #import "RentRoomProjectDetailVC.h"
+//二手房源
+#import "SecRoomStoreDetailVC.h"
+#import "SecRoomOfficeDetailVC.h"
+#import "SecRoomHouseDetailVC.h"
 
 #import "RoomChildVC.h"
 #import "CityVC.h"
@@ -305,7 +310,25 @@
         nextVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:nextVC animated:YES];
     };
+    //二手房房源详情
+    vc.roomChildVCSecRoomHouseBlock = ^(SecHouseModel * _Nonnull model) {
+      
+        if ([model.type integerValue] == 1) {
+            
+            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:_city];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([model.type integerValue] == 2){
+            
+            SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
+    };
     
+    //租房项目
     vc.roomChildVCRentRoomProjectBlock = ^(RentProjectModel * _Nonnull model) {
         
         RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
