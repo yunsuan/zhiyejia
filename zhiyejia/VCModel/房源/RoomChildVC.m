@@ -420,8 +420,8 @@
                         }
                     }
                 }];
-//                SecdaryAllTableModel *model = [[SecdaryAllTableModel alloc] initWithDictionary:tempDic];
-//                [_dataArr addObject:model];
+                SecHouseModel *model = [[SecHouseModel alloc] initWithDictionary:tempDic];
+                [_dataArr addObject:model];
             }
         }else{
             
@@ -546,7 +546,7 @@
                         }
                     }
                 }];
-//                RentingAllTableModel *model = [[RentingAllTableModel alloc] init];//WithDictionary:tempDic];
+                RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
 //                model.price_change = tempDic[@"price_change"];
 //                model.img_url = tempDic[@"img_url"];
 //                model.house_id = tempDic[@"house_id"];
@@ -561,7 +561,7 @@
 //                model.type = tempDic[@"type"];
 //                model.info_id = tempDic[@"info_id"];
 //                model.level = tempDic[@"level"];
-//                [_dataArr addObject:model];
+                [_dataArr addObject:model];
             }
         }else{
             
@@ -622,18 +622,18 @@
         {
             if ([self.param isEqualToString:@"house"]) {
 
-                return [[UITableViewCell alloc] init];
-//                SecdaryAllTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecdaryAllTableCell"];
-//                if (!cell) {
-//
-//                    cell = [[SecdaryAllTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecdaryAllTableCell"];
-//                }
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                SecdaryAllTableModel *model = _dataArr[indexPath.row];
-//                cell.model = model;
-//
-//                return cell;
+//                return [[UITableViewCell alloc] init];
+                SecHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseCell"];
+                if (!cell) {
+
+                    cell = [[SecHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecHouseCell"];
+                }
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+                SecHouseModel *model = _dataArr[indexPath.row];
+                cell.model = model;
+
+                return cell;
             }else{
 
                 SecRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomCell"];
@@ -791,22 +791,21 @@
             break;
         }
         case 3:{
-//
-//            if ([self.param isEqualToString:@"rent"]) {
-//
-//                RentingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentingCell"];
-//                if (!cell) {
-//
-//                    cell = [[RentingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentingCell"];
-//                }
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                //                SecdaryAllTableModel *model = _dataArr[indexPath.row];
-//                cell.model = _dataArr[indexPath.row];
-//
-//                return cell;
-//            }else{
-//
+
+            if ([self.param isEqualToString:@"rent"]) {
+
+                RentHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentHouseCell"];
+                if (!cell) {
+
+                    cell = [[RentHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentHouseCell"];
+                }
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+                cell.model = _dataArr[indexPath.row];
+
+                return cell;
+            }else{
+
                 RentRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentRoomCell"];
                 if (!cell) {
 
@@ -817,7 +816,7 @@
                 cell.model = _dataArr[indexPath.row];
 
                 return cell;
-//            }
+            }
             break;
         }
         default:

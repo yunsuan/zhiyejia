@@ -1,14 +1,14 @@
 //
-//  SecHouseCell.m
+//  RentHouseCell.m
 //  zhiyejia
 //
 //  Created by 谷治墙 on 2019/3/12.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "SecHouseCell.h"
+#import "RentHouseCell.h"
 
-@implementation SecHouseCell
+@implementation RentHouseCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -20,19 +20,19 @@
     return self;
 }
 
-- (void)setModel:(SecHouseModel *)model{
+- (void)setModel:(RentHouseModel *)model{
     
-    if (model.img_url.length>0) {
+    if (model.img_url.length > 0) {
         
         [_headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,model.img_url]] placeholderImage:[UIImage imageNamed:@"default_3"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
             if (error) {
                 
-                _headImg.image = [UIImage imageNamed:@"default_3"];
+                self->_headImg.image = [UIImage imageNamed:@"default_3"];
             }
         }];
-    }
-    else{
+    }else{
+        
         _headImg.image = [UIImage imageNamed:@"default_3"];
     }
     
@@ -44,26 +44,25 @@
         _hideView.hidden = NO;
     }
     
-    
     //    _titleL.text = [NSString stringWithFormat:@"%@(%@)",model.title,[model.hide integerValue] == 0?@"公开":@"非公开"];
     _titleL.text = model.title;
     _roomLevelL.text = model.level;
     _contentL.text = model.describe;
     
-    if (model.price.length) {
+    if (model.unit_price.length) {
         
-        _priceL.text = [NSString stringWithFormat:@"%@万",model.price];
+        _priceL.text = [NSString stringWithFormat:@"%@元/月",model.unit_price];
     }else{
         
-        _priceL.text = @"暂无售价信息";
+        _priceL.text = @"暂无价格信息";
     }
     
     if (model.unit_price.length) {
         
-        _averageL.text = [NSString stringWithFormat:@"%@元/㎡",model.unit_price];
+        _payWayL.text = [NSString stringWithFormat:@"%@",model.unit_price];
     }else{
         
-        _averageL.text = @"暂无均价信息";
+        _payWayL.text = @"暂无付款信息";
     }
     
     _typeL.text = [NSString stringWithFormat:@"物业类型：%@",model.property_type];
@@ -91,19 +90,18 @@
 
 - (void)initUI{
     
-    _headImg = [[UIImageView alloc] init];//WithFrame:CGRectMake(12 *SIZE, 16 *SIZE, 100 *SIZE, 88 *SIZE)];
+    _headImg = [[UIImageView alloc] init];
     _headImg.contentMode = UIViewContentModeScaleAspectFill;
     _headImg.clipsToBounds = YES;
     [self.contentView addSubview:_headImg];
     
     _hideView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100 *SIZE, 88 *SIZE)];
-    _hideView.backgroundColor = [UIColor blackColor];;
+    _hideView.backgroundColor = [UIColor blackColor];
     _hideView.alpha = 0.4;
     _hideView.hidden = YES;
     [_headImg addSubview:_hideView];
     
     _hideL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100 *SIZE, 88 *SIZE)];
-    //    _hideL.backgroundColor = YJBackColor;
     _hideL.textColor = [UIColor whiteColor];
     _hideL.font = [UIFont systemFontOfSize:11 *SIZE];
     _hideL.textAlignment = NSTextAlignmentCenter;
@@ -133,16 +131,16 @@
     _statusImg = [[UIImageView alloc] init];
     [self.contentView addSubview:_statusImg];
     
-    _averageL = [[UILabel alloc] init];
-    _averageL.textColor = CLContentLabColor;
-    _averageL.font = [UIFont systemFontOfSize:11 *SIZE];
-    //    _averageL.numberOfLines = 0;
-    [self.contentView addSubview:_averageL];
+    _payWayL = [[UILabel alloc] init];
+    _payWayL.textColor = CLContentLabColor;
+    _payWayL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _payWayL.numberOfLines = 0;
+    [self.contentView addSubview:_payWayL];
     
     _typeL = [[UILabel alloc] init];
     _typeL.textColor = CLContentLabColor;
     _typeL.font = [UIFont systemFontOfSize:11 *SIZE];
-    //    _typeL.numberOfLines = 0;
+    _typeL.numberOfLines = 0;
     [self.contentView addSubview:_typeL];
     
     _storeL = [[UILabel alloc] init];
@@ -204,7 +202,6 @@
         make.left.equalTo(self.contentView).offset(123 *SIZE);
         make.top.equalTo(self->_contentL.mas_bottom).offset(8 *SIZE);
         make.width.equalTo(@(self->_priceL.mj_textWith + 5 *SIZE));
-        make.width.mas_lessThanOrEqualTo(120 *SIZE);
     }];
     
     [_statusImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -214,9 +211,9 @@
         make.width.height.mas_equalTo(10 *SIZE);
     }];
     
-    [_averageL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_payWayL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(265 *SIZE);
+        make.left.equalTo(self->_statusImg.mas_right).offset(44 *SIZE);
         make.top.equalTo(self->_contentL.mas_bottom).offset(8 *SIZE);
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
     }];
@@ -235,6 +232,21 @@
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
     }];
     
+//    [_tagView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(10 *SIZE);
+//        make.top.equalTo(_headImg.mas_bottom).offset(5 *SIZE);
+//        make.width.equalTo(@(340 *SIZE));
+//        make.height.equalTo(@(17 *SIZE));
+//    }];
+//
+//    [_tagView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(10 *SIZE);
+//        make.top.equalTo(_tagView.mas_bottom).offset(9 *SIZE);
+//        make.width.equalTo(@(340 *SIZE));
+//        make.height.equalTo(@(17 *SIZE));
+//    }];
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -246,4 +258,5 @@
     }];
     
 }
+
 @end

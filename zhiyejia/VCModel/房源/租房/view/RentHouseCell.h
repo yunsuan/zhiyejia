@@ -1,5 +1,5 @@
 //
-//  SecHouseCell.h
+//  RentHouseCell.h
 //  zhiyejia
 //
 //  Created by 谷治墙 on 2019/3/12.
@@ -8,19 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SecHouseModel.h"
+#import "RentHouseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SecHouseCell : UITableViewCell
+@interface RentHouseCell : UITableViewCell
 
-@property (nonatomic, strong) SecHouseModel *model;
+@property (nonatomic, strong) RentHouseModel *model;
+
+@property (nonatomic, strong) UIImageView *headImg;
 
 @property (nonatomic, strong) UIView *hideView;
 
 @property (nonatomic, strong) UILabel *hideL;
-
-@property (nonatomic, strong) UIImageView *headImg;
 
 @property (nonatomic, strong) UILabel *titleL;
 
@@ -32,13 +32,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *roomLevelL;
 
-@property (nonatomic, strong) UILabel *averageL;
+@property (nonatomic, strong) UILabel *payWayL;
 
 @property (nonatomic, strong) UILabel *typeL;
 
 @property (nonatomic, strong) UILabel *storeL;
 
+//@property (nonatomic, strong) TagView *tagView;
+//
+//@property (nonatomic, strong) TagView *tagView2;
+
 @property (nonatomic, strong) UIView *line;
+
 @end
 
 NS_ASSUME_NONNULL_END
