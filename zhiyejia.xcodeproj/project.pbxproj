@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C58935D22375717005B78A6 /* SecHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935C22375717005B78A6 /* SecHouseCell.m */; };
+		0C58936022375754005B78A6 /* SecHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935F22375754005B78A6 /* SecHouseModel.m */; };
 		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
 		0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */; };
 		0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */; };
@@ -133,6 +135,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C58935B22375717005B78A6 /* SecHouseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseCell.h; sourceTree = "<group>"; };
+		0C58935C22375717005B78A6 /* SecHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseCell.m; sourceTree = "<group>"; };
+		0C58935E22375754005B78A6 /* SecHouseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseModel.h; sourceTree = "<group>"; };
+		0C58935F22375754005B78A6 /* SecHouseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseModel.m; sourceTree = "<group>"; };
 		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -1134,6 +1140,8 @@
 			children = (
 				0CF46EC3222F769E008816E6 /* SecProjectModel.h */,
 				0CF46EC4222F769E008816E6 /* SecProjectModel.m */,
+				0C58935E22375754005B78A6 /* SecHouseModel.h */,
+				0C58935F22375754005B78A6 /* SecHouseModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1143,6 +1151,8 @@
 			children = (
 				0CF46EC7222FA311008816E6 /* SecRoomCell.h */,
 				0CF46EC8222FA311008816E6 /* SecRoomCell.m */,
+				0C58935B22375717005B78A6 /* SecHouseCell.h */,
+				0C58935C22375717005B78A6 /* SecHouseCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1477,6 +1487,7 @@
 				0CF46E1C222D01E6008816E6 /* SecRoomOfficeEquipCollCell.m in Sources */,
 				0CF46DBE22267468008816E6 /* MyAppointCell.m in Sources */,
 				0CF46DB222266BE4008816E6 /* MyMessageVC.m in Sources */,
+				0C58935D22375717005B78A6 /* SecHouseCell.m in Sources */,
 				0CF46DBA22267444008816E6 /* MyAppointVC.m in Sources */,
 				0CF46DE32227B56D008816E6 /* SecRoomProjectPropertyTypeInfoCell.m in Sources */,
 				0CE821E0221E368700576742 /* HNChannelModel.m in Sources */,
@@ -1508,6 +1519,7 @@
 				0CE8218E221D31E900576742 /* BaseViewController.m in Sources */,
 				0CF46D722223978D008816E6 /* NewRoomProjectHeader.m in Sources */,
 				10AFF8D3221D281600657217 /* main.m in Sources */,
+				0C58936022375754005B78A6 /* SecHouseModel.m in Sources */,
 				0CE821A8221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m in Sources */,
 				0CF46D6622238734008816E6 /* NewRoomProjectDetailVC.m in Sources */,
 				0CF46E13222CFBD6008816E6 /* SecRoomOfficeInfoCell.m in Sources */,

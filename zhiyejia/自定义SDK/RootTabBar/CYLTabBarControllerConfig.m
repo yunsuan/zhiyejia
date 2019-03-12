@@ -107,7 +107,7 @@
     
     NSDictionary *dict1 = @{
                             CYLTabBarItemTitle : @"房源",
-                            CYLTabBarItemImage : @"housing",
+                            CYLTabBarItemImage : @"housin",
                             CYLTabBarItemSelectedImage : @"housing_selected",
                             };
     NSDictionary *dict2 = @{
