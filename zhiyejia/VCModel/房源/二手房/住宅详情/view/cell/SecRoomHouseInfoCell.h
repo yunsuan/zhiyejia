@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SecRoomHouseDetailModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SecRoomHouseInfoCell : UITableViewCell
+
+@property (nonatomic, strong) SecRoomHouseDetailModel *model;
 
 //@property (nonatomic, strong) UILabel *codeL;
 

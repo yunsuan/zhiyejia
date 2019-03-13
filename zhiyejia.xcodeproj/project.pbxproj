@@ -12,6 +12,8 @@
 		0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936222375D11005B78A6 /* RentHouseModel.m */; };
 		0C58936622375FFA005B78A6 /* RentHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936522375FFA005B78A6 /* RentHouseCell.m */; };
 		0C58936A2237A1AE005B78A6 /* SecRoomHouseDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5893692237A1AE005B78A6 /* SecRoomHouseDetailModel.m */; };
+		0C58936E2237AEA6005B78A6 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936D2237AEA6005B78A6 /* TitleRightBtnHeader.m */; };
+		0C5893722238AF2C005B78A6 /* SecRoomStoreDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5893712238AF2C005B78A6 /* SecRoomStoreDetailModel.m */; };
 		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
 		0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */; };
 		0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */; };
@@ -148,6 +150,10 @@
 		0C58936522375FFA005B78A6 /* RentHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentHouseCell.m; sourceTree = "<group>"; };
 		0C5893682237A1AE005B78A6 /* SecRoomHouseDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomHouseDetailModel.h; sourceTree = "<group>"; };
 		0C5893692237A1AE005B78A6 /* SecRoomHouseDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomHouseDetailModel.m; sourceTree = "<group>"; };
+		0C58936C2237AEA6005B78A6 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
+		0C58936D2237AEA6005B78A6 /* TitleRightBtnHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TitleRightBtnHeader.m; sourceTree = "<group>"; };
+		0C5893702238AF2C005B78A6 /* SecRoomStoreDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomStoreDetailModel.h; sourceTree = "<group>"; };
+		0C5893712238AF2C005B78A6 /* SecRoomStoreDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomStoreDetailModel.m; sourceTree = "<group>"; };
 		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -396,6 +402,24 @@
 			children = (
 				0C5893682237A1AE005B78A6 /* SecRoomHouseDetailModel.h */,
 				0C5893692237A1AE005B78A6 /* SecRoomHouseDetailModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		0C58936B2237AE62005B78A6 /* 标题右按钮header */ = {
+			isa = PBXGroup;
+			children = (
+				0C58936C2237AEA6005B78A6 /* TitleRightBtnHeader.h */,
+				0C58936D2237AEA6005B78A6 /* TitleRightBtnHeader.m */,
+			);
+			path = "标题右按钮header";
+			sourceTree = "<group>";
+		};
+		0C58936F2238AF1C005B78A6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				0C5893702238AF2C005B78A6 /* SecRoomStoreDetailModel.h */,
+				0C5893712238AF2C005B78A6 /* SecRoomStoreDetailModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -702,6 +726,7 @@
 		0CF46D5E22237E10008816E6 /* 通用Cell和头部 */ = {
 			isa = PBXGroup;
 			children = (
+				0C58936B2237AE62005B78A6 /* 标题右按钮header */,
 				0CF46DA022262B40008816E6 /* 标题内容left基本cell */,
 				0CF46D9322251B1A008816E6 /* title基本header */,
 				0CF46D7422239D6D008816E6 /* 标题内容右图标Cell */,
@@ -1038,6 +1063,7 @@
 		0CF46DEF2227C7E7008816E6 /* 商铺详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C58936F2238AF1C005B78A6 /* model */,
 				0CF46E23222D0F4E008816E6 /* view */,
 				0CF46E20222D0A7E008816E6 /* SecRoomStoreDetailVC.h */,
 				0CF46E21222D0A7E008816E6 /* SecRoomStoreDetailVC.m */,
@@ -1503,6 +1529,7 @@
 				0CE821A6221D53A900576742 /* CYLPlusButton.m in Sources */,
 				0CE821F7221E3F8900576742 /* BaseRequest.m in Sources */,
 				10AFF8C8221D281300657217 /* ViewController.m in Sources */,
+				0C58936E2237AEA6005B78A6 /* TitleRightBtnHeader.m in Sources */,
 				0CF46EC5222F769E008816E6 /* SecProjectModel.m in Sources */,
 				0CF46E0B222CD68F008816E6 /* SecAllRoomCollCell.m in Sources */,
 				0CE821DB221E368700576742 /* UIView+Frame.m in Sources */,
@@ -1554,6 +1581,7 @@
 				0CE821B0221D540C00576742 /* MineVC.m in Sources */,
 				0CF46DED2227C614008816E6 /* RentRoomProjectHeader.m in Sources */,
 				0CF46E08222CD43D008816E6 /* SecRoomHouseOtherHouseCell.m in Sources */,
+				0C5893722238AF2C005B78A6 /* SecRoomStoreDetailModel.m in Sources */,
 				0CF46ECE222FA809008816E6 /* RentRoomCell.m in Sources */,
 				0CE821F2221E3E0A00576742 /* UserModelArchiver.m in Sources */,
 				0CF46DC222267D80008816E6 /* MySubscibeVC.m in Sources */,

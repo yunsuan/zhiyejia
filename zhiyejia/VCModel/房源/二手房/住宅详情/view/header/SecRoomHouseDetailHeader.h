@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "SecRoomHouseDetailModel.h"
+#import "SecRoomStoreDetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,8 @@ typedef void(^SecRoomHouseDetailHeaderImgBlock)(NSInteger num,NSArray *imgArr);
 @interface SecRoomHouseDetailHeader : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) SecRoomHouseDetailModel *model;
+
+@property (nonatomic, strong) SecRoomStoreDetailModel *storeModel;
 
 @property (nonatomic, strong) NSMutableArray *imgArr;
 

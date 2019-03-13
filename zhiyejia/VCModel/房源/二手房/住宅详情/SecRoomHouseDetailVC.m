@@ -9,6 +9,8 @@
 #import "SecRoomHouseDetailVC.h"
 
 #import "SecRoomHouseDetailHeader.h"
+#import "TitleRightBtnHeader.h"
+#import "NewRoomProjectDetailFooter.h"
 #import "SecRoomHouseInfoCell.h"
 #import "SecRoomHouseDynamicCell.h"
 #import "SecRoomHouseProjectCell.h"
@@ -28,6 +30,7 @@
     NSMutableDictionary *_focusDic;
     NSString *_focusId;
     NSMutableArray *_houseArr;
+    NSMutableDictionary *_takeInfoDic;
 }
 @property (nonatomic, strong) UITableView *roomTable;
 
@@ -71,7 +74,7 @@
     _model = [[SecRoomHouseDetailModel alloc] init];
     _focusDic = [@{} mutableCopy];
     _houseArr = [@[] mutableCopy];
-    
+    _takeInfoDic = [@{} mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -151,6 +154,11 @@
         _houseArr = [NSMutableArray arrayWithArray:data[@"other"]];
     }
     
+    if ([data[@"take_info"] isKindOfClass:[NSDictionary class]]) {
+        
+        _takeInfoDic = [NSMutableDictionary dictionaryWithDictionary:data[@"take_info"]];
+    }
+    
     [_roomTable reloadData];
 }
 
@@ -189,39 +197,148 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 4;
+    return 4 *SIZE;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    SecRoomHouseDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SecRoomHouseDetailHeader"];
-    if (!header) {
+    if (section == 0) {
         
-        header = [[SecRoomHouseDetailHeader alloc] initWithReuseIdentifier:@"SecRoomHouseDetailHeader"];
+        SecRoomHouseDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SecRoomHouseDetailHeader"];
+        if (!header) {
+            
+            header = [[SecRoomHouseDetailHeader alloc] initWithReuseIdentifier:@"SecRoomHouseDetailHeader"];
+        }
+        
+        header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
+        
+        header.model = _model;
+        
+        return header;
+    }else{
+        
+        TitleRightBtnHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleRightBtnHeader"];
+        if (!header) {
+            
+            header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
+        }
+        
+        header.moreBtn.hidden = YES;
+        if (section == 1) {
+            
+            header.titleL.text = @"房源信息";
+        }else if (section == 2){
+            
+            header.titleL.text = @"周边及配套 ";
+        }else if (section == 3){
+            
+            header.titleL.text = @"房源动态";
+        }else if (section == 4){
+            
+            header.titleL.text = @"房源信息";
+        }else{
+            
+            header.titleL.text = @"小区其他房源";
+        }
+        
+        return header;
     }
-    
-    header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
-    
-    header.model = _model;
-    
-    return header;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
-    return [[UIView alloc] init];
+    NewRoomProjectDetailFooter *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"NewRoomProjectDetailFooter"];
+    if (!header) {
+        
+        header = [[NewRoomProjectDetailFooter alloc] initWithReuseIdentifier:@"NewRoomProjectDetailFooter"];
+    }
+    
+    return header;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    SecRoomHouseInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseInfoCell"];
-    if (!cell) {
+    if (indexPath.section == 1) {
         
-        cell = [[SecRoomHouseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseInfoCell"];
+        SecRoomHouseInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseInfoCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseInfoCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.model = _model;
+        return cell;
+    }else if (indexPath.section == 2){
+        
+        SecRoomHouseDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseDynamicCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseDynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseDynamicCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }else if (indexPath.section == 3){
+        
+        SecRoomHouseDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseDynamicCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseDynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseDynamicCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _takeInfoDic;
+        return cell;
+    }else if (indexPath.section == 4){
+        
+        SecRoomHouseProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseProjectCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseProjectCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseProjectCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.houseModel = _model;
+        
+        return cell;
+    }else{
+        
+        SecRoomHouseOtherHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseOtherHouseCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseOtherHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseOtherHouseCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (_houseArr.count) {
+            
+            cell.num = _houseArr.count;
+        }else{
+            
+            cell.num = 1;
+        }
+        
+        if (_houseArr.count) {
+            
+            cell.dataArr = [NSMutableArray arrayWithArray:_houseArr];
+            [cell.cellColl reloadData];
+        }else{
+            
+            [cell.cellColl reloadData];
+        }
+        
+        cell.secRoomHouseOtherHouseCellBlock = ^(NSInteger index) {
+            
+            if (self->_houseArr.count) {
+                
+//                SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:_houseArr[index][@"house_id"] city:_city];
+//                nextVC.type = [_houseArr[index][@"type"] integerValue];
+//                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+        };
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -232,21 +349,21 @@
 - (void)initUI{
     
     
-    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
+    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 57 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
     
     _roomTable.rowHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedRowHeight = 200 *SIZE;
     
     _roomTable.estimatedSectionHeaderHeight = 316 *SIZE;
     
-    _roomTable.backgroundColor = self.view.backgroundColor;
+    _roomTable.backgroundColor = CLLineColor;
     _roomTable.delegate = self;
     _roomTable.dataSource = self;
     _roomTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_roomTable];
     
     _attentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _attentBtn.frame = CGRectMake(0, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 70 *SIZE, 57 *SIZE + TAB_BAR_MORE);
+    _attentBtn.frame = CGRectMake(0, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 70 *SIZE, 43 *SIZE + TAB_BAR_MORE);
     _attentBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_attentBtn addTarget:self action:@selector(ActionAttentBtn:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -267,25 +384,25 @@
     
     _consultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _consultBtn.frame = CGRectMake(78 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 133 *SIZE, 43 *SIZE + TAB_BAR_MORE);
-    _consultBtn.layer.cornerRadius = 21.5 *SIZE + 17;
+    _consultBtn.layer.cornerRadius = 7 *SIZE;//21.5 *SIZE + 17;
     _consultBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_consultBtn addTarget:self action:@selector(ActionConsultBtn:) forControlEvents:UIControlEventTouchUpInside];
     //    [_counselBtn setTitle:@"电话咨询" forState:UIControlStateNormal];
     [_consultBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     CAGradientLayer *gradientLayer0 = [[CAGradientLayer alloc] init];
-    gradientLayer0.cornerRadius = 21.666666666666668;
+    gradientLayer0.cornerRadius = 7 *SIZE;
     gradientLayer0.frame = _consultBtn.bounds;
     gradientLayer0.colors = @[
-                              (id)[UIColor colorWithRed:0.0f/255.0f green:132.0f/255.0f blue:244.0f/255.0f alpha:1.0f].CGColor,
-                              (id)[UIColor colorWithRed:0.0f/255.0f green:172.0f/255.0f blue:240.0f/255.0f alpha:1.0f].CGColor];
+                              (id)[UIColor colorWithRed:247.0f/255.0f green:198.0f/255.0f blue:53.0f/255.0f alpha:1.0f].CGColor,
+                              (id)[UIColor colorWithRed:255.0f/255.0f green:205.0f/255.0f blue:64.0f/255.0f alpha:1.0f].CGColor];
     gradientLayer0.locations = @[@0, @1];
-    [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
+//    [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
     [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
     [gradientLayer0 setEndPoint:CGPointMake(1, 0)];
     [_consultBtn.layer addSublayer:gradientLayer0];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 273 *SIZE, 13 *SIZE)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 133 *SIZE, 13 *SIZE)];
     label.textColor = CLWhiteColor;
     label.text = @"电话咨询";
     label.font = [UIFont systemFontOfSize:13 *SIZE];
@@ -296,22 +413,24 @@
     
     _appointBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _appointBtn.frame = CGRectMake(217 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 133 *SIZE, 43 *SIZE + TAB_BAR_MORE);
-    _appointBtn.layer.cornerRadius = 21.5 *SIZE + 17;
+    _appointBtn.layer.cornerRadius = 7 *SIZE;//21.5 *SIZE + 17;
     _appointBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_appointBtn addTarget:self action:@selector(ActionRecommendBtn:) forControlEvents:UIControlEventTouchUpInside];
     //    [_counselBtn setTitle:@"电话咨询" forState:UIControlStateNormal];
     [_appointBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     CAGradientLayer *gradientLayer1 = [[CAGradientLayer alloc] init];
-    gradientLayer1.cornerRadius = 10 *SIZE;
+    gradientLayer1.cornerRadius = 7 *SIZE;
     gradientLayer1.frame = _appointBtn.bounds;
     gradientLayer1.colors = @[
                               (id)[UIColor colorWithRed:0.0f/255.0f green:132.0f/255.0f blue:244.0f/255.0f alpha:1.0f].CGColor,
                               (id)[UIColor colorWithRed:0.0f/255.0f green:170.0f/255.0f blue:238.0f/255.0f alpha:1.0f].CGColor];
     gradientLayer1.locations = @[@0, @1];
     [gradientLayer1 setStartPoint:CGPointMake(0, 1)];
+    [gradientLayer1 setEndPoint:CGPointMake(1, 0)];
+    [_appointBtn.layer addSublayer:gradientLayer1];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 273 *SIZE, 13 *SIZE)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 133 *SIZE, 13 *SIZE)];
     label1.textColor = CLWhiteColor;
     label1.text = @"预约看房";
     label1.font = [UIFont systemFontOfSize:13 *SIZE];

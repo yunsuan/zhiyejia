@@ -315,15 +315,15 @@
       
         if ([model.type integerValue] == 1) {
             
-            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:_city];
+            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
             [self.navigationController pushViewController:nextVC animated:YES];
         }else if ([model.type integerValue] == 2){
             
-            SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] init];
+            SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
             [self.navigationController pushViewController:nextVC animated:YES];
         }else{
             
-            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] init];
+            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
             [self.navigationController pushViewController:nextVC animated:YES];
         }
     };

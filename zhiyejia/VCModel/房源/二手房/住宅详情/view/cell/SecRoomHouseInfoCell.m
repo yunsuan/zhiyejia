@@ -20,11 +20,11 @@
     return self;
 }
 
-//- (void)setModel:(SecAllRoomProjectModel *)model{
-//
+- (void)setModel:(SecRoomHouseDetailModel *)model{
+
 //    [_tagView setData:model.project_tags];
 //    [_tagView2 setData:model.house_tags];
-//
+
 //    if (model.house_code.length) {
 //
 //        _codeL.text = [NSString stringWithFormat:@"房源编号：%@",model.house_code];
@@ -32,73 +32,73 @@
 //
 //        _codeL.text = [NSString stringWithFormat:@"房源编号：暂无数据"];
 //    }
-//
-//
-//    if ([model.unit_price integerValue]) {
-//
-//        _priceL.text = [NSString stringWithFormat:@"单价：%@元/m²",model.unit_price];
-//    }else{
-//
-//        _priceL.text = [NSString stringWithFormat:@"单价：暂无数据"];
-//    }
-//
-//    //    if ([model.unit_price integerValue]) {
-//    //
-//    //        _yearL.text = [NSString stringWithFormat:@"建成年代：%@",model.price];
-//    //    }else{
-//    //
-//    _yearL.text = [NSString stringWithFormat:@"建成年代：暂无数据"];
-//    //    }
-//
-//
-//    if (model.decoration.length) {
-//
-//        _decorateL.text = [NSString stringWithFormat:@"装修：%@",model.decoration];
-//    }else{
-//
-//        _decorateL.text = [NSString stringWithFormat:@"装修：暂无数据"];
-//    }
-//
-//    if (model.permit_time.length) {
-//
-//        _timeL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
-//    }else{
-//
-//        _timeL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
-//    }
-//
-//    if (model.floor_type.length) {
-//
-//        _floorL.text = [NSString stringWithFormat:@"楼层：%@",model.floor_type];
-//    }else{
-//
-//        _floorL.text = [NSString stringWithFormat:@"楼层：暂无数据"];
-//    }
-//
-//    if (model.check_in_time.length && ![model.check_in_time containsString:@"0000"]) {
-//
-//        _inTimeL.text = [NSString stringWithFormat:@"可入住时间：%@后",model.check_in_time];
-//    }else{
-//
-//        _inTimeL.text = [NSString stringWithFormat:@"可入住时间：随时入住"];
-//    }
-//
-//    if ([model.property_limit integerValue]) {
-//
-//        _proLimitL.text = [NSString stringWithFormat:@"产权年限：%@年",model.property_limit];
-//    }else{
-//
-//        _proLimitL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
-//    }
-//
-//    if (model.comment.length) {
-//
-//        _markL.text = [NSString stringWithFormat:@" 其他要求：%@\n",model.comment];
-//    }else{
-//
-//        _markL.text = [NSString stringWithFormat:@"其他要求：暂无数据"];
-//    }
-//}
+
+
+    if ([model.unit_price integerValue]) {
+
+        _priceL.text = [NSString stringWithFormat:@"单价：%@元/m²",model.unit_price];
+    }else{
+
+        _priceL.text = [NSString stringWithFormat:@"单价：暂无数据"];
+    }
+
+    //    if ([model.unit_price integerValue]) {
+    //
+    //        _yearL.text = [NSString stringWithFormat:@"建成年代：%@",model.price];
+    //    }else{
+    //
+    _yearL.text = [NSString stringWithFormat:@"建成年代：暂无数据"];
+    //    }
+
+
+    if (model.decoration.length) {
+
+        _decorateL.text = [NSString stringWithFormat:@"装修：%@",model.decoration];
+    }else{
+
+        _decorateL.text = [NSString stringWithFormat:@"装修：暂无数据"];
+    }
+
+    if (model.permit_time.length) {
+
+        _timeL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
+    }else{
+
+        _timeL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
+    }
+
+    if (model.floor_type.length) {
+
+        _floorL.text = [NSString stringWithFormat:@"楼层：%@",model.floor_type];
+    }else{
+
+        _floorL.text = [NSString stringWithFormat:@"楼层：暂无数据"];
+    }
+
+    if (model.check_in_time.length && ![model.check_in_time containsString:@"0000"]) {
+
+        _inTimeL.text = [NSString stringWithFormat:@"可入住时间：%@后",model.check_in_time];
+    }else{
+
+        _inTimeL.text = [NSString stringWithFormat:@"可入住时间：随时入住"];
+    }
+
+    if ([model.property_limit integerValue]) {
+
+        _proLimitL.text = [NSString stringWithFormat:@"产权年限：%@年",model.property_limit];
+    }else{
+
+        _proLimitL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
+    }
+
+    if (model.comment.length) {
+
+        _markL.text = [NSString stringWithFormat:@" 其他要求：%@\n",model.comment];
+    }else{
+
+        _markL.text = [NSString stringWithFormat:@"其他要求：暂无数据"];
+    }
+}
 //
 //- (void)setOfficeModel:(SecAllRoomOfficeModel *)officeModel{
 //
@@ -263,23 +263,12 @@
 }
 
 - (void)MasonryUI{
-    
-    //    [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //        make.left.equalTo(self.contentView).offset(10 *SIZE);
-    //        make.top.equalTo(self.contentView).offset(76 *SIZE);
-    //        make.width.equalTo(@(150 *SIZE));
-    //    }];
-    
+        
     [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self.contentView).offset(76 *SIZE);
         make.width.equalTo(@(150 *SIZE));
-        
-        //        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        //        make.top.equalTo(self.contentView).offset(76 *SIZE);
-        //        make.width.equalTo(@(150 *SIZE));
     }];
     
     [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -294,11 +283,6 @@
         make.left.equalTo(self.contentView).offset(200 *SIZE);
         make.top.equalTo(self.contentView).offset(76 *SIZE);
         make.width.equalTo(@(150 *SIZE));
-        
-        
-        //        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        //        make.top.equalTo(_priceL.mas_bottom).offset(19 *SIZE);
-        //        make.width.equalTo(@(150 *SIZE));
     }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -315,17 +299,12 @@
         make.left.equalTo(self.contentView).offset(200 *SIZE);
         make.top.equalTo(self->_priceL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
-        
-        //        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        //        make.top.equalTo(_decorateL.mas_bottom).offset(19 *SIZE);
-        //        make.width.equalTo(@(150 *SIZE));
     }];
     
     [_inTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_timeL.mas_bottom).offset(19 *SIZE);
-        //        make.width.equalTo(@(150 *SIZE));
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
     }];
     
@@ -335,9 +314,6 @@
         make.left.equalTo(self.contentView).offset(200 *SIZE);
         make.top.equalTo(self->_floorL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
-        //        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        //        make.top.equalTo(_floorL.mas_bottom).offset(19 *SIZE);
-        //        make.width.equalTo(@(150 *SIZE));
     }];
     
     [_markView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -353,7 +329,6 @@
         make.left.equalTo(self->_markView).offset(4 *SIZE);
         make.top.equalTo(self->_markView).offset(15 *SIZE);
         make.width.equalTo(@(330 *SIZE));
-        //        make.height.mas_equalTo(CGRectGetHeight(_markL) + 26 *SIZE);
         make.bottom.equalTo(self->_markView).offset(-15 *SIZE);
     }];
     

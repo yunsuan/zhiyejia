@@ -153,6 +153,31 @@
     }
 }
 
+- (void)setStoreModel:(SecRoomStoreDetailModel *)storeModel{
+    
+    _titleL.text = storeModel.title;
+    
+    _propertyL.text = storeModel.property_type;
+    
+    _priceL.text = [NSString stringWithFormat:@"￥%@万",storeModel.price];
+    
+    _typeL.text = storeModel.house_type;
+    
+    _areaL.text = [NSString stringWithFormat:@"%@㎡",storeModel.build_area];
+    _areaTL.text = @"面积";
+    
+    if ([storeModel.price_change integerValue] == 0) {
+        
+        _statusImg.image = [UIImage imageNamed:@""];
+    }else if ([storeModel.price_change integerValue] == 1){
+        
+        _statusImg.image = [UIImage imageNamed:@"rising"];
+    }else{
+        
+        _statusImg.image = [UIImage imageNamed:@"falling"];
+    }
+}
+
 #pragma mark -- ScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

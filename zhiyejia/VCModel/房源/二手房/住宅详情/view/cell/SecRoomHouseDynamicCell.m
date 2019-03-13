@@ -20,6 +20,31 @@
     return self;
 }
 
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
+    
+    if (dataDic[@"range_take"]) {
+        
+        _daysL.text = [NSString stringWithFormat:@"%@",dataDic[@"range_take"]];
+    }else{
+        
+        _daysL.text = @"0";
+    }
+    if (dataDic[@"total_take"]) {
+        
+        _allL.text = [NSString stringWithFormat:@"%@",dataDic[@"total_take"]];
+    }else{
+        
+        _allL.text = @"0";
+    }
+    if (dataDic[@"suggest_price"]) {
+        
+        _intentL.text = [NSString stringWithFormat:@"%@",dataDic[@"suggest_price"]];
+    }else{
+        
+        _intentL.text = @"0";
+    }
+}
+
 - (void)initUI{
     
     NSArray *titleArr = @[@"近7日看房(次)",@"累计看房(次)",@"参考价格(万元)"];
@@ -71,23 +96,57 @@
             default:
                 break;
         }
-        
-        
-        //        [self.contentView addSubview:label1];
     }
-    
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 75 *SIZE, 60 *SIZE, 11 *SIZE)];
-    label2.textColor = CL86Color;
-    label2.font = [UIFont systemFontOfSize:12 *SIZE];
-    label2.text = @"看房记录";
-    [self.contentView addSubview:label2];
-    
-    
+        
     [self MasonryUI];
 }
 
 - (void)MasonryUI{
     
+    [_daysL mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(0);
+        make.top.equalTo(self.contentView).offset(23 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_daysLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0);
+        make.top.equalTo(self->_daysL.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+        make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
+    }];
+    
+    [_allL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(120);
+        make.top.equalTo(self.contentView).offset(23 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_allLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(120);
+        make.top.equalTo(self->_allL.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+        make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
+    }];
+    
+    [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(240);
+        make.top.equalTo(self.contentView).offset(23 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_intentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(240);
+        make.top.equalTo(self->_intentL.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+        make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
+    }];
 }
 
 @end
