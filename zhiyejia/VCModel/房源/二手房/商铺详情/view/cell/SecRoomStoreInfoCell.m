@@ -20,6 +20,82 @@
     return self;
 }
 
+- (void)setModel:(SecRoomStoreDetailModel *)model{
+    
+//    if (model.house_code.length) {
+//
+//        _codeL.text = [NSString stringWithFormat:@"房源编号：%@",model.house_code];
+//    }else{
+//
+//        _codeL.text = [NSString stringWithFormat:@"房源编号：暂无数据"];
+//    }
+    
+    if ([model.unit_price integerValue]) {
+        
+        _priceL.text = [NSString stringWithFormat:@"单价：%@元/m²",model.unit_price];
+    }else{
+        
+        _priceL.text = [NSString stringWithFormat:@"单价：暂无数据"];
+    }
+    
+//    if (model.permit_time.length) {
+//        
+//        _proLimitL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
+//    }else{
+//        
+//        _proLimitL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
+//    }
+    
+    if ([model.property_limit integerValue]) {
+        
+        _yearL.text = [NSString stringWithFormat:@"产权年限：%@",model.property_limit];
+    }else{
+        
+        _yearL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
+    }
+    
+    
+    if ([model.rent_money integerValue]) {
+        
+        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：%@元/月",model.rent_money];
+    }else{
+        
+        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：暂无数据"];
+    }
+    
+    if ([model.reference_rent integerValue]) {
+        
+        _referRentPriceL.text = [NSString stringWithFormat:@"参考租金：%@元/月",model.reference_rent];
+    }else{
+        
+        _referRentPriceL.text = [NSString stringWithFormat:@"参考租金：暂无数据"];
+    }
+    
+    if ([model.rent_over_time integerValue]) {
+        
+        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：%@",model.rent_over_time];
+    }else{
+        
+        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：暂无数据"];
+    }
+    
+    if (model.format_tags.length) {
+        
+        _formatL.text = [NSString stringWithFormat:@"适合业态：%@",model.format_tags];
+    }else{
+        
+        _formatL.text = [NSString stringWithFormat:@"适合业态：暂无数据"];
+    }
+    
+    if (model.comment.length) {
+        
+        _markL.text = [NSString stringWithFormat:@" 其他要求：%@\n",model.comment];
+    }else{
+        
+        _markL.text = [NSString stringWithFormat:@"其他要求：暂无数据"];
+    }
+}
+
 - (void)initUI{
     
     _markView = [[UIView alloc] init];

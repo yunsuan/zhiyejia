@@ -13,7 +13,10 @@
 @interface SecRoomStoreDetailHeader()<UIScrollViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     
-    
+    NSInteger _num;
+    NSInteger _nowNum;
+    NSMutableArray *_allArr;
+    NSInteger _total;
 }
 
 @end
@@ -47,7 +50,107 @@
 
 - (void)setImgArr:(NSMutableArray *)imgArr{
     
+    _total = 0;
+    [_allArr removeAllObjects];
+    if (!imgArr.count) {
+        
+        UIImageView *img = [[UIImageView alloc] initWithFrame:_imgScroll.frame];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.image = [UIImage imageNamed:@"default_3"];
+        img.clipsToBounds = YES;
+        
+        [_imgScroll setContentSize:CGSizeMake(SCREEN_Width, _imgScroll.frame.size.height)];
+        [_imgScroll addSubview:img];
+        _numL.text = @"0/0";
+        //        [self.contentView addSubview:img];
+    }else{
+        
+        for (UIView *view in _imgScroll.subviews) {
+            
+            [view removeFromSuperview];
+        }
+        _imgArr = [NSMutableArray arrayWithArray:imgArr];
+        for ( int i = 0; i < imgArr.count; i++) {
+            
+            if ([imgArr[i] isKindOfClass:[NSDictionary class]]) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:imgArr[i]];
+                
+                if ([tempDic[@"list"] count]) {
+                    for (int j = 0; j < [tempDic[@"list"] count]; j++) {
+                        
+                        _total = _total + 1;
+                        [_allArr addObject:tempDic[@"list"][j]];
+                    }
+                }else{
+                    
+                    _total += 1;
+                    [_allArr addObject:@{@"img_url":@"default_3"}];
+                }
+            }
+        }
+        [_imgScroll setContentSize:CGSizeMake(SCREEN_Width * _total, _imgScroll.frame.size.height)];
+        
+        for (int i = 0; i < _total; i++) {
+            
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_Width * i, 0, SCREEN_Width, _imgScroll.frame.size.height)];
+            img.backgroundColor = [UIColor whiteColor];
+            img.contentMode = UIViewContentModeScaleAspectFill;
+            img.clipsToBounds = YES;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionImgBtn)];
+            [img addGestureRecognizer:tap];
+            img.userInteractionEnabled = YES;
+            [_imgScroll addSubview:img];
+            if ([_allArr[i][@"img_url"] isEqualToString:@"default_3"]) {
+                
+                img.image = [UIImage imageNamed:@"default_3"];
+            }else{
+                
+                NSString *imgurl =_allArr[i][@"img_url"];
+                if (imgurl.length>0) {
+                    [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_allArr[i][@"img_url"]]] placeholderImage:[UIImage imageNamed:@"default_3"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                        
+                        if (error) {
+                            
+                            img.image = [UIImage imageNamed:@"default_3"];
+                        }
+                    }];
+                }
+                else{
+                    img.image = [UIImage imageNamed:@"default_3"];
+                }
+            }
+            
+        }
+        _numL.text = [NSString stringWithFormat:@"1/%ld",_total];
+        [_imgColl reloadData];
+        [_imgColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:0];
+    }
+}
+
+- (void)setStoreModel:(SecRoomStoreDetailModel *)storeModel{
     
+    _titleL.text = storeModel.title;
+    
+    _propertyL.text = storeModel.property_type;
+    
+    _priceL.text = [NSString stringWithFormat:@"￥%@万",storeModel.price];
+    
+    _typeL.text = storeModel.house_type;
+    
+    _areaL.text = [NSString stringWithFormat:@"%@㎡",storeModel.build_area];
+    _areaTL.text = @"面积";
+    
+    if ([storeModel.price_change integerValue] == 0) {
+        
+        _statusImg.image = [UIImage imageNamed:@""];
+    }else if ([storeModel.price_change integerValue] == 1){
+        
+        _statusImg.image = [UIImage imageNamed:@"rising"];
+    }else{
+        
+        _statusImg.image = [UIImage imageNamed:@"falling"];
+    }
 }
 
 #pragma mark -- ScrollViewDelegate
@@ -173,17 +276,15 @@
     _moreView = [[UIView alloc] initWithFrame:CGRectMake(0, 249 *SIZE, SCREEN_Width, 67 *SIZE)];
     _moreView.backgroundColor = [UIColor whiteColor];
     //    NSArray *titleArr = @[@"售价",@"房型",@"产权面积"];
-    NSArray *titleArr = @[@"售价",@"户型",@"产权面积"];
-    for (int i = 0; i < 3; i++) {
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_Width / 2, 17 *SIZE, SIZE, 36 *SIZE)];
+    line.backgroundColor = CLLineColor;
+    [_moreView addSubview:line];
+    
+    NSArray *titleArr = @[@"售价",@"产权面积"];
+    for (int i = 0; i < 2; i++) {
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 17 *SIZE, SIZE, 36 *SIZE)];
-        line.backgroundColor = CLBackColor;
-        if (i != 0) {
-            
-            [_moreView addSubview:line];
-        }
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 19 *SIZE, SCREEN_Width / 3, 13 *SIZE)];
+    
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_Width / 2 + SIZE)* i, 19 *SIZE, SCREEN_Width / 2 - SIZE, 13 *SIZE)];
         label.textColor = CLBlueBtnColor;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         label.textAlignment = NSTextAlignmentCenter;
@@ -196,12 +297,12 @@
                 break;
             }
             case 1:
-            {
-                _typeL = label;
-                [_moreView addSubview:_typeL];
-                break;
-            }
-            case 2:
+//            {
+//                _typeL = label;
+//                [_moreView addSubview:_typeL];
+//                break;
+//            }
+//            case 2:
             {
                 _areaL = label;
                 [_moreView addSubview:_areaL];
@@ -211,7 +312,7 @@
                 break;
         }
         
-        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 41 *SIZE, SCREEN_Width / 3, 11 *SIZE)];
+        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 2 * i, 41 *SIZE, SCREEN_Width / 2, 11 *SIZE)];
         label1.textColor = CL86Color;
         label1.font = [UIFont systemFontOfSize:12 *SIZE];
         label1.textAlignment = NSTextAlignmentCenter;
@@ -224,12 +325,12 @@
                 break;
             }
             case 1:
-            {
-                _typeTL = label1;
-                [_moreView addSubview:_typeTL];
-                break;
-            }
-            case 2:
+//            {
+//                _typeTL = label1;
+//                [_moreView addSubview:_typeTL];
+//                break;
+//            }
+//            case 2:
             {
                 _areaTL = label1;
                 [_moreView addSubview:_areaTL];

@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SecRoomStoreDetailModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SecRoomStoreDetailHeader : UITableViewHeaderFooterView
+
+@property (nonatomic, strong) SecRoomStoreDetailModel *storeModel;
 
 @property (nonatomic, strong) UIScrollView *imgScroll;
 

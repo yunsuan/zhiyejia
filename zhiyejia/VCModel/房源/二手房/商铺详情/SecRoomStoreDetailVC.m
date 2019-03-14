@@ -8,7 +8,8 @@
 
 #import "SecRoomStoreDetailVC.h"
 
-#import "SecRoomHouseDetailHeader.h"
+//#import "SecRoomHouseDetailHeader.h"
+#import "SecRoomStoreDetailHeader.h"
 #import "TitleRightBtnHeader.h"
 #import "NewRoomProjectDetailFooter.h"
 #import "SecRoomStoreInfoCell.h"
@@ -202,10 +203,10 @@
     
     if (section == 0) {
         
-        SecRoomHouseDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SecRoomHouseDetailHeader"];
+        SecRoomStoreDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SecRoomStoreDetailHeader"];
         if (!header) {
             
-            header = [[SecRoomHouseDetailHeader alloc] initWithReuseIdentifier:@"SecRoomHouseDetailHeader"];
+            header = [[SecRoomStoreDetailHeader alloc] initWithReuseIdentifier:@"SecRoomStoreDetailHeader"];
         }
         
         header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
@@ -256,7 +257,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         
         SecRoomStoreInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomStoreInfoCell"];
         if (!cell) {
@@ -264,6 +265,8 @@
             cell = [[SecRoomStoreInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomStoreInfoCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.model = _model;
         
         return cell;
     }else{

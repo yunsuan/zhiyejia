@@ -76,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *property_type;
 
+@property (nonatomic, copy) NSString *reference_rent;
+
 @property (nonatomic, copy) NSString *rent_money;
 
 @property (nonatomic, copy) NSString *rent_over_time;
