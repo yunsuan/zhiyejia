@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *describe;
 
+@property (nonatomic, copy) NSString *floor_type;
+
 @property (nonatomic, copy) NSString *format_tags;
 
 @property (nonatomic, copy) NSString *grade;
@@ -44,13 +46,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *latitude;
 
-@property (nonatomic, copy) NSString *left_shop;
+@property (nonatomic, copy) NSString *left_office;
 
 @property (nonatomic, copy) NSString *level;
 
 @property (nonatomic, copy) NSString *longitude;
 
 @property (nonatomic, strong) NSMutableArray *match_tags;
+
+@property (nonatomic, copy) NSString *office_height;
+
+@property (nonatomic, copy) NSString *office_width;
 
 @property (nonatomic, copy) NSString *orientation;
 
@@ -84,13 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *rent_over_time;
 
-@property (nonatomic, copy) NSString *right_shop;
-
-@property (nonatomic, copy) NSString *shop_height;
-
-@property (nonatomic, copy) NSString *shop_type;
-
-@property (nonatomic, copy) NSString *shop_width;
+@property (nonatomic, copy) NSString *right_office;
 
 @property (nonatomic, copy) NSString *title;
 

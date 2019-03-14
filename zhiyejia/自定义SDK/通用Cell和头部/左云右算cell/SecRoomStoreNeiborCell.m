@@ -47,31 +47,31 @@
     
 }
 
-//- (void)setOfficeModel:(SecAllRoomOfficeModel *)officeModel{
-//
-//    _leftImg.image = [UIImage imageNamed:@"company"];
-//    _centerImg.image = [UIImage imageNamed:@"company_1"];
-//    _rightImg.image = [UIImage imageNamed:@"company"];
-//
-//    if (officeModel.left_office.length) {
-//
-//        _leftL.text = officeModel.left_office;
-//    }else{
-//
-//        _leftL.text = @"暂无数据";
-//    }
-//
-//    _centerL.text = @"本企业";
-//
-//
-//    if (officeModel.right_office.length) {
-//
-//        _rightL.text = officeModel.right_office;
-//    }else{
-//
-//        _rightL.text = @"暂无数据";
-//    }
-//}
+- (void)setOfficeModel:(SecRoomOfficeDetailModel *)officeModel{
+
+    _leftImg.image = [UIImage imageNamed:@"company"];
+    _centerImg.image = [UIImage imageNamed:@"company_1"];
+    _rightImg.image = [UIImage imageNamed:@"company"];
+
+    if (officeModel.left_office.length) {
+
+        _leftL.text = officeModel.left_office;
+    }else{
+
+        _leftL.text = @"暂无数据";
+    }
+
+    _centerL.text = @"本企业";
+
+
+    if (officeModel.right_office.length) {
+
+        _rightL.text = officeModel.right_office;
+    }else{
+
+        _rightL.text = @"暂无数据";
+    }
+}
 
 - (void)initUI{
     

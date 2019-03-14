@@ -31,16 +31,16 @@
     _yearTL.text = @"建成年代";
 }
 
-//- (void)setOfficeModel:(SecAllRoomOfficeModel *)officeModel{
-//
-//    _highL.text = [NSString stringWithFormat:@"%@m",officeModel.office_height];
-//    _highTL.text = @"层高";
-//
-//    _widthL.text = [NSString stringWithFormat:@"%@m",officeModel.office_width];
-//    _widthTL.text = @"门宽";
-//    _yearL.text = @"";
-//    _yearTL.text = @"建成年代";
-//}
+- (void)setOfficeModel:(SecRoomOfficeDetailModel *)officeModel{
+
+    _highL.text = [NSString stringWithFormat:@"%@m",officeModel.office_height];
+    _highTL.text = @"层高";
+
+    _widthL.text = [NSString stringWithFormat:@"%@m",officeModel.office_width];
+    _widthTL.text = @"门宽";
+    _yearL.text = @"";
+    _yearTL.text = @"建成年代";
+}
 
 - (void)initUI{
     

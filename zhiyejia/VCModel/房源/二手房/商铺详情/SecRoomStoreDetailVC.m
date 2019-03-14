@@ -114,13 +114,16 @@
             
             if ([obj isKindOfClass:[NSNull class]]) {
                 
-                [tempDic setObject:@"" forKey:key];
-            }else{
-                
-                if ([obj isKindOfClass:[NSNumber class]]) {
+                if ([key isEqualToString:@"match_tags"] || [key isEqualToString:@"house_tags"] || [key isEqualToString:@"project_tags"]) {
                     
-                    [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                    [tempDic setObject:@[] forKey:key];
+                }else{
+                    
+                    [tempDic setObject:@"" forKey:key];
                 }
+            }else if ([obj isKindOfClass:[NSNumber class]]){
+                
+                [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
             }
         }];
         _model = [[SecRoomStoreDetailModel alloc] initWithDictionary:tempDic];
@@ -232,13 +235,22 @@
             header.titleL.text = @"房源信息";
         }else if (section == 2){
             
-            header.titleL.text = @"周边及配套 ";
+            header = nil;
         }else if (section == 3){
             
-            header.titleL.text = @"房源动态";
+            header = nil;
         }else if (section == 4){
             
-            header.titleL.text = @"房源信息";
+            header = nil;
+        }else if (section == 5){
+            
+            header.titleL.text = @"周边及配套";
+        }else if (section == 6){
+            
+            header.titleL.text = @"房源动态";
+        }else if (section == 7){
+            
+            header.titleL.text = _model.title;
         }else{
             
             header.titleL.text = @"小区其他房源";

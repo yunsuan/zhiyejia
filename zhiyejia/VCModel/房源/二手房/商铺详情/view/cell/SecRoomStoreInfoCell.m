@@ -96,18 +96,18 @@
     }
 }
 
-- (void)setOfficeModel:(SecAllRoomOfficeModel *)officeModel{
+- (void)setOfficeModel:(SecRoomOfficeDetailModel *)officeModel{
     
-    [_tagView setData:officeModel.project_tags];
-    [_tagView2 setData:officeModel.house_tags];
+//    [_tagView setData:officeModel.project_tags];
+//    [_tagView2 setData:officeModel.house_tags];
     
-    if ([officeModel.unit_price integerValue]) {
-        
-        _codeL.text = [NSString stringWithFormat:@"房源编号：%@",officeModel.price];
-    }else{
-        
-        _codeL.text = [NSString stringWithFormat:@"房源编号：暂无数据"];
-    }
+//    if ([officeModel.unit_price integerValue]) {
+//
+//        _codeL.text = [NSString stringWithFormat:@"房源编号：%@",officeModel.price];
+//    }else{
+//
+//        _codeL.text = [NSString stringWithFormat:@"房源编号：暂无数据"];
+//    }
     
     
     if ([officeModel.unit_price integerValue]) {
@@ -120,19 +120,19 @@
     
     if (officeModel.permit_time.length) {
         
-        _yearL.text = [NSString stringWithFormat:@"拿证时间：%@",officeModel.permit_time];
+        _timeL.text = [NSString stringWithFormat:@"拿证时间：%@",officeModel.permit_time];
     }else{
         
-        _yearL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
+        _timeL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
     }
     
     
     if ([officeModel.property_limit integerValue]) {
         
-        _decorateL.text = [NSString stringWithFormat:@"产权年限：%@年",officeModel.property_limit];
+        _yearL.text = [NSString stringWithFormat:@"产权年限：%@年",officeModel.property_limit];
     }else{
         
-        _decorateL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
+        _yearL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
     }
     
     if (officeModel.floor_type.length) {
@@ -145,27 +145,27 @@
     
     if ([officeModel.rent_money integerValue]) {
         
-        _floorL.text = [NSString stringWithFormat:@"当前租金：%@元/㎡",officeModel.rent_money];
+        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：%@元/㎡",officeModel.rent_money];
     }else{
         
-        _floorL.text = [NSString stringWithFormat:@"当前租金：暂无数据"];
+        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：暂无数据"];
     }
     
     if (officeModel.rent_over_time.length) {
         
-        _inTimeL.text = [NSString stringWithFormat:@"租期结束时间：%@",officeModel.rent_over_time];
+        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：%@",officeModel.rent_over_time];
     }else{
         
-        _inTimeL.text = [NSString stringWithFormat:@"租期结束时间：暂无数据"];
+        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：暂无数据"];
     }
     
-    _proLimitL.textColor = YJBlueBtnColor;
+//    _.textColor = YJBlueBtnColor;
     //    if ([officeModel.unit_price integerValue]) {
     //
     //        _proLimitL.text = [NSString stringWithFormat:@"参考租金：%@",officeModel.price];
     //    }else{
     //
-    _proLimitL.text = [NSString stringWithFormat:@"参考租金：暂无数据"];
+    _referRentPriceL.text = [NSString stringWithFormat:@"参考租金：暂无数据"];
     //    }
     
     if (officeModel.comment.length) {
