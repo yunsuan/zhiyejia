@@ -19,6 +19,7 @@
 		0C589381223A206E005B78A6 /* SecRoomStoreNeiborCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C589380223A206E005B78A6 /* SecRoomStoreNeiborCell.m */; };
 		0C589385223A2258005B78A6 /* SecRoomFloorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C589384223A2258005B78A6 /* SecRoomFloorCell.m */; };
 		0C589389223A2D0B005B78A6 /* SecRoomOfficeDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C589388223A2D0B005B78A6 /* SecRoomOfficeDetailModel.m */; };
+		0C58938F223A4B6E005B78A6 /* RentRoomHouseDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58938E223A4B6E005B78A6 /* RentRoomHouseDetailVC.m */; };
 		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
 		0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */; };
 		0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */; };
@@ -169,6 +170,8 @@
 		0C589384223A2258005B78A6 /* SecRoomFloorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomFloorCell.m; sourceTree = "<group>"; };
 		0C589387223A2D0B005B78A6 /* SecRoomOfficeDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomOfficeDetailModel.h; sourceTree = "<group>"; };
 		0C589388223A2D0B005B78A6 /* SecRoomOfficeDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomOfficeDetailModel.m; sourceTree = "<group>"; };
+		0C58938D223A4B6E005B78A6 /* RentRoomHouseDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RentRoomHouseDetailVC.h; sourceTree = "<group>"; };
+		0C58938E223A4B6E005B78A6 /* RentRoomHouseDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentRoomHouseDetailVC.m; sourceTree = "<group>"; };
 		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -473,6 +476,29 @@
 				0C589388223A2D0B005B78A6 /* SecRoomOfficeDetailModel.m */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		0C58938A223A42B3005B78A6 /* 商铺详情 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "商铺详情";
+			sourceTree = "<group>";
+		};
+		0C58938B223A42B4005B78A6 /* 住宅详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C58938D223A4B6E005B78A6 /* RentRoomHouseDetailVC.h */,
+				0C58938E223A4B6E005B78A6 /* RentRoomHouseDetailVC.m */,
+			);
+			path = "住宅详情";
+			sourceTree = "<group>";
+		};
+		0C58938C223A42B4005B78A6 /* 写字楼详情 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "写字楼详情";
 			sourceTree = "<group>";
 		};
 		0CE8218B221D31C600576742 /* BaseClass */ = {
@@ -1018,6 +1044,9 @@
 		0CF46DD522278470008816E6 /* 租房 */ = {
 			isa = PBXGroup;
 			children = (
+				0C58938A223A42B3005B78A6 /* 商铺详情 */,
+				0C58938C223A42B4005B78A6 /* 写字楼详情 */,
+				0C58938B223A42B4005B78A6 /* 住宅详情 */,
 				0CF46ECA222FA7C2008816E6 /* model */,
 				0CF46ECB222FA7C2008816E6 /* view */,
 				0CF46DE42227C57B008816E6 /* 房源详情 */,
@@ -1633,6 +1662,7 @@
 				10AFF8D3221D281600657217 /* main.m in Sources */,
 				0C589389223A2D0B005B78A6 /* SecRoomOfficeDetailModel.m in Sources */,
 				0C58936022375754005B78A6 /* SecHouseModel.m in Sources */,
+				0C58938F223A4B6E005B78A6 /* RentRoomHouseDetailVC.m in Sources */,
 				0CE821A8221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m in Sources */,
 				0CF46D6622238734008816E6 /* NewRoomProjectDetailVC.m in Sources */,
 				0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */,

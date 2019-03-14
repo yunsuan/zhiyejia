@@ -16,6 +16,8 @@
 #import "SecRoomStoreDetailVC.h"
 #import "SecRoomOfficeDetailVC.h"
 #import "SecRoomHouseDetailVC.h"
+//租房房源
+#import "RentRoomHouseDetailVC.h"
 
 #import "RoomChildVC.h"
 #import "CityVC.h"
@@ -336,6 +338,21 @@
         nextVC.type = weakvc.typeId;
         nextVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:nextVC animated:YES];
+    };
+    
+    vc.roomChildVCRentRoomHouseBlock = ^(RentHouseModel * _Nonnull model) {
+      
+        if ([model.type integerValue] == 1) {
+            
+            RentRoomHouseDetailVC *nextVC = [[RentRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([model.type integerValue] == 2){
+            
+            
+        }else{
+            
+            
+        }
     };
 //    vc.roomChildVCRoomModelBlock = ^(RoomListModel *model) {
 //

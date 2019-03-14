@@ -1,12 +1,12 @@
 //
-//  SecRoomHouseDetailVC.m
+//  RentRoomHouseDetailVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/2/28.
+//  Created by 谷治墙 on 2019/3/14.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "SecRoomHouseDetailVC.h"
+#import "RentRoomHouseDetailVC.h"
 
 #import "SecRoomHouseDetailHeader.h"
 #import "TitleRightBtnHeader.h"
@@ -18,7 +18,8 @@
 
 #import "SecRoomHouseDetailModel.h"
 
-@interface SecRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+
+@interface RentRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSString *_houseId;
@@ -43,10 +44,9 @@
 @property (nonatomic, strong) UIButton *consultBtn;
 
 @property (nonatomic, strong) UIButton *appointBtn;
-
 @end
 
-@implementation SecRoomHouseDetailVC
+@implementation RentRoomHouseDetailVC
 
 - (instancetype)initWithHouseId:(NSString *)houseId city:(NSString *)city
 {
@@ -83,7 +83,7 @@
                           @"agent_id":@"21",
                           @"type":@(1)
                           };
-    [BaseRequest GET:RentHouseDetail_URL parameters:dic success:^(id resposeObject) {
+    [BaseRequest GET:HouseHouseDetail_URL parameters:dic success:^(id resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -332,9 +332,9 @@
             
             if (self->_houseArr.count) {
                 
-//                SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:_houseArr[index][@"house_id"] city:_city];
-//                nextVC.type = [_houseArr[index][@"type"] integerValue];
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                //                SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:_houseArr[index][@"house_id"] city:_city];
+                //                nextVC.type = [_houseArr[index][@"type"] integerValue];
+                //                [self.navigationController pushViewController:nextVC animated:YES];
             }
         };
         return cell;
@@ -397,7 +397,7 @@
                               (id)[UIColor colorWithRed:247.0f/255.0f green:198.0f/255.0f blue:53.0f/255.0f alpha:1.0f].CGColor,
                               (id)[UIColor colorWithRed:255.0f/255.0f green:205.0f/255.0f blue:64.0f/255.0f alpha:1.0f].CGColor];
     gradientLayer0.locations = @[@0, @1];
-//    [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
+    //    [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
     [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
     [gradientLayer0 setEndPoint:CGPointMake(1, 0)];
     [_consultBtn.layer addSublayer:gradientLayer0];
@@ -409,7 +409,7 @@
     label.textAlignment = NSTextAlignmentCenter;;
     [_consultBtn addSubview:label];
     [self.view addSubview:_consultBtn];
-
+    
     
     _appointBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _appointBtn.frame = CGRectMake(217 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 133 *SIZE, 43 *SIZE + TAB_BAR_MORE);
@@ -438,5 +438,5 @@
     [_appointBtn addSubview:label1];
     [self.view addSubview:_appointBtn];
 }
-    
+
 @end

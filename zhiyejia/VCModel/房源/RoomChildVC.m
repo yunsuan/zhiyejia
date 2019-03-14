@@ -914,12 +914,12 @@
 
         if ([self.param isEqualToString:@"rent"]) {
 
-//            RentingAllTableModel *model = _dataArr[indexPath.row];
-//
-//            if (self.roomChildVCRentModelBlock) {
-//
-//                self.roomChildVCRentModelBlock(model);
-//            }
+            RentHouseModel *model = _dataArr[indexPath.row];
+
+            if (self.roomChildVCRentRoomHouseBlock) {
+
+                self.roomChildVCRentRoomHouseBlock(model);
+            }
         }else{
 
             RentProjectModel *model = _dataArr[indexPath.row];
