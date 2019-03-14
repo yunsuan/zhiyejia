@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 
 #import "SecRoomStoreDetailModel.h"
+#import "SecRoomOfficeDetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SecRoomStoreInfoCell : UITableViewCell
 
 @property (nonatomic, strong) SecRoomStoreDetailModel *model;
+
+@property (nonatomic, strong) SecRoomOfficeDetailModel *officeModel;
 
 @property (nonatomic, strong) UILabel *priceL;
 

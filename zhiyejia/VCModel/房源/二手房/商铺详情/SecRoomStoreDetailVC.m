@@ -13,6 +13,10 @@
 #import "TitleRightBtnHeader.h"
 #import "NewRoomProjectDetailFooter.h"
 #import "SecRoomStoreInfoCell.h"
+#import "SecRoomFloorCell.h"
+#import "SecRoomStoreEquipCell.h"
+#import "SecRoomStoreNeiborCell.h"
+#import "SecRoomHouseDynamicCell.h"
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 
@@ -181,7 +185,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 6;
+    return 9;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -269,6 +273,101 @@
         cell.model = _model;
         
         return cell;
+    }else if (indexPath.section == 2){
+        
+        SecRoomFloorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomFloorCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomFloorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomFloorCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.model = _model;
+        return cell;
+    }else if (indexPath.section == 3){
+    
+        SecRoomStoreEquipCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomStoreEquipCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomStoreEquipCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomStoreEquipCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataArr = _model.match_tags;
+        [cell.coll reloadData];
+        
+        return cell;
+    }else if (indexPath.section == 4){
+        
+        SecRoomStoreNeiborCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomStoreNeiborCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomStoreNeiborCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomStoreNeiborCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.model = _model;
+        return cell;
+    }else if (indexPath.section == 6){
+        
+        SecRoomHouseDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseDynamicCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseDynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseDynamicCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _takeInfoDic;
+        return cell;
+    }else if (indexPath.section == 7){
+        
+        SecRoomHouseProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseProjectCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseProjectCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseProjectCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.storeModel = _model;
+        
+        return cell;
+    }else if (indexPath.section == 8){
+        
+        SecRoomHouseOtherHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseOtherHouseCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomHouseOtherHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseOtherHouseCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (_houseArr.count) {
+            
+            cell.num = _houseArr.count;
+        }else{
+            
+            cell.num = 1;
+        }
+        
+        if (_houseArr.count) {
+            
+            cell.dataArr = [NSMutableArray arrayWithArray:_houseArr];
+            [cell.cellColl reloadData];
+        }else{
+            
+            [cell.cellColl reloadData];
+        }
+        
+        cell.secRoomHouseOtherHouseCellBlock = ^(NSInteger index) {
+            
+            if (self->_houseArr.count) {
+                
+                //                SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:_houseArr[index][@"house_id"] city:_city];
+                //                nextVC.type = [_houseArr[index][@"type"] integerValue];
+                //                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+        };
+        return cell;
+        
     }else{
         
         SecRoomStoreInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomStoreInfoCell"];

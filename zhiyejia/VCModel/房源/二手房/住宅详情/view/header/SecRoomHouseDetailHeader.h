@@ -10,6 +10,7 @@
 
 #import "SecRoomHouseDetailModel.h"
 #import "SecRoomStoreDetailModel.h"
+#import "SecRoomOfficeDetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,8 @@ typedef void(^SecRoomHouseDetailHeaderImgBlock)(NSInteger num,NSArray *imgArr);
 @property (nonatomic, strong) SecRoomHouseDetailModel *model;
 
 @property (nonatomic, strong) SecRoomStoreDetailModel *storeModel;
+
+@property (nonatomic, strong) SecRoomOfficeDetailModel *officeModel;
 
 @property (nonatomic, strong) NSMutableArray *imgArr;
 

@@ -38,13 +38,13 @@
         _priceL.text = [NSString stringWithFormat:@"单价：暂无数据"];
     }
     
-//    if (model.permit_time.length) {
-//        
-//        _proLimitL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
-//    }else{
-//        
-//        _proLimitL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
-//    }
+    if (model.permit_time.length) {
+        
+        _timeL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
+    }else{
+        
+        _timeL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
+    }
     
     if ([model.property_limit integerValue]) {
         
@@ -90,6 +90,87 @@
     if (model.comment.length) {
         
         _markL.text = [NSString stringWithFormat:@" 其他要求：%@\n",model.comment];
+    }else{
+        
+        _markL.text = [NSString stringWithFormat:@"其他要求：暂无数据"];
+    }
+}
+
+- (void)setOfficeModel:(SecAllRoomOfficeModel *)officeModel{
+    
+    [_tagView setData:officeModel.project_tags];
+    [_tagView2 setData:officeModel.house_tags];
+    
+    if ([officeModel.unit_price integerValue]) {
+        
+        _codeL.text = [NSString stringWithFormat:@"房源编号：%@",officeModel.price];
+    }else{
+        
+        _codeL.text = [NSString stringWithFormat:@"房源编号：暂无数据"];
+    }
+    
+    
+    if ([officeModel.unit_price integerValue]) {
+        
+        _priceL.text = [NSString stringWithFormat:@"单价：%@元/m²",officeModel.unit_price];
+    }else{
+        
+        _priceL.text = [NSString stringWithFormat:@"单价：暂无数据"];
+    }
+    
+    if (officeModel.permit_time.length) {
+        
+        _yearL.text = [NSString stringWithFormat:@"拿证时间：%@",officeModel.permit_time];
+    }else{
+        
+        _yearL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
+    }
+    
+    
+    if ([officeModel.property_limit integerValue]) {
+        
+        _decorateL.text = [NSString stringWithFormat:@"产权年限：%@年",officeModel.property_limit];
+    }else{
+        
+        _decorateL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
+    }
+    
+    if (officeModel.floor_type.length) {
+        
+        _timeL.text = [NSString stringWithFormat:@"楼层：%@",officeModel.floor_type];
+    }else{
+        
+        _timeL.text = [NSString stringWithFormat:@"楼层：暂无数据"];
+    }
+    
+    if ([officeModel.rent_money integerValue]) {
+        
+        _floorL.text = [NSString stringWithFormat:@"当前租金：%@元/㎡",officeModel.rent_money];
+    }else{
+        
+        _floorL.text = [NSString stringWithFormat:@"当前租金：暂无数据"];
+    }
+    
+    if (officeModel.rent_over_time.length) {
+        
+        _inTimeL.text = [NSString stringWithFormat:@"租期结束时间：%@",officeModel.rent_over_time];
+    }else{
+        
+        _inTimeL.text = [NSString stringWithFormat:@"租期结束时间：暂无数据"];
+    }
+    
+    _proLimitL.textColor = YJBlueBtnColor;
+    //    if ([officeModel.unit_price integerValue]) {
+    //
+    //        _proLimitL.text = [NSString stringWithFormat:@"参考租金：%@",officeModel.price];
+    //    }else{
+    //
+    _proLimitL.text = [NSString stringWithFormat:@"参考租金：暂无数据"];
+    //    }
+    
+    if (officeModel.comment.length) {
+        
+        _markL.text = [NSString stringWithFormat:@" 其他要求：%@\n",officeModel.comment];
     }else{
         
         _markL.text = [NSString stringWithFormat:@"其他要求：暂无数据"];
@@ -207,7 +288,7 @@
     
     [_rentTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.left.equalTo(self.contentView).offset(200 *SIZE);
         make.top.equalTo(self->_rentPriceL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
