@@ -28,6 +28,8 @@
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         
+        _num = 1;
+        _allArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;

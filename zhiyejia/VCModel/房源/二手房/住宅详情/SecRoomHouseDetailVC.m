@@ -83,7 +83,7 @@
                           @"agent_id":@"21",
                           @"type":@(1)
                           };
-    [BaseRequest GET:RentHouseDetail_URL parameters:dic success:^(id resposeObject) {
+    [BaseRequest GET:HouseHouseDetail_URL parameters:dic success:^(id resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {

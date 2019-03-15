@@ -117,6 +117,11 @@
     animatedAnnotation.coordinate = coor;
     animatedAnnotation.title = name;
     [_mapView addAnnotation:animatedAnnotation];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [_mapView setCenterCoordinate:coor animated:YES];
+    });
 }
 //-(BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation
 //{
@@ -206,7 +211,8 @@
 
 - (void)initUI{
     
-    //    self.backgroundColor = YJBackColor;
+    self.backgroundColor = CLWhiteColor;
+    self.contentView.backgroundColor = CLWhiteColor;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 9 *SIZE, 80 *SIZE, 15 *SIZE)];
     label.textColor = CLTitleLabColor;
@@ -214,14 +220,14 @@
     label.text = @"周边及配套";
     [self.contentView addSubview:label];
     
-//    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
-//    _mapView.delegate = self;
-//    _mapView.zoomLevel = 15;
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
+    _mapView.delegate = self;
+    _mapView.zoomLevel = 15;
 //    _mapView.isSelectedAnnotationViewFront = YES;
-//    [self.contentView addSubview:_mapView];
+    [self.contentView addSubview:_mapView];
     
-//    _annotation = [[BMKPointAnnotation alloc]init];
-//    [_mapView addAnnotation:_annotation];
+    _annotation = [[BMKPointAnnotation alloc]init];
+    [_mapView addAnnotation:_annotation];
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.itemSize = CGSizeMake(60 *SIZE, 27 *SIZE);
@@ -238,7 +244,7 @@
     [_POIColl registerClass:[NewRoomMapCollCell class] forCellWithReuseIdentifier:@"NewRoomMapCollCell"];
     [self.contentView addSubview:_POIColl];
     
-//    [self MasonryUI];
+    [self MasonryUI];
 }
 
 - (void)MasonryUI{

@@ -214,7 +214,7 @@
         
         header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
         
-//        header.officeModel = _model;
+        header.officeModel = _model;
         
         return header;
     }else{
