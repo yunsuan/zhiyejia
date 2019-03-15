@@ -1,31 +1,30 @@
 //
-//  RentRoomHouseDetailVC.m
+//  RentRoomStoreDetailVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/3/14.
+//  Created by 谷治墙 on 2019/3/15.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "RentRoomHouseDetailVC.h"
+#import "RentRoomStoreDetailVC.h"
 
 #import "RentRoomStoreDetailHeader.h"
 #import "TitleRightBtnHeader.h"
 #import "NewRoomProjectDetailFooter.h"
-#import "RentRoomHouseInfoCell.h"
+#import "RentRoomStoreInfoCell.h"
 #import "SecRoomHouseDynamicCell.h"
 #import "RentRoomStoreProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 
 #import "SecRoomHouseDetailModel.h"
 
-
-@interface RentRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface RentRoomStoreDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSString *_houseId;
     NSString *_city;
     
-    RentRoomHouseDetailModel *_model;
+    RentRoomStoreDetailModel *_model;
     NSString *_phone;
     NSMutableArray *_imgArr;
     NSMutableDictionary *_focusDic;
@@ -44,9 +43,10 @@
 @property (nonatomic, strong) UIButton *consultBtn;
 
 @property (nonatomic, strong) UIButton *appointBtn;
+
 @end
 
-@implementation RentRoomHouseDetailVC
+@implementation RentRoomStoreDetailVC
 
 - (instancetype)initWithHouseId:(NSString *)houseId city:(NSString *)city
 {
@@ -71,7 +71,7 @@
 - (void)initDataSource{
     
     _imgArr = [@[] mutableCopy];
-    _model = [[RentRoomHouseDetailModel alloc] init];
+//    _model = [[SecRoomHouseDetailModel alloc] init];
     _focusDic = [@{} mutableCopy];
     _houseArr = [@[] mutableCopy];
     _takeInfoDic = [@{} mutableCopy];
@@ -81,7 +81,7 @@
     
     NSDictionary *dic = @{@"house_id":_houseId,
                           @"agent_id":@"21",
-                          @"type":@(1)
+                          @"type":@(2)
                           };
     [BaseRequest GET:RentHouseDetail_URL parameters:dic success:^(id resposeObject) {
         
@@ -120,7 +120,7 @@
                 }
             }
         }];
-        _model = [[RentRoomHouseDetailModel alloc] initWithDictionary:tempDic];
+        _model = [[RentRoomStoreDetailModel alloc] initWithDictionary:tempDic];
     }
     
     [_imgArr removeAllObjects];
@@ -212,7 +212,7 @@
         
         header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
         
-        header.model = _model;
+        header.storeModel = _model;
         
         return header;
     }else{
@@ -260,14 +260,14 @@
     
     if (indexPath.section == 1) {
         
-        RentRoomHouseInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentRoomHouseInfoCell"];
+        RentRoomStoreInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentRoomStoreInfoCell"];
         if (!cell) {
             
-            cell = [[RentRoomHouseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentRoomHouseInfoCell"];
+            cell = [[RentRoomStoreInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentRoomStoreInfoCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.model = _model;
+        cell.storeModel = _model;
         return cell;
     }else if (indexPath.section == 2){
         
@@ -299,8 +299,7 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.houseModel = _model;
-        
+        cell.storeModel = _model;
         return cell;
     }else{
         

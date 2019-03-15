@@ -1,12 +1,12 @@
 //
-//  RentRoomHouseDetailVC.m
+//  RentRoomOfficeDetailVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/3/14.
+//  Created by 谷治墙 on 2019/3/15.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "RentRoomHouseDetailVC.h"
+#import "RentRoomOfficeDetailVC.h"
 
 #import "RentRoomStoreDetailHeader.h"
 #import "TitleRightBtnHeader.h"
@@ -16,16 +16,15 @@
 #import "RentRoomStoreProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 
-#import "SecRoomHouseDetailModel.h"
+#import "RentRoomOfficeDetailModel.h"
 
-
-@interface RentRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface RentRoomOfficeDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSString *_houseId;
     NSString *_city;
     
-    RentRoomHouseDetailModel *_model;
+    RentRoomOfficeDetailModel *_model;
     NSString *_phone;
     NSMutableArray *_imgArr;
     NSMutableDictionary *_focusDic;
@@ -44,9 +43,10 @@
 @property (nonatomic, strong) UIButton *consultBtn;
 
 @property (nonatomic, strong) UIButton *appointBtn;
+
 @end
 
-@implementation RentRoomHouseDetailVC
+@implementation RentRoomOfficeDetailVC
 
 - (instancetype)initWithHouseId:(NSString *)houseId city:(NSString *)city
 {
@@ -71,7 +71,7 @@
 - (void)initDataSource{
     
     _imgArr = [@[] mutableCopy];
-    _model = [[RentRoomHouseDetailModel alloc] init];
+    _model = [[RentRoomOfficeDetailModel alloc] init];
     _focusDic = [@{} mutableCopy];
     _houseArr = [@[] mutableCopy];
     _takeInfoDic = [@{} mutableCopy];
@@ -81,7 +81,7 @@
     
     NSDictionary *dic = @{@"house_id":_houseId,
                           @"agent_id":@"21",
-                          @"type":@(1)
+                          @"type":@(3)
                           };
     [BaseRequest GET:RentHouseDetail_URL parameters:dic success:^(id resposeObject) {
         
@@ -120,7 +120,7 @@
                 }
             }
         }];
-        _model = [[RentRoomHouseDetailModel alloc] initWithDictionary:tempDic];
+        _model = [[RentRoomOfficeDetailModel alloc] initWithDictionary:tempDic];
     }
     
     [_imgArr removeAllObjects];
@@ -212,7 +212,7 @@
         
         header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
         
-        header.model = _model;
+        header.officeModel = _model;
         
         return header;
     }else{

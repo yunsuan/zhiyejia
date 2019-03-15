@@ -18,6 +18,8 @@
 #import "SecRoomHouseDetailVC.h"
 //租房房源
 #import "RentRoomHouseDetailVC.h"
+#import "RentRoomStoreDetailVC.h"
+#import "RentRoomOfficeDetailVC.h"
 
 #import "RoomChildVC.h"
 #import "CityVC.h"
@@ -348,10 +350,12 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         }else if ([model.type integerValue] == 2){
             
-            
+            RentRoomStoreDetailVC *nextVC = [[RentRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            [self.navigationController pushViewController:nextVC animated:YES];
         }else{
             
-            
+            RentRoomOfficeDetailVC *nextVC = [[RentRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            [self.navigationController pushViewController:nextVC animated:YES];
         }
     };
 //    vc.roomChildVCRoomModelBlock = ^(RoomListModel *model) {
