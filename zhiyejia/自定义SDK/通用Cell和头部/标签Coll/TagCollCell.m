@@ -37,6 +37,7 @@
         
         self.layer.borderWidth = SIZE;
         self.backgroundColor = CLWhiteColor;
+        _contentL.textColor = CLContentLabColor;
         self.layer.borderColor = COLOR(181, 181, 181, 1).CGColor;
     }else{
         
@@ -75,7 +76,6 @@
     
     _contentL = [[UILabel alloc] init];
     _contentL.textColor = CLContentLabColor;
-//    _contentL.numberOfLines = 0;
     _contentL.font = [UIFont systemFontOfSize:11 *SIZE];
     _contentL.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_contentL];
@@ -85,13 +85,13 @@
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
         make.top.equalTo(self.contentView).offset(5 *SIZE);
-        make.width.mas_lessThanOrEqualTo(240 *SIZE);
+        make.width.mas_lessThanOrEqualTo(120 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-5 *SIZE);
     }];
 }
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    
+
     [self setNeedsLayout];
     [self layoutIfNeeded];
     CGSize size = [self.contentView systemLayoutSizeFittingSize: layoutAttributes.size];

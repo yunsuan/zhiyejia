@@ -220,14 +220,14 @@
     label.text = @"周边及配套";
     [self.contentView addSubview:label];
     
-    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
-    _mapView.delegate = self;
-    _mapView.zoomLevel = 15;
+//    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
+//    _mapView.delegate = self;
+//    _mapView.zoomLevel = 15;
 //    _mapView.isSelectedAnnotationViewFront = YES;
-    [self.contentView addSubview:_mapView];
+//    [self.contentView addSubview:_mapView];
     
-    _annotation = [[BMKPointAnnotation alloc]init];
-    [_mapView addAnnotation:_annotation];
+//    _annotation = [[BMKPointAnnotation alloc]init];
+//    [_mapView addAnnotation:_annotation];
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.itemSize = CGSizeMake(60 *SIZE, 27 *SIZE);
