@@ -22,6 +22,8 @@
 #import "BaseRequest.h"
 #import "GZQGifHeader.h"
 #import "GZQGifFooter.h"
+#import "TagCollCell.h"
+#import "GZQFlowLayout.h"
 
 #import "MJRefresh.h"
 #import <Masonry.h>

@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *statusL;
 
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyColl;
+
 @property (nonatomic, strong) UIView *line;
 
 @property (nonatomic, strong) NewRoomModel *model;

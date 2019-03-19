@@ -177,8 +177,6 @@
         
         make.height.mas_equalTo(strongSelf->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
     }];
-//    [self setNeedsLayout];
-//    [self layoutIfNeeded];
 }
 
 - (void)ActionImgBtn{
@@ -201,21 +199,38 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return 2;
+    if (_propertyArr.count && _tagArr.count) {
+        
+        return 2;
+    }else if (!_propertyArr.count && !_tagArr.count){
+        
+        return 0;
+    }else{
+        
+        return 1;
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    return CGSizeMake(260 *SIZE, 9 *SIZE);
+    return CGSizeMake(260 *SIZE, 3 *SIZE);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     if (section == 1) {
-
+        
         return _tagArr.count;
+    }else{
+        
+        if (_propertyArr.count) {
+            
+            return _propertyArr.count;
+        }else{
+            
+            return _tagArr.count;
+        }
     }
-    return _propertyArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

@@ -20,6 +20,14 @@
     return self;
 }
 
+- (void)ActionMoreBtn:(UIButton *)btn{
+    
+    if (self.newRoomProjectDynamicCellBlock) {
+        
+        self.newRoomProjectDynamicCellBlock();
+    }
+}
+
 - (void)initUI{
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 15 *SIZE, 65 *SIZE, 15 *SIZE)];
@@ -36,7 +44,7 @@
     _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _moreBtn.frame = CGRectMake(287 *SIZE, 13 *SIZE, 65 *SIZE, 20 *SIZE);
     _moreBtn.titleLabel.font = [UIFont systemFontOfSize:11 *SIZE];
-    //    [_moreBtn addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
+    [_moreBtn addTarget:self action:@selector(ActionMoreBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_moreBtn setTitle:@"查看更多 >>" forState:UIControlStateNormal];
     [_moreBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
     [self.contentView addSubview:_moreBtn];

@@ -382,15 +382,7 @@
 
 
 - (void)SetData:(NSArray *)data{
-    
-    if (data.count < 15) {
         
-        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
-    }else{
-        
-        [self.MainTableView.mj_footer endRefreshing];
-    }
-    
     if (_AllType == 0) {
         
         if ([self.param isEqualToString:@"house"]) {

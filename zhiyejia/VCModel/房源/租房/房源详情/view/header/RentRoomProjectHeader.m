@@ -165,12 +165,17 @@
     
     [_titleL mas_updateConstraints:^(MASConstraintMaker *make) {
         
-//        make.left.equalTo(self.contentView).offset(10 *SIZE);
-//        make.top.equalTo(self->_imgScroll.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(self->_titleL.mj_textWith + 5 *SIZE);
-//        make.right.mas_lessThanOrEqualTo(self.contentView).offset(-120 *SIZE);
     }];
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
     [_propertyColl reloadData];
+    SS(strongSelf);
+    [_propertyColl mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(strongSelf->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
+    }];
 }
 
 - (void)ActionMoreBtn:(UIButton *)btn{
@@ -200,12 +205,21 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return 2;
+    if (_propertyArr.count && _tagArr.count) {
+        
+        return 2;
+    }else if (!_propertyArr.count && !_tagArr.count){
+        
+        return 0;
+    }else{
+        
+        return 1;
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    return CGSizeMake(260 *SIZE, 9 *SIZE);
+    return CGSizeMake(260 *SIZE, 3 *SIZE);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -213,8 +227,16 @@
     if (section == 1) {
         
         return _tagArr.count;
+    }else{
+        
+        if (_propertyArr.count) {
+            
+            return _propertyArr.count;
+        }else{
+            
+            return _tagArr.count;
+        }
     }
-    return _propertyArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -222,7 +244,7 @@
     TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 60 *SIZE, 20 *SIZE)];
+        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 20 *SIZE)];
     }
     
     if (indexPath.section == 1) {

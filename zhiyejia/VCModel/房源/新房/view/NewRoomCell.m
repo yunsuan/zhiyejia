@@ -8,6 +8,14 @@
 
 #import "NewRoomCell.h"
 
+@interface NewRoomCell ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+{
+    
+    NSMutableArray *_propertyArr;
+    NSMutableArray *_tagArr;
+}
+@end
+
 @implementation NewRoomCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -15,9 +23,16 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        [self initDataSource];
         [self initUI];
     }
     return self;
+}
+
+- (void)initDataSource{
+    
+    _propertyArr = [@[] mutableCopy];
+    _tagArr = [@[] mutableCopy];
 }
 
 - (void)setModel:(NewRoomModel *)model{
@@ -31,11 +46,79 @@
     }];
     
     _titleL.text = model.project_name;
-//    NSAttributedString *attr = [NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",model.pri]
-//    _priceL.attributedText =
+
     _priceL.text = @"均价：";
     _addressL.text = [NSString stringWithFormat:@"%@-%@-%@",model.province_name,model.city_name,model.district_name];
-//    _statusL.text = model.sale_state;
+    
+    _tagArr = [NSMutableArray arrayWithArray:model.project_tags];
+    
+    [_propertyColl reloadData];
+    [_propertyColl mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
+    }];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+    if (_propertyArr.count && _tagArr.count) {
+        
+        return 2;
+    }else if (!_propertyArr.count && !_tagArr.count){
+        
+        return 0;
+    }else{
+        
+        return 1;
+    }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
+    return CGSizeMake(260 *SIZE, 3 *SIZE);
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    if (section == 1) {
+        
+        return _tagArr.count;
+    }else{
+        
+        if (_propertyArr.count) {
+            
+            return _propertyArr.count;
+        }else{
+            
+            return _tagArr.count;
+        }
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 20 *SIZE)];
+    }
+    
+    if (indexPath.section == 1) {
+        
+        [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
+        
+    }else{
+        
+        if (_propertyArr.count) {
+            
+            [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+        }else{
+            
+            [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
+        }
+    }
+    
+    return cell;
 }
 
 - (void)initUI{
@@ -83,6 +166,21 @@
         }
     }
     
+    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:4 *SIZE];
+    _propertyFlowLayout.estimatedItemSize = CGSizeMake(120 *SIZE, 20 *SIZE);
+    if (@available(iOS 10.0, *)) {
+        _propertyFlowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;
+    } else {
+        // Fallback on earlier versions
+    }
+    
+    _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectMake(10 *SIZE, 33 *SIZE + CGRectGetMaxY(_roomImg.frame), 260 *SIZE, 20 *SIZE) collectionViewLayout:_propertyFlowLayout];
+    _propertyColl.backgroundColor = CLWhiteColor;
+    _propertyColl.delegate = self;
+    _propertyColl.dataSource = self;
+    [_propertyColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
+    [self.contentView addSubview:_propertyColl];
+    
     _line = [[UIView alloc] init];
     _line.backgroundColor = CLLineColor;
     [self.contentView addSubview:_line];
@@ -128,10 +226,18 @@
         make.right.equalTo(self.contentView).offset(-50 *SIZE);
     }];
     
+    [_propertyColl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_roomImg.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(340 *SIZE);
+        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
+    }];
+    
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_roomImg.mas_bottom).offset(26 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(15 *SIZE);
         make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(1 *SIZE);
         make.bottom.equalTo(self.contentView).offset(0 *SIZE);

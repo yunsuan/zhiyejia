@@ -89,7 +89,11 @@
         [self->_cityBtn setTitle:cityname forState:UIControlStateNormal];
         self->_city = citycode;
         self->_cityName = cityname;
-        [self pageController:self willEnterViewController:self.childViewControllers[0] withInfo:@{}];
+//        if (self.childViewControllers.count) {
+//
+            [self pageController:self willEnterViewController:self.childViewControllers[0] withInfo:@{}];
+//        }
+        
     } Faild:^{
         
         [self alertControllerWithNsstring:@"定位失败" And:@"是否要重新定位" WithCancelBlack:^{

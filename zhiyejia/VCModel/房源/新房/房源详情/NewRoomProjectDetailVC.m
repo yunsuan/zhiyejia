@@ -10,6 +10,7 @@
 
 #import "NewRoomProjectDetailDetailVC.h"
 #import "AppointSeeRoomVC.h"
+#import "DynamicListVC.h"
 
 #import "NewRoomProjectHeader.h"
 #import "NewRoomProjectDetailFooter.h"
@@ -250,7 +251,7 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.moreBtn.tag = indexPath.section;
+//            cell.moreBtn.tag = indexPath.section;
             if (_dataDic[@"dynamic"]) {
                 
                 cell.numL.text = [NSString stringWithFormat: @"（共%@条）",_dataDic[@"dynamic"][@"count"]];
@@ -258,6 +259,12 @@
                 cell.timeL.text = _dataDic[@"dynamic"][@"first"][@"update_time"];
                 cell.contentL.text = _dataDic[@"dynamic"][@"first"][@"abstract"];
             }
+            
+            cell.newRoomProjectDynamicCellBlock = ^{
+              
+                DynamicListVC *nextVC = [[DynamicListVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
             
             return cell;
             break;

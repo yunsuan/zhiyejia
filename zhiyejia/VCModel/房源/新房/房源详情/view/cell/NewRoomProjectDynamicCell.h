@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^NewRoomProjectDynamicCellBlock)(void);
+
 @interface NewRoomProjectDynamicCell : UITableViewCell
+
+@property (nonatomic, copy) NewRoomProjectDynamicCellBlock newRoomProjectDynamicCellBlock;
 
 @property (nonatomic, strong) UIButton *moreBtn;
 

@@ -39,7 +39,9 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
 - (void)NetWorkingRequest{
     
     [BaseRequest GET:ProjectResources_URL parameters:nil success:^(id resposeObject) {
+        
         if ([resposeObject[@"code"] integerValue] == 200) {
+        
             NSArray *arr = resposeObject[@"data"];
             NSMutableDictionary *dic =[NSMutableDictionary dictionary];
             NSMutableArray *allarr = [NSMutableArray array];
@@ -51,7 +53,8 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
             [UserModel defaultModel].tagDic = dic;
             [UserModel defaultModel].tagAllArr = allarr;
             if (![UserModel defaultModel].tagSelectArr) {
-                for (NSUInteger i = 0; i < 5; i++) {
+                
+                for (NSUInteger i = 0; i < [UserModel defaultModel].tagAllArr.count; i++) {
                     [selctarr addObject:arr[i][@"tag"]];
                 }
                 [UserModel defaultModel].tagSelectArr = selctarr;

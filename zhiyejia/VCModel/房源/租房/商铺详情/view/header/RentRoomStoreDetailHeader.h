@@ -28,6 +28,10 @@ typedef void(^RentRoomStoreDetailHeaderImgBlock)(NSInteger num,NSArray *imgArr);
 
 @property (nonatomic, strong) NSMutableDictionary *focusDic;
 
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyColl;
+
 @property (nonatomic, copy) RentRoomStoreDetailHeaderImgBlock rentRoomStoreDetailHeaderImgBlock;
 
 @property (nonatomic, strong) UIScrollView *imgScroll;

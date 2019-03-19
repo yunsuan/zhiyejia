@@ -14,6 +14,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//typedef <#returnType#>(^<#name#>)(<#arguments#>);
+
 @interface RentRoomStoreProjectCell : UITableViewCell
 
 @property (nonatomic, strong) RentRoomHouseDetailModel *houseModel;

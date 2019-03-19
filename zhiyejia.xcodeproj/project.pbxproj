@@ -30,6 +30,9 @@
 		0C5893B0223B733F005B78A6 /* RentRoomOfficeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5893AF223B733F005B78A6 /* RentRoomOfficeDetailVC.m */; };
 		0C5893B4223B73A9005B78A6 /* RentRoomOfficeDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5893B3223B73A9005B78A6 /* RentRoomOfficeDetailModel.m */; };
 		0C5893B8223B7427005B78A6 /* RentRoomOfficeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5893B7223B7427005B78A6 /* RentRoomOfficeInfoCell.m */; };
+		0C6BECAA2240D9A90039BD0D /* DynamicListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECA92240D9A90039BD0D /* DynamicListVC.m */; };
+		0C6BECAF2240DA460039BD0D /* DynamicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECAE2240DA460039BD0D /* DynamicDetailVC.m */; };
+		0C6BECB22240DA580039BD0D /* DynamicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECB12240DA580039BD0D /* DynamicListCell.m */; };
 		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
 		0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */; };
 		0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */; };
@@ -202,6 +205,12 @@
 		0C5893B3223B73A9005B78A6 /* RentRoomOfficeDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentRoomOfficeDetailModel.m; sourceTree = "<group>"; };
 		0C5893B6223B7427005B78A6 /* RentRoomOfficeInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RentRoomOfficeInfoCell.h; sourceTree = "<group>"; };
 		0C5893B7223B7427005B78A6 /* RentRoomOfficeInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentRoomOfficeInfoCell.m; sourceTree = "<group>"; };
+		0C6BECA82240D9A90039BD0D /* DynamicListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicListVC.h; sourceTree = "<group>"; };
+		0C6BECA92240D9A90039BD0D /* DynamicListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicListVC.m; sourceTree = "<group>"; };
+		0C6BECAD2240DA460039BD0D /* DynamicDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicDetailVC.h; sourceTree = "<group>"; };
+		0C6BECAE2240DA460039BD0D /* DynamicDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicDetailVC.m; sourceTree = "<group>"; };
+		0C6BECB02240DA580039BD0D /* DynamicListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicListCell.h; sourceTree = "<group>"; };
+		0C6BECB12240DA580039BD0D /* DynamicListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicListCell.m; sourceTree = "<group>"; };
 		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -615,6 +624,35 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0C6BECA72240D9710039BD0D /* 动态列表 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6BECAB2240DA310039BD0D /* 动态详情 */,
+				0C6BECAC2240DA310039BD0D /* view */,
+				0C6BECA82240D9A90039BD0D /* DynamicListVC.h */,
+				0C6BECA92240D9A90039BD0D /* DynamicListVC.m */,
+			);
+			path = "动态列表";
+			sourceTree = "<group>";
+		};
+		0C6BECAB2240DA310039BD0D /* 动态详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6BECAD2240DA460039BD0D /* DynamicDetailVC.h */,
+				0C6BECAE2240DA460039BD0D /* DynamicDetailVC.m */,
+			);
+			path = "动态详情";
+			sourceTree = "<group>";
+		};
+		0C6BECAC2240DA310039BD0D /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C6BECB02240DA580039BD0D /* DynamicListCell.h */,
+				0C6BECB12240DA580039BD0D /* DynamicListCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0CE8218B221D31C600576742 /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -932,6 +970,7 @@
 		0CF46D6322238718008816E6 /* 房源详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C6BECA72240D9710039BD0D /* 动态列表 */,
 				0CF46DA722263294008816E6 /* 预约看房 */,
 				0CF46D9B22262684008816E6 /* 项目信息 */,
 				0CF46D6D2223978D008816E6 /* view */,
@@ -1698,6 +1737,7 @@
 				0CF46E27222D0F68008816E6 /* SecRoomStoreDetailHeader.m in Sources */,
 				0C58937D223A1E39005B78A6 /* EquipMentCollCell.m in Sources */,
 				0C5893B0223B733F005B78A6 /* RentRoomOfficeDetailVC.m in Sources */,
+				0C6BECAA2240D9A90039BD0D /* DynamicListVC.m in Sources */,
 				0C589385223A2258005B78A6 /* SecRoomFloorCell.m in Sources */,
 				0CE82207221E706F00576742 /* BaseModel.m in Sources */,
 				0CE821A7221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m in Sources */,
@@ -1784,10 +1824,12 @@
 				0CF46D722223978D008816E6 /* NewRoomProjectHeader.m in Sources */,
 				10AFF8D3221D281600657217 /* main.m in Sources */,
 				0C589389223A2D0B005B78A6 /* SecRoomOfficeDetailModel.m in Sources */,
+				0C6BECAF2240DA460039BD0D /* DynamicDetailVC.m in Sources */,
 				0C58936022375754005B78A6 /* SecHouseModel.m in Sources */,
 				0C58938F223A4B6E005B78A6 /* RentRoomHouseDetailVC.m in Sources */,
 				0CE821A8221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m in Sources */,
 				0CF46D6622238734008816E6 /* NewRoomProjectDetailVC.m in Sources */,
+				0C6BECB22240DA580039BD0D /* DynamicListCell.m in Sources */,
 				0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */,
 				0CF46E13222CFBD6008816E6 /* SecRoomOfficeInfoCell.m in Sources */,
 				0CE821EB221E3A8C00576742 /* BMChineseSort.m in Sources */,
