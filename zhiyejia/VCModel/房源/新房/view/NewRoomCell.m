@@ -100,7 +100,7 @@
     TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 20 *SIZE)];
+        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 70 *SIZE, 20 *SIZE)];
     }
     
     if (indexPath.section == 1) {
@@ -167,12 +167,13 @@
     }
     
     _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:4 *SIZE];
-    _propertyFlowLayout.estimatedItemSize = CGSizeMake(120 *SIZE, 20 *SIZE);
-    if (@available(iOS 10.0, *)) {
-        _propertyFlowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;
-    } else {
-        // Fallback on earlier versions
-    }
+    _propertyFlowLayout.itemSize = CGSizeMake(70 *SIZE, 20 *SIZE);
+//    _propertyFlowLayout.estimatedItemSize = CGSizeMake(120 *SIZE, 20 *SIZE);
+//    if (@available(iOS 10.0, *)) {
+//        _propertyFlowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;
+//    } else {
+//        // Fallback on earlier versions
+//    }
     
     _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectMake(10 *SIZE, 33 *SIZE + CGRectGetMaxY(_roomImg.frame), 260 *SIZE, 20 *SIZE) collectionViewLayout:_propertyFlowLayout];
     _propertyColl.backgroundColor = CLWhiteColor;

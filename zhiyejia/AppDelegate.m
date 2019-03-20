@@ -29,10 +29,9 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
     
     [[BMKLocationAuth sharedInstance] checkPermisionWithKey:kBaiduSDK authDelegate:self];
     
+    [self NetWorkingRequest];
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     _window.rootViewController = tabBarControllerConfig.tabBarController;
-    
-    [self NetWorkingRequest];
     return YES;
 }
 
