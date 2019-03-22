@@ -200,7 +200,10 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
-    
+    if (self.rentRoomProjectHeaderTagBlock) {
+        
+        self.rentRoomProjectHeaderTagBlock(btn.tag);
+    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{

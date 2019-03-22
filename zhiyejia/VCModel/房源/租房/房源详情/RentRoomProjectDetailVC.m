@@ -9,6 +9,7 @@
 #import "RentRoomProjectDetailVC.h"
 
 #import "NewRoomProjectDetailDetailVC.h"
+#import "RentingComAllRoomListVC.h"
 
 #import "RentRoomProjectHeader.h"
 #import "TitleBaseHeader.h"
@@ -23,6 +24,7 @@
     NSString *_projectId;
     NSDictionary *_dataDic;
     NSString *_phone;
+    NSString *_city;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -39,12 +41,13 @@
 
 @implementation RentRoomProjectDetailVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithProjectId:(NSString *)projectId city:(NSString *)city
 {
     self = [super init];
     if (self) {
         
         _projectId = projectId;
+        _city = city;
     }
     return self;
 }
@@ -176,6 +179,32 @@
             
             NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] init];
             [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        
+        header.rentRoomProjectHeaderTagBlock = ^(NSInteger btnNum) {
+            
+            if (btnNum == 1) {
+                
+                //
+            }else if (btnNum == 2){
+                
+                //                SecDistributVC *nextVC = [[SecDistributVC alloc] init];
+                //                nextVC.projiect_id = _projectId;
+                //                nextVC.img_name = _model.total_float_url_phone;
+                //                nextVC.status = @"release";
+                //                nextVC.comName = _model.project_name;
+                //                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if (btnNum == 3){
+                
+                RentingComAllRoomListVC *nextVC = [[RentingComAllRoomListVC alloc] initWithProjectId:self->_projectId city:self->_city];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                
+                //                DealRecordVC *nextVC = [[DealRecordVC alloc] initWithProjectId:_projectId];
+                //                [self.navigationController pushViewController:nextVC animated:YES];
+                
+            }
         };
         
         return header;

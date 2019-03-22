@@ -85,9 +85,9 @@
        
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        make.top.equalTo(self.contentView).offset(5 *SIZE);
+        make.top.equalTo(self.contentView).offset(0 *SIZE);
 //        make.width.mas_lessThanOrEqualTo(120 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-5 *SIZE);
+        make.bottom.equalTo(self.contentView).offset(0 *SIZE);
     }];
 }
 

@@ -14,11 +14,15 @@ typedef void(^SecRoomProjectHeaderMoreBlock)(void);
 
 typedef void(^SecRoomProjectHeaderImgBtnBlock)(NSInteger num,NSArray *imgArr);
 
+typedef void(^SecRoomProjectHeaderTagBlock)(NSInteger btnNum);
+
 @interface SecRoomProjectHeader : UITableViewHeaderFooterView
 
 @property (nonatomic, copy) SecRoomProjectHeaderMoreBlock secRoomProjectHeaderMoreBlock;
 
 @property (nonatomic, copy) SecRoomProjectHeaderImgBtnBlock secRoomProjectHeaderImgBtnBlock;
+
+@property (nonatomic, copy) SecRoomProjectHeaderTagBlock secRoomProjectHeaderTagBlock;
 
 @property (nonatomic, strong) UIScrollView *imgScroll;
 

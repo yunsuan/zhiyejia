@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C36C55D2244C32C007BB162 /* SecComAllRoomListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C36C55A2244C32B007BB162 /* SecComAllRoomListVC.m */; };
+		0C36C5632244C9F4007BB162 /* RentingComAllRoomListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C36C5612244C9F4007BB162 /* RentingComAllRoomListVC.m */; };
 		0C58935D22375717005B78A6 /* SecHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935C22375717005B78A6 /* SecHouseCell.m */; };
 		0C58936022375754005B78A6 /* SecHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935F22375754005B78A6 /* SecHouseModel.m */; };
 		0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936222375D11005B78A6 /* RentHouseModel.m */; };
@@ -159,6 +161,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C36C5592244C32B007BB162 /* SecComAllRoomListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecComAllRoomListVC.h; sourceTree = "<group>"; };
+		0C36C55A2244C32B007BB162 /* SecComAllRoomListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecComAllRoomListVC.m; sourceTree = "<group>"; };
+		0C36C55F2244C9F4007BB162 /* RentingComAllRoomListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentingComAllRoomListVC.h; sourceTree = "<group>"; };
+		0C36C5612244C9F4007BB162 /* RentingComAllRoomListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentingComAllRoomListVC.m; sourceTree = "<group>"; };
 		0C58935B22375717005B78A6 /* SecHouseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseCell.h; sourceTree = "<group>"; };
 		0C58935C22375717005B78A6 /* SecHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseCell.m; sourceTree = "<group>"; };
 		0C58935E22375754005B78A6 /* SecHouseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseModel.h; sourceTree = "<group>"; };
@@ -454,6 +460,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C36C5572244C32B007BB162 /* 二手房源 */ = {
+			isa = PBXGroup;
+			children = (
+				0C36C5592244C32B007BB162 /* SecComAllRoomListVC.h */,
+				0C36C55A2244C32B007BB162 /* SecComAllRoomListVC.m */,
+			);
+			path = "二手房源";
+			sourceTree = "<group>";
+		};
+		0C36C55E2244C9F4007BB162 /* 租房房源 */ = {
+			isa = PBXGroup;
+			children = (
+				0C36C55F2244C9F4007BB162 /* RentingComAllRoomListVC.h */,
+				0C36C5612244C9F4007BB162 /* RentingComAllRoomListVC.m */,
+			);
+			path = "租房房源";
+			sourceTree = "<group>";
+		};
 		0C5893672237A181005B78A6 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1217,6 +1241,7 @@
 		0CF46DD722278683008816E6 /* 房源详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C36C5572244C32B007BB162 /* 二手房源 */,
 				0CF46DDB22278C8B008816E6 /* view */,
 				0CF46DD8222786BA008816E6 /* SecRoomProjectDetailVC.h */,
 				0CF46DD9222786BA008816E6 /* SecRoomProjectDetailVC.m */,
@@ -1254,6 +1279,7 @@
 		0CF46DE42227C57B008816E6 /* 房源详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C36C55E2244C9F4007BB162 /* 租房房源 */,
 				0CF46DE82227C5E2008816E6 /* view */,
 				0CF46DE52227C58F008816E6 /* RentRoomProjectDetailVC.h */,
 				0CF46DE62227C58F008816E6 /* RentRoomProjectDetailVC.m */,
@@ -1767,6 +1793,7 @@
 				0CE821CB221E35B500576742 /* WMMenuItem.m in Sources */,
 				0CF46E16222D003F008816E6 /* SecRoomOfficeDetailCell.m in Sources */,
 				0CF46DAA222632D2008816E6 /* AppointSeeRoomVC.m in Sources */,
+				0C36C5632244C9F4007BB162 /* RentingComAllRoomListVC.m in Sources */,
 				0CF46DAE22265BF0008816E6 /* AppointSeeRoomSuccessView.m in Sources */,
 				0CF46E19222D0159008816E6 /* SecRoomOfficeEquipCell.m in Sources */,
 				0C5893AD223B58BE005B78A6 /* RentRoomStoreProjectCell.m in Sources */,
@@ -1819,6 +1846,7 @@
 				0CE821B6221D542C00576742 /* DemandVC.m in Sources */,
 				0CE82213221E771000576742 /* GZQGifFooter.m in Sources */,
 				0CE821E7221E3A4400576742 /* CityVC.m in Sources */,
+				0C36C55D2244C32C007BB162 /* SecComAllRoomListVC.m in Sources */,
 				0CF46D802224D6BA008816E6 /* NewRoomProjectBuildingCell.m in Sources */,
 				0CE8218E221D31E900576742 /* BaseViewController.m in Sources */,
 				0CF46D722223978D008816E6 /* NewRoomProjectHeader.m in Sources */,

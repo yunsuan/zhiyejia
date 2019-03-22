@@ -318,7 +318,7 @@
     //二手房项目
     vc.roomChildVCSecRoomProjectBlock = ^(SecProjectModel * _Nonnull model) {
         
-        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id city:self->_city];
         
         nextVC.type = weakvc.typeId;
         nextVC.hidesBottomBarWhenPushed = YES;
@@ -345,7 +345,7 @@
     //租房项目
     vc.roomChildVCRentRoomProjectBlock = ^(RentProjectModel * _Nonnull model) {
         
-        RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id city:self->_city];
         
         nextVC.type = weakvc.typeId;
         nextVC.hidesBottomBarWhenPushed = YES;

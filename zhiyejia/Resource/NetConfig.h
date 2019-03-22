@@ -53,6 +53,12 @@ static NSString *const HomeProjectList_URL = @"home/project/list";
 //项目详情
 static NSString *const HomeProjectDetail_URL = @"home/project/detail";
 
+//取消订阅项目
+static NSString *const CancelFocusProject_URL = @"agent/personal/cancelFocusProject";
+
+//订阅项目
+static NSString *const PersonalFocusProject_URL = @"agent/personal/focusProject";
+
 #pragma mark -- 二手房 --
 //项目列表
 static NSString *const HouseProjectList_URL = @"user/house/project/list";

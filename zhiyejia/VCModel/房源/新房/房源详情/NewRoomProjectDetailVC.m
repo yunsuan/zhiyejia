@@ -28,6 +28,7 @@
     NSString *_projectId;
     NSDictionary *_dataDic;
     NSString *_phone;
+    NSMutableDictionary *_focusDic;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -61,6 +62,7 @@
 
 - (void)initDataSource{
     
+    _focusDic = [@{} mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -71,6 +73,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = resposeObject[@"data"];
+            self->_focusDic = self->_dataDic[@"focus"];
             if (self->_dataDic[@"butter_tel"]) {
                 
                 self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
@@ -88,7 +91,46 @@
 
 - (void)ActionAttentionBtn:(UIButton *)btn{
     
-    
+    if (_focusDic.count) {
+        
+        if ([_focusDic[@"is_focus"] integerValue] !=0) {
+            
+            [BaseRequest GET:CancelFocusProject_URL parameters:@{@"sub_id":_focusDic[@"is_focus"]} success:^(id resposeObject) {
+                
+                NSLog(@"%@",resposeObject);
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self RequestMethod];
+                }
+                else{
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+                NSLog(@"%@",error);
+                [self showContent:@"网络错误"];
+            }];
+        }else{
+            
+            [BaseRequest GET:PersonalFocusProject_URL parameters:@{@"project_id":_projectId,@"type":@"0"} success:^(id resposeObject) {
+                
+                NSLog(@"%@",resposeObject);
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self RequestMethod];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+                [self RequestMethod];
+            } failure:^(NSError *error) {
+                
+                NSLog(@"%@",error);
+                [self showContent:@"网络错误"];
+            }];
+        }
+    }
 }
 
 - (void)ActionCounselBtn:(UIButton *)btn{
@@ -441,6 +483,7 @@
     [_attentBtn addTarget:self action:@selector(ActionAttentionBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_attentBtn setImage:IMAGE_WITH_NAME(@"Focus") forState:UIControlStateNormal];
     [_attentBtn setTitle:@"订阅" forState:UIControlStateNormal];
+    [_attentBtn addTarget:self action:@selector(ActionAttentionBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_attentBtn setBackgroundColor:CLWhiteColor];
     [_attentBtn setTitleColor:CL86Color forState:UIControlStateNormal];
     [self.view addSubview:_attentBtn];

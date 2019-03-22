@@ -163,6 +163,11 @@
     }];
     
     [_propertyColl reloadData];
+    SS(strongSelf);
+    [_propertyColl mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(strongSelf->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
+    }];
 }
 
 - (void)ActionMoreBtn:(UIButton *)btn{
@@ -196,7 +201,10 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
-    
+    if (self.secRoomProjectHeaderTagBlock) {
+        
+        self.secRoomProjectHeaderTagBlock(btn.tag);
+    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
