@@ -11,6 +11,9 @@
 #import "NewRoomProjectDetailDetailVC.h"
 #import "AppointSeeRoomVC.h"
 #import "DynamicListVC.h"
+#import "DistributVC.h"
+#import "DynamicDetailVC.h"
+#import "NewRoomHouseDetailVC.h"
 
 #import "NewRoomProjectHeader.h"
 #import "NewRoomProjectDetailFooter.h"
@@ -22,13 +25,14 @@
 #import "NewRoomProjectMapCell.h"
 
 
-@interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
 {
     
     NSString *_projectId;
     NSDictionary *_dataDic;
     NSString *_phone;
     NSMutableDictionary *_focusDic;
+    NSMutableArray *_albumArr;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -63,6 +67,7 @@
 - (void)initDataSource{
     
     _focusDic = [@{} mutableCopy];
+    _albumArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -78,6 +83,7 @@
                 
                 self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
             }
+            self->_albumArr = [NSMutableArray arrayWithArray:self->_dataDic[@"project_img"][@"url"]];
             [self->_roomTable reloadData];
         }else{
             
@@ -248,7 +254,58 @@
         
         header.newRoomProjectHeaderImgBtnBlock = ^(NSInteger num, NSArray *imgArr) {
             
-            
+            NSMutableArray *tempArr = [NSMutableArray array];
+            [imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                YBImageBrowserModel *model = [YBImageBrowserModel new];
+                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
+                [tempArr addObject:model];
+            }];
+            if (self->_albumArr.count) {
+                
+                YBImageBrowser *browser = [YBImageBrowser new];
+                browser.delegate = self;
+                browser.dataArray = tempArr;
+                browser.albumArr = self->_albumArr;
+                
+//                browser.infoid = _info_id;
+                browser.currentIndex = num;
+                [browser show];
+            }else{
+                
+                [BaseRequest GET:GetImg_URL parameters:@{@"project_id":self->_projectId} success:^(id resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+                            
+                            [self->_albumArr removeAllObjects];
+                            for ( int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                                
+                                if ([resposeObject[@"data"][i] isKindOfClass:[NSDictionary class]]) {
+                                    
+                                    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"][i]];
+                                    
+                                    [self->_albumArr addObject:tempDic];
+                                    
+                                    YBImageBrowser *browser = [YBImageBrowser new];
+                                    browser.delegate = self;
+                                    browser.albumArr = self->_albumArr;
+                                    browser.dataArray = tempArr;
+//                                    browser.infoid = _info_id;
+                                    browser.currentIndex = num;
+                                    [browser show];
+                                }
+                            }
+                        }else{
+                            
+                        }
+                    }
+                } failure:^(NSError *error) {
+                    
+                    NSLog(@"%@",error);
+                }];
+            }
         };
         
         header.newRoomProjectHeaderMoreBlock = ^{
@@ -357,12 +414,12 @@
 
             cell.collCellBlock = ^(NSInteger index) {
 
-//                if (_houseArr.count) {
-//                    HouseTypeDetailVC *nextVC = [[HouseTypeDetailVC alloc]initWithHouseTypeId:[NSString stringWithFormat:@"%@",_houseArr[index][@"id"]] index:index dataArr:_houseArr projectId:_projectId infoid:_info_id];
-//
+                if ([self->_dataDic[@"house_type"] count]) {
+                    NewRoomHouseDetailVC *nextVC = [[NewRoomHouseDetailVC alloc]initWithHouseTypeId:[NSString stringWithFormat:@"%@",self->_dataDic[@"house_type"][index][@"id"]] index:index dataArr:self->_dataDic[@"house_type"] projectId:self->_projectId infoid:@""];
+
 //                    nextVC.model = _model;
-//                    [self.navigationController pushViewController:nextVC animated:YES];
-//                }
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }
             };
             return cell;
             break;
@@ -443,6 +500,25 @@
             return cell;
             break;
         }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 2) {
+        
+        DistributVC *nextVC = [[DistributVC alloc] init];
+//        nextVC.urlfor3d = _model.total_float_url_panorama;
+//        nextVC.img_name = _model.total_float_url_phone;
+        nextVC.projiect_id = _projectId;
+//        nextVC.titleStr = _model.project_name;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
+    
+    if (indexPath.section == 1) {
+        
+        DynamicDetailVC *nextVC = [[DynamicDetailVC alloc] initWithStr:_dataDic[@"dynamic"][@"first"][@"url"] titleStr:@"动态详情"];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 

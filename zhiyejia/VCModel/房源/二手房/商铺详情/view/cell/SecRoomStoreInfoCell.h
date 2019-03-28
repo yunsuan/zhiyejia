@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) SecRoomOfficeDetailModel *officeModel;
 
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyColl;
+
 @property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) UILabel *timeL;

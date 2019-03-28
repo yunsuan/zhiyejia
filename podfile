@@ -9,6 +9,7 @@ target 'zhiyejia' do
  pod 'Masonry'
  pod 'BaiduMapKit' #百度地图SDK
  pod 'BMKLocationKit' #百度定位SDK
- pod 'YBImageBrowser'
- #pod 'FLAnimatedImage'
+ pod 'FLAnimatedImage'
+ 
+# pod 'YBImageBrowser'
 end

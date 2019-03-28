@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (nonatomic, strong) UILabel *codeL;
 
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyColl;
+
 @property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) UILabel *yearL;

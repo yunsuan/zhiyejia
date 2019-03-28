@@ -145,7 +145,8 @@
         if ([data[@"focus"][@"is_focus"] integerValue]) {
             
             _focusId = [NSString stringWithFormat:@"%@",data[@"focus"][@"is_focus"]];
-            [_attentBtn setTitle:@"取消关注" forState:UIControlStateNormal];
+            _attentL.text = @"取消关注";
+//            [_attentBtn setTitle:@"取消关注" forState:UIControlStateNormal];
         }
         _focusDic = [NSMutableDictionary dictionaryWithDictionary:data[@"focus"]];
     }

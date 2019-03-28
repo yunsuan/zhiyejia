@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SecRoomOfficeInfoCell : UITableViewCell
 
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyColl;
+
 @property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) UILabel *timeL;

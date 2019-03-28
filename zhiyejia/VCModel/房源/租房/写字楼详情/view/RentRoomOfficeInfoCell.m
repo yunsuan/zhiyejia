@@ -8,6 +8,15 @@
 
 #import "RentRoomOfficeInfoCell.h"
 
+@interface RentRoomOfficeInfoCell ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+{
+    
+    
+    NSMutableArray *_propertyArr;
+    NSMutableArray *_tagArr;
+}
+@end
+
 @implementation RentRoomOfficeInfoCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -15,13 +24,29 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        [self initDataSource];
         [self initUI];
     }
     return self;
 }
 
+- (void)initDataSource{
+    
+    _propertyArr = [@[] mutableCopy];
+    _tagArr = [@[] mutableCopy];
+}
+
 - (void)setModel:(RentRoomOfficeDetailModel *)model{
     
+    _propertyArr = [NSMutableArray arrayWithArray:model.project_tags];
+    _tagArr = [NSMutableArray arrayWithArray:model.house_tags];
+    
+    [_propertyColl reloadData];
+    SS(strongSelf);
+    [_propertyColl mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(strongSelf->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
+    }];
     
     _transferL.text = [NSString stringWithFormat:@"转让费：%@元",model.transfer_money];
     _depositL.text = [NSString stringWithFormat:@"押金：%@元",model.deposit];
@@ -47,12 +72,78 @@
     _markL.text = [NSString stringWithFormat:@"%@",model.comment];
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+    if (_propertyArr.count && _tagArr.count) {
+        
+        return 2;
+    }else if (!_propertyArr.count && !_tagArr.count){
+        
+        return 0;
+    }else{
+        
+        return 1;
+    }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
+    return CGSizeMake(SCREEN_Width, 3 *SIZE);
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    if (section == 1) {
+        
+        return _tagArr.count;
+    }else{
+        
+        if (_propertyArr.count) {
+            
+            return _propertyArr.count;
+        }else{
+            
+            return _tagArr.count;
+        }
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 70 *SIZE, 20 *SIZE)];
+    }
+    
+    if (indexPath.section == 1) {
+        
+        [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
+        
+    }else{
+        
+        [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+    }
+    
+    return cell;
+}
+
 - (void)initUI{
     
     
     _markView = [[UIView alloc] init];
     _markView.backgroundColor = COLOR(244, 244, 244, 1);
     [self.contentView addSubview:_markView];
+    
+    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:4 *SIZE];
+    _propertyFlowLayout.itemSize = CGSizeMake(70 *SIZE, 20 *SIZE);
+    
+    _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectMake(10 *SIZE, 11 *SIZE, 340 *SIZE, 20 *SIZE) collectionViewLayout:_propertyFlowLayout];
+    _propertyColl.backgroundColor = CLWhiteColor;
+    _propertyColl.delegate = self;
+    _propertyColl.dataSource = self;
+    [_propertyColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
+    [self.contentView addSubview:_propertyColl];
     
     for (int i = 0; i < 15; i++) {
         
@@ -163,17 +254,25 @@
 
 - (void)MasonryUI{
     
+    [_propertyColl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self.contentView).offset(11 *SIZE);
+        make.width.mas_equalTo(340 *SIZE);
+        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
+    }];
+    
     [_transferL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self.contentView).offset(76 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_depositL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self.contentView).offset(76 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     

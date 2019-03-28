@@ -53,6 +53,12 @@ static NSString *const HomeProjectList_URL = @"home/project/list";
 //项目详情
 static NSString *const HomeProjectDetail_URL = @"home/project/detail";
 
+//获取项目图片
+static NSString *const GetImg_URL = @"user/img/get/v2.7";
+
+//获取楼栋
+static NSString *const GetBuilding_URL = @"user/yunsuan/build";
+
 //取消订阅项目
 static NSString *const CancelFocusProject_URL = @"agent/personal/cancelFocusProject";
 

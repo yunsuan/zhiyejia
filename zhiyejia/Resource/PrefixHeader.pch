@@ -25,6 +25,8 @@
 #import "TagCollCell.h"
 #import "GZQFlowLayout.h"
 
+
+#import "YBImageBrowser.h"
 #import "MJRefresh.h"
 #import <Masonry.h>
 #import "UIImageView+WebCache.h"

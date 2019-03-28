@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DynamicDetailVC : BaseViewController
 
+- (instancetype)initWithStr:(NSString *)str titleStr:(NSString *)titleStr;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,15 @@
 
 #import "RentRoomStoreInfoCell.h"
 
+@interface RentRoomStoreInfoCell ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+{
+    
+    
+    NSMutableArray *_propertyArr;
+    NSMutableArray *_tagArr;
+}
+@end
+
 @implementation RentRoomStoreInfoCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -15,12 +24,29 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        [self initDataSource];
         [self initUI];
     }
     return self;
 }
 
+- (void)initDataSource{
+    
+    _propertyArr = [@[] mutableCopy];
+    _tagArr = [@[] mutableCopy];
+}
+
 - (void)setStoreModel:(RentRoomStoreDetailModel *)storeModel{
+    
+    _propertyArr = [NSMutableArray arrayWithArray:storeModel.project_tags];
+    _tagArr = [NSMutableArray arrayWithArray:storeModel.house_tags];
+    
+    [_propertyColl reloadData];
+    SS(strongSelf);
+    [_propertyColl mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(strongSelf->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
+    }];
     
     _transferL.text = [NSString stringWithFormat:@"转让费：%@元",storeModel.transfer_money];
     _depositL.text = [NSString stringWithFormat:@"押金：%@元",storeModel.deposit];
@@ -52,6 +78,62 @@
     _markL.text = [NSString stringWithFormat:@"%@",storeModel.comment];
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+    if (_propertyArr.count && _tagArr.count) {
+        
+        return 2;
+    }else if (!_propertyArr.count && !_tagArr.count){
+        
+        return 0;
+    }else{
+        
+        return 1;
+    }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
+    return CGSizeMake(SCREEN_Width, 3 *SIZE);
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    if (section == 1) {
+        
+        return _tagArr.count;
+    }else{
+        
+        if (_propertyArr.count) {
+            
+            return _propertyArr.count;
+        }else{
+            
+            return _tagArr.count;
+        }
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 70 *SIZE, 20 *SIZE)];
+    }
+    
+    if (indexPath.section == 1) {
+        
+        [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
+        
+    }else{
+        
+        [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+    }
+    
+    return cell;
+}
+
 - (void)initUI{
     
     //    _tagView = [[TagView alloc] initWithFrame:CGRectMake(10 *SIZE, 15 *SIZE, 300 *SIZE, 20 *SIZE) type:@"1"];
@@ -60,9 +142,20 @@
     //    _tagView2 = [[TagView alloc] initWithFrame:CGRectMake(10 *SIZE, 46 *SIZE, 300 *SIZE, 20 *SIZE) type:@"1"];
     //    [self.contentView addSubview:_tagView2];
     
+    
     _markView = [[UIView alloc] init];
     _markView.backgroundColor = COLOR(244, 244, 244, 1);
     [self.contentView addSubview:_markView];
+    
+    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:4 *SIZE];
+    _propertyFlowLayout.itemSize = CGSizeMake(70 *SIZE, 20 *SIZE);
+    
+    _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectMake(10 *SIZE, 11 *SIZE, 340 *SIZE, 20 *SIZE) collectionViewLayout:_propertyFlowLayout];
+    _propertyColl.backgroundColor = CLWhiteColor;
+    _propertyColl.delegate = self;
+    _propertyColl.dataSource = self;
+    [_propertyColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
+    [self.contentView addSubview:_propertyColl];
     
     for (int i = 0; i < 14; i++) {
         
@@ -167,111 +260,119 @@
 
 - (void)MasonryUI{
     
+    [_propertyColl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self.contentView).offset(11 *SIZE);
+        make.width.mas_equalTo(340 *SIZE);
+        make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
+    }];
+    
     [_transferL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self.contentView).offset(76 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_depositL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self.contentView).offset(76 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_roomLevelL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_transferL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_transferL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_rentTypeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(_depositL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_depositL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_payWayL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_roomLevelL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_roomLevelL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(340 *SIZE));
     }];
     
     [_minPeriodL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_payWayL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_payWayL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_maxPeriodL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(_payWayL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_payWayL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_inTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_minPeriodL.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_minPeriodL.mas_bottom).offset(15 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_seeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(_maxPeriodL.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_maxPeriodL.mas_bottom).offset(15 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_rentFreeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_inTimeL.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_inTimeL.mas_bottom).offset(15 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_commercailL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(_seeL.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_seeL.mas_bottom).offset(15 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(_rentFreeL.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_rentFreeL.mas_bottom).offset(15 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_urgentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_commercailL.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_commercailL.mas_bottom).offset(15 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_markView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(_urgentL.mas_bottom).offset(16 *SIZE);
+        make.top.equalTo(self->_urgentL.mas_bottom).offset(16 *SIZE);
         make.width.equalTo(@(340 *SIZE));
         make.bottom.equalTo(self.contentView).offset(-16 *SIZE);
     }];
     
     [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(_markView).offset(4 *SIZE);
-        make.top.equalTo(_markView).offset(15 *SIZE);
+        make.left.equalTo(self->_markView).offset(4 *SIZE);
+        make.top.equalTo(self->_markView).offset(15 *SIZE);
         make.width.equalTo(@(330 *SIZE));
-        make.bottom.equalTo(_markView).offset(-15 *SIZE);
+        make.bottom.equalTo(self->_markView).offset(-15 *SIZE);
     }];
     
 }

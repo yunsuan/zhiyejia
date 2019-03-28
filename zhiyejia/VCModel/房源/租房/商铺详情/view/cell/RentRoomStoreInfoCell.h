@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) RentRoomStoreDetailModel *storeModel;
 
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyColl;
+
 //@property (nonatomic, strong) RentRoomHouseDetailModel *model;
 
 @property (nonatomic, strong) UILabel *transferL;
