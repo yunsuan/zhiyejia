@@ -25,12 +25,68 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+    [self RequestMethod];
+}
+
+- (void)initDataSource{
+    
+    _dataArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:PersonalGetFocusProjectList_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self SetData:resposeObject[@"data"]];
+            [self->_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSArray *)data{
+    
+    for (int i = 0; i < data.count; i++) {
+        
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:data[i]];
+        [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+           
+            if ([key isEqualToString:@"project_tags"] || [key isEqualToString:@"property_tags"]) {
+                
+                if ([obj isKindOfClass:[NSArray class]]) {
+                    
+                    
+                }else{
+                    
+                    [tempDic setObject:@[] forKey:key];
+                }
+            }else{
+                
+                if ([obj isKindOfClass:[NSNull class]]) {
+                    
+                    [tempDic setObject:@"" forKey:key];
+                }else{
+                    
+                    [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                }
+            }
+        }];
+        [_dataArr addObject:tempDic];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -42,10 +98,11 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.titleL.text = @"新希望国际大厦";
-    cell.statusL.text = @"在售";
-    cell.addressL.text = @"高新区-天府三街-北街22号";
-    cell.priceL.text = @"均价：16000元/m²";
+    cell.dataDic = _dataArr[indexPath.row];
+//    cell.titleL.text = @"新希望国际大厦";
+//    cell.statusL.text = @"在售";
+//    cell.addressL.text = @"高新区-天府三街-北街22号";
+//    cell.priceL.text = @"均价：16000元/m²";
     
     return cell;
 }
@@ -64,7 +121,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return @"取消收藏";
+    return @"取消订阅";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -74,7 +131,20 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    [BaseRequest GET:CancelFocusProject_URL parameters:@{@"sub_id":_dataArr[indexPath.row][@"sub_id"]} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self->_dataArr removeObjectAtIndex:indexPath.row];
+            [tableView reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网路错误"];
+    }];
 }
 
 - (void)initUI{

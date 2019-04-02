@@ -31,6 +31,7 @@
     _contentL = [[UILabel alloc]init];
     _contentL.font = [UIFont systemFontOfSize:13 *SIZE];
     _contentL.numberOfLines = 0;
+//    _conten
     _contentL.textColor = CLTitleLabColor;
     [self.contentView addSubview:_contentL];
     

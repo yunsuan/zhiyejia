@@ -30,6 +30,35 @@ static NSString *const Register_URL = @"user/register";
 
 //忘记密码
 static NSString *const ResetPassword_URL = @"user/user/resetPassword";
+
+#pragma mark ---  我的  ---
+
+//获取个人信息
+static NSString *const PersonalGetAgentInfo_URL = @"user/personal/getAgentInfo";
+
+//修改个人信息
+static NSString *const PersonalChangeAgentInfo_URL = @"user/personal/changeAgentInfo";
+
+//我关注的经纪人
+static NSString *const PersonalGetFocusAgent_URL = @"user/personal/getfocusAgent";
+
+//关注经纪人
+static NSString *const PersonalCancelFocusAgent_URL = @"user/personal/cancelFocusAgent";
+
+//取关经纪人
+static NSString *const PersonalFocusAgent_URL = @"user/personal/focusAgent";
+
+//我的订阅
+static NSString *const PersonalGetFocusProjectList_URL = @"user/personal/getFocusProjectList";
+
+//订阅
+static NSString *const PersonalFocusProjectList_URL = @"user/personal/focusProject";
+
+//取消订阅
+static NSString *const PersonalCancelFocusProjectList_URL = @"user/personal/cancelFocusProject";
+
+//意见反馈
+static NSString *const PersonalSendAdvice_URL = @"user/personal/sendAdvice";
 #pragma mark ---  房源  ---
 
 //获取开放区域

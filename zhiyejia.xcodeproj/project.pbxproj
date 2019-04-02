@@ -109,6 +109,7 @@
 		0CE82229221EA6B600576742 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82228221EA6B600576742 /* MineCell.m */; };
 		0CE8222C221EB2A500576742 /* MineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8222B221EB2A500576742 /* MineHeader.m */; };
 		0CE8222F221EB37000576742 /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8222E221EB37000576742 /* MineHeaderView.m */; };
+		0CF1F33422533E0A00C92A54 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1F33322533E0A00C92A54 /* UserInfoModel.m */; };
 		0CF46D5922237B47008816E6 /* PersonalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46D5822237B47008816E6 /* PersonalVC.m */; };
 		0CF46D6622238734008816E6 /* NewRoomProjectDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46D6522238734008816E6 /* NewRoomProjectDetailVC.m */; };
 		0CF46D722223978D008816E6 /* NewRoomProjectHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46D702223978D008816E6 /* NewRoomProjectHeader.m */; };
@@ -401,6 +402,8 @@
 		0CE8222B221EB2A500576742 /* MineHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeader.m; sourceTree = "<group>"; };
 		0CE8222D221EB37000576742 /* MineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeaderView.h; sourceTree = "<group>"; };
 		0CE8222E221EB37000576742 /* MineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
+		0CF1F33222533E0A00C92A54 /* UserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		0CF1F33322533E0A00C92A54 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		0CF46D5722237B47008816E6 /* PersonalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalVC.h; sourceTree = "<group>"; };
 		0CF46D5822237B47008816E6 /* PersonalVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalVC.m; sourceTree = "<group>"; };
 		0CF46D6422238734008816E6 /* NewRoomProjectDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectDetailVC.h; sourceTree = "<group>"; };
@@ -1194,6 +1197,8 @@
 				0CE821EE221E3DC800576742 /* UserModel.m */,
 				0CE821F0221E3E0A00576742 /* UserModelArchiver.h */,
 				0CE821F1221E3E0A00576742 /* UserModelArchiver.m */,
+				0CF1F33222533E0A00C92A54 /* UserInfoModel.h */,
+				0CF1F33322533E0A00C92A54 /* UserInfoModel.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -2087,6 +2092,7 @@
 				0C2AAFB8224C760600136E4D /* YBImageBrowserFunctionBar.m in Sources */,
 				0C2AAFFA224C990200136E4D /* NewRoomHouseDetailVC.m in Sources */,
 				0CF46ED5222FC51C008816E6 /* LocationManager.m in Sources */,
+				0CF1F33422533E0A00C92A54 /* UserInfoModel.m in Sources */,
 				0C2AAFF7224C94B800136E4D /* SelectView.m in Sources */,
 				0CE821B3221D541600576742 /* AgentVC.m in Sources */,
 				0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */,

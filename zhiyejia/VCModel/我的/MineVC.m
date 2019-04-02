@@ -39,10 +39,64 @@
     [self initUI];
 }
 
+
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadUserInfo) name:@"reloadUser" object:nil];
     _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"意见反馈",@"关于宜家"];
     _imgArr = @[@"personaldata",@"work",@"makeanappointment",@"subscribe",@"opinion",@"about"];
+}
+
+- (void)ReloadUserInfo{
+    
+    if ([UserModel defaultModel].token) {
+        
+        
+    }else{
+        
+        
+    }
+}
+
+- (void)GotoLogin{
+    
+    LoginVC *nextVC = [[LoginVC alloc] init];
+    nextVC.loginVCBlock = ^{
+        
+        [BaseRequest GET:PersonalGetAgentInfo_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    
+                    if ([obj isKindOfClass:[NSNull class]]) {
+                        
+                        [tempDic setObject:@"" forKey:key];
+                    }
+                }];
+                [UserModel defaultModel].absolute_address = tempDic[@"absolute_address"];
+                [UserModel defaultModel].account = tempDic[@"account"];
+                [UserModel defaultModel].birth = tempDic[@"birth"];
+                [UserModel defaultModel].city = tempDic[@"city"];
+                [UserModel defaultModel].district = tempDic[@"district"];
+                [UserModel defaultModel].head_img = tempDic[@"head_img"];
+                [UserModel defaultModel].name = tempDic[@"name"];
+                [UserModel defaultModel].sex = tempDic[@"sex"];
+                [UserModel defaultModel].tel = tempDic[@"tel"];
+                [UserModel defaultModel].province = tempDic[@"province"];
+                [UserModelArchiver archive];
+                [self->_table reloadData];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"未获取到用户信息，请重试"];
+        }];
+    };
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -60,7 +114,15 @@
     
     if ([UserModel defaultModel].token.length) {
         
+        [header.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,[UserModel defaultModel].head_img]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+           
+            if (error) {
+                
+                header.headerImg.image = IMAGE_WITH_NAME(@"def_head");
+            }
+        }];
         
+        header.nameL.text = [UserModel defaultModel].name;
     }else{
         
         header.headerImg.image = IMAGE_WITH_NAME(@"def_head");
@@ -74,7 +136,7 @@
             
         }else{
             
-            [self.navigationController pushViewController:[[LoginVC alloc] init] animated:YES];
+            [self GotoLogin];
         }
     };
     
@@ -85,7 +147,7 @@
             
         }else{
             
-            
+            [self GotoLogin];
         }
     };
     
@@ -95,8 +157,14 @@
     
     header.mineHeaderAgentBtnBlock = ^{
       
-        MyAttentionAgentVC *nextVC = [[MyAttentionAgentVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
+        if ([UserModel defaultModel].token.length) {
+        
+            MyAttentionAgentVC *nextVC = [[MyAttentionAgentVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            [self GotoLogin];
+        }
     };
     
     header.mineHeaderHistoryBtnBlock = ^{
@@ -125,33 +193,67 @@
     switch (indexPath.row) {
         case 0:
         {
-            PersonalVC *nextVC = [[PersonalVC alloc] init];
-            [self.navigationController pushViewController:nextVC animated:YES];
+            if ([UserModel defaultModel].token.length) {
+                
+                PersonalVC *nextVC = [[PersonalVC alloc] init];
+                nextVC.personalVCBlock = ^{
+                    
+                    [tableView reloadData];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                [self GotoLogin];
+            }
             break;
         }
             
         case 1:{
             
-            MyMessageVC *nextVC = [[MyMessageVC alloc] init];
-            [self.navigationController pushViewController:nextVC animated:YES];
+            if ([UserModel defaultModel].token.length) {
+            
+                MyMessageVC *nextVC = [[MyMessageVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                [self GotoLogin];
+            }
             break;
         }
         case 2:{
             
-            MyAppointVC *nextVC = [[MyAppointVC alloc] init];
-            [self.navigationController pushViewController:nextVC animated:YES];
+            if ([UserModel defaultModel].token.length) {
+           
+                MyAppointVC *nextVC = [[MyAppointVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                [self GotoLogin];
+            }
             break;
         }
         case 3:{
             
-            MySubscibeVC *nextVC = [[MySubscibeVC alloc] init];
-            [self.navigationController pushViewController:nextVC animated:YES];
+            if ([UserModel defaultModel].token.length) {
+            
+                MySubscibeVC *nextVC = [[MySubscibeVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                [self GotoLogin];
+            }
             break;
         }
         case 4:{
             
-            FeedbackVC *nextVC = [[FeedbackVC alloc] init];
-            [self.navigationController pushViewController:nextVC animated:YES];
+            if ([UserModel defaultModel].token.length) {
+                
+                FeedbackVC *nextVC = [[FeedbackVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                [self GotoLogin];
+            }
             break;
         }
         default:

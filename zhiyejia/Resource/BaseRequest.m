@@ -17,8 +17,12 @@ static AFHTTPSessionManager *updatemanager ;
     
 //    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
-//    [manager.requestSerializer setValue:[UserModelArchiver unarchive].Token forHTTPHeaderField:@"ACCESS-TOKEN"];
-//    [manager.requestSerializer setValue:kACCESSROLE forHTTPHeaderField:@"ACCESS-ROLE"];
+//    if ([UserModel defaultModel].token.length) {
+    
+        [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
+        [manager.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
+//    }
+//
     
     NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];
     
@@ -34,10 +38,15 @@ static AFHTTPSessionManager *updatemanager ;
         }else if ([responseObject[@"code"] integerValue] == 401) {
             [BaseRequest showConten:@"账号在其他地点登录，请重新登录！"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
 //                [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
-//                [UserModel defaultModel].Token = @"";
+//                [UserModel defaultModel].token = @"";
+//
 //                [UserModelArchiver archive];
-//                [[NSNotificationCenter defaultCenter]postNotificationName:@"goLoginVC" object:nil];
+                [UserModelArchiver ClearUserInfoModel];
+                [[UIApplication sharedApplication].keyWindow.rootViewController.navigationController popViewControllerAnimated:YES];
+//                [UIApplication sharedApplication].keyWindow.rootViewController.navigationController pushViewController:[nex] animated:<#(BOOL)#>
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUser" object:nil];
             });
             return;
         }else{
@@ -63,8 +72,12 @@ static AFHTTPSessionManager *updatemanager ;
 + (void)POST:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
 //    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
-//    [manager.requestSerializer setValue:[UserModelArchiver unarchive].Token forHTTPHeaderField:@"ACCESS-TOKEN"];
-//    [manager.requestSerializer setValue:kACCESSROLE forHTTPHeaderField:@"ACCESS-ROLE"];
+//    if ([UserModel defaultModel].token.length) {
+    
+        [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
+        [manager.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
+//    }
+    
     
     NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];
     [htttmanger POST:str parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {

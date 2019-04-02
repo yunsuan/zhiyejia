@@ -20,6 +20,22 @@
     return self;
 }
 
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
+    
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"img_url"]]] placeholderImage:IMAGE_WITH_NAME(@"") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+       
+        if (error) {
+            
+            self->_headImg.image = IMAGE_WITH_NAME(@"");
+        }
+    }];
+    
+    _titleL.text = dataDic[@"project_name"];
+    _statusL.text = dataDic[@"sale_state"];
+    _addressL.text = dataDic[@"absolute_address"];
+    _priceL.text = dataDic[@""];
+}
+
 - (void)initUI{
     
     _headImg = [[UIImageView alloc] init];

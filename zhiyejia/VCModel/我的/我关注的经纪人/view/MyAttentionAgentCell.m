@@ -22,11 +22,11 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = @"张三";
-    _yearL.text = @"23岁";
-    _genderImg.image = IMAGE_WITH_NAME(@"man");
+    _nameL.text = _dataDic[@"name"];
+    _yearL.text = _dataDic[@"age"]?[NSString stringWithFormat:@"%@岁",_dataDic[@"age"]]:@"";
+    _genderImg.image = [_dataDic[@"age"] integerValue] == 1? IMAGE_WITH_NAME(@"man"):[_dataDic[@"age"] integerValue] == 2? IMAGE_WITH_NAME(@"girl"):IMAGE_WITH_NAME(@"");
     _statusL.text = @"当前状态：在线";
-    _codeL.text = @"云算编号：LD3312311";
+    _codeL.text = [NSString stringWithFormat:@"云算编号：%@",_dataDic[@"account"]];
     
     _comprehensiveGradeL.text = @"综合评分：78分";
     _serviceGradeL.text = @"服务评分：78分";

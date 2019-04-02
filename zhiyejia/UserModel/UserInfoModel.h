@@ -1,25 +1,16 @@
 //
-//  UserModel.h
+//  UserInfoModel.h
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/2/21.
+//  Created by 谷治墙 on 2019/4/2.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-//#import "BaseModel.h"
+#import "BaseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UserModel : NSObject
-
-@property (nonatomic, strong) NSString *phone;
-
-@property (nonatomic, strong) NSString *passWord;
-
-@property (nonatomic, strong) NSString *time;
-
-@property (nonatomic, strong) NSString *token;
+@interface UserInfoModel : BaseModel
 
 @property (nonatomic, strong) NSString *absolute_address;
 
@@ -40,16 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *sex;
 
 @property (nonatomic, strong) NSString *tel;
-
-@property (nonatomic, strong) NSMutableArray *cityArr;
-
-@property (nonatomic, strong) NSMutableDictionary *tagDic;
-
-@property (nonatomic, strong) NSMutableArray *tagAllArr;
-
-@property (nonatomic, strong) NSMutableArray *tagSelectArr;
-
-+ (UserModel *)defaultModel;
 
 @end
 

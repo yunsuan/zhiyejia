@@ -23,7 +23,7 @@
             
         }
     });
-    return  model;
+    return model;
 }
 
 #pragma mark - NSCoding

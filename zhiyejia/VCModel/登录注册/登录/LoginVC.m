@@ -84,9 +84,15 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+            [UserModel defaultModel].phone = self->_AccountTF.text;
+            [UserModel defaultModel].passWord = self->_PassWordTF.text;
             [UserModel defaultModel].time = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"time"]];
             [UserModel defaultModel].token = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"token"]];
             [UserModelArchiver archive];
+            if (self.loginVCBlock) {
+                
+                self.loginVCBlock();
+            }
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             
@@ -138,7 +144,7 @@
     [_AccountTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _AccountTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:_AccountTF];
-//    _AccountTF.text = [UserModelArchiver unarchive].Account;
+    _AccountTF.text = [UserModel defaultModel].phone;
     
     _PassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 266*SIZE, 314*SIZE, 15*SIZE)];
     _PassWordTF.placeholder = @"请输入密码";
@@ -146,7 +152,7 @@
     [_PassWordTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _PassWordTF.secureTextEntry = YES;
     [self.view addSubview:_PassWordTF];
-//    _PassWord.text = [UserModelArchiver unarchive].Password;
+    _PassWordTF.text = [UserModel defaultModel].passWord;
     
     for (int i = 0; i < 2; i++) {
         
@@ -170,6 +176,10 @@
     _ProtocolBtn.frame =  CGRectMake(20*SIZE, 259 *SIZE + NAVIGATION_BAR_HEIGHT, 300 *SIZE, 23 *SIZE);
     [_ProtocolBtn addTarget:self action:@selector(ActionProtocolBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_ProtocolBtn];
+    if ([UserModel defaultModel].phone.length) {
+        
+        [self ActionProtocolBtn:_ProtocolBtn];
+    }
     
     _LoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _LoginBtn.frame = CGRectMake(22*SIZE, 310 *SIZE + NAVIGATION_BAR_HEIGHT, 316*SIZE, 41*SIZE);

@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^PersonalVCBlock)(void);
+
 @interface PersonalVC : BaseViewController
+
+@property (nonatomic, copy) PersonalVCBlock personalVCBlock;
 
 @end
 

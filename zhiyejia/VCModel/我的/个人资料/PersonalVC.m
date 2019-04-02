@@ -34,29 +34,30 @@
 - (void)initDataSource{
     
     _titleArr = @[@"账号",@"密码",@"昵称",@"电话"];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserModel defaultModel].account,@"******",[UserModel defaultModel].name,[UserModel defaultModel].tel]];
 }
 
 
 #pragma mark -- action
 
 - (void)ActionExitBtn:(UIButton *)btn{
-    
+
     [self alertControllerWithNsstring:@"温馨提示" And:@"你确定要退出当前账号吗？" WithCancelBlack:^{
         
     } WithDefaultBlack:^{
         
-        [BaseRequest GET:LogOut_URL parameters:nil success:^(id resposeObject) {
+        [UserModelArchiver ClearUserInfoModel];
+        if (self.personalVCBlock) {
             
-            //            NSLog(@"%@",resposeObject);
-        } failure:^(NSError *error) {
-            
-            //            NSLog(@"%@",error);
-        }];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
-//        [UserModel defaultModel].Token = @"";
-//        [UserModelArchiver archive];
-//        [UserModelArchiver ClearUserInfoModel];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
+            self.personalVCBlock();
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+//        [BaseRequest GET:LogOut_URL parameters:nil success:^(id resposeObject) {
+//
+//        } failure:^(NSError *error) {
+//
+//            //            NSLog(@"%@",error);
+//        }];
     }];
 }
 
@@ -82,8 +83,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleL.text = _titleArr[(NSUInteger) indexPath.row];
-//    cell.contentL.text = _contentArr[(NSUInteger) indexPath.row];
-
+    cell.contentL.text = _contentArr[(NSUInteger) indexPath.row];
+    cell.contentL.textAlignment = NSTextAlignmentRight;
     return cell;
 }
 
