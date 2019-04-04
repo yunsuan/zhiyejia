@@ -15,6 +15,7 @@
 #import "MySubscibeVC.h"
 #import "FeedbackVC.h"
 #import "MyAttentionAgentVC.h"
+#import "AttentionHouseVC.h"
 
 
 #import "MineHeader.h"
@@ -153,6 +154,14 @@
     
     header.mineHeaderRoomBtnBlock = ^{
         
+        if ([UserModel defaultModel].token.length) {
+            
+            AttentionHouseVC *nextVC = [[AttentionHouseVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            [self GotoLogin];
+        }
     };
     
     header.mineHeaderAgentBtnBlock = ^{
@@ -169,6 +178,14 @@
     
     header.mineHeaderHistoryBtnBlock = ^{
         
+        if ([UserModel defaultModel].token.length) {
+            
+//            MyAttentionAgentVC *nextVC = [[MyAttentionAgentVC alloc] init];
+//            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            [self GotoLogin];
+        }
     };
     return header;
 }

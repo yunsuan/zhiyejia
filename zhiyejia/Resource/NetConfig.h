@@ -39,6 +39,15 @@ static NSString *const PersonalGetAgentInfo_URL = @"user/personal/getAgentInfo";
 //修改个人信息
 static NSString *const PersonalChangeAgentInfo_URL = @"user/personal/changeAgentInfo";
 
+//关注房源列表
+static NSString *const PersonalGetSubList_URL = @"user/personal/getSubList";
+
+//关注房源
+static NSString *const PersonalFocusHouse_URL = @"user/personal/focusHouse";
+
+//取关房源
+static NSString *const PersonalCancelFocusHouse_URL = @"user/personal/cancelFocusHouse";
+
 //我关注的经纪人
 static NSString *const PersonalGetFocusAgent_URL = @"user/personal/getfocusAgent";
 

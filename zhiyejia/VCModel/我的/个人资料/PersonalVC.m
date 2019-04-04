@@ -8,6 +8,9 @@
 
 #import "PersonalVC.h"
 
+#import "ChangeNameVC.h"
+#import "ChangePassWordVC.h"
+
 #import "TitleContentRightBaseCell.h"
 
 @interface PersonalVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -90,7 +93,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (indexPath.row == 2) {
+        
+        ChangeNameVC *nextVC = [[ChangeNameVC alloc] initWithName:_contentArr[indexPath.row]];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
     
+    if (indexPath.row == 1) {
+        
+        ChangePassWordVC *nextVC = [[ChangePassWordVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (void)initUI{

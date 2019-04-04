@@ -42,6 +42,9 @@
 		0C2AB007224C9F0600136E4D /* NewRoomHouseInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AB006224C9F0600136E4D /* NewRoomHouseInfoCell.m */; };
 		0C36C55D2244C32C007BB162 /* SecComAllRoomListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C36C55A2244C32B007BB162 /* SecComAllRoomListVC.m */; };
 		0C36C5632244C9F4007BB162 /* RentingComAllRoomListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C36C5612244C9F4007BB162 /* RentingComAllRoomListVC.m */; };
+		0C3A90F72255930600F04804 /* AttentionHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A90F62255930600F04804 /* AttentionHouseCell.m */; };
+		0C3A91062255ECA200F04804 /* ChangeNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A91012255ECA200F04804 /* ChangeNameVC.m */; };
+		0C3A91072255ECA200F04804 /* ChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A91042255ECA200F04804 /* ChangePassWordVC.m */; };
 		0C58935D22375717005B78A6 /* SecHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935C22375717005B78A6 /* SecHouseCell.m */; };
 		0C58936022375754005B78A6 /* SecHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935F22375754005B78A6 /* SecHouseModel.m */; };
 		0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936222375D11005B78A6 /* RentHouseModel.m */; };
@@ -68,6 +71,7 @@
 		0C6BECAA2240D9A90039BD0D /* DynamicListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECA92240D9A90039BD0D /* DynamicListVC.m */; };
 		0C6BECAF2240DA460039BD0D /* DynamicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECAE2240DA460039BD0D /* DynamicDetailVC.m */; };
 		0C6BECB22240DA580039BD0D /* DynamicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECB12240DA580039BD0D /* DynamicListCell.m */; };
+		0CC36DEF2254576500CA109B /* AttentionHouseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC36DEE2254576500CA109B /* AttentionHouseVC.m */; };
 		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
 		0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */; };
 		0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */; };
@@ -266,6 +270,12 @@
 		0C36C55A2244C32B007BB162 /* SecComAllRoomListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecComAllRoomListVC.m; sourceTree = "<group>"; };
 		0C36C55F2244C9F4007BB162 /* RentingComAllRoomListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentingComAllRoomListVC.h; sourceTree = "<group>"; };
 		0C36C5612244C9F4007BB162 /* RentingComAllRoomListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentingComAllRoomListVC.m; sourceTree = "<group>"; };
+		0C3A90F52255930600F04804 /* AttentionHouseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionHouseCell.h; sourceTree = "<group>"; };
+		0C3A90F62255930600F04804 /* AttentionHouseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionHouseCell.m; sourceTree = "<group>"; };
+		0C3A91012255ECA200F04804 /* ChangeNameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeNameVC.m; sourceTree = "<group>"; };
+		0C3A91022255ECA200F04804 /* ChangeNameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeNameVC.h; sourceTree = "<group>"; };
+		0C3A91042255ECA200F04804 /* ChangePassWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordVC.m; sourceTree = "<group>"; };
+		0C3A91052255ECA200F04804 /* ChangePassWordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePassWordVC.h; sourceTree = "<group>"; };
 		0C58935B22375717005B78A6 /* SecHouseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseCell.h; sourceTree = "<group>"; };
 		0C58935C22375717005B78A6 /* SecHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseCell.m; sourceTree = "<group>"; };
 		0C58935E22375754005B78A6 /* SecHouseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseModel.h; sourceTree = "<group>"; };
@@ -318,6 +328,8 @@
 		0C6BECAE2240DA460039BD0D /* DynamicDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicDetailVC.m; sourceTree = "<group>"; };
 		0C6BECB02240DA580039BD0D /* DynamicListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicListCell.h; sourceTree = "<group>"; };
 		0C6BECB12240DA580039BD0D /* DynamicListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicListCell.m; sourceTree = "<group>"; };
+		0CC36DED2254576500CA109B /* AttentionHouseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionHouseVC.h; sourceTree = "<group>"; };
+		0CC36DEE2254576500CA109B /* AttentionHouseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionHouseVC.m; sourceTree = "<group>"; };
 		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -800,6 +812,33 @@
 			path = "租房房源";
 			sourceTree = "<group>";
 		};
+		0C3A90F42255930600F04804 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A90F52255930600F04804 /* AttentionHouseCell.h */,
+				0C3A90F62255930600F04804 /* AttentionHouseCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0C3A91002255ECA200F04804 /* 姓名 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A91012255ECA200F04804 /* ChangeNameVC.m */,
+				0C3A91022255ECA200F04804 /* ChangeNameVC.h */,
+			);
+			path = "姓名";
+			sourceTree = "<group>";
+		};
+		0C3A91032255ECA200F04804 /* 修改密码 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A91042255ECA200F04804 /* ChangePassWordVC.m */,
+				0C3A91052255ECA200F04804 /* ChangePassWordVC.h */,
+			);
+			path = "修改密码";
+			sourceTree = "<group>";
+		};
 		0C5893672237A181005B78A6 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -999,6 +1038,16 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0CC36DEC2254575400CA109B /* 关注房源 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A90F42255930600F04804 /* cell */,
+				0CC36DED2254576500CA109B /* AttentionHouseVC.h */,
+				0CC36DEE2254576500CA109B /* AttentionHouseVC.m */,
+			);
+			path = "关注房源";
+			sourceTree = "<group>";
+		};
 		0CE8218B221D31C600576742 /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -1070,6 +1119,7 @@
 		0CE821AA221D53FA00576742 /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				0CC36DEC2254575400CA109B /* 关注房源 */,
 				0CF46DCB222688DB008816E6 /* 我关注的经纪人 */,
 				0CF46DC7222685C4008816E6 /* 意见反馈 */,
 				0CF46DBF22267D4C008816E6 /* 我的订阅 */,
@@ -1296,6 +1346,8 @@
 		0CF46D5622237B37008816E6 /* 个人资料 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3A91002255ECA200F04804 /* 姓名 */,
+				0C3A91032255ECA200F04804 /* 修改密码 */,
 				0CF46D5722237B47008816E6 /* PersonalVC.h */,
 				0CF46D5822237B47008816E6 /* PersonalVC.m */,
 			);
@@ -2092,6 +2144,7 @@
 				0C2AAFB8224C760600136E4D /* YBImageBrowserFunctionBar.m in Sources */,
 				0C2AAFFA224C990200136E4D /* NewRoomHouseDetailVC.m in Sources */,
 				0CF46ED5222FC51C008816E6 /* LocationManager.m in Sources */,
+				0CC36DEF2254576500CA109B /* AttentionHouseVC.m in Sources */,
 				0CF1F33422533E0A00C92A54 /* UserInfoModel.m in Sources */,
 				0C2AAFF7224C94B800136E4D /* SelectView.m in Sources */,
 				0CE821B3221D541600576742 /* AgentVC.m in Sources */,
@@ -2117,6 +2170,7 @@
 				0CE8220A221E709700576742 /* NewRoomModel.m in Sources */,
 				0C5893A2223B4BF5005B78A6 /* RentRoomHouseDetailModel.m in Sources */,
 				0C58939E223B487C005B78A6 /* RentRoomStoreDetailHeader.m in Sources */,
+				0C3A91062255ECA200F04804 /* ChangeNameVC.m in Sources */,
 				0C58936622375FFA005B78A6 /* RentHouseCell.m in Sources */,
 				0C5893B4223B73A9005B78A6 /* RentRoomOfficeDetailModel.m in Sources */,
 				0C2AAFE1224C92FA00136E4D /* SingleHouseCell.m in Sources */,
@@ -2212,6 +2266,7 @@
 				0C58936022375754005B78A6 /* SecHouseModel.m in Sources */,
 				0C58938F223A4B6E005B78A6 /* RentRoomHouseDetailVC.m in Sources */,
 				0CE821A8221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m in Sources */,
+				0C3A90F72255930600F04804 /* AttentionHouseCell.m in Sources */,
 				0CF46D6622238734008816E6 /* NewRoomProjectDetailVC.m in Sources */,
 				0C6BECB22240DA580039BD0D /* DynamicListCell.m in Sources */,
 				0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */,
@@ -2226,6 +2281,7 @@
 				0C2AAFC0224C760600136E4D /* YBImageBrowserCopywriter.m in Sources */,
 				0CF46DED2227C614008816E6 /* RentRoomProjectHeader.m in Sources */,
 				0CF46E08222CD43D008816E6 /* SecRoomHouseOtherHouseCell.m in Sources */,
+				0C3A91072255ECA200F04804 /* ChangePassWordVC.m in Sources */,
 				0C2AAFB7224C760600136E4D /* YBImageBrowserFunctionModel.m in Sources */,
 				0C5893722238AF2C005B78A6 /* SecRoomStoreDetailModel.m in Sources */,
 				0CF46ECE222FA809008816E6 /* RentRoomCell.m in Sources */,

@@ -175,7 +175,39 @@
 
 - (void)ActionAttentBtn:(UIButton *)btn{
     
-    
+    if (!_focusId.length) {
+        
+        [BaseRequest GET:PersonalFocusHouse_URL parameters:@{@"house_id":_houseId,@"type":@"1"} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                self->_attentL.text = @"取消关注";
+                self->_focusId = [NSString stringWithFormat:@"%@",resposeObject[@"data"]];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        [BaseRequest GET:PersonalCancelFocusHouse_URL parameters:@{@"focus_id":_focusId} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                self->_attentL.text = @"关注";
+                self->_focusId = @"";
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }
 }
 
 - (void)ActionConsultBtn:(UIButton *)btn{
