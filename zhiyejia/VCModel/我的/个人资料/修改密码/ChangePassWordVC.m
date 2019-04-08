@@ -78,7 +78,7 @@
                                 @"password_verify":_SurePassWord.text
                                 };
     
-    [BaseRequest POST:PersonalChangeAgentInfo_URL parameters:parameter success:^(id resposeObject) {
+    [BaseRequest POST:ChangePassWord_URL parameters:parameter success:^(id resposeObject) {
         //        NSLog(@"%@",resposeObject);
         
         if ([resposeObject[@"code"] integerValue] == 200) {

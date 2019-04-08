@@ -39,6 +39,9 @@ static NSString *const PersonalGetAgentInfo_URL = @"user/personal/getAgentInfo";
 //修改个人信息
 static NSString *const PersonalChangeAgentInfo_URL = @"user/personal/changeAgentInfo";
 
+//修改密码
+static NSString *const ChangePassWord_URL = @"user/changePassword";
+
 //关注房源列表
 static NSString *const PersonalGetSubList_URL = @"user/personal/getSubList";
 
