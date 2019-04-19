@@ -71,7 +71,7 @@
     [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(287 *SIZE);
-        make.top.equalTo(self.contentView).offset(5 *SIZE);
+        make.top.equalTo(self.contentView).offset(10 *SIZE);
         //        make.bottom.equalTo(self.contentView).offset(10 *SIZE);
         make.width.equalTo(@(65 *SIZE));
         make.height.equalTo(@(20 *SIZE));

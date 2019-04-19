@@ -40,14 +40,14 @@
 
 - (void)ActionImgBtn{
     
-    //    if (self.secAllRoomDetailTableHeaderImgBlock) {
-    //
-    //        if (_imgArr.count) {
-    //
-    //            self.secAllRoomDetailTableHeaderImgBlock(_nowNum, _imgArr);
-    //
-    //        }
-    //    }
+    if (self.secRoomStoreDetailHeaderImgBlock) {
+    
+        if (_imgArr.count) {
+    
+            self.secRoomStoreDetailHeaderImgBlock(_nowNum, _imgArr);
+    
+        }
+    }
 }
 
 - (void)setImgArr:(NSMutableArray *)imgArr{

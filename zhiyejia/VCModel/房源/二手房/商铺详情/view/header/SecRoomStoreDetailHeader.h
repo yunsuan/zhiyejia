@@ -12,7 +12,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SecRoomStoreDetailHeaderImgBlock)(NSInteger num, NSArray *imgArr);
+
 @interface SecRoomStoreDetailHeader : UITableViewHeaderFooterView
+
+@property (nonatomic, copy) SecRoomStoreDetailHeaderImgBlock secRoomStoreDetailHeaderImgBlock;
 
 @property (nonatomic, strong) SecRoomStoreDetailModel *storeModel;
 

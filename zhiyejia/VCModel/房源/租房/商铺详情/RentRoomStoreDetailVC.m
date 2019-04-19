@@ -8,6 +8,9 @@
 
 #import "RentRoomStoreDetailVC.h"
 
+#import "RentRoomOfficeDetailVC.h"
+#import "RentRoomHouseDetailVC.h"
+
 #import "RentRoomProjectDetailVC.h"
 
 #import "RentRoomStoreDetailHeader.h"
@@ -381,9 +384,19 @@
             
             if (self->_houseArr.count) {
                 
-                //                SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:_houseArr[index][@"house_id"] city:_city];
-                //                nextVC.type = [_houseArr[index][@"type"] integerValue];
-                //                [self.navigationController pushViewController:nextVC animated:YES];
+                if ([self->_houseArr[index][@"type"] integerValue] == 1) {
+                    
+                    RentRoomHouseDetailVC *nextVC = [[RentRoomHouseDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }else if ([self->_houseArr[index][@"type"] integerValue] == 2){
+                    
+                    RentRoomStoreDetailVC *nextVC = [[RentRoomStoreDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }else{
+                    
+                    RentRoomOfficeDetailVC *nextVC = [[RentRoomOfficeDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }
             }
         };
         return cell;

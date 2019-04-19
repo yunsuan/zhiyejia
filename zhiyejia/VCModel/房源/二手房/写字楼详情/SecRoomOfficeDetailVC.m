@@ -8,6 +8,9 @@
 
 #import "SecRoomOfficeDetailVC.h"
 
+#import "YBImageBrowserModel.h"
+#import "YBImageBrowser.h"
+
 #import "SecRoomHouseDetailVC.h"
 #import "SecRoomStoreDetailVC.h"
 #import "SecRoomProjectDetailVC.h"
@@ -23,7 +26,7 @@
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 
-@interface SecRoomOfficeDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface SecRoomOfficeDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
 {
     NSString *_houseId;
     NSString *_city;
@@ -262,6 +265,44 @@
         
         header.officeModel = _model;
         
+        header.secRoomHouseDetailHeaderImgBlock = ^(NSInteger num, NSArray * _Nonnull imgArr) {
+          
+            NSMutableArray *tempArr = [NSMutableArray array];
+            
+            NSMutableArray *tempArr1 = [NSMutableArray array];
+            for (NSDictionary *dic in imgArr) {
+                
+                for (NSDictionary *subDic in dic[@"list"]) {
+                    
+                    [tempArr1 addObject:subDic[@"img_url"]];
+                }
+            }
+            [tempArr1 enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                YBImageBrowserModel *model = [YBImageBrowserModel new];
+                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj]];
+                [tempArr addObject:model];
+            }];
+            
+            [self->_imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:obj];
+                [tempDic setObject:obj[@"type"] forKey:@"name"];
+                
+                [tempDic setObject:obj[@"list"] forKey:@"data"];
+                [self->_imgArr replaceObjectAtIndex:idx withObject:tempDic];
+                
+            }];
+            
+            YBImageBrowser *browser = [YBImageBrowser new];
+            browser.delegate = self;
+            browser.dataArray = tempArr;
+            browser.albumArr = self->_imgArr;
+            browser.infoid = self->_model.info_id;
+            browser.currentIndex = num;
+            browser.toolBar.titleLabel.text = @"房源相册";
+            [browser show];
+        };
         return header;
     }else{
         
