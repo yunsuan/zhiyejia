@@ -8,6 +8,10 @@
 
 #import "SecRoomHouseDetailVC.h"
 
+#import "SecRoomStoreDetailVC.h"
+#import "SecRoomOfficeDetailVC.h"
+#import "SecRoomProjectDetailVC.h"
+
 #import "SecRoomHouseDetailHeader.h"
 #import "TitleRightBtnHeader.h"
 #import "NewRoomProjectDetailFooter.h"
@@ -276,7 +280,13 @@
             header.titleL.text = @"房源动态";
         }else if (section == 4){
             
-            header.titleL.text = @"房源信息";
+            header.titleL.text = _model.title;
+            header.moreBtn.hidden = NO;
+            header.titleRightBtnHeaderMoreBlock = ^{
+                
+                SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id city:_city];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
         }else{
             
             header.titleL.text = @"小区其他房源";
@@ -373,9 +383,19 @@
             
             if (self->_houseArr.count) {
                 
-//                SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:_houseArr[index][@"house_id"] city:_city];
-//                nextVC.type = [_houseArr[index][@"type"] integerValue];
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                if ([self->_houseArr[index][@"type"] integerValue] == 1) {
+                    
+                    SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }else if ([self->_houseArr[index][@"type"] integerValue] == 2){
+                    
+                    SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }else{
+                    
+                    SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }
             }
         };
         return cell;

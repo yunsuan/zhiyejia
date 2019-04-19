@@ -278,10 +278,12 @@
             header.titleL.text = @"房源动态";
         }else if (section == 4){
             
-            header.titleL.text = @"房源信息";
+            header.titleL.text = _model.title;
+            header.moreBtn.hidden = NO;
             header.titleRightBtnHeaderMoreBlock = ^{
                 
-//                RentRoomProjectDetailVC *nextVC = [RentRoomProjectDetailVC alloc] initWithProjectId:_
+                RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id city:self->_city];
+                [self.navigationController pushViewController:nextVC animated:YES];
             };
         }else{
             

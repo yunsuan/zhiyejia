@@ -8,6 +8,8 @@
 
 #import "RentRoomOfficeDetailVC.h"
 
+#import "RentRoomProjectDetailVC.h"
+
 #import "RentRoomStoreDetailHeader.h"
 #import "TitleRightBtnHeader.h"
 #import "NewRoomProjectDetailFooter.h"
@@ -276,7 +278,13 @@
             header.titleL.text = @"房源动态";
         }else if (section == 4){
             
-            header.titleL.text = @"房源信息";
+            header.titleL.text = _model.title;
+            header.moreBtn.hidden = NO;
+            header.titleRightBtnHeaderMoreBlock = ^{
+                
+                RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id city:self->_city];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
         }else{
             
             header.titleL.text = @"小区其他房源";
