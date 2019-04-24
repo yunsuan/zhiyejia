@@ -220,14 +220,14 @@
     label.text = @"周边及配套";
     [self.contentView addSubview:label];
     
-//    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
-//    _mapView.delegate = self;
-//    _mapView.zoomLevel = 15;
-//    _mapView.isSelectedAnnotationViewFront = YES;
-//    [self.contentView addSubview:_mapView];
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
+    _mapView.delegate = self;
+    _mapView.zoomLevel = 15;
+    _mapView.isSelectedAnnotationViewFront = YES;
+    [self.contentView addSubview:_mapView];
     
-//    _annotation = [[BMKPointAnnotation alloc]init];
-//    [_mapView addAnnotation:_annotation];
+    _annotation = [[BMKPointAnnotation alloc]init];
+    [_mapView addAnnotation:_annotation];
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.itemSize = CGSizeMake(60 *SIZE, 27 *SIZE);
@@ -252,7 +252,7 @@
     [_mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(0);
         make.top.equalTo(self.contentView).offset(33 *SIZE);
-        make.right.equalTo(self.contentView).offset(0);
+//        make.right.equalTo(self.contentView).offset(0);
         make.width.equalTo(@(360 *SIZE));
         make.height.equalTo(@(187 *SIZE));
         make.bottom.equalTo(self.contentView).offset(-59 *SIZE);
