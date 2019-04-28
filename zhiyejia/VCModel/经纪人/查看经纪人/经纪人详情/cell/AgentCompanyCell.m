@@ -53,21 +53,84 @@
     _scoreL.textColor = CLContentLabColor;
     _scoreL.font = [UIFont systemFontOfSize:11 *SIZE];
     _scoreL.text = @"专业评分：78分";
+    _scoreL.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_scoreL];
     
     _typeL = [[UILabel alloc] init];
     _typeL.textColor = CLContentLabColor;
     _typeL.font = [UIFont systemFontOfSize:11 *SIZE];
     _typeL.text = @"类型：带看经纪人";
+    _typeL.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_typeL];
     
     _timeL = [[UILabel alloc] init];
     _timeL.textColor = CLContentLabColor;
     _timeL.font = [UIFont systemFontOfSize:11 *SIZE];
     _timeL.text = @"入职日期：2017-10-15";
+    _timeL.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_timeL];
     
+    [self MasonryUI];
+}
+
+- (void)MasonryUI{
     
+    [_headImg mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self.contentView).offset(16 *SIZE);
+        make.width.height.mas_equalTo(67 *SIZE);
+        make.bottom.equalTo(self.contentView).offset(-17 *SIZE);
+    }];
+    
+    [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(88 *SIZE);
+        make.top.equalTo(self.contentView).offset(16 *SIZE);
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+    }];
+    
+    [_storeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(88 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_departL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(88 *SIZE);
+        make.top.equalTo(self->_storeL.mas_bottom).offset(7 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_positionL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(88 *SIZE);
+        make.top.equalTo(self->_departL.mas_bottom).offset(7 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_scoreL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self->_scoreL.mas_bottom).offset(7 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
+    
+    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self->_typeL.mas_bottom).offset(7 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+    }];
 }
 
 @end

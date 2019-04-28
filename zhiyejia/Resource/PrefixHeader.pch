@@ -81,6 +81,7 @@
 
 #define CL86Color   COLOR(86, 86, 86, 1)
 #define CL170Color   COLOR(170, 170, 170, 1)
+#define CL181Color   COLOR(181, 181, 181, 1)
 #define CL240Color   COLOR(240, 240, 240, 1)
 
 #define CLWhiteColor  [UIColor whiteColor]

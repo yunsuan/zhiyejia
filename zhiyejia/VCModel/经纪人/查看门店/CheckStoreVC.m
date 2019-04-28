@@ -8,6 +8,8 @@
 
 #import "CheckStoreVC.h"
 
+#import "StoreDetailVC.h"
+
 #import "CheckStoreCell.h"
 
 @interface CheckStoreVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -45,6 +47,12 @@
 //    cell.dataDic = _dataArr[indexPath.row];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    StoreDetailVC *nextVC = [[StoreDetailVC alloc] init];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{
