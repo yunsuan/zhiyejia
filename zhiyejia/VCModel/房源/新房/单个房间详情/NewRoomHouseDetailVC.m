@@ -13,7 +13,7 @@
 #import "NewRoomHouseInfoCell.h"
 #import "NewRoomProjectHouseTypeCell.h"
 
-@interface NewRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
+@interface NewRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
 {
     
     NSString *_houseTypeId;
@@ -310,17 +310,17 @@
                     [tempArr1 addObject:subDic];
                 }
             }
-            [tempArr1 enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                YBImageBrowserModel *model = [YBImageBrowserModel new];
-                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
-                if ([obj[@"img_url_3d"] length]) {
-                    
-                    model.third_URL = [NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url_3d"]];
-                }
-                
-                [tempArr addObject:model];
-            }];
+//            [tempArr1 enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                
+//                YBImageBrowserModel *model = [YBImageBrowserModel new];
+//                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
+//                if ([obj[@"img_url_3d"] length]) {
+//                    
+//                    model.third_URL = [NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url_3d"]];
+//                }
+//                
+//                [tempArr addObject:model];
+//            }];
             
             [self->_imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
@@ -332,21 +332,21 @@
                 
             }];
             
-            YBImageBrowserModel *YBmodel = tempArr[num];
-            if (YBmodel.third_URL.length) {
-                
-                BuildingAlbumVC *nextVC = [[BuildingAlbumVC alloc] init];
-                nextVC.weburl = YBmodel.third_URL;
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else{
-                YBImageBrowser *browser = [YBImageBrowser new];
-                browser.delegate = self;
-                browser.dataArray = tempArr;
-                browser.albumArr = self->_imgArr;
-                browser.infoid = self->_infoid;
-                browser.currentIndex = num;
-                [browser show];
-            }
+//            YBImageBrowserModel *YBmodel = tempArr[num];
+//            if (YBmodel.third_URL.length) {
+//
+//                BuildingAlbumVC *nextVC = [[BuildingAlbumVC alloc] init];
+//                nextVC.weburl = YBmodel.third_URL;
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else{
+//                YBImageBrowser *browser = [YBImageBrowser new];
+//                browser.delegate = self;
+//                browser.dataArray = tempArr;
+//                browser.albumArr = self->_imgArr;
+//                browser.infoid = self->_infoid;
+//                browser.currentIndex = num;
+//                [browser show];
+//            }
         };
         return header;
     }else{

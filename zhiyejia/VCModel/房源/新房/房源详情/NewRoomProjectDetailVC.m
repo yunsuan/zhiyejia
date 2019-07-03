@@ -25,7 +25,7 @@
 #import "NewRoomProjectMapCell.h"
 
 
-@interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
+@interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
 {
     
     NSString *_projectId;
@@ -261,58 +261,58 @@
         
         header.newRoomProjectHeaderImgBtnBlock = ^(NSInteger num, NSArray *imgArr) {
             
-            NSMutableArray *tempArr = [NSMutableArray array];
-            [imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                
-                YBImageBrowserModel *model = [YBImageBrowserModel new];
-                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
-                [tempArr addObject:model];
-            }];
-            if (self->_albumArr.count) {
-                
-                YBImageBrowser *browser = [YBImageBrowser new];
-                browser.delegate = self;
-                browser.dataArray = tempArr;
-                browser.albumArr = self->_albumArr;
-                
-//                browser.infoid = _info_id;
-                browser.currentIndex = num;
-                [browser show];
-            }else{
-                
-                [BaseRequest GET:GetImg_URL parameters:@{@"project_id":self->_projectId} success:^(id resposeObject) {
-                    
-                    if ([resposeObject[@"code"] integerValue] == 200) {
-                        
-                        if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
-                            
-                            [self->_albumArr removeAllObjects];
-                            for ( int i = 0; i < [resposeObject[@"data"] count]; i++) {
-                                
-                                if ([resposeObject[@"data"][i] isKindOfClass:[NSDictionary class]]) {
-                                    
-                                    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"][i]];
-                                    
-                                    [self->_albumArr addObject:tempDic];
-                                    
-                                    YBImageBrowser *browser = [YBImageBrowser new];
-                                    browser.delegate = self;
-                                    browser.albumArr = self->_albumArr;
-                                    browser.dataArray = tempArr;
-//                                    browser.infoid = _info_id;
-                                    browser.currentIndex = num;
-                                    [browser show];
-                                }
-                            }
-                        }else{
-                            
-                        }
-                    }
-                } failure:^(NSError *error) {
-                    
-                    NSLog(@"%@",error);
-                }];
-            }
+//            NSMutableArray *tempArr = [NSMutableArray array];
+//            [imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                
+//                YBImageBrowserModel *model = [YBImageBrowserModel new];
+//                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
+//                [tempArr addObject:model];
+//            }];
+//            if (self->_albumArr.count) {
+//                
+//                YBImageBrowser *browser = [YBImageBrowser new];
+//                browser.delegate = self;
+//                browser.dataArray = tempArr;
+//                browser.albumArr = self->_albumArr;
+//                
+////                browser.infoid = _info_id;
+//                browser.currentIndex = num;
+//                [browser show];
+//            }else{
+//                
+//                [BaseRequest GET:GetImg_URL parameters:@{@"project_id":self->_projectId} success:^(id resposeObject) {
+//                    
+//                    if ([resposeObject[@"code"] integerValue] == 200) {
+//                        
+//                        if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+//                            
+//                            [self->_albumArr removeAllObjects];
+//                            for ( int i = 0; i < [resposeObject[@"data"] count]; i++) {
+//                                
+//                                if ([resposeObject[@"data"][i] isKindOfClass:[NSDictionary class]]) {
+//                                    
+//                                    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"][i]];
+//                                    
+//                                    [self->_albumArr addObject:tempDic];
+//                                    
+//                                    YBImageBrowser *browser = [YBImageBrowser new];
+//                                    browser.delegate = self;
+//                                    browser.albumArr = self->_albumArr;
+//                                    browser.dataArray = tempArr;
+////                                    browser.infoid = _info_id;
+//                                    browser.currentIndex = num;
+//                                    [browser show];
+//                                }
+//                            }
+//                        }else{
+//                            
+//                        }
+//                    }
+//                } failure:^(NSError *error) {
+//                    
+//                    NSLog(@"%@",error);
+//                }];
+//            }
         };
         
         header.newRoomProjectHeaderMoreBlock = ^{
