@@ -45,7 +45,11 @@ static SDWebImageDownloader *_downloader = nil;
 
 + (void)cancelTaskWithDownloadToken:(id)token {
     
-    if (token) [self.downloader cancel:token];
+//    if (token) [self.downloader cancel:token];
+    if (token) {
+        
+        [self cancelTaskWithDownloadToken:token];
+    }
 }
 
 + (void)storeImageDataWithKey:(NSString *)key image:(UIImage *)image data:(NSData *)data {
@@ -67,6 +71,7 @@ static SDWebImageDownloader *_downloader = nil;
 }
 
 + (void)shouldDecompressImages:(BOOL)should {
+    
     self.downloader.shouldDecompressImages = should;
     self.imageCache.config.shouldDecompressImages = should;
 }

@@ -29,9 +29,14 @@
 {
     
     NSString *_projectId;
-    NSDictionary *_dataDic;
     NSString *_phone;
+    NSString *_latitude;
+    NSString *_longitude;
+    
+    NSDictionary *_dataDic;
+    
     NSMutableDictionary *_focusDic;
+    
     NSMutableArray *_albumArr;
 }
 
@@ -83,6 +88,8 @@
                 
                 self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
             }
+            self->_latitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"latitude"]];
+            self->_longitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"longitude"]];
             self->_albumArr = [NSMutableArray arrayWithArray:self->_dataDic[@"project_img"][@"url"]];
             [self->_roomTable reloadData];
         }else{
@@ -496,6 +503,8 @@
                 cell = [[NewRoomProjectMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomProjectMapCell"];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [cell SetLatitude:_latitude longitude:_longitude project:@""];
             
             return cell;
             break;
