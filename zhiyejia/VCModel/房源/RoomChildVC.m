@@ -13,14 +13,11 @@
     
     NSMutableArray *_dataArr;
     NSInteger _AllType;
-    
     NSInteger _page;
-    
     NSString *_city;
     NSString *_district;
     NSString *_price;
     NSString *_type;
-
     NSString *_tag;
     NSString *_houseType;
     NSString *_property_id;
@@ -245,10 +242,10 @@
         
         if ([self.status isEqualToString:@"关注"]) {
             
-            //            _urlString = UserFocusNews_URL;
+                        _urlString = UserFocusNews_URL;
         }else{
             
-            //            _urlString = ProjectRecommendInfo_URL;
+                        _urlString = ProjectRecommendInfo_URL;
         }
     }else if(_AllType == 3){
         

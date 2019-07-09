@@ -22,8 +22,9 @@
 #import "SecRoomHouseDynamicCell.h"
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
-
+#import "SecRoomMapCell.h"
 #import "SecRoomHouseDetailModel.h"
+
 
 @interface SecRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
 {
@@ -363,12 +364,14 @@
         return cell;
     }else if (indexPath.section == 2){
         
-        SecRoomHouseDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseDynamicCell"];
+        SecRoomMapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomMapCell"];
         if (!cell) {
             
-            cell = [[SecRoomHouseDynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseDynamicCell"];
+            cell = [[SecRoomMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomMapCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell SetLatitude:_model.latitude longitude:_model.longitude project:_model.project_name];
         
         return cell;
     }else if (indexPath.section == 3){
@@ -394,7 +397,8 @@
         cell.houseModel = _model;
         
         return cell;
-    }else{
+    }
+    else{
         
         SecRoomHouseOtherHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseOtherHouseCell"];
         if (!cell) {

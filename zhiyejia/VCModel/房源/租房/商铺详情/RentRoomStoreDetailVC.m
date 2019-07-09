@@ -22,6 +22,7 @@
 #import "SecRoomHouseOtherHouseCell.h"
 
 #import "SecRoomHouseDetailModel.h"
+#import "SecRoomMapCell.h"
 
 @interface RentRoomStoreDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {

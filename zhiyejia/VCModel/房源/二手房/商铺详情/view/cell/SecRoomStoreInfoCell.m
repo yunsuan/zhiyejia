@@ -359,9 +359,9 @@
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -374,9 +374,9 @@
     [_rentPriceL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_timeL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
         
     }];
     
@@ -389,9 +389,9 @@
     
     [_rentTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_rentPriceL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_markView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -188,6 +188,7 @@
 		0CFD42EC2271975F0062C294 /* AgentCustomCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD42EB2271975F0062C294 /* AgentCustomCollCell.m */; };
 		0CFD42EF227197860062C294 /* AgentCustomImgCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD42EE227197860062C294 /* AgentCustomImgCollCell.m */; };
 		0CFD42F32271B81E0062C294 /* AllCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD42F22271B81E0062C294 /* AllCommentVC.m */; };
+		101E265D22D2E41C007E505C /* SecRoomMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 101E265C22D2E41C007E505C /* SecRoomMapCell.m */; };
 		10AFF8C5221D281300657217 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C4221D281300657217 /* AppDelegate.m */; };
 		10AFF8C8221D281300657217 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AFF8C7221D281300657217 /* ViewController.m */; };
 		10AFF8CB221D281300657217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFF8C9221D281300657217 /* Main.storyboard */; };
@@ -583,6 +584,8 @@
 		0CFD42EE227197860062C294 /* AgentCustomImgCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentCustomImgCollCell.m; sourceTree = "<group>"; };
 		0CFD42F12271B81E0062C294 /* AllCommentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllCommentVC.h; sourceTree = "<group>"; };
 		0CFD42F22271B81E0062C294 /* AllCommentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllCommentVC.m; sourceTree = "<group>"; };
+		101E265B22D2E41C007E505C /* SecRoomMapCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomMapCell.h; sourceTree = "<group>"; };
+		101E265C22D2E41C007E505C /* SecRoomMapCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomMapCell.m; sourceTree = "<group>"; };
 		10AFF8C0221D281300657217 /* zhiyejia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhiyejia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFF8C3221D281300657217 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		10AFF8C4221D281300657217 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2067,6 +2070,8 @@
 				0CF46E1B222D01E6008816E6 /* SecRoomOfficeEquipCollCell.m */,
 				0CF46E1D222D027D008816E6 /* SecRoomOfficeNeiborCell.h */,
 				0CF46E1E222D027D008816E6 /* SecRoomOfficeNeiborCell.m */,
+				101E265B22D2E41C007E505C /* SecRoomMapCell.h */,
+				101E265C22D2E41C007E505C /* SecRoomMapCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2529,6 +2534,7 @@
 				0C58936E2237AEA6005B78A6 /* TitleRightBtnHeader.m in Sources */,
 				0CF46EC5222F769E008816E6 /* SecProjectModel.m in Sources */,
 				0CF46E0B222CD68F008816E6 /* SecAllRoomCollCell.m in Sources */,
+				101E265D22D2E41C007E505C /* SecRoomMapCell.m in Sources */,
 				0CE821DB221E368700576742 /* UIView+Frame.m in Sources */,
 				0C2AAFFE224C99BD00136E4D /* NewRoomHouseModel.m in Sources */,
 				0C2AAFE0224C92FA00136E4D /* DistributVC.m in Sources */,

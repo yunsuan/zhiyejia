@@ -57,12 +57,12 @@
             [self.contentView addSubview:line];
         }
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 19 *SIZE, SCREEN_Width / 3, 13 *SIZE)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 19 *SIZE, SCREEN_Width / 3, 14 *SIZE)];
         label.textColor = CLBlueBtnColor;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         label.textAlignment = NSTextAlignmentCenter;
         
-        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 41 *SIZE, SCREEN_Width / 3, 11 *SIZE)];
+        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 41 *SIZE, SCREEN_Width / 3, 12 *SIZE)];
         label1.textColor = CL86Color;
         label1.font = [UIFont systemFontOfSize:12 *SIZE];
         label1.textAlignment = NSTextAlignmentCenter;
@@ -113,37 +113,37 @@
     [_daysLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0);
-        make.top.equalTo(self->_daysL.mas_bottom).offset(11 *SIZE);
+        make.top.equalTo(self->_daysL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
     }];
     
     [_allL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(120);
+        make.left.equalTo(self.contentView).offset(120*SIZE);
         make.top.equalTo(self.contentView).offset(23 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
     }];
     
     [_allLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(120);
-        make.top.equalTo(self->_allL.mas_bottom).offset(11 *SIZE);
+        make.left.equalTo(self.contentView).offset(120*SIZE);
+        make.top.equalTo(self->_allL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
     }];
     
     [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(240);
+        make.left.equalTo(self.contentView).offset(240*SIZE);
         make.top.equalTo(self.contentView).offset(23 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
     }];
     
     [_intentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(240);
-        make.top.equalTo(self->_intentL.mas_bottom).offset(11 *SIZE);
+        make.left.equalTo(self.contentView).offset(240*SIZE);
+        make.top.equalTo(self->_intentL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
     }];

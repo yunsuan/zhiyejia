@@ -504,7 +504,7 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            [cell SetLatitude:_latitude longitude:_longitude project:@""];
+            [cell SetLatitude:_latitude longitude:_longitude project:_dataDic[@"project_basic_info"][@"project_name"]];
             
             return cell;
             break;

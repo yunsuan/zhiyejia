@@ -26,6 +26,8 @@
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 
+#import "SecRoomMapCell.h"
+
 @interface SecRoomOfficeDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
 {
     NSString *_houseId;
@@ -409,7 +411,19 @@
         
         cell.officeModel = _model;
         return cell;
-    }else if (indexPath.section == 6){
+    }else if(indexPath.section == 5){
+        SecRoomMapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomMapCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomMapCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell SetLatitude:_model.latitude longitude:_model.longitude project:_model.project_name];
+        
+        return cell;
+    }
+    else if (indexPath.section == 6){
         
         SecRoomHouseDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseDynamicCell"];
         if (!cell) {

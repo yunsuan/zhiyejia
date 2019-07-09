@@ -60,7 +60,7 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
             [UserModel defaultModel].tagAllArr = allarr;
             if (![UserModel defaultModel].tagSelectArr) {
                 
-                for (NSUInteger i = 0; i < [UserModel defaultModel].tagAllArr.count; i++) {
+                for (NSUInteger i = 0; i < 5; i++) {
                     [selctarr addObject:arr[i][@"tag"]];
                 }
                 [UserModel defaultModel].tagSelectArr = selctarr;

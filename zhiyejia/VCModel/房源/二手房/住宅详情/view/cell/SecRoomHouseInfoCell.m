@@ -178,7 +178,10 @@
         
     }else{
         
-        [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+        if (_propertyArr.count>0) {
+             [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+        }
+       
     }
     
     return cell;

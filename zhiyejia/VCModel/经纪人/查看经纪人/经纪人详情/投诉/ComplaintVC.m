@@ -46,7 +46,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return _dataArr.count;
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -55,6 +55,7 @@
     if (!cell) {
         
         cell = [[AgentCustomImgCollCell alloc] initWithFrame:CGRectMake(0, 0, 100 *SIZE, 83 *SIZE)];
+        
     }
     
     return cell;
@@ -76,14 +77,18 @@
     _nameL = [[UILabel alloc] initWithFrame:CGRectMake(9 *SIZE, 17 *SIZE, 342 *SIZE, 12 *SIZE)];
     _nameL.textColor = CLTitleLabColor;
     _nameL.font = [UIFont systemFontOfSize:12 *SIZE];
+    _nameL.text = @"经纪人名称：张三";
     [_agentView addSubview:_nameL];
     
     _codeL = [[UILabel alloc] initWithFrame:CGRectMake(9 *SIZE, 45 *SIZE, 342 *SIZE, 12 *SIZE)];
     _codeL.textColor = CLTitleLabColor;
     _codeL.font = [UIFont systemFontOfSize:12 *SIZE];
+    _codeL.text = @"云算编号：309450";
     [_agentView addSubview:_codeL];
     
-    _contentTV = [[UITextView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_agentView.frame) + 4 *SIZE, SCREEN_Width, 117 *SIZE)];
+    _contentTV = [[UITextView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_agentView.frame) + 4 *SIZE, 340*SIZE, 117 *SIZE)];
+    _contentTV.layer.borderColor = CLContentLabColor.CGColor;
+    _contentTV.layer.borderWidth = 0.5*SIZE;
     [self.view addSubview:_contentTV];
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -102,17 +107,18 @@
     [_confirmBtn addTarget:self action:@selector(ActionConfirmBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
     [_confirmBtn setTitleColor:CLWhiteColor forState:UIControlStateNormal];
-    
-    CAGradientLayer *gradientLayer0 = [[CAGradientLayer alloc] init];
-//    gradientLayer0.cornerRadius = 20;
-    gradientLayer0.frame = _confirmBtn.bounds;
-    gradientLayer0.colors = @[
-                              (id)[UIColor colorWithRed:0.0f/255.0f green:132.0f/255.0f blue:244.0f/255.0f alpha:1.0f].CGColor,
-                              (id)[UIColor colorWithRed:0.0f/255.0f green:172.0f/255.0f blue:240.0f/255.0f alpha:1.0f].CGColor];
-    gradientLayer0.locations = @[@0, @1];
-    [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
-    [gradientLayer0 setEndPoint:CGPointMake(1, 0)];
-    [_confirmBtn.layer addSublayer:gradientLayer0];
+    _confirmBtn.backgroundColor = CLBlueBtnColor;
+//    CAGradientLayer *gradientLayer0 = [[CAGradientLayer alloc] init];
+////    gradientLayer0.cornerRadius = 20;
+//    gradientLayer0.frame = _confirmBtn.bounds;
+//    gradientLayer0.colors = @[
+//                              (id)[UIColor colorWithRed:0.0f/255.0f green:132.0f/255.0f blue:244.0f/255.0f alpha:1.0f].CGColor,
+//                              (id)[UIColor colorWithRed:0.0f/255.0f green:172.0f/255.0f blue:240.0f/255.0f alpha:1.0f].CGColor];
+//    gradientLayer0.locations = @[@0, @1];
+//    [gradientLayer0 setStartPoint:CGPointMake(0, 1)];
+//    [gradientLayer0 setEndPoint:CGPointMake(1, 0)];
+//    [_confirmBtn.layer addSublayer:gradientLayer0];
+//
     [self.view addSubview:_confirmBtn];
 }
 

@@ -1,22 +1,17 @@
 //
-//  NewRoomProjectMapCell.h
+//  SecRoomMapCell.h
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/2/26.
+//  Created by xiaoq on 2019/7/8.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
-//#import <BaiduMapAPI_Search/BMKPoiSearch.h>
-//#import <BaiduMapAPI_Search/BMKSearchComponent.h>
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewRoomProjectMapCell : UITableViewCell
-
+@interface SecRoomMapCell : UITableViewCell
 @property (nonatomic, strong) UICollectionView *POIColl;
 
 @property (nonatomic, strong) BMKMapView *mapView;

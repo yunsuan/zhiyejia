@@ -1,16 +1,15 @@
 //
-//  NewRoomProjectMapCell.m
+//  SecRoomMapCell.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/2/26.
+//  Created by xiaoq on 2019/7/8.
 //  Copyright © 2019 xiaoq. All rights reserved.
 //
 
-#import "NewRoomProjectMapCell.h"
-
+#import "SecRoomMapCell.h"
 #import "NewRoomMapCollCell.h"
 
-@interface NewRoomProjectMapCell()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,BMKMapViewDelegate,BMKPoiSearchDelegate>
+@interface SecRoomMapCell()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,BMKMapViewDelegate,BMKPoiSearchDelegate>
 {
     
     CLLocationCoordinate2D _leftBottomPoint;
@@ -28,7 +27,7 @@
 
 @end
 
-@implementation NewRoomProjectMapCell
+@implementation SecRoomMapCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -64,7 +63,7 @@
 - (void)beginSearchWithname:(NSString *)name{
     
     _name = name;
-//    _poisearch = [self poisearch];
+    //    _poisearch = [self poisearch];
     //初始化BMKPoiSearch实例
     BMKPoiSearch *poiSearch = [[BMKPoiSearch alloc] init];
     //设置POI检索的代理
@@ -97,22 +96,22 @@
     } else {
         NSLog(@"POI周边检索失败");
     }
-//    BMKBoundSearchOption *boundSearchOption = [[BMKBoundSearchOption alloc]init];
-//    boundSearchOption.pageIndex = 0;
-//    boundSearchOption.pageCapacity = 20;
-//    boundSearchOption.keyword = name;
-//    boundSearchOption.leftBottom =_leftBottomPoint;
-//    boundSearchOption.rightTop =_rightBottomPoint;
-//
-//    BOOL flag = [_poisearch poiSearchInbounds:boundSearchOption];
-//    if(flag)
-//    {
-//        NSLog(@"范围内检索发送成功");
-//    }
-//    else
-//    {
-//        NSLog(@"范围内检索发送失败");
-//    }
+    //    BMKBoundSearchOption *boundSearchOption = [[BMKBoundSearchOption alloc]init];
+    //    boundSearchOption.pageIndex = 0;
+    //    boundSearchOption.pageCapacity = 20;
+    //    boundSearchOption.keyword = name;
+    //    boundSearchOption.leftBottom =_leftBottomPoint;
+    //    boundSearchOption.rightTop =_rightBottomPoint;
+    //
+    //    BOOL flag = [_poisearch poiSearchInbounds:boundSearchOption];
+    //    if(flag)
+    //    {
+    //        NSLog(@"范围内检索发送成功");
+    //    }
+    //    else
+    //    {
+    //        NSLog(@"范围内检索发送失败");
+    //    }
 }
 
 
@@ -120,23 +119,23 @@
     //BMKSearchErrorCode错误码，BMK_SEARCH_NO_ERROR：检索结果正常返回
     if (error == BMK_SEARCH_NO_ERROR) {
         //实现对检索结果的处理
-                NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-                [_mapView removeAnnotations:array];
-                array = [NSArray arrayWithArray:_mapView.overlays];
-                [_mapView removeOverlays:array];
-                //在此处理正常结果
-                for (int i = 0; i < poiResult.poiInfoList.count; i++)
-                {
-                    BMKPoiInfo* poi = [poiResult.poiInfoList objectAtIndex:i];
-                    [self addAnimatedAnnotationWithName:poi.name withAddress:poi.pt];
-                }
+        NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+        [_mapView removeAnnotations:array];
+        array = [NSArray arrayWithArray:_mapView.overlays];
+        [_mapView removeOverlays:array];
+        //在此处理正常结果
+        for (int i = 0; i < poiResult.poiInfoList.count; i++)
+        {
+            BMKPoiInfo* poi = [poiResult.poiInfoList objectAtIndex:i];
+            [self addAnimatedAnnotationWithName:poi.name withAddress:poi.pt];
+        }
         
-//                CLLocationCoordinate2D cllocation = CLLocationCoordinate2DMake([_model.latitude floatValue] , [_model.longitude floatValue]);
-                [_mapView setCenterCoordinate:_cllocation animated:YES];
-                BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-                annotation.coordinate = _cllocation;
-                annotation.title = _projectname;
-                [_mapView addAnnotation:annotation];
+        //                CLLocationCoordinate2D cllocation = CLLocationCoordinate2DMake([_model.latitude floatValue] , [_model.longitude floatValue]);
+        [_mapView setCenterCoordinate:_cllocation animated:YES];
+        BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+        annotation.coordinate = _cllocation;
+        annotation.title = _projectname;
+        [_mapView addAnnotation:annotation];
         
     }
 }
@@ -270,14 +269,8 @@
     
     self.backgroundColor = CLWhiteColor;
     self.contentView.backgroundColor = CLWhiteColor;
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 9 *SIZE, 80 *SIZE, 15 *SIZE)];
-    label.textColor = CLTitleLabColor;
-    label.font = [UIFont systemFontOfSize:15 *SIZE];
-    label.text = @"周边及配套";
-    [self.contentView addSubview:label];
-    
-    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 33 *SIZE, SCREEN_Width, 187 *SIZE)];
+
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 187 *SIZE)];
     _mapView.delegate = self;
     _mapView.zoomLevel = 15;
     _mapView.isSelectedAnnotationViewFront = YES;
@@ -293,7 +286,7 @@
     //    _flowLayout.minimumLineSpacing = 15 *SIZE;
     _flowLayout.sectionInset = UIEdgeInsetsMake(17 *SIZE, 10 *SIZE, 16 *SIZE, 11 *SIZE);
     
-    _POIColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 220 *SIZE, SCREEN_Width, 60 *SIZE) collectionViewLayout:_flowLayout];
+    _POIColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 190 *SIZE, SCREEN_Width, 60 *SIZE) collectionViewLayout:_flowLayout];
     _POIColl.backgroundColor = self.contentView.backgroundColor;
     _POIColl.delegate = self;
     _POIColl.dataSource = self;
@@ -308,16 +301,19 @@
     
     [_mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(0);
-        make.top.equalTo(self.contentView).offset(33 *SIZE);
-//        make.right.equalTo(self.contentView).offset(0);
+        make.top.equalTo(self.contentView).offset(0);
+        //        make.right.equalTo(self.contentView).offset(0);
         make.width.equalTo(@(360 *SIZE));
         make.height.equalTo(@(187 *SIZE));
         make.bottom.equalTo(self.contentView).offset(-59 *SIZE);
     }];
     
-//    [_POIColl mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//    }];
+    //    [_POIColl mas_makeConstraints:^(MASConstraintMaker *make) {
+    //
+    //    }];
 }
 
 @end
+
+
+
