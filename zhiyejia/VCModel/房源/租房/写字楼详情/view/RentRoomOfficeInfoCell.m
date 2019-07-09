@@ -266,28 +266,28 @@
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(170 *SIZE));
     }];
     
     [_depositL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_roomLevelL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_transferL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(170 *SIZE));
     }];
     
     [_rentTypeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_depositL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_payWayL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -301,63 +301,63 @@
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_payWayL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(170 *SIZE));
     }];
     
     [_maxPeriodL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_payWayL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_floorL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_minPeriodL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(170 *SIZE));
     }];
     
     [_inTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_minPeriodL.mas_bottom).offset(15 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_seeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_maxPeriodL.mas_bottom).offset(15 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(170 *SIZE));
     }];
     
     [_rentFreeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_inTimeL.mas_bottom).offset(15 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_accommodateL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_seeL.mas_bottom).offset(15 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(170 *SIZE));
     }];
     
     [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_rentFreeL.mas_bottom).offset(15 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(180 *SIZE));
     }];
     
     [_urgentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_accommodateL.mas_bottom).offset(15 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
+        make.width.equalTo(@(170 *SIZE));
     }];
     
     [_markView mas_makeConstraints:^(MASConstraintMaker *make) {
