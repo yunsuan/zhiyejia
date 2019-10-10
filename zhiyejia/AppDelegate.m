@@ -17,7 +17,7 @@ static NSString *const kBaiduSDK = @"KUHjui3ENsYlHml2lOqGUGOLhuPDDbWq";
 static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
 
 
-@interface AppDelegate ()
+@interface AppDelegate ()<BMKLocationAuthDelegate>
 
 @end
 

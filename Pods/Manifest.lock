@@ -14,18 +14,18 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - BaiduMapKit (4.4.0)
-  - BMKLocationKit (1.7.0)
+  - BaiduMapKit (5.0.0)
+  - BMKLocationKit (1.8.0)
   - FLAnimatedImage (1.0.12)
-  - IQKeyboardManager (6.4.0)
-  - JCore (2.1.0)
-  - JPush (3.2.1):
+  - IQKeyboardManager (6.5.0)
+  - JCore (2.1.2)
+  - JPush (3.2.4):
     - JCore (< 3.0.0, >= 2.0.0)
   - Masonry (1.1.0)
   - MJRefresh (3.2.0)
-  - SDWebImage (5.0.6):
-    - SDWebImage/Core (= 5.0.6)
-  - SDWebImage/Core (5.0.6)
+  - SDWebImage (5.2.2):
+    - SDWebImage/Core (= 5.2.2)
+  - SDWebImage/Core (5.2.2)
 
 DEPENDENCIES:
   - AFNetworking
@@ -39,7 +39,7 @@ DEPENDENCIES:
   - SDWebImage
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AFNetworking
     - BaiduMapKit
     - BMKLocationKit
@@ -53,16 +53,16 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  BaiduMapKit: 19a568e238d6d5a91b93daf7819b868d39cb2206
-  BMKLocationKit: cbe7a93bc288465e12961e65aa3f11a8f9da3bb1
+  BaiduMapKit: 3a875b001293a9ee6692febd549d8bf82108dbac
+  BMKLocationKit: 29f9f04827bfe2f2ca2c1c87b11161f05d4189a5
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
-  JCore: cc373c9c9d82dcf2b0263d157abd99251ef76902
-  JPush: a1ff8b8ec53fa3419b414946e4db4efa313baeae
+  IQKeyboardManager: 700e5155d6a292383b54e8678aec769e14fc78fc
+  JCore: 1a426120b510cdebfd67b82bfb9483238ee09413
+  JPush: 29466e5f30dbd703f640d70540e411e829cac1fa
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
-  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
+  SDWebImage: 5fcdb02cc35e05fc35791ec514b191d27189f872
 
 PODFILE CHECKSUM: f9b4e8f16aaa302f21b2a2ac93611c0b40272663
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.8.3

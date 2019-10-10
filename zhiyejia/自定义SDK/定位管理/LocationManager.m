@@ -8,20 +8,24 @@
 
 #import "LocationManager.h"
 
-#import <BMKLocationkit/BMKLocationComponent.h>
+#import<BMKLocationKit/BMKLocationComponent.h>
+#import<BaiduMapAPI_Search/BMKGeocodeSearch.h>
 
-@interface LocationManager ()<BMKLocationManagerDelegate>
+@interface LocationManager ()<BMKLocationManagerDelegate,BMKGeoCodeSearchDelegate>
 {
-    
-    BMKLocationManager *_locationManager;
+    BOOL _isLocation;
+    BMKLocationManager *_locService;  //定位
+    BMKGeoCodeSearch *_geocodesearch; //地理编码主类，用来查询、返回结果信息
     void (^_locationSuccess)(NSString *cityname,NSString *citycode);
     void (^_locationFaild)(void);
 }
+
 @end
 
 @implementation LocationManager
 
-+ (LocationManager *)Manager{
++(LocationManager *)Manager
+{
     static LocationManager *manager;
     @synchronized(self){
         if (!manager) {
@@ -31,134 +35,158 @@
     return manager;
 }
 
-- (instancetype)init
+-(void)startLocationSuccess:(void (^)(NSString *, NSString *))success Faild:(void (^)(void))faild
 {
-    self = [super init];
-    if (self) {
-        
-        //初始化实例
-        _locationManager = [[BMKLocationManager alloc] init];
-        //设置delegate
-        _locationManager.delegate = self;
-        //设置返回位置的坐标系类型
-        _locationManager.coordinateType = BMKLocationCoordinateTypeBMK09LL;
-        //设置距离过滤参数
-        _locationManager.distanceFilter = kCLDistanceFilterNone;
-        //设置预期精度参数
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        //设置应用位置类型
-        _locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-        //设置是否自动停止位置更新
-        _locationManager.pausesLocationUpdatesAutomatically = NO;
-        //设置是否允许后台定位
-        //_locationManager.allowsBackgroundLocationUpdates = YES;
-        //设置位置获取超时时间
-        _locationManager.locationTimeout = 10;
-        //设置获取地址信息超时时间
-        _locationManager.reGeocodeTimeout = 10;
-    }
-    return self;
-}
-
-- (void)startLocationSuccess:(void (^)(NSString * _Nonnull, NSString * _Nonnull))success Faild:(void (^)(void))faild{
-    
     _locationSuccess = success;
     _locationFaild = faild;
-    if (_locationManager != nil) {
-        
-        [self StartLocation];
+    if (_locService != nil) {
+        [_locService startUpdatingLocation];
     }
 }
 
-- (void)StartLocation{
-    
-    [_locationManager requestLocationWithReGeocode:YES withNetworkState:YES completionBlock:^(BMKLocation * _Nullable location, BMKLocationNetworkState state, NSError * _Nullable error) {
-       
-        NSLog(@"%@,,,,,,,,,,%@",location,error);
-        if (error) {
-            
-            if (self->_locationFaild) {
-                self->_locationFaild();
-            }
-        }else{
-            
-            NSString *cityname = location.rgcData.city;
-            NSInteger cityInteger = [location.rgcData.adCode integerValue] /100*100;
-            NSString *citycode = [NSString stringWithFormat:@"%ld",cityInteger];
-            NSUserDefaults *location = [NSUserDefaults standardUserDefaults];
-            [location setObject:cityname forKey:@"cityName"];
-            [location setObject:citycode forKey:@"cityCode"];
-            
-            if (self->_locationSuccess) {
-                
-                self->_locationSuccess(cityname,citycode);
-            }
-        }
-    }];
+-(void)stopLocation
+{
+    if (_locService != nil) {
+        [_locService stopUpdatingLocation];
+    }
 }
 
-- (void)StartAllLocation{
-    
-    [_locationManager setLocatingWithReGeocode:YES];
-    [_locationManager startUpdatingLocation];
-}
-
-- (void)StopLocation{
-    
-    [_locationManager stopUpdatingLocation];
-}
-
-- (void)BMKLocationManager:(BMKLocationManager *)manager didFailWithError:(NSError *)error{
-    
-    NSLog(@"%@——————————%@",manager,error);
-    
-}
+//定位成功
 
 - (void)BMKLocationManager:(BMKLocationManager *)manager didUpdateLocation:(BMKLocation *)location orError:(NSError *)error{
     
+    [_locService stopUpdatingLocation];
+    BMKReverseGeoCodeSearchOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeSearchOption alloc] init];
+    reverseGeocodeSearchOption.location = location.location.coordinate;
     
-    NSLog(@"%@——————————%@——————————%@",manager,location,error);
-    if (error) {
-        
-        if (_locationFaild) {
-            _locationFaild();
-        }
-    }
-}
-
-- (void)BMKLocationManager:(BMKLocationManager *)manager didUpdateNetworkState:(BMKLocationNetworkState)state orError:(NSError *)error{
+    BOOL flag = [_geocodesearch reverseGeoCode:reverseGeocodeSearchOption];
     
-    NSLog(@"%@——————————%@",manager,error);
-    if (error) {
+    if(flag){
         
-        if (_locationFaild) {
-            _locationFaild();
-        }
+        //        NSLog(@"反geo检索发送成功");
+        
+        
+    }else{
+        
+        //        NSLog(@"反geo检索发送失败");
+        
     }
 }
 
 - (void)BMKLocationManager:(BMKLocationManager *)manager didUpdateHeading:(CLHeading *)heading{
     
-    NSLog(@"%@——————————%@",manager,heading);
+    NSLog(@"%@",heading);
 }
 
-+ (NSString *)GetCityName{
+//- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+//{
+////    [_locService stopUserLocationService];
+////    BMKReverseGeoCodeOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeOption alloc]init];
+////    reverseGeocodeSearchOption.reverseGeoPoint = userLocation.location.coordinate;
+//
+////    [JANALYTICSService setLocation:userLocation.location];
+//    BOOL flag = [_geocodesearch reverseGeoCode:reverseGeocodeSearchOption];
+//
+//    if(flag){
+//
+//        //        NSLog(@"反geo检索发送成功");
+//
+//
+//    }else{
+//
+//        //        NSLog(@"反geo检索发送失败");
+//
+//    }
+//
+//}
+
+#pragma mark -------------地理反编码的delegate---------------
+
+- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeSearchResult *)result errorCode:(BMKSearchErrorCode)error{
     
+    if (error != BMK_SEARCH_NO_ERROR) {
+        if (_locationFaild) {
+            _locationFaild();
+        }
+    }else
+    {
+        NSString *cityname = result.addressDetail.city;
+        NSInteger cityInteger = [result.addressDetail.adCode integerValue] /100*100;
+        NSString *citycode = [NSString stringWithFormat:@"%ld",cityInteger];
+        NSUserDefaults *location = [NSUserDefaults standardUserDefaults];
+        [location setObject:cityname forKey:@"cityName"];
+        [location setObject:citycode forKey:@"cityCode"];
+        if (_locationSuccess) {
+            _locationSuccess(cityname,citycode);
+        }
+        
+    }
+}
+
+//-(void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
+//
+//{
+//    if (error != BMK_SEARCH_NO_ERROR) {
+//        if (_locationFaild) {
+//            _locationFaild();
+//        }
+//    }else
+//    {
+//        NSString *cityname = result.addressDetail.city;
+//        NSInteger cityInteger = [result.addressDetail.adCode integerValue] /100*100;
+//        NSString *citycode = [NSString stringWithFormat:@"%ld",cityInteger];
+//        NSUserDefaults *location = [NSUserDefaults standardUserDefaults];
+//        [location setObject:cityname forKey:@"cityName"];
+//        [location setObject:citycode forKey:@"cityCode"];
+//        if (_locationSuccess) {
+//            _locationSuccess(cityname,citycode);
+//        }
+//
+//    }
+//}
+
+//定位失败
+
+- (void)didFailToLocateUserWithError:(NSError *)error{
+    if (_locationFaild) {
+        _locationFaild();
+    }
+}
+
+
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        _isLocation = NO;
+        _locService = [[BMKLocationManager alloc]init];
+        _locService.delegate = self;
+        _locService.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        _locService.distanceFilter = 100.f;
+        _geocodesearch =[[BMKGeoCodeSearch alloc]init];
+        _geocodesearch.delegate = self;
+    }
+    return self;
+}
+
+
+
++(NSString *)GetCityName
+{
     NSString *cityname = [[NSUserDefaults standardUserDefaults] objectForKey:@"cityName"];
     if (!cityname) {
-        
         cityname = @"成都市";
     }
+    
     return cityname;
 }
 
-+ (NSString *)GetCityCode{
-    
++(NSString *)GetCityCode
+{
     NSString *citycode = [[NSUserDefaults standardUserDefaults] objectForKey:@"cityCode"];
     if (!citycode) {
-        
         citycode = @"510100";
     }
+    
     return citycode;
 }
 @end

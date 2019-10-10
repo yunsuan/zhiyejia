@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
+   uuid = "4C694F27-2816-4EEA-9EE6-42B23CBDC531"
    type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
+            uuid = "1F85208D-21E5-43E8-AE6C-852E2F95B8F8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -13,6 +15,7 @@
             moduleName = "">
             <Locations>
                <Location
+                  uuid = "1F85208D-21E5-43E8-AE6C-852E2F95B8F8 - d02b6889e58311d3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -27,6 +30,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
+            uuid = "056DFAAD-90F7-4B66-BC7E-1FB001440DFA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -34,6 +38,7 @@
             moduleName = "">
             <Locations>
                <Location
+                  uuid = "056DFAAD-90F7-4B66-BC7E-1FB001440DFA - ca05e3e8d0103ce6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -48,6 +53,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "841B11EF-487E-4DD7-ABBB-54DD23B735B5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -58,6 +64,22 @@
             startingLineNumber = "320"
             endingLineNumber = "320"
             landmarkName = "-tableView:viewForHeaderInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC3CA5A4-CED3-44FD-B0E8-A563A494802A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/RoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "-BMKLocationManager:didUpdateLocation:orError:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
