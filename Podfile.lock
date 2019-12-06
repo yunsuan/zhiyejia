@@ -14,27 +14,33 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - BaiduMapKit (5.0.0)
+  - BaiduMapKit (5.1.0)
   - BMKLocationKit (1.8.0)
+  - CYLTabBarController (1.28.4):
+    - CYLTabBarController/Core (= 1.28.4)
+  - CYLTabBarController/Core (1.28.4)
   - FLAnimatedImage (1.0.12)
-  - IQKeyboardManager (6.5.0)
-  - JCore (2.1.2)
-  - JPush (3.2.4):
+  - IQKeyboardManager (6.5.4)
+  - JCore (2.1.4)
+  - JPush (3.2.6):
     - JCore (< 3.0.0, >= 2.0.0)
   - Masonry (1.1.0)
-  - MJRefresh (3.2.0)
-  - SDWebImage (5.2.2):
-    - SDWebImage/Core (= 5.2.2)
-  - SDWebImage/Core (5.2.2)
+  - MBProgressHUD (1.1.0)
+  - MJRefresh (3.2.2)
+  - SDWebImage (5.3.1):
+    - SDWebImage/Core (= 5.3.1)
+  - SDWebImage/Core (5.3.1)
 
 DEPENDENCIES:
   - AFNetworking
   - BaiduMapKit
   - BMKLocationKit
+  - CYLTabBarController
   - FLAnimatedImage
   - IQKeyboardManager
   - JPush
   - Masonry
+  - MBProgressHUD
   - MJRefresh
   - SDWebImage
 
@@ -43,26 +49,30 @@ SPEC REPOS:
     - AFNetworking
     - BaiduMapKit
     - BMKLocationKit
+    - CYLTabBarController
     - FLAnimatedImage
     - IQKeyboardManager
     - JCore
     - JPush
     - Masonry
+    - MBProgressHUD
     - MJRefresh
     - SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  BaiduMapKit: 3a875b001293a9ee6692febd549d8bf82108dbac
+  BaiduMapKit: be03d7c0d625e2106ba04691e4be45f71f8dee7f
   BMKLocationKit: 29f9f04827bfe2f2ca2c1c87b11161f05d4189a5
+  CYLTabBarController: d7160abd77b3a94626cff123fdfaa4f3badde20d
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  IQKeyboardManager: 700e5155d6a292383b54e8678aec769e14fc78fc
-  JCore: 1a426120b510cdebfd67b82bfb9483238ee09413
-  JPush: 29466e5f30dbd703f640d70540e411e829cac1fa
+  IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
+  JCore: d345c049141877eb61c33011455fdb5fcab1673f
+  JPush: 41dd48a69bd8c08abc692dc7f2b23c0fb281471f
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
-  SDWebImage: 5fcdb02cc35e05fc35791ec514b191d27189f872
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  MJRefresh: 72a46ecaa2a0feaf48fc5198dff95f25f8bb27c6
+  SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
 
-PODFILE CHECKSUM: f9b4e8f16aaa302f21b2a2ac93611c0b40272663
+PODFILE CHECKSUM: 90b3c23e806b2f1c394e5d197ad77a55076c8a55
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

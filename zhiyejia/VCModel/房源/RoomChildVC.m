@@ -734,7 +734,7 @@
 //                        //                            make.left.equalTo(cell.rankView).offset(0);
 //                        //                            make.top.equalTo(cell.rankView).offset(0);
 //                        //                            make.height.equalTo(@(10 *SIZE));
-//                        //                            make.width.equalTo(@(cell.rankView.rankL.mj_textWith + 5 *SIZE));
+//                        //                            make.width.equalTo(@(cell.rankView.rankL.mj_textWidth + 5 *SIZE));
 //                        //                        }];
 //                        //                        if ([model.brokerSortCompare integerValue] == 0) {
 //                        //

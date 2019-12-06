@@ -85,7 +85,7 @@
         
         make.left.equalTo(self.contentView).offset(123 *SIZE);
         make.top.equalTo(self->_contentL.mas_bottom).offset(8 *SIZE);
-        make.width.equalTo(@(self->_priceL.mj_textWith + 5 *SIZE));
+        make.width.equalTo(@(self->_priceL.mj_textWidth + 5 *SIZE));
     }];
 }
 
@@ -203,7 +203,7 @@
         
         make.left.equalTo(self.contentView).offset(123 *SIZE);
         make.top.equalTo(self->_contentL.mas_bottom).offset(8 *SIZE);
-        make.width.equalTo(@(self->_priceL.mj_textWith + 5 *SIZE));
+        make.width.equalTo(@(self->_priceL.mj_textWidth + 5 *SIZE));
         make.width.mas_lessThanOrEqualTo(120 *SIZE);
     }];
     

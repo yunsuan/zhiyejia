@@ -10,6 +10,8 @@ target 'zhiyejia' do
  pod 'BaiduMapKit' #百度地图SDK
  pod 'BMKLocationKit' #百度定位SDK
  pod 'FLAnimatedImage'
- 
+ pod 'CYLTabBarController'
+ pod 'MBProgressHUD'
+
 # pod 'YBImageBrowser'
 end

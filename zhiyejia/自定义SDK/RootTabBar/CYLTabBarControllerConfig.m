@@ -10,20 +10,20 @@
 
 @import Foundation;
 @import UIKit;
-@interface CYLBaseNavigationController : UINavigationController
-
-@end
-@implementation CYLBaseNavigationController
-
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (self.viewControllers.count > 0) {
-        viewController.hidesBottomBarWhenPushed = YES;
-    }
-    [super pushViewController:viewController animated:animated];
-}
-
-
-@end
+//@interface CYLBaseNavigationController : UINavigationController
+//
+//@end
+//@implementation CYLBaseNavigationController
+//
+//- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+//    if (self.viewControllers.count > 0) {
+//        viewController.hidesBottomBarWhenPushed = YES;
+//    }
+//    [super pushViewController:viewController animated:animated];
+//}
+//
+//
+//@end
 
 #import "RoomVC.h"
 #import "AgentVC.h"

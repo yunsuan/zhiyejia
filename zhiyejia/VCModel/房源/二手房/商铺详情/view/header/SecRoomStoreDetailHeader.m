@@ -373,7 +373,7 @@
         make.left.equalTo(self.contentView).offset(230 *SIZE);
         make.top.equalTo(self->_titleL.mas_bottom).offset(8 *SIZE);
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        //        make.width.mas_equalTo(_attentL.mj_textWith + 6 *SIZE);
+        //        make.width.mas_equalTo(_attentL.mj_textWidth + 6 *SIZE);
     }];
     
     [_moreView mas_makeConstraints:^(MASConstraintMaker *make) {

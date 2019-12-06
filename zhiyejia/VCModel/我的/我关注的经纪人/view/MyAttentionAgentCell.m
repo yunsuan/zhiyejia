@@ -37,22 +37,22 @@
     
     [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
 
-        make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_nameL.mj_textWidth + 5 *SIZE);
     }];
     
     [_yearL mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.width.mas_equalTo(self->_yearL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_yearL.mj_textWidth + 5 *SIZE);
     }];
     
     [_statusL mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.width.mas_equalTo(self->_statusL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_statusL.mj_textWidth + 5 *SIZE);
     }];
     
     [_codeL mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.width.mas_equalTo(self->_codeL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_codeL.mj_textWidth + 5 *SIZE);
     }];
 }
 
@@ -173,14 +173,14 @@
         
         make.left.equalTo(self.contentView).offset(89 *SIZE);
         make.top.equalTo(self.contentView).offset(16 *SIZE);
-        make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_nameL.mj_textWidth + 5 *SIZE);
     }];
     
     [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_nameL.mas_right).offset(12 *SIZE);
         make.top.equalTo(self.contentView).offset(18 *SIZE);
-        make.width.mas_equalTo(self->_yearL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_yearL.mj_textWidth + 5 *SIZE);
     }];
     
     [_genderImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -194,14 +194,14 @@
        
         make.left.equalTo(self.contentView).offset(89 *SIZE);
         make.top.equalTo(self.contentView).offset(41 *SIZE);
-        make.width.mas_equalTo(self->_statusL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_statusL.mj_textWidth + 5 *SIZE);
     }];
     
     [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(89 *SIZE);
         make.top.equalTo(self.contentView).offset(63 *SIZE);
-        make.width.mas_equalTo(self->_codeL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_codeL.mj_textWidth + 5 *SIZE);
     }];
     
     [_comprehensiveGradeL mas_makeConstraints:^(MASConstraintMaker *make) {

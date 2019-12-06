@@ -71,13 +71,6 @@
 		0C991C7F227303DF00AF2817 /* TTRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C7D227303DF00AF2817 /* TTRangeSlider.m */; };
 		0CC36DEF2254576500CA109B /* AttentionHouseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC36DEE2254576500CA109B /* AttentionHouseVC.m */; };
 		0CE8218E221D31E900576742 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8218D221D31E900576742 /* BaseViewController.m */; };
-		0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */; };
-		0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */; };
-		0CE821A4221D53A900576742 /* CYLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE82199221D53A900576742 /* CYLTabBarController.m */; };
-		0CE821A5221D53A900576742 /* CYLTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8219B221D53A900576742 /* CYLTabBar.m */; };
-		0CE821A6221D53A900576742 /* CYLPlusButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8219C221D53A900576742 /* CYLPlusButton.m */; };
-		0CE821A7221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8219F221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m */; };
-		0CE821A8221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE821A0221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m */; };
 		0CE821B0221D540C00576742 /* MineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE821AF221D540C00576742 /* MineVC.m */; };
 		0CE821B3221D541600576742 /* AgentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE821B2221D541600576742 /* AgentVC.m */; };
 		0CE821B6221D542C00576742 /* DemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE821B5221D542C00576742 /* DemandVC.m */; };
@@ -349,21 +342,6 @@
 		0CE8218C221D31E900576742 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0CE8218D221D31E900576742 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0CE82190221D336F00576742 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		0CE82193221D53A900576742 /* CYLPlusButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLPlusButton.h; sourceTree = "<group>"; };
-		0CE82194221D53A900576742 /* CYLTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBar.h; sourceTree = "<group>"; };
-		0CE82195221D53A900576742 /* UIControl+CYLTabBarControllerExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+CYLTabBarControllerExtention.h"; sourceTree = "<group>"; };
-		0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CYLTabBarControllerExtention.m"; sourceTree = "<group>"; };
-		0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+CYLTabBarControllerExtention.m"; sourceTree = "<group>"; };
-		0CE82198221D53A900576742 /* CYLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLConstants.h; sourceTree = "<group>"; };
-		0CE82199221D53A900576742 /* CYLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLTabBarController.m; sourceTree = "<group>"; };
-		0CE8219A221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CYLTabBarControllerExtention.h"; sourceTree = "<group>"; };
-		0CE8219B221D53A900576742 /* CYLTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLTabBar.m; sourceTree = "<group>"; };
-		0CE8219C221D53A900576742 /* CYLPlusButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLPlusButton.m; sourceTree = "<group>"; };
-		0CE8219D221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+CYLTabBarControllerExtention.h"; sourceTree = "<group>"; };
-		0CE8219E221D53A900576742 /* UIView+CYLTabBarControllerExtention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CYLTabBarControllerExtention.h"; sourceTree = "<group>"; };
-		0CE8219F221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+CYLTabBarControllerExtention.m"; sourceTree = "<group>"; };
-		0CE821A0221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CYLTabBarControllerExtention.m"; sourceTree = "<group>"; };
-		0CE821A1221D53A900576742 /* CYLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBarController.h; sourceTree = "<group>"; };
 		0CE821AE221D540C00576742 /* MineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineVC.h; sourceTree = "<group>"; };
 		0CE821AF221D540C00576742 /* MineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineVC.m; sourceTree = "<group>"; };
 		0CE821B1221D541600576742 /* AgentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentVC.h; sourceTree = "<group>"; };
@@ -1234,31 +1212,8 @@
 				0CE821E8221E3A8B00576742 /* BMChineseStringSort */,
 				0CE821CF221E368600576742 /* HNChannelView */,
 				0CE821BF221E35B500576742 /* WMPageController */,
-				0CE82192221D53A900576742 /* CYLTabBarController */,
 			);
 			path = "第三方SDK";
-			sourceTree = "<group>";
-		};
-		0CE82192221D53A900576742 /* CYLTabBarController */ = {
-			isa = PBXGroup;
-			children = (
-				0CE82193221D53A900576742 /* CYLPlusButton.h */,
-				0CE82194221D53A900576742 /* CYLTabBar.h */,
-				0CE82195221D53A900576742 /* UIControl+CYLTabBarControllerExtention.h */,
-				0CE82196221D53A900576742 /* UIView+CYLTabBarControllerExtention.m */,
-				0CE82197221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m */,
-				0CE82198221D53A900576742 /* CYLConstants.h */,
-				0CE82199221D53A900576742 /* CYLTabBarController.m */,
-				0CE8219A221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.h */,
-				0CE8219B221D53A900576742 /* CYLTabBar.m */,
-				0CE8219C221D53A900576742 /* CYLPlusButton.m */,
-				0CE8219D221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.h */,
-				0CE8219E221D53A900576742 /* UIView+CYLTabBarControllerExtention.h */,
-				0CE8219F221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m */,
-				0CE821A0221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m */,
-				0CE821A1221D53A900576742 /* CYLTabBarController.h */,
-			);
-			path = CYLTabBarController;
 			sourceTree = "<group>";
 		};
 		0CE821A9221D53FA00576742 /* VCModel */ = {
@@ -2464,7 +2419,6 @@
 				0CF1F33422533E0A00C92A54 /* UserInfoModel.m in Sources */,
 				0C2AAFF7224C94B800136E4D /* SelectView.m in Sources */,
 				0CE821B3221D541600576742 /* AgentVC.m in Sources */,
-				0CE821A3221D53A900576742 /* UITabBarItem+CYLTabBarControllerExtention.m in Sources */,
 				0C589379223A1DC3005B78A6 /* SecRoomStoreEquipCell.m in Sources */,
 				0CF46E27222D0F68008816E6 /* SecRoomStoreDetailHeader.m in Sources */,
 				0C58937D223A1E39005B78A6 /* EquipMentCollCell.m in Sources */,
@@ -2473,7 +2427,6 @@
 				0C2C710F22700DA1001F3D22 /* CheckAgentCell.m in Sources */,
 				0C589385223A2258005B78A6 /* SecRoomFloorCell.m in Sources */,
 				0CE82207221E706F00576742 /* BaseModel.m in Sources */,
-				0CE821A7221D53A900576742 /* UIControl+CYLTabBarControllerExtention.m in Sources */,
 				0CF46ED1222FA819008816E6 /* RentProjectModel.m in Sources */,
 				0CFD42E2227054BE0062C294 /* AgentDetailVC.m in Sources */,
 				0CF46D8F22250F79008816E6 /* NewRoomProjectMapCell.m in Sources */,
@@ -2527,7 +2480,6 @@
 				0C2AB004224C9C2C00136E4D /* NewRoomHouseHeader.m in Sources */,
 				0CF46DA322262B72008816E6 /* TitleContentBaseCell.m in Sources */,
 				0CF43F7F22754EC900677844 /* RentHouseDemandVC.m in Sources */,
-				0CE821A6221D53A900576742 /* CYLPlusButton.m in Sources */,
 				0CF43F9C227590C200677844 /* DemandAgentCell.m in Sources */,
 				0CE821F7221E3F8900576742 /* BaseRequest.m in Sources */,
 				10AFF8C8221D281300657217 /* ViewController.m in Sources */,
@@ -2538,7 +2490,6 @@
 				0CE821DB221E368700576742 /* UIView+Frame.m in Sources */,
 				0C2AAFFE224C99BD00136E4D /* NewRoomHouseModel.m in Sources */,
 				0C2AAFE0224C92FA00136E4D /* DistributVC.m in Sources */,
-				0CE821A5221D53A900576742 /* CYLTabBar.m in Sources */,
 				0CFD42F32271B81E0062C294 /* AllCommentVC.m in Sources */,
 				0CF46D922225117D008816E6 /* NewRoomMapCollCell.m in Sources */,
 				0CF46E1C222D01E6008816E6 /* SecRoomOfficeEquipCollCell.m in Sources */,
@@ -2580,7 +2531,6 @@
 				0CE821E3221E380B00576742 /* RoomChildVC.m in Sources */,
 				0CF46DD222268947008816E6 /* MyAttentionAgentCell.m in Sources */,
 				0CF46D8C2224DF06008816E6 /* NewRoomProjectAnalyzeCell.m in Sources */,
-				0CE821A4221D53A900576742 /* CYLTabBarController.m in Sources */,
 				0CF43F7222754A3A00677844 /* SecOfficeDemandVC.m in Sources */,
 				0CF46E32222E7AE8008816E6 /* NewRoomProjectDetailFooter.m in Sources */,
 				0C991C662272D4FB00AF2817 /* DemandTypeHeader.m in Sources */,
@@ -2601,7 +2551,6 @@
 				0C6BECAF2240DA460039BD0D /* DynamicDetailVC.m in Sources */,
 				0C58936022375754005B78A6 /* SecHouseModel.m in Sources */,
 				0C58938F223A4B6E005B78A6 /* RentRoomHouseDetailVC.m in Sources */,
-				0CE821A8221D53A900576742 /* UIViewController+CYLTabBarControllerExtention.m in Sources */,
 				0C3A90F72255930600F04804 /* AttentionHouseCell.m in Sources */,
 				0CF46D6622238734008816E6 /* NewRoomProjectDetailVC.m in Sources */,
 				0C6BECB22240DA580039BD0D /* DynamicListCell.m in Sources */,
@@ -2623,7 +2572,6 @@
 				0CF46ECE222FA809008816E6 /* RentRoomCell.m in Sources */,
 				0CE821F2221E3E0A00576742 /* UserModelArchiver.m in Sources */,
 				0CF46DC222267D80008816E6 /* MySubscibeVC.m in Sources */,
-				0CE821A2221D53A900576742 /* UIView+CYLTabBarControllerExtention.m in Sources */,
 				0C2AAFD1224C77EF00136E4D /* BuildingAlbumVC.m in Sources */,
 				0CF43F94227581F300677844 /* DemandListCell.m in Sources */,
 				0CF46DA622262CFD008816E6 /* LisenceCell.m in Sources */,

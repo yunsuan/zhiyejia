@@ -165,7 +165,7 @@
     
     [_titleL mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.width.mas_equalTo(self->_titleL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_titleL.mj_textWidth + 5 *SIZE);
     }];
     
     [self setNeedsLayout];
@@ -414,7 +414,7 @@
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_imgScroll.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(self->_titleL.mj_textWith + 5 *SIZE);
+        make.width.mas_equalTo(self->_titleL.mj_textWidth + 5 *SIZE);
         make.right.mas_lessThanOrEqualTo(self.contentView).offset(-120 *SIZE);
     }];
     
