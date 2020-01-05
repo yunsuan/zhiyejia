@@ -34,6 +34,12 @@
     _titleL.font = [UIFont systemFontOfSize:15 *SIZE];
     [self.contentView addSubview:_titleL];
     
+    _contentL = [[UILabel alloc] init];
+    _contentL.textColor = CLBlueBtnColor;;
+    _contentL.font = [UIFont systemFontOfSize:15 *SIZE];
+    _contentL.textAlignment = NSTextAlignmentRight;
+    [self.contentView addSubview:_contentL];
+    
     _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 39 *SIZE, SCREEN_Width , SIZE)];
     _lineView.backgroundColor = CLLineColor;
     [self.contentView addSubview:_lineView];
@@ -50,7 +56,15 @@
         
         make.left.equalTo(self.contentView).offset(28 *SIZE);
         make.top.equalTo(self.contentView).offset(13 *SIZE);
-        make.right.equalTo(self.contentView).offset(30 *SIZE);
+//        make.right.equalTo(self.contentView).offset(30 *SIZE);
+        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+    }];
+    
+    [_contentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-30 *SIZE);
+        make.top.equalTo(self.contentView).offset(13 *SIZE);
+        make.width.mas_lessThanOrEqualTo(150 *SIZE);
     }];
     
     [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {

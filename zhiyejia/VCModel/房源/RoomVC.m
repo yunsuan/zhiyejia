@@ -98,39 +98,39 @@
 
     //开始定位
     [locationManager startUpdatingLocation];
-//    LocationManager *manager =  [LocationManager Manager];
-//        [manager startLocationSuccess:^(NSString *cityname, NSString *citycode) {
+    LocationManager *manager =  [LocationManager Manager];
+    [manager startLocationSuccess:^(NSString *cityname, NSString *citycode) {
+
+        [_cityBtn setTitle:cityname forState:UIControlStateNormal];
+        _city = citycode;
+        _cityName = cityname;
+        if (!self->_titlearr.count) {
+
+            do {
+                self->_titlearr = [UserModel defaultModel].tagSelectArr;
+            } while (!self->_titlearr.count);
+        }
+
+        [self pageController:self willEnterViewController:self.childViewControllers[0] withInfo:@{}];
+        [self reloadData];
+//            if ([UserModel defaultModel].index.length) {
 //
-//            [_cityBtn setTitle:cityname forState:UIControlStateNormal];
-//            _city = citycode;
-//            _cityName = cityname;
-//            if (!self->_titlearr.count) {
 //
-//                do {
-//                    self->_titlearr = [UserModel defaultModel].tagSelectArr;
-//                } while (!self->_titlearr.count);
+//            }else{
+//
+//                [UserModel defaultModel].index = @"0";
+//                [UserModelArchiver archive];
+//                self.selectIndex = 2;
+//                [self reloadData];
 //            }
-//
-//            [self pageController:self willEnterViewController:self.childViewControllers[0] withInfo:@{}];
-//            [self reloadData];
-////            if ([UserModel defaultModel].index.length) {
-////
-////
-////            }else{
-////
-////                [UserModel defaultModel].index = @"0";
-////                [UserModelArchiver archive];
-////                self.selectIndex = 2;
-////                [self reloadData];
-////            }
-//
-//        } Faild:^{
-//
-//            [_cityBtn setTitle:@"成都市" forState:UIControlStateNormal];
-//            _city = [NSString stringWithFormat:@"510100"];
-//            _cityName = @"成都市";
-//            [self showContent:@"定位失败，已切换为默认城市，可点击城市手动切换"];
-//        }];
+
+    } Faild:^{
+
+        [_cityBtn setTitle:@"成都市" forState:UIControlStateNormal];
+        _city = [NSString stringWithFormat:@"510100"];
+        _cityName = @"成都市";
+        [self showContent:@"定位失败，已切换为默认城市，可点击城市手动切换"];
+    }];
 }
 
 - (void)BMKLocationManager:(BMKLocationManager *)manager didUpdateLocation:(BMKLocation *)location orError:(NSError *)error{

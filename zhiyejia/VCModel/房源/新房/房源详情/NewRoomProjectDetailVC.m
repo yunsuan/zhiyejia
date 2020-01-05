@@ -18,11 +18,14 @@
 #import "NewRoomProjectHeader.h"
 #import "NewRoomProjectDetailFooter.h"
 #import "TitleBaseHeader.h"
+#import "NewRoomDiscountCell.h"
 #import "NewRoomProjectDynamicCell.h"
 #import "NewRoomProjectBuildingCell.h"
 #import "NewRoomProjectHouseTypeCell.h"
 #import "NewRoomProjectAnalyzeCell.h"
 #import "NewRoomProjectMapCell.h"
+#import "NewRoomProjectAgentCell.h"
+#import "NewRoomProjectResidentCell.h"
 
 
 @interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
@@ -170,14 +173,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 6;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section == 0) {
         
-        return 0;
+        return 1;
     }else if(section == 1){
      
         if ([_dataDic[@"dynamic"][@"first"] count]) {
@@ -332,6 +335,26 @@
         header.titleL.text = @"项目分析";
         
         return header;
+    }else if (section == 6){
+        
+        TitleBaseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleBaseHeader"];
+        if (!header) {
+            
+            header = [[TitleBaseHeader alloc] initWithReuseIdentifier:@"TitleBaseHeader"];
+        }
+        header.titleL.text = @"金牌置业顾问";
+        
+        return header;
+    }else if (section == 7){
+        
+        TitleBaseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleBaseHeader"];
+        if (!header) {
+            
+            header = [[TitleBaseHeader alloc] initWithReuseIdentifier:@"TitleBaseHeader"];
+        }
+        header.titleL.text = @"项目驻场";
+        
+        return header;
     }else{
         
         NewRoomProjectDetailFooter *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"NewRoomProjectDetailFooter"];
@@ -348,6 +371,22 @@
 
     switch (indexPath.section) {
         case 0:
+        {
+            
+            NewRoomDiscountCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomDiscountCell"];
+            if (!cell) {
+                
+                cell = [[NewRoomDiscountCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomDiscountCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.titleL.text = @"优惠促销";
+            cell.contentL.text = @"优惠促销优惠促销优惠促销";
+            
+            return cell;
+            
+            break;
+        }
         case 1:{
             
             NewRoomProjectDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomProjectDynamicCell"];
@@ -495,7 +534,7 @@
             return cell;
             break;
         }
-        default:{
+        case 5:{
             
             NewRoomProjectMapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomProjectMapCell"];
             if (!cell) {
@@ -506,6 +545,30 @@
             
             [cell SetLatitude:_latitude longitude:_longitude project:_dataDic[@"project_basic_info"][@"project_name"]];
             
+            return cell;
+            
+            break;
+        }case 6:{
+            
+            NewRoomProjectAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomProjectAgentCell"];
+            if (!cell) {
+                
+                cell = [[NewRoomProjectAgentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomProjectAgentCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
+        }
+        default:{
+            
+            NewRoomProjectResidentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomProjectResidentCell"];
+            if (!cell) {
+                
+                cell = [[NewRoomProjectResidentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomProjectResidentCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.nameL.text = @"刘刚";
             return cell;
             break;
         }

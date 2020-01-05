@@ -35,12 +35,18 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
     if (!ret) {
         NSLog(@"manager start failed!");
     }
-    
+
     [self NetWorkingRequest];
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     _window.rootViewController = tabBarControllerConfig.tabBarController;
     return YES;
 }
+
+- (void)onCheckPermissionState:(BMKLocationAuthErrorCode)iError{
+    
+    NSLog(@"%ld",iError);
+}
+
 
 - (void)NetWorkingRequest{
     

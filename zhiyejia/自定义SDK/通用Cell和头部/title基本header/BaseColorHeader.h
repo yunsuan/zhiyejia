@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *titleL;
 
+@property (nonatomic, strong) UILabel *contentL;
+
 @property (nonatomic, strong) UIView *lineView;
 
 @end

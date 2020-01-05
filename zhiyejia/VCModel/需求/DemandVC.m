@@ -14,24 +14,27 @@
 #import "OfficeDemandVC.h"
 #import "StoreDemandVC.h"
 
+//二手房
+#import "SecHouseSaleDemandDetailVC.h"
+#import "SecHouseBuyDemandDetailVC.h"
+
 //租房
 #import "RentHouseDemandVC.h"
 #import "RentStoreDemandVC.h"
 #import "RentOfficeDemandVC.h"
 
-#import "DemandTypeHeader.h"
-#import "DemandTakeCollCell.h"
-#import "DemandTypeCollCell.h"
+#import "BaseColorHeader.h"
+#import "DeamandSaleCell.h"
+#import "DemandBuyCell.h"
 
-@interface DemandVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
+@interface DemandVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSMutableArray *_dataArr;
 }
 
-@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
+@property (nonatomic, strong) UITableView *table;
 
-@property (nonatomic, strong) UICollectionView *coll;
 @end
 
 @implementation DemandVC
@@ -40,131 +43,109 @@
     [super viewDidLoad];
     
     [self initUI];
-    
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     return 2;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return 2;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    if (section == 0) {
-        
-        return CGSizeZero;
-    }else{
-        
-        return CGSizeMake(SCREEN_Width, 41 *SIZE);
-    }
+    return 40 *SIZE;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    DemandTypeHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"DemandTypeHeader" forIndexPath:indexPath];
+    BaseColorHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BaseColorHeader"];
     if (!header) {
         
-        header = [[DemandTypeHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 41 *SIZE)];
+        header = [[BaseColorHeader alloc] initWithReuseIdentifier:@"BaseColorHeader"];
     }
+    
+    header.titleL.text = @"二手房出售";
     
     return header;
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    if (@available(iOS 10.0, *)) {
-//
-//        return UICollectionViewFlowLayoutAutomaticSize;
-//    } else {
-//
-//        if (indexPath.section == 0) {
-//
-//
-//        }
-//    }
-//}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
         
-        DemandTakeCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DemandTakeCollCell" forIndexPath:indexPath];
+        DeamandSaleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeamandSaleCell"];
         if (!cell) {
             
-            cell = [[DemandTakeCollCell alloc] initWithFrame:CGRectMake(0, 0, 333 *SIZE, 93 *SIZE)];
+            cell = [[DeamandSaleCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"DeamandSaleCell"];
         }
         
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = @{};
+        
+        cell.deamandSaleCellBlock = ^{
+          
+            NSString *phone = @"15983804766";
+            if (phone.length) {
+                
+                //获取目标号码字符串,转换成URL
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                //调用系统方法拨号
+                [[UIApplication sharedApplication] openURL:url];
+            }else{
+                
+                [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+            }
+        };
         return cell;
     }else{
         
-        DemandTypeCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DemandTypeCollCell" forIndexPath:indexPath];
+        DemandBuyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DemandBuyCell"];
         if (!cell) {
             
-            cell = [[DemandTypeCollCell alloc] initWithFrame:CGRectMake(0, 0, 100 *SIZE, 67 *SIZE)];
+            cell = [[DemandBuyCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"DemandBuyCell"];
         }
         
-        cell.tag = indexPath.item;
-        cell.demandTypeCollCellBlock = ^(NSInteger idx) {
-          
-            if (idx == 0) {
-                
-                HouseDemandVC *nextVC = [[HouseDemandVC alloc] init];
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if (idx == 1){
-                
-                RentStoreDemandVC *nextVC = [[RentStoreDemandVC alloc] init];
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else{
-                
-                OfficeDemandVC *nextVC = [[OfficeDemandVC alloc] init];
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }
-        };
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = @{};
         
         return cell;
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
         
-        
+        SecHouseSaleDemandDetailVC *nextVC = [[SecHouseSaleDemandDetailVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        DemandListVC *nextVC = [[DemandListVC alloc] init];
+        SecHouseBuyDemandDetailVC *nextVC = [[SecHouseBuyDemandDetailVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 
 - (void)initUI{
     
+    self.view.backgroundColor = CLLineColor;
+    
     self.leftButton.hidden = YES;
     self.titleLabel.text = @"需求";
-    
-    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    if (@available(iOS 10.0, *)) {
-        _flowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;
-    } else {
-        // Fallback on earlier versions
-    }
-    _flowLayout.estimatedItemSize = CGSizeMake(333 *SIZE, 93 *SIZE);
-    _flowLayout.sectionInset =UIEdgeInsetsMake(5 *SIZE, 13 *SIZE, 5 *SIZE, 13 *SIZE);
-    
-    
-    _coll = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_MORE) collectionViewLayout:_flowLayout];
-    _coll.backgroundColor = CLLineColor;
-    _coll.delegate = self;
-    _coll.dataSource = self;
-    [_coll registerClass:[DemandTakeCollCell class] forCellWithReuseIdentifier:@"DemandTakeCollCell"];
-    [_coll registerClass:[DemandTypeCollCell class] forCellWithReuseIdentifier:@"DemandTypeCollCell"];
-    [_coll registerClass:[DemandTypeHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"DemandTypeHeader"];
-    [self.view addSubview:_coll];
+
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_MORE) style:UITableViewStylePlain];
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _table.rowHeight = UITableViewAutomaticDimension;
+    _table.estimatedRowHeight = 100 *SIZE;
+    _table.backgroundColor = CLLineColor;
+    _table.delegate = self;
+    _table.dataSource = self;
+    [self.view addSubview:_table];
 }
 
 

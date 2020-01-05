@@ -51,6 +51,12 @@
     }
 }
 
+- (void)BMKLocationManager:(BMKLocationManager * _Nonnull)manager doRequestAlwaysAuthorization:(CLLocationManager * _Nonnull)locationManager
+{
+    
+    [locationManager requestAlwaysAuthorization];
+}
+
 //定位成功
 
 - (void)BMKLocationManager:(BMKLocationManager *)manager didUpdateLocation:(BMKLocation *)location orError:(NSError *)error{
