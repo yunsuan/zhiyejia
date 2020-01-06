@@ -86,7 +86,7 @@
     [self.contentView addSubview:_phoneBtn];
     
     _changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_phoneBtn addTarget:self action:@selector(ActionChangeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_changeBtn addTarget:self action:@selector(ActionChangeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_changeBtn];
     
     [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {

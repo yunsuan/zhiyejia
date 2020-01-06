@@ -85,9 +85,11 @@
 		0C81D63923BF33A0001C8DD1 /* SecHouseBuyDemandDetailRecommendDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D63823BF33A0001C8DD1 /* SecHouseBuyDemandDetailRecommendDetailVC.m */; };
 		0C81D63D23BF33BA001C8DD1 /* SecHouseBuyDemandDetailRecommendDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D63C23BF33BA001C8DD1 /* SecHouseBuyDemandDetailRecommendDetailCell.m */; };
 		0C81D64023BF4935001C8DD1 /* NewRoomDiscountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D63F23BF4935001C8DD1 /* NewRoomDiscountCell.m */; };
-		0C81D64423C1BE3B001C8DD1 /* NewRoomProjectAgentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D64323C1BE3B001C8DD1 /* NewRoomProjectAgentCell.m */; };
-		0C81D64723C1BE65001C8DD1 /* NewRoomProjectAgentCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D64623C1BE65001C8DD1 /* NewRoomProjectAgentCollCell.m */; };
 		0C81D64B23C1C260001C8DD1 /* NewRoomProjectResidentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D64A23C1C260001C8DD1 /* NewRoomProjectResidentCell.m */; };
+		0C81D64E23C1C6C9001C8DD1 /* NewRoomProjectAgentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D64D23C1C6C9001C8DD1 /* NewRoomProjectAgentVC.m */; };
+		0C81D65423C1C6EC001C8DD1 /* NewRoomProjectAgentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D65023C1C6EB001C8DD1 /* NewRoomProjectAgentCell.m */; };
+		0C81D65523C1C6EC001C8DD1 /* NewRoomProjectAgentCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D65123C1C6EB001C8DD1 /* NewRoomProjectAgentCollCell.m */; };
+		0C81D65823C1C707001C8DD1 /* NewRoomProjectAgentMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D65723C1C707001C8DD1 /* NewRoomProjectAgentMoreCell.m */; };
 		0C991C522272928D00AF2817 /* StoreDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C512272928D00AF2817 /* StoreDetailVC.m */; };
 		0C991C56227297AB00AF2817 /* ComplaintVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C55227297AB00AF2817 /* ComplaintVC.m */; };
 		0C991C662272D4FB00AF2817 /* DemandTypeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C652272D4FB00AF2817 /* DemandTypeHeader.m */; };
@@ -395,12 +397,16 @@
 		0C81D63C23BF33BA001C8DD1 /* SecHouseBuyDemandDetailRecommendDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseBuyDemandDetailRecommendDetailCell.m; sourceTree = "<group>"; };
 		0C81D63E23BF4935001C8DD1 /* NewRoomDiscountCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRoomDiscountCell.h; sourceTree = "<group>"; };
 		0C81D63F23BF4935001C8DD1 /* NewRoomDiscountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRoomDiscountCell.m; sourceTree = "<group>"; };
-		0C81D64223C1BE3B001C8DD1 /* NewRoomProjectAgentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectAgentCell.h; sourceTree = "<group>"; };
-		0C81D64323C1BE3B001C8DD1 /* NewRoomProjectAgentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRoomProjectAgentCell.m; sourceTree = "<group>"; };
-		0C81D64523C1BE65001C8DD1 /* NewRoomProjectAgentCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectAgentCollCell.h; sourceTree = "<group>"; };
-		0C81D64623C1BE65001C8DD1 /* NewRoomProjectAgentCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRoomProjectAgentCollCell.m; sourceTree = "<group>"; };
 		0C81D64923C1C260001C8DD1 /* NewRoomProjectResidentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectResidentCell.h; sourceTree = "<group>"; };
 		0C81D64A23C1C260001C8DD1 /* NewRoomProjectResidentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRoomProjectResidentCell.m; sourceTree = "<group>"; };
+		0C81D64C23C1C6C9001C8DD1 /* NewRoomProjectAgentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectAgentVC.h; sourceTree = "<group>"; };
+		0C81D64D23C1C6C9001C8DD1 /* NewRoomProjectAgentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRoomProjectAgentVC.m; sourceTree = "<group>"; };
+		0C81D65023C1C6EB001C8DD1 /* NewRoomProjectAgentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewRoomProjectAgentCell.m; sourceTree = "<group>"; };
+		0C81D65123C1C6EB001C8DD1 /* NewRoomProjectAgentCollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewRoomProjectAgentCollCell.m; sourceTree = "<group>"; };
+		0C81D65223C1C6EB001C8DD1 /* NewRoomProjectAgentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectAgentCell.h; sourceTree = "<group>"; };
+		0C81D65323C1C6EB001C8DD1 /* NewRoomProjectAgentCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectAgentCollCell.h; sourceTree = "<group>"; };
+		0C81D65623C1C707001C8DD1 /* NewRoomProjectAgentMoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRoomProjectAgentMoreCell.h; sourceTree = "<group>"; };
+		0C81D65723C1C707001C8DD1 /* NewRoomProjectAgentMoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRoomProjectAgentMoreCell.m; sourceTree = "<group>"; };
 		0C991C502272928D00AF2817 /* StoreDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailVC.h; sourceTree = "<group>"; };
 		0C991C512272928D00AF2817 /* StoreDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailVC.m; sourceTree = "<group>"; };
 		0C991C54227297AB00AF2817 /* ComplaintVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplaintVC.h; sourceTree = "<group>"; };
@@ -1271,10 +1277,9 @@
 		0C81D64123C1BE17001C8DD1 /* 置业顾问 */ = {
 			isa = PBXGroup;
 			children = (
-				0C81D64223C1BE3B001C8DD1 /* NewRoomProjectAgentCell.h */,
-				0C81D64323C1BE3B001C8DD1 /* NewRoomProjectAgentCell.m */,
-				0C81D64523C1BE65001C8DD1 /* NewRoomProjectAgentCollCell.h */,
-				0C81D64623C1BE65001C8DD1 /* NewRoomProjectAgentCollCell.m */,
+				0C81D64F23C1C6EB001C8DD1 /* cell */,
+				0C81D64C23C1C6C9001C8DD1 /* NewRoomProjectAgentVC.h */,
+				0C81D64D23C1C6C9001C8DD1 /* NewRoomProjectAgentVC.m */,
 			);
 			path = "置业顾问";
 			sourceTree = "<group>";
@@ -1286,6 +1291,19 @@
 				0C81D64A23C1C260001C8DD1 /* NewRoomProjectResidentCell.m */,
 			);
 			path = "项目驻场";
+			sourceTree = "<group>";
+		};
+		0C81D64F23C1C6EB001C8DD1 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C81D65023C1C6EB001C8DD1 /* NewRoomProjectAgentCell.m */,
+				0C81D65123C1C6EB001C8DD1 /* NewRoomProjectAgentCollCell.m */,
+				0C81D65223C1C6EB001C8DD1 /* NewRoomProjectAgentCell.h */,
+				0C81D65323C1C6EB001C8DD1 /* NewRoomProjectAgentCollCell.h */,
+				0C81D65623C1C707001C8DD1 /* NewRoomProjectAgentMoreCell.h */,
+				0C81D65723C1C707001C8DD1 /* NewRoomProjectAgentMoreCell.m */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		0C991C4F2272926D00AF2817 /* 门店详情 */ = {
@@ -2683,6 +2701,7 @@
 				0C5893B0223B733F005B78A6 /* RentRoomOfficeDetailVC.m in Sources */,
 				0C6BECAA2240D9A90039BD0D /* DynamicListVC.m in Sources */,
 				0C2C710F22700DA1001F3D22 /* CheckAgentCell.m in Sources */,
+				0C81D65523C1C6EC001C8DD1 /* NewRoomProjectAgentCollCell.m in Sources */,
 				0C589385223A2258005B78A6 /* SecRoomFloorCell.m in Sources */,
 				0C81D5E423BD86B8001C8DD1 /* DemandBuyCell.m in Sources */,
 				0C81D60323BEE23B001C8DD1 /* SecHouseCompanyDetailVC.m in Sources */,
@@ -2700,6 +2719,8 @@
 				0CE82221221E9BF800576742 /* RegisterVC.m in Sources */,
 				0CF46DFF222CC8C1008816E6 /* SecRoomHouseInfoCell.m in Sources */,
 				0CFD42EC2271975F0062C294 /* AgentCustomCollCell.m in Sources */,
+				0C81D65823C1C707001C8DD1 /* NewRoomProjectAgentMoreCell.m in Sources */,
+				0C81D65423C1C6EC001C8DD1 /* NewRoomProjectAgentCell.m in Sources */,
 				0CE8220A221E709700576742 /* NewRoomModel.m in Sources */,
 				0C5893A2223B4BF5005B78A6 /* RentRoomHouseDetailModel.m in Sources */,
 				0C58939E223B487C005B78A6 /* RentRoomStoreDetailHeader.m in Sources */,
@@ -2782,7 +2803,6 @@
 				0C81D61A23BF0BBA001C8DD1 /* SecHouseSaleDemandDealVC.m in Sources */,
 				0C991C522272928D00AF2817 /* StoreDetailVC.m in Sources */,
 				0CF46E1F222D027D008816E6 /* SecRoomOfficeNeiborCell.m in Sources */,
-				0C81D64723C1BE65001C8DD1 /* NewRoomProjectAgentCollCell.m in Sources */,
 				0C81D5EC23BD98F8001C8DD1 /* SecHouseSaleDemandDetailHouseCell.m in Sources */,
 				0CF46DF32227CE76008816E6 /* SecRoomHouseDetailVC.m in Sources */,
 				0CF46E0E222CF85F008816E6 /* SecRoomOfficeDetailVC.m in Sources */,
@@ -2818,6 +2838,7 @@
 				0C36C55D2244C32C007BB162 /* SecComAllRoomListVC.m in Sources */,
 				0CF46D802224D6BA008816E6 /* NewRoomProjectBuildingCell.m in Sources */,
 				0CE8218E221D31E900576742 /* BaseViewController.m in Sources */,
+				0C81D64E23C1C6C9001C8DD1 /* NewRoomProjectAgentVC.m in Sources */,
 				0C2AAFEF224C939500136E4D /* KyoCenterLineView.m in Sources */,
 				0C2C710B226FFD0D001F3D22 /* CheckStoreVC.m in Sources */,
 				0CF46D722223978D008816E6 /* NewRoomProjectHeader.m in Sources */,
@@ -2838,7 +2859,6 @@
 				0CF46D7D2224D5A2008816E6 /* NewRoomProjectDynamicCell.m in Sources */,
 				0C81D62E23BF2470001C8DD1 /* SecHouseBuyDemandDetailAgentCell.m in Sources */,
 				0C5893AA223B566A005B78A6 /* RentRoomHouseInfoCell.m in Sources */,
-				0C81D64423C1BE3B001C8DD1 /* NewRoomProjectAgentCell.m in Sources */,
 				0C991C7A2272E50700AF2817 /* RightTextField.m in Sources */,
 				0C2C7108226FFC69001F3D22 /* CheckAgentVC.m in Sources */,
 				0CF43F692275478700677844 /* StoreDemandVC.m in Sources */,

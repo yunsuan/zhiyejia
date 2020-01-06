@@ -14,10 +14,13 @@
 #import "DistributVC.h"
 #import "DynamicDetailVC.h"
 #import "NewRoomHouseDetailVC.h"
+#import "NewRoomProjectAgentVC.h"
 
 #import "NewRoomProjectHeader.h"
 #import "NewRoomProjectDetailFooter.h"
 #import "TitleBaseHeader.h"
+#import "TitleRightBtnHeader.h"
+
 #import "NewRoomDiscountCell.h"
 #import "NewRoomProjectDynamicCell.h"
 #import "NewRoomProjectBuildingCell.h"
@@ -337,13 +340,19 @@
         return header;
     }else if (section == 6){
         
-        TitleBaseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleBaseHeader"];
+        TitleRightBtnHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleRightBtnHeader"];
         if (!header) {
             
-            header = [[TitleBaseHeader alloc] initWithReuseIdentifier:@"TitleBaseHeader"];
+            header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
         }
         header.titleL.text = @"金牌置业顾问";
         
+        [header.moreBtn setTitle:@"更多置业顾问" forState:UIControlStateNormal];
+        header.titleRightBtnHeaderMoreBlock = ^{
+          
+            NewRoomProjectAgentVC *nextVC = [[NewRoomProjectAgentVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
         return header;
     }else if (section == 7){
         
