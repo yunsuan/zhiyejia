@@ -278,15 +278,22 @@
     _moreView = [[UIView alloc] initWithFrame:CGRectMake(0, 249 *SIZE, SCREEN_Width, 67 *SIZE)];
     _moreView.backgroundColor = [UIColor whiteColor];
     //    NSArray *titleArr = @[@"售价",@"房型",@"产权面积"];
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_Width / 2, 17 *SIZE, SIZE, 36 *SIZE)];
-    line.backgroundColor = CLLineColor;
-    [_moreView addSubview:line];
+//    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_Width / 2, 17 *SIZE, SIZE, 36 *SIZE)];
+//    line.backgroundColor = CLLineColor;
+//    [_moreView addSubview:line];
     
-    NSArray *titleArr = @[@"售价",@"产权面积"];
-    for (int i = 0; i < 2; i++) {
+    NSArray *titleArr = @[@"售价",@"类型",@"产权面积"];
+    for (int i = 0; i < 3; i++) {
         
     
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_Width / 2 + SIZE)* i, 19 *SIZE, SCREEN_Width / 2 - SIZE, 13 *SIZE)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 17 *SIZE, SIZE, 36 *SIZE)];
+        line.backgroundColor = CLBackColor;
+        if (i != 0) {
+            
+            [_moreView addSubview:line];
+        }
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 19 *SIZE, SCREEN_Width / 3, 13 *SIZE)];
         label.textColor = CLBlueBtnColor;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         label.textAlignment = NSTextAlignmentCenter;
@@ -299,12 +306,12 @@
                 break;
             }
             case 1:
-//            {
-//                _typeL = label;
-//                [_moreView addSubview:_typeL];
-//                break;
-//            }
-//            case 2:
+            {
+                _typeL = label;
+                [_moreView addSubview:_typeL];
+                break;
+            }
+            case 2:
             {
                 _areaL = label;
                 [_moreView addSubview:_areaL];
@@ -314,7 +321,7 @@
                 break;
         }
         
-        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 2 * i, 41 *SIZE, SCREEN_Width / 2, 11 *SIZE)];
+        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 3 * i, 41 *SIZE, SCREEN_Width / 3, 11 *SIZE)];
         label1.textColor = CL86Color;
         label1.font = [UIFont systemFontOfSize:12 *SIZE];
         label1.textAlignment = NSTextAlignmentCenter;
@@ -327,12 +334,12 @@
                 break;
             }
             case 1:
-//            {
-//                _typeTL = label1;
-//                [_moreView addSubview:_typeTL];
-//                break;
-//            }
-//            case 2:
+            {
+                _typeTL = label1;
+                [_moreView addSubview:_typeTL];
+                break;
+            }
+            case 2:
             {
                 _areaTL = label1;
                 [_moreView addSubview:_areaTL];

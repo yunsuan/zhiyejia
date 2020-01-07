@@ -354,19 +354,19 @@
     //二手房房源详情
     vc.roomChildVCSecRoomHouseBlock = ^(SecHouseModel * _Nonnull model) {
       
-        if ([model.type integerValue] == 1) {
-            
-            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        }else if ([model.type integerValue] == 2){
+//        if ([model.type integerValue] == 1) {
+//
+//            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+//            [self.navigationController pushViewController:nextVC animated:YES];
+//        }else if ([model.type integerValue] == 2){
             
             SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
             [self.navigationController pushViewController:nextVC animated:YES];
-        }else{
-            
-            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        }
+//        }else{
+//            
+//            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+//            [self.navigationController pushViewController:nextVC animated:YES];
+//        }
     };
     
     //租房项目

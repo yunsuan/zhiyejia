@@ -23,6 +23,9 @@
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
 #import "SecRoomMapCell.h"
+#import "SecRoomHouseAgentCell.h"
+#import "TitleContentBaseCell.h"
+#import "SecRoomHouseMaintainCell.h"
 #import "SecRoomHouseDetailModel.h"
 
 
@@ -231,7 +234,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 6;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -239,6 +242,9 @@
     if (section == 0) {
         
         return 0;
+    }else if (section == 7){
+        
+        return 4;
     }
     return 1;
 }
@@ -247,6 +253,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
     return 4 *SIZE;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    if (section == 3) {
+        
+        return 0;
+    }else{
+        
+        return UITableViewAutomaticDimension;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -317,10 +334,10 @@
         }else if (section == 2){
             
             header.titleL.text = @"周边及配套 ";
-        }else if (section == 3){
+        }else if (section == 4){
             
             header.titleL.text = @"房源动态";
-        }else if (section == 4){
+        }else if (section == 5){
             
             header.titleL.text = _model.title;
             header.moreBtn.hidden = NO;
@@ -329,6 +346,9 @@
                 SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id city:_city];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
+        }else if (section == 7){
+            
+            header.titleL.text = @"勘察报告";
         }else{
             
             header.titleL.text = @"小区其他房源";
@@ -374,7 +394,19 @@
         [cell SetLatitude:_model.latitude longitude:_model.longitude project:_model.project_name];
         
         return cell;
-    }else if (indexPath.section == 3){
+    }else if( indexPath.section == 3){
+        
+        SecRoomHouseAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseAgentCell"];
+        if (!cell) {
+                   
+            cell = [[SecRoomHouseAgentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseAgentCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = @{};
+        
+        return cell;
+    }else if (indexPath.section == 4){
         
         SecRoomHouseDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseDynamicCell"];
         if (!cell) {
@@ -385,7 +417,7 @@
         
         cell.dataDic = _takeInfoDic;
         return cell;
-    }else if (indexPath.section == 4){
+    }else if (indexPath.section == 5){
         
         SecRoomHouseProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseProjectCell"];
         if (!cell) {
@@ -397,8 +429,34 @@
         cell.houseModel = _model;
         
         return cell;
-    }
-    else{
+    }else if (indexPath.section == 7){
+        
+        if (indexPath.row == 0) {
+            
+            TitleContentBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TitleContentBaseCell"];
+            if (!cell) {
+                
+                cell = [[TitleContentBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TitleContentBaseCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.titleL.text = @"性价比";
+            
+            return cell;
+        }else{
+            
+            SecRoomHouseMaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseMaintainCell"];
+            if (!cell) {
+                           
+                cell = [[SecRoomHouseMaintainCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseMaintainCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                       
+            cell.contentL.text = @"业主最新底价150万，低于小区均价2%，业主最新底价150万，低于小区均价2%，业主最新底价150万，低于小区均价2%";
+                       
+            return cell;
+        }
+    }else{
         
         SecRoomHouseOtherHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseOtherHouseCell"];
         if (!cell) {

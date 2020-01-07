@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C00118023C2CBF5005924FE /* SecRoomHouseAgentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C00117F23C2CBF5005924FE /* SecRoomHouseAgentCell.m */; };
+		0C00118323C2DA92005924FE /* SecRoomHouseMaintainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C00118223C2DA92005924FE /* SecRoomHouseMaintainCell.m */; };
 		0C2AAFD1224C77EF00136E4D /* BuildingAlbumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AAFC8224C77EF00136E4D /* BuildingAlbumVC.m */; };
 		0C2AAFD3224C77EF00136E4D /* AlbumCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AAFCD224C77EF00136E4D /* AlbumCollCell.m */; };
 		0C2AAFD4224C77EF00136E4D /* BuildingAlbumCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AAFCE224C77EF00136E4D /* BuildingAlbumCollCell.m */; };
@@ -240,6 +242,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C00117E23C2CBF5005924FE /* SecRoomHouseAgentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomHouseAgentCell.h; sourceTree = "<group>"; };
+		0C00117F23C2CBF5005924FE /* SecRoomHouseAgentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomHouseAgentCell.m; sourceTree = "<group>"; };
+		0C00118123C2DA92005924FE /* SecRoomHouseMaintainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecRoomHouseMaintainCell.h; sourceTree = "<group>"; };
+		0C00118223C2DA92005924FE /* SecRoomHouseMaintainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecRoomHouseMaintainCell.m; sourceTree = "<group>"; };
 		0C2AAFC8224C77EF00136E4D /* BuildingAlbumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingAlbumVC.m; sourceTree = "<group>"; };
 		0C2AAFCA224C77EF00136E4D /* AlbumCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumCollCell.h; sourceTree = "<group>"; };
 		0C2AAFCB224C77EF00136E4D /* BuildingAlbumCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingAlbumCollCell.h; sourceTree = "<group>"; };
@@ -2264,6 +2270,10 @@
 				0CF46E07222CD43D008816E6 /* SecRoomHouseOtherHouseCell.m */,
 				0CF46E09222CD68F008816E6 /* SecAllRoomCollCell.h */,
 				0CF46E0A222CD68F008816E6 /* SecAllRoomCollCell.m */,
+				0C00117E23C2CBF5005924FE /* SecRoomHouseAgentCell.h */,
+				0C00117F23C2CBF5005924FE /* SecRoomHouseAgentCell.m */,
+				0C00118123C2DA92005924FE /* SecRoomHouseMaintainCell.h */,
+				0C00118223C2DA92005924FE /* SecRoomHouseMaintainCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2705,6 +2715,7 @@
 				0C589385223A2258005B78A6 /* SecRoomFloorCell.m in Sources */,
 				0C81D5E423BD86B8001C8DD1 /* DemandBuyCell.m in Sources */,
 				0C81D60323BEE23B001C8DD1 /* SecHouseCompanyDetailVC.m in Sources */,
+				0C00118023C2CBF5005924FE /* SecRoomHouseAgentCell.m in Sources */,
 				0CE82207221E706F00576742 /* BaseModel.m in Sources */,
 				0CF46ED1222FA819008816E6 /* RentProjectModel.m in Sources */,
 				0CFD42E2227054BE0062C294 /* AgentDetailVC.m in Sources */,
@@ -2826,6 +2837,7 @@
 				0CF46D8C2224DF06008816E6 /* NewRoomProjectAnalyzeCell.m in Sources */,
 				0C81D62423BF1BFC001C8DD1 /* RightBtnColorHeader.m in Sources */,
 				0CF43F7222754A3A00677844 /* SecOfficeDemandVC.m in Sources */,
+				0C00118323C2DA92005924FE /* SecRoomHouseMaintainCell.m in Sources */,
 				0CF46E32222E7AE8008816E6 /* NewRoomProjectDetailFooter.m in Sources */,
 				0C991C662272D4FB00AF2817 /* DemandTypeHeader.m in Sources */,
 				0C81D61E23BF163A001C8DD1 /* SecHouseBuyDetailCell.m in Sources */,

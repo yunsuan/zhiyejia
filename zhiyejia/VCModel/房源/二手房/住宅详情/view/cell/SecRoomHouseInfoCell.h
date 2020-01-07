@@ -22,7 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UICollectionView *propertyColl;
 
-@property (nonatomic, strong) UILabel *priceL;
+@property (nonatomic, strong) UILabel *upTimeL;
+
+@property (nonatomic, strong) UILabel *unitL;
 
 @property (nonatomic, strong) UILabel *yearL;
 
@@ -32,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *floorL;
 
-@property (nonatomic, strong) UILabel *inTimeL;
-
 @property (nonatomic, strong) UILabel *proLimitL;
+
+@property (nonatomic, strong) UILabel *inTimeL;
 
 @property (nonatomic, strong) UIView *markView;
 

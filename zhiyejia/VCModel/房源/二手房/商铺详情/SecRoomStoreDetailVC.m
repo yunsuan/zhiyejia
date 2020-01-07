@@ -26,6 +26,9 @@
 #import "SecRoomHouseDynamicCell.h"
 #import "SecRoomHouseProjectCell.h"
 #import "SecRoomHouseOtherHouseCell.h"
+#import "SecRoomHouseAgentCell.h"
+#import "TitleContentBaseCell.h"
+#import "SecRoomHouseMaintainCell.h"
 
 #import "SecRoomMapCell.h"
 
@@ -238,7 +241,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 9;
+    return 11;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -254,6 +257,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
     return 4 *SIZE;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    if (section == 6) {
+        
+        return 0;
+    }else{
+        
+        return UITableViewAutomaticDimension;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -332,10 +346,10 @@
         }else if (section == 5){
             
             header.titleL.text = @"周边及配套";
-        }else if (section == 6){
+        }else if (section == 7){
             
             header.titleL.text = @"房源动态";
-        }else if (section == 7){
+        }else if (section == 8){
             
 //            header.titleL.text = _model.title;
             header.titleL.text = _model.title;
@@ -425,8 +439,19 @@
         [cell SetLatitude:_model.latitude longitude:_model.longitude project:_model.project_name];
         
         return cell;
-    }
-    else if (indexPath.section == 6){
+    }else if(indexPath.section == 6){
+     
+        SecRoomHouseAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseAgentCell"];
+        if (!cell) {
+                   
+            cell = [[SecRoomHouseAgentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseAgentCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = @{};
+        
+        return cell;
+    }else if (indexPath.section == 7){
         
         SecRoomHouseDynamicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseDynamicCell"];
         if (!cell) {
@@ -437,7 +462,7 @@
         
         cell.dataDic = _takeInfoDic;
         return cell;
-    }else if (indexPath.section == 7){
+    }else if (indexPath.section == 8){
         
         SecRoomHouseProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseProjectCell"];
         if (!cell) {
@@ -449,7 +474,7 @@
         cell.storeModel = _model;
         
         return cell;
-    }else if (indexPath.section == 8){
+    }else if (indexPath.section == 9){
         
         SecRoomHouseOtherHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseOtherHouseCell"];
         if (!cell) {
@@ -496,6 +521,33 @@
         };
         return cell;
         
+    }else if (indexPath.section == 10){
+        
+        if (indexPath.row == 0) {
+            
+            TitleContentBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TitleContentBaseCell"];
+            if (!cell) {
+                
+                cell = [[TitleContentBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TitleContentBaseCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.titleL.text = @"性价比";
+            
+            return cell;
+        }else{
+            
+            SecRoomHouseMaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomHouseMaintainCell"];
+            if (!cell) {
+                           
+                cell = [[SecRoomHouseMaintainCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomHouseMaintainCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                       
+            cell.contentL.text = @"业主最新底价150万，低于小区均价2%，业主最新底价150万，低于小区均价2%，业主最新底价150万，低于小区均价2%";
+                       
+            return cell;
+        }
     }else{
         
         SecRoomStoreInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomStoreInfoCell"];
