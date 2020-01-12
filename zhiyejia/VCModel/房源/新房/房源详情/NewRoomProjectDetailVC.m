@@ -15,6 +15,8 @@
 #import "DynamicDetailVC.h"
 #import "NewRoomHouseDetailVC.h"
 #import "NewRoomProjectAgentVC.h"
+#import "EventDetailSignVC.h"
+#import "EventListVC.h"
 
 #import "NewRoomProjectHeader.h"
 #import "NewRoomProjectDetailFooter.h"
@@ -30,11 +32,14 @@
 #import "NewRoomProjectAgentCell.h"
 #import "NewRoomProjectResidentCell.h"
 
+#import "NewRoomProjectAgentMoreView.h"
+
 
 @interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
 {
     
-    NSString *_projectId;
+    NewRoomModel *_model;
+//    NSString *_projectId;
     NSString *_phone;
     NSString *_latitude;
     NSString *_longitude;
@@ -57,12 +62,14 @@
 
 @implementation NewRoomProjectDetailVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+//- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithModel:(NewRoomModel *)model
 {
     self = [super init];
     if (self) {
 
-        _projectId = projectId;
+        _model = model;
+//        _projectId = projectId;
     }
     return self;
 }
@@ -83,7 +90,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:HomeProjectDetail_URL parameters:@{@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:HomeProjectDetail_URL parameters:@{@"project_id":_model.project_id} success:^(id  _Nonnull resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -108,6 +115,34 @@
     }];
 }
 
+- (void)PraiseRequest:(NSString *)rank_id{
+    
+    [BaseRequest GET:GetAwesomeOperate_URL parameters:@{@"project_id":_model.project_id} success:^(id  _Nonnull resposeObject) {
+        
+        NSLog(@"%@",resposeObject);
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_dataDic = resposeObject[@"data"];
+            self->_focusDic = self->_dataDic[@"focus"];
+            if (self->_dataDic[@"butter_tel"]) {
+                
+                self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
+            }
+            self->_latitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"latitude"]];
+            self->_longitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"longitude"]];
+            self->_albumArr = [NSMutableArray arrayWithArray:self->_dataDic[@"project_img"][@"url"]];
+            [self->_roomTable reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+       
+        [self showContent:@"网络错误"];
+    }];
+}
+
+
 - (void)ActionAttentionBtn:(UIButton *)btn{
     
     if (_focusDic.count) {
@@ -131,7 +166,7 @@
             }];
         }else{
             
-            [BaseRequest GET:PersonalFocusProject_URL parameters:@{@"project_id":_projectId,@"type":@"0"} success:^(id resposeObject) {
+            [BaseRequest GET:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"0"} success:^(id resposeObject) {
                 
                 NSLog(@"%@",resposeObject);
                 
@@ -183,10 +218,16 @@
     
     if (section == 0) {
         
-        return 1;
+        if ([_dataDic[@"project_active"] count]) {
+            
+            return 1;
+        }else{
+            
+            return 0;
+        }
     }else if(section == 1){
      
-        if ([_dataDic[@"dynamic"][@"first"] count]) {
+        if ([_dataDic[@"project_dynamic"] count]) {
             
             return 1;
         }else{
@@ -205,8 +246,22 @@
     }else if (section == 4){
         
         return 4;
-    }else{
+    }else if (section == 6){
         
+        if ([_dataDic[@"agent_rank_list"] count]) {
+            
+            return 1;
+        }
+        return 0;
+    }else if (section == 7){
+        
+        if ([_dataDic[@"resident_agent_list"] count]) {
+            
+            return [_dataDic[@"resident_agent_list"] count];
+        }
+        return 0;
+    }else{
+
         return 1;
     }
 }
@@ -225,6 +280,24 @@
     }else if (section == 3){
         
         if ([_dataDic[@"house_type"] count]) {
+            
+            return UITableViewAutomaticDimension;
+        }else{
+            
+            return CGFLOAT_MIN;
+        }
+    }else if (section == 6){
+        
+        if ([_dataDic[@"agent_rank_list"] count]) {
+            
+            return UITableViewAutomaticDimension;
+        }else{
+            
+            return CGFLOAT_MIN;
+        }
+    }else if (section == 7){
+        
+        if ([_dataDic[@"resident_agent_list"] count]) {
             
             return UITableViewAutomaticDimension;
         }else{
@@ -323,7 +396,7 @@
         
         header.newRoomProjectHeaderMoreBlock = ^{
           
-            NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] init];
+            NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] initWithinfoid:self->_model.info_id];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         
@@ -350,7 +423,8 @@
         [header.moreBtn setTitle:@"更多置业顾问" forState:UIControlStateNormal];
         header.titleRightBtnHeaderMoreBlock = ^{
           
-            NewRoomProjectAgentVC *nextVC = [[NewRoomProjectAgentVC alloc] init];
+            NewRoomProjectAgentVC *nextVC = [[NewRoomProjectAgentVC alloc] initWithDataArr:self->_dataDic[@"agent_rank_list"]];
+            nextVC.project_id = self->_model.project_id;
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return header;
@@ -389,9 +463,19 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.titleL.text = @"优惠促销";
-            cell.contentL.text = @"优惠促销优惠促销优惠促销";
+            cell.typeL.text = _dataDic[@"project_active"][@"active_tags"];
+            cell.contentL.text = _dataDic[@"project_active"][@"active_name"];
             
+            [cell.typeL mas_updateConstraints:^(MASConstraintMaker *make) {
+                
+                make.width.mas_equalTo(cell.typeL.mj_textWidth + 5 *SIZE);
+            }];
+            
+            cell.newRoomDiscountCellBlock = ^{
+              
+                EventListVC *nextVC = [[EventListVC alloc] initWithinfoid:self->_model.project_id];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
             return cell;
             
             break;
@@ -416,7 +500,7 @@
             
             cell.newRoomProjectDynamicCellBlock = ^{
               
-                DynamicListVC *nextVC = [[DynamicListVC alloc] init];
+                DynamicListVC *nextVC = [[DynamicListVC alloc] initWithinfoid:self->_model.info_id];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
             
@@ -470,7 +554,7 @@
             cell.collCellBlock = ^(NSInteger index) {
 
                 if ([self->_dataDic[@"house_type"] count]) {
-                    NewRoomHouseDetailVC *nextVC = [[NewRoomHouseDetailVC alloc]initWithHouseTypeId:[NSString stringWithFormat:@"%@",self->_dataDic[@"house_type"][index][@"id"]] index:index dataArr:self->_dataDic[@"house_type"] projectId:self->_projectId infoid:@""];
+                    NewRoomHouseDetailVC *nextVC = [[NewRoomHouseDetailVC alloc]initWithHouseTypeId:[NSString stringWithFormat:@"%@",self->_dataDic[@"house_type"][index][@"id"]] index:index dataArr:self->_dataDic[@"house_type"] projectId:self->_model.project_id infoid:@""];
 
 //                    nextVC.model = _model;
                     [self.navigationController pushViewController:nextVC animated:YES];
@@ -566,6 +650,65 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
+            cell.dataArr = _dataDic[@"agent_rank_list"];
+            
+            cell.newRoomProjectAgentCellBlock = ^(NSInteger idx) {
+              
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"agent_id":self->_dataDic[@"agent_rank_list"][idx][@"agent_id"]}];
+                
+                [BaseRequest GET:GetAgentRankDetail_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        NewRoomProjectAgentMoreView *view = [[NewRoomProjectAgentMoreView alloc] initWithFrame:self.view.bounds];
+                        view.dataDic = resposeObject[@"data"];
+                        view.newRoomProjectAgentMoreViewPraiseBlock = ^{
+                            
+//                            if ([UserModel defaultModel].agent_id.length) {
+                                
+                                [self PraiseRequest:self->_dataDic[@"agent_rank_list"][idx][@"agent_id"]];
+//                            }else{
+//
+//                                [self GotoLogin];
+//                            }
+                        };
+                        view.newRoomProjectAgentMoreViewPhoneBlock = ^{
+                          
+                            if ([self->_dataDic[@"agent_rank_list"][idx][@"tel"] length]) {
+                                
+                                //获取目标号码字符串,转换成URL
+                                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self->_dataDic[@"agent_rank_list"][idx][@"tel"]]];
+                                //调用系统方法拨号
+                                [[UIApplication sharedApplication] openURL:url];
+                            }else{
+                                
+                                [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                            }
+                        };
+                        [self.view addSubview:view];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                
+                    [self showContent:@"获取信息失败"];
+                }];
+            };
+            
+            cell.newRoomProjectAgentCellPhoneBlock = ^(NSInteger idx) {
+                
+                if ([self->_dataDic[@"agent_rank_list"][idx][@"tel"] length]) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self->_dataDic[@"agent_rank_list"][idx][@"tel"]]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
             return cell;
         }
         default:{
@@ -577,7 +720,20 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.nameL.text = @"刘刚";
+            cell.dataDic = _dataDic[@"resident_agent_list"][indexPath.row];
+            cell.newRoomProjectResidentCellPhoneBlock = ^{
+              
+                if ([self->_dataDic[@"resident_agent_list"][indexPath.row][@"tel"] length]) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self->_dataDic[@"resident_agent_list"][indexPath.row][@"tel"]]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
             return cell;
             break;
         }
@@ -586,13 +742,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (indexPath.section == 0) {
+        
+        EventDetailSignVC *nextVC = [[EventDetailSignVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
     if (indexPath.section == 2) {
         
         DistributVC *nextVC = [[DistributVC alloc] init];
-//        nextVC.urlfor3d = _model.total_float_url_panorama;
-//        nextVC.img_name = _model.total_float_url_phone;
-        nextVC.projiect_id = _projectId;
-//        nextVC.titleStr = _model.project_name;
+        nextVC.urlfor3d = _model.total_float_url_panorama;
+        nextVC.img_name = _model.total_float_url_phone;
+        nextVC.projiect_id = _model.project_id;
+        nextVC.titleStr = _model.project_name;
         [self.navigationController pushViewController:nextVC animated:YES];
     }
     
@@ -603,23 +764,6 @@
     }
 }
 
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    if ([cell isKindOfClass:[NewRoomProjectMapCell class]]) {
-//
-//
-//        [((NewRoomProjectMapCell *)cell).mapView viewWillAppear];
-//    }
-//}
-//
-//- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    if ([cell isKindOfClass:[NewRoomProjectMapCell class]]) {
-//
-//
-//        [((NewRoomProjectMapCell *)cell).mapView viewWillDisappear];
-//    }
-//}
 
 - (void)initUI{
     

@@ -8,11 +8,14 @@
 
 #import "BaseViewController.h"
 
+#import "NewRoomModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NewRoomProjectDetailVC : BaseViewController
 
-- (instancetype)initWithProjectId:(NSString *)projectId;
+//- (instancetype)initWithProjectId:(NSString *)projectId;
+- (instancetype)initWithModel:(NewRoomModel *)model;
 
 @end
 

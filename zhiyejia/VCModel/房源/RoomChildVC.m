@@ -240,13 +240,13 @@
         }
     }else if (_AllType == 1){
         
-        if ([self.status isEqualToString:@"关注"]) {
-            
-                        _urlString = UserFocusNews_URL;
-        }else{
-            
-                        _urlString = ProjectRecommendInfo_URL;
-        }
+//        if ([self.status isEqualToString:@"关注"]) {
+//            
+//                        _urlString = UserFocusNews_URL;
+//        }else{
+//            
+//                        _urlString = ProjectRecommendInfo_URL;
+//        }
     }else if(_AllType == 3){
         
         _urlString = RentProjectList_URL;

@@ -16,15 +16,21 @@
 #import "NewRoomProjectDynamicCell.h"
 #import "NewRoomProjectBuildingCell.h"
 #import "NewRoomProjectAnalyzeCell.h"
+#import "NewRoomProjectMapCell.h"
+#import "SecRoomProjectAgentCell.h"
 #import "SecRoomProjectPropertyTypeInfoCell.h"
 
 @interface RentRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSString *_projectId;
-    NSDictionary *_dataDic;
     NSString *_phone;
     NSString *_city;
+    
+    NSString *_latitude;
+    NSString *_longitude;
+    
+    NSDictionary *_dataDic;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -72,6 +78,8 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = resposeObject[@"data"];
+            self->_latitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"latitude"]];
+            self->_longitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"longitude"]];
             if (self->_dataDic[@"butter_tel"]) {
                 
                 self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
@@ -111,7 +119,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 6;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -335,6 +343,34 @@
                 default:
                     break;
             }
+            return cell;
+            break;
+        }
+        case 5:{
+            
+            NewRoomProjectMapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomProjectMapCell"];
+            if (!cell) {
+                
+                cell = [[NewRoomProjectMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomProjectMapCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [cell SetLatitude:_latitude longitude:_longitude project:_dataDic[@"project_basic_info"][@"project_name"]];
+            
+            return cell;
+            break;
+        }
+        case 6:{
+            
+            SecRoomProjectAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomProjectAgentCell"];
+            if (!cell) {
+                
+                cell = [[SecRoomProjectAgentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomProjectAgentCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.dataDic = @{};
+            
             return cell;
             break;
         }

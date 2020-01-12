@@ -15,7 +15,7 @@
 {
     
     NSInteger _page;
-//    NSString *_info_id;
+    NSString *_info_id;
     NSMutableArray *_dataArr;
 }
 @property (nonatomic, strong) UITableView *listTable;
@@ -28,6 +28,17 @@
     
     [super viewWillAppear:animated];
     
+}
+
+- (instancetype)initWithinfoid:(NSString *)info_id
+{
+    self = [super init];
+    if (self) {
+        
+        _dataArr = [@[] mutableCopy];
+        _info_id = info_id;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -77,10 +88,10 @@
 
 - (void)RequestAddMethod{
     
-//    _page += 1;
-//    NSDictionary *tempDic = @{@"page":@(_page),
-//                              @"info_id":_info_id
-//                              };
+    _page += 1;
+    NSDictionary *tempDic = @{@"page":@(_page),
+                              @"info_id":_info_id
+                              };
 //    [BaseRequest GET:DynamicList_URL parameters:tempDic success:^(id resposeObject) {
 //
 //        [_listTable.mj_footer endRefreshing];
@@ -148,10 +159,10 @@
     return _dataArr.count;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    return 150 *SIZE;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    return 150 *SIZE;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -177,8 +188,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    DynamicDetailVC *nextVC = [[DynamicDetailVC alloc] initWithStr:_dataArr[indexPath.row][@"url"] titleStr:@"动态详情"];
-//    [self.navigationController pushViewController:nextVC animated:YES];
+    DynamicDetailVC *nextVC = [[DynamicDetailVC alloc] initWithStr:_dataArr[indexPath.row][@"url"] titleStr:@"动态详情"];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{

@@ -13,7 +13,7 @@
 @interface NewRoomProjectAgentCell ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
-    
+    NSMutableArray *_agentArr;
 }
 @end
 
@@ -24,14 +24,21 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        _agentArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;
 }
 
+- (void)setDataArr:(NSMutableArray *)dataArr{
+    
+    _agentArr = [NSMutableArray arrayWithArray:dataArr];
+    [_coll reloadData];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 3;
+    return _agentArr.count > 3? 3:_agentArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -42,8 +49,22 @@
         cell = [[NewRoomProjectAgentCollCell alloc] initWithFrame:CGRectMake(0, 0, 100 *SIZE, 130 *SIZE)];
     }
     
-    cell.nameL.text = @"李翠";
+    [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_agentArr[indexPath.item][@"head_img"]]] placeholderImage:[UIImage imageNamed:@"def_head"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+       
+        if (error) {
+            
+            cell.headImg.image = [UIImage imageNamed:@"def_head"];
+        }
+    }];
+    cell.nameL.text = _agentArr[indexPath.item][@"name"];
     
+    cell.newRoomProjectAgentCollCellPhoneBlock = ^{
+        
+        if (self.newRoomProjectAgentCellPhoneBlock) {
+            
+            self.newRoomProjectAgentCellPhoneBlock(indexPath.item);
+        }
+    };
     return cell;
 }
 
@@ -76,7 +97,7 @@
         
         make.left.equalTo(self.contentView).offset(0 *SIZE);
         make.top.equalTo(self.contentView).offset(-0 *SIZE);
-        make.height.mas_equalTo(100 *SIZE);
+        make.height.mas_equalTo(130 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
     }];

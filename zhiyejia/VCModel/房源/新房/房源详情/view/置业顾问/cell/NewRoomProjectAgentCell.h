@@ -14,13 +14,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^NewRoomProjectAgentCellBlock)(NSInteger idx);
 
+typedef void(^NewRoomProjectAgentCellPhoneBlock)(NSInteger idx);
+
 @interface NewRoomProjectAgentCell : UITableViewCell
 
 @property (nonatomic, copy) NewRoomProjectAgentCellBlock newRoomProjectAgentCellBlock;
 
+@property (nonatomic, copy) NewRoomProjectAgentCellPhoneBlock newRoomProjectAgentCellPhoneBlock;
+
 @property (nonatomic, strong) GZQFlowLayout *layout;
 
 @property (nonatomic, strong) UICollectionView *coll;
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 

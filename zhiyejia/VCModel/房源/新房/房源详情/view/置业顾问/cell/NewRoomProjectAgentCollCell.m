@@ -20,6 +20,14 @@
     return self;
 }
 
+- (void)ActionPhoneBtn:(UIButton *)btn{
+    
+    if (self.newRoomProjectAgentCollCellPhoneBlock) {
+        
+        self.newRoomProjectAgentCollCellPhoneBlock();
+    }
+}
+
 - (void)initUI{
     
     _headImg = [[UIImageView alloc] initWithFrame:CGRectMake(20 *SIZE, 10 *SIZE, 60 *SIZE, 60 *SIZE)];
@@ -34,6 +42,12 @@
     [self.contentView addSubview:_nameL];
     
     _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _phoneBtn.frame = CGRectMake(5 *SIZE, 100 *SIZE, 90 *SIZE, 35 *SIZE);
+    [_phoneBtn setImage:IMAGE_WITH_NAME(@"phone") forState:UIControlStateNormal];
+    _phoneBtn.titleLabel.font = FONT(11 *SIZE);
+    [_phoneBtn setTitle:@" 咨询" forState:UIControlStateNormal];
+    [_phoneBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
+    [_phoneBtn addTarget:self action:@selector(ActionPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_phoneBtn];
 //    _phoneBtn.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
 }

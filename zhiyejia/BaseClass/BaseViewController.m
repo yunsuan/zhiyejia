@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+#import "LoginVC.h"
+
 @interface BaseViewController ()
 
 @end
@@ -110,18 +112,18 @@
 
 - (void)showContent:(NSString *)str {
     
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    hud.mode = MBProgressHUDModeText;
-//    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-//    hud.bezelView.color = [UIColor colorWithWhite:0.f alpha:0.7f];
-//    hud.label.text= str;
-//    hud.label.textColor = [UIColor whiteColor];
-//    hud.margin = 10.f;
-//    [hud setOffset:CGPointMake(0, 10.f*SIZE)];
-//    //    hud.yOffset = 10.f * SIZE;
-//    hud.removeFromSuperViewOnHide = YES;
-//    //    [hud hide:YES afterDelay:1.5];
-//    [hud hideAnimated:YES afterDelay:1.5];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.color = [UIColor colorWithWhite:0.f alpha:0.7f];
+    hud.label.text= str;
+    hud.label.textColor = [UIColor whiteColor];
+    hud.margin = 10.f;
+    [hud setOffset:CGPointMake(0, 10.f*SIZE)];
+    //    hud.yOffset = 10.f * SIZE;
+    hud.removeFromSuperViewOnHide = YES;
+    //    [hud hide:YES afterDelay:1.5];
+    [hud hideAnimated:YES afterDelay:1.5];
 }
 
 //判断字符串为空
@@ -142,6 +144,47 @@
             return false;
         }
     }
+}
+
+- (void)GotoLogin{
+    
+    LoginVC *nextVC = [[LoginVC alloc] init];
+    nextVC.loginVCBlock = ^{
+        
+        [BaseRequest GET:PersonalGetAgentInfo_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    
+                    if ([obj isKindOfClass:[NSNull class]]) {
+                        
+                        [tempDic setObject:@"" forKey:key];
+                    }
+                }];
+                [UserModel defaultModel].absolute_address = tempDic[@"absolute_address"];
+                [UserModel defaultModel].account = tempDic[@"account"];
+                [UserModel defaultModel].birth = tempDic[@"birth"];
+                [UserModel defaultModel].city = tempDic[@"city"];
+                [UserModel defaultModel].district = tempDic[@"district"];
+                [UserModel defaultModel].head_img = tempDic[@"head_img"];
+                [UserModel defaultModel].name = tempDic[@"name"];
+                [UserModel defaultModel].sex = tempDic[@"sex"];
+                [UserModel defaultModel].tel = tempDic[@"tel"];
+                [UserModel defaultModel].province = tempDic[@"province"];
+                [UserModelArchiver archive];
+//                [self->_table reloadData];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"未获取到用户信息，请重试"];
+        }];
+    };
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 

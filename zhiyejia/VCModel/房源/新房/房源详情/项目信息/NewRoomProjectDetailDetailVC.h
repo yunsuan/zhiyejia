@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NewRoomProjectDetailDetailVC : BaseViewController
 
+- (instancetype)initWithinfoid:(NSString *)infoid;
+
 @end
 
 NS_ASSUME_NONNULL_END

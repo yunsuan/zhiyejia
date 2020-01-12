@@ -10,13 +10,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^NewRoomDiscountCellBlock)(void);
+
 @interface NewRoomDiscountCell : UITableViewCell
+
+@property (nonatomic, copy) NewRoomDiscountCellBlock newRoomDiscountCellBlock;
+
+@property (nonatomic, strong) UIView *line;
 
 @property (nonatomic, strong) UILabel *titleL;
 
-@property (nonatomic, strong) UIImageView *typeImg;
+@property (nonatomic, strong) UILabel *typeL;
 
 @property (nonatomic, strong) UILabel *contentL;
+
+@property (nonatomic, strong) UIButton *moreBtn;
 
 @end
 

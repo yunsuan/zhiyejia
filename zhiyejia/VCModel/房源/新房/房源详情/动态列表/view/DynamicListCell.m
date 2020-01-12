@@ -30,17 +30,17 @@
 
 - (void)initUI{
     
-    _titleL = [[UILabel alloc] init];//WithFrame:CGRectMake(11 *SIZE, 16 *SIZE, 280 *SIZE, 17 *SIZE)];
+    _titleL = [[UILabel alloc] initWithFrame:CGRectMake(11 *SIZE, 16 *SIZE, 280 *SIZE, 17 *SIZE)];
     _titleL.textColor = CLTitleLabColor;
     _titleL.font = [UIFont systemFontOfSize:15 *SIZE];
     [self.contentView addSubview:_titleL];
     
-    _timeL = [[UILabel alloc] init];//WithFrame:CGRectMake(10 *SIZE, 46 *SIZE, 330 *SIZE, 11 *SIZE)];
+    _timeL = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 46 *SIZE, 330 *SIZE, 11 *SIZE)];
     _timeL.textColor = CLContentLabColor;
     _timeL.font = [UIFont systemFontOfSize:12 *SIZE];
     [self.contentView addSubview:_timeL];
     
-    _contentL = [[UILabel alloc] init];//WithFrame:CGRectMake(12 *SIZE, 72 *SIZE, 337 *SIZE, 40 *SIZE)];
+    _contentL = [[UILabel alloc] initWithFrame:CGRectMake(12 *SIZE, 72 *SIZE, 337 *SIZE, 40 *SIZE)];
     _contentL.numberOfLines = 2;
     _contentL.textColor = CLContentLabColor;
     _contentL.font = [UIFont systemFontOfSize:12 *SIZE];

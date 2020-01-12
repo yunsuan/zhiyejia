@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^NewRoomProjectAgentCollCellPhoneBlock)(void);
+
 @interface NewRoomProjectAgentCollCell : UICollectionViewCell
+
+@property (nonatomic, strong) NewRoomProjectAgentCollCellPhoneBlock newRoomProjectAgentCollCellPhoneBlock;
 
 @property (nonatomic, strong) UIImageView *headImg;
 

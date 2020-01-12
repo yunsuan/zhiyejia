@@ -83,6 +83,7 @@
     }
 }
 
+
 - (void)StartLocation{
     
     BMKLocationManager *locationManager = [[BMKLocationManager alloc] init];
@@ -101,34 +102,23 @@
     LocationManager *manager =  [LocationManager Manager];
     [manager startLocationSuccess:^(NSString *cityname, NSString *citycode) {
 
-        [_cityBtn setTitle:cityname forState:UIControlStateNormal];
-        _city = citycode;
-        _cityName = cityname;
+        [self->_cityBtn setTitle:cityname forState:UIControlStateNormal];
+        self->_city = citycode;
+        self->_cityName = cityname;
         if (!self->_titlearr.count) {
 
             do {
                 self->_titlearr = [UserModel defaultModel].tagSelectArr;
             } while (!self->_titlearr.count);
         }
-
+        [self reloadData];
         [self pageController:self willEnterViewController:self.childViewControllers[0] withInfo:@{}];
         [self reloadData];
-//            if ([UserModel defaultModel].index.length) {
-//
-//
-//            }else{
-//
-//                [UserModel defaultModel].index = @"0";
-//                [UserModelArchiver archive];
-//                self.selectIndex = 2;
-//                [self reloadData];
-//            }
-
     } Faild:^{
 
-        [_cityBtn setTitle:@"成都市" forState:UIControlStateNormal];
-        _city = [NSString stringWithFormat:@"510100"];
-        _cityName = @"成都市";
+        [self->_cityBtn setTitle:@"成都市" forState:UIControlStateNormal];
+        self->_city = [NSString stringWithFormat:@"510100"];
+        self->_cityName = @"成都市";
         [self showContent:@"定位失败，已切换为默认城市，可点击城市手动切换"];
     }];
 }
@@ -338,7 +328,7 @@
     //新房项目
     vc.roomChildVCNewRoomProjectBlock = ^(NewRoomModel * _Nonnull model) {
       
-        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithProjectId:model.project_id];
+        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithModel:model];
         [self.navigationController pushViewController:nextVC animated:YES];
     };
     
