@@ -13,7 +13,7 @@
 #import "NewRoomHouseInfoCell.h"
 #import "NewRoomProjectHouseTypeCell.h"
 
-@interface NewRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
+@interface NewRoomHouseDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
 {
     
     NSString *_houseTypeId;
@@ -69,20 +69,7 @@
     
     [self initUI];
     
-    dispatch_queue_t queue1 = dispatch_queue_create("com.houseType.gcg.group", DISPATCH_QUEUE_CONCURRENT);
-    
-    dispatch_group_t group = dispatch_group_create();
-    
-    dispatch_group_async(group, queue1, ^{
-        
-        [self RequestMethod];
-        
-    });
-    dispatch_group_async(group, queue1, ^{
-        
-        [self MatchListRequest];
-        
-    });
+    [self RequestMethod];
 }
 
 - (void)ActionRightBtn:(UIButton *)btn{
@@ -92,7 +79,7 @@
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            _url = resposeObject[@"data"][@"url"];
+            self->_url = resposeObject[@"data"][@"url"];
 //            [[UIApplication sharedApplication].keyWindow addSubview:self.transmitView];
         }else{
             
@@ -108,24 +95,22 @@
 
 - (void)RequestMethod{
     
-//    [BaseRequest GET:HouseTypeDetail_URL parameters:@{@"id":_houseTypeId} success:^(id resposeObject) {
-//
-//        //        NSLog(@"%@",resposeObject);
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
-//
-//                [self SetData:resposeObject[@"data"]];
-//            }else{
-//
-//                [self showContent:@"暂无信息"];
-//            }
-//        }
-//    } failure:^(NSError *error) {
-//
-//        //        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:HouseTypeDetail_URL parameters:@{@"id":_houseTypeId} success:^(id resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+
+                [self SetData:resposeObject[@"data"]];
+            }else{
+
+                [self showContent:@"暂无信息"];
+            }
+        }
+    } failure:^(NSError *error) {
+
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SetData:(NSDictionary *)data{
@@ -159,100 +144,14 @@
     [_houseTable reloadData];
 }
 
-- (void)MatchListRequest{
-    
-//    [BaseRequest GET:HouseTypeMatching_URL parameters:@{@"project_id":_projectId,@"house_type_id":_houseTypeId} success:^(id resposeObject) {
-//
-//        //        NSLog(@"%@",resposeObject);
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            [self SetMatchPeople:resposeObject[@"data"]];
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        //        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
-}
-
-- (void)SetMatchPeople:(NSArray *)data{
-    
-    for (int i = 0 ; i < data.count; i++) {
-        
-        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data[i]];
-        
-        [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            
-            if ([obj isKindOfClass:[NSNull class]]) {
-                
-                [tempDic setObject:@"" forKey:key];
-            }
-        }];
-        
-//        CustomMatchModel *model = [[CustomMatchModel alloc] initWithDictionary:tempDic];
-//        [_matchList addObject:model];
-    }
-    [_houseTable reloadData];
-}
-
-
-
-//- (void)ActionRecommendBtn:(UIButton *)btn{
-//
-//    [[UIApplication sharedApplication].keyWindow addSubview:self.transmitView];
-//}
-
-#pragma mark -- Method --
-
-//- (void)RequestRecommend:(NSDictionary *)dic model:(CustomMatchModel *)model{
-//
-//    [BaseRequest POST:RecommendClient_URL parameters:dic success:^(id resposeObject) {
-//
-//        NSLog(@"%@",resposeObject);
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            ReportCustomSuccessView *reportCustomSuccessView = [[ReportCustomSuccessView alloc] initWithFrame:self.view.frame];
-//            NSDictionary *tempDic = @{@"project":_model.project_name,
-//                                      @"sex":model.sex,
-//                                      @"tel":model.tel,
-//                                      @"name":model.name
-//                                      };
-//            reportCustomSuccessView.state = _state;
-//            reportCustomSuccessView.dataDic = [NSMutableDictionary dictionaryWithDictionary:tempDic];
-//            reportCustomSuccessView.reportCustomSuccessViewBlock = ^{
-//
-//            };
-//            [self.view addSubview:reportCustomSuccessView];
-//        }else if ([resposeObject[@"code"] integerValue] == 401){
-//
-//            [self alertControllerWithNsstring:@"温馨提示" And:resposeObject[@"msg"]];
-//        }
-//        else{
-//
-//            [self alertControllerWithNsstring:@"温馨提示" And:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
-//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 2) {
-        
-        return _matchList.count;
-    }
     if (section == 1) {
         
         if (_houseArr.count) {
@@ -268,25 +167,6 @@
     
     return 8 *SIZE;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    
-//    if (section == 0) {
-//        
-//        return 203.5 *SIZE;
-//    }
-//    if (section == 1) {
-//        
-//        if (_houseArr.count) {
-//            
-//            return 33 *SIZE;
-//        }else{
-//            
-//            return 0;
-//        }
-//    }
-//    return 33 *SIZE;
-//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
@@ -310,17 +190,17 @@
                     [tempArr1 addObject:subDic];
                 }
             }
-//            [tempArr1 enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                
-//                YBImageBrowserModel *model = [YBImageBrowserModel new];
-//                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
-//                if ([obj[@"img_url_3d"] length]) {
-//                    
-//                    model.third_URL = [NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url_3d"]];
-//                }
-//                
-//                [tempArr addObject:model];
-//            }];
+            [tempArr1 enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                YBImageBrowserModel *model = [YBImageBrowserModel new];
+                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
+                if ([obj[@"img_url_3d"] length]) {
+                    
+                    model.third_URL = [NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url_3d"]];
+                }
+                
+                [tempArr addObject:model];
+            }];
             
             [self->_imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
@@ -332,21 +212,21 @@
                 
             }];
             
-//            YBImageBrowserModel *YBmodel = tempArr[num];
-//            if (YBmodel.third_URL.length) {
-//
-//                BuildingAlbumVC *nextVC = [[BuildingAlbumVC alloc] init];
-//                nextVC.weburl = YBmodel.third_URL;
-//                [self.navigationController pushViewController:nextVC animated:YES];
-//            }else{
-//                YBImageBrowser *browser = [YBImageBrowser new];
-//                browser.delegate = self;
-//                browser.dataArray = tempArr;
-//                browser.albumArr = self->_imgArr;
-//                browser.infoid = self->_infoid;
-//                browser.currentIndex = num;
-//                [browser show];
-//            }
+            YBImageBrowserModel *YBmodel = tempArr[num];
+            if (YBmodel.third_URL.length) {
+
+                BuildingAlbumVC *nextVC = [[BuildingAlbumVC alloc] init];
+                nextVC.weburl = YBmodel.third_URL;
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                YBImageBrowser *browser = [YBImageBrowser new];
+                browser.delegate = self;
+                browser.dataArray = tempArr;
+                browser.albumArr = self->_imgArr;
+                browser.infoid = self->_infoid;
+                browser.currentIndex = num;
+                [browser show];
+            }
         };
         return header;
     }else{
@@ -381,7 +261,6 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.typeL.text = _baseInfoDic[@"house_type_name"];
         cell.areaL.text = [NSString stringWithFormat:@"建筑面积：%@㎡-%@㎡",_baseInfoDic[@"property_area_min"],_baseInfoDic[@"property_area_max"]];
-        //        cell.houseDisL.text = @"户型分布：1栋、3栋";
         cell.titleL.text = @"户型卖点";
         cell.contentL.text = _baseInfoDic[@"sell_point"];
         

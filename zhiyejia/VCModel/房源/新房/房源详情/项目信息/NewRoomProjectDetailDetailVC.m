@@ -50,22 +50,22 @@
 
 - (void)RequestMethod{
     
-//    [BaseRequest GET:ProjectBuildInfo_URL parameters:@{@"info_id":_infoid} success:^(id resposeObject) {
-//        
-//        //        NSLog(@"%@",resposeObject);
-//        
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            
-//            [self SetData:resposeObject[@"data"]];
-//        }
-//        else{
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//        
-//        //        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:ProjectBuildInfo_URL parameters:@{@"info_id":_infoid} success:^(id resposeObject) {
+        
+        //        NSLog(@"%@",resposeObject);
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self SetData:resposeObject[@"data"]];
+        }
+        else{
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+        //        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SetData:(NSDictionary *)data{

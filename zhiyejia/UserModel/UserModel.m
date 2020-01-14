@@ -20,7 +20,6 @@
         if (!model) {
             
             model = [[UserModel alloc]init];
-            
         }
     });
     return model;

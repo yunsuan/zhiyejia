@@ -38,7 +38,15 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
 
     [self NetWorkingRequest];
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
+//    [[UIApplication sharedApplication].keyWindow setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+    if (@available(iOS 13.0, *)) {
+        
+        [_window setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+    } else {
+        // Fallback on earlier versions
+    }
     _window.rootViewController = tabBarControllerConfig.tabBarController;
+//    _window.keyWindow
     return YES;
 }
 

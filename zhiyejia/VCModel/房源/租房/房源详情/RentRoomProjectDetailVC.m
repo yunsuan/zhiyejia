@@ -10,6 +10,7 @@
 
 #import "NewRoomProjectDetailDetailVC.h"
 #import "RentingComAllRoomListVC.h"
+#import "SecDistributVC.h"
 
 #import "RentRoomProjectHeader.h"
 #import "TitleBaseHeader.h"
@@ -20,10 +21,11 @@
 #import "SecRoomProjectAgentCell.h"
 #import "SecRoomProjectPropertyTypeInfoCell.h"
 
-@interface RentRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface RentRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
 {
     
     NSString *_projectId;
+    NSString *_info_id;
     NSString *_phone;
     NSString *_city;
     
@@ -31,6 +33,13 @@
     NSString *_longitude;
     
     NSDictionary *_dataDic;
+    
+    RentProjectModel *_model;
+    
+    NSMutableDictionary *_focusDic;
+    
+    NSMutableArray *_imgArr;
+    NSMutableArray *_albumArr;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -47,12 +56,13 @@
 
 @implementation RentRoomProjectDetailVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId city:(NSString *)city
+- (instancetype)initWithProjectId:(NSString *)project_id infoId:(NSString *)info_id city:(NSString *)city
 {
     self = [super init];
     if (self) {
         
-        _projectId = projectId;
+        _projectId = project_id;
+        _info_id = info_id;
         _city = city;
     }
     return self;
@@ -72,7 +82,12 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:HomeRentProjectDetail_URL parameters:@{@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_projectId}];
+    if ([UserModel defaultModel].token) {
+        
+        [dic setValue:[UserModel defaultModel].agent_id forKey:@"user_id"];
+    }
+    [BaseRequest GET:HomeRentProjectDetail_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -80,6 +95,33 @@
             self->_dataDic = resposeObject[@"data"];
             self->_latitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"latitude"]];
             self->_longitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"longitude"]];
+            if ([self->_focusDic[@"is_focus"] integerValue]) {
+                
+                self->_attentImg.image = IMAGE_WITH_NAME(@"subscribe_click");
+                self->_attentL.text = @"取消订阅";
+            }else{
+                
+                self->_attentImg.image = IMAGE_WITH_NAME(@"subscribe");
+                self->_attentL.text = @"订阅";
+            }
+            if ([self->_dataDic[@"project_basic_info"] isKindOfClass:[NSDictionary class]]) {
+
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataDic[@"project_basic_info"]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+
+                    if ([obj isKindOfClass:[NSNull class]]) {
+
+                        if ([key isEqualToString:@"property_type"] || [key isEqualToString:@"project_tags"]) {
+                            
+                            [tempDic setObject:@[] forKey:key];
+                        }else{
+                        
+                            [tempDic setObject:@"" forKey:key];
+                        }
+                    }
+                }];
+                self->_model = [[RentProjectModel alloc] initWithDictionary:tempDic];
+            }
             if (self->_dataDic[@"butter_tel"]) {
                 
                 self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
@@ -95,9 +137,88 @@
     }];
 }
 
+- (void)ImgRequest{
+    
+    [BaseRequest GET:GetImg_URL parameters:@{@"info_id":self->_info_id} success:^(id resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+
+                [self SetImg:resposeObject[@"data"]];
+            }else{
+
+            }
+        }
+    } failure:^(NSError *error) {
+
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)SetImg:(NSArray *)data{
+    
+    [_albumArr removeAllObjects];
+    for ( int i = 0; i < data.count; i++) {
+        
+        if ([data[i] isKindOfClass:[NSDictionary class]]) {
+            
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data[i]];
+            
+            [_albumArr addObject:tempDic];
+        }
+    }
+}
+
+
 - (void)ActionAttentionBtn:(UIButton *)btn{
     
-    
+    if ([UserModel defaultModel].token) {
+        
+        if (_focusDic.count) {
+            
+            if ([_focusDic[@"is_focus"] integerValue] !=0) {
+                
+                [BaseRequest POST:CancelFocusProject_URL parameters:@{@"sub_id":_focusDic[@"is_focus"]} success:^(id resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+                    }
+                    else{
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError *error) {
+                    
+                    NSLog(@"%@",error);
+                    [self showContent:@"网络错误"];
+                }];
+            }else{
+                
+                [BaseRequest POST:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"0"} success:^(id resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                    [self RequestMethod];
+                } failure:^(NSError *error) {
+                    
+                    NSLog(@"%@",error);
+                    [self showContent:@"网络错误"];
+                }];
+            }
+        }
+    }else{
+        
+        [self GotoLogin];
+    }
 }
 
 - (void)ActionCounselBtn:(UIButton *)btn{
@@ -167,6 +288,11 @@
     return CGFLOAT_MIN;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return [[UIView alloc] init];
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     if (section == 0) {
@@ -185,8 +311,62 @@
         }
         header.rentRoomProjectHeaderMoreBlock = ^{
             
-            NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] init];
+            NewRoomProjectDetailDetailVC *nextVC = [[NewRoomProjectDetailDetailVC alloc] initWithinfoid:self->_info_id];
             [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        
+        header.rentRoomProjectHeaderImgBtnBlock = ^(NSInteger num, NSArray * _Nonnull imgArr) {
+            
+            NSMutableArray *tempArr = [NSMutableArray array];
+            [imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                YBImageBrowserModel *model = [YBImageBrowserModel new];
+                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
+                [tempArr addObject:model];
+            }];
+            if (self->_albumArr.count) {
+                
+                YBImageBrowser *browser = [YBImageBrowser new];
+                browser.delegate = self;
+                browser.dataArray = tempArr;
+                browser.albumArr = self->_albumArr;
+                browser.infoid = self->_info_id;
+                browser.currentIndex = num;
+                [browser show];
+            }else{
+                
+                [BaseRequest GET:GetImg_URL parameters:@{@"info_id":self->_info_id} success:^(id resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+                            
+                            [self->_albumArr removeAllObjects];
+                            for ( int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                                
+                                if ([resposeObject[@"data"][i] isKindOfClass:[NSDictionary class]]) {
+                                    
+                                    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"][i]];
+                                    
+                                    [self->_albumArr addObject:tempDic];
+                                    YBImageBrowser *browser = [YBImageBrowser new];
+                                    browser.delegate = self;
+                                    browser.albumArr = self->_albumArr;
+                                    browser.dataArray = tempArr;
+                                    browser.infoid  = self->_info_id;
+                                    browser.currentIndex = num;
+                                    [browser show];
+                                }
+                            }
+                        }else{
+                            
+                        }
+                    }
+                } failure:^(NSError *error) {
+                    
+                    NSLog(@"%@",error);
+                }];
+            }
         };
         
         header.rentRoomProjectHeaderTagBlock = ^(NSInteger btnNum) {
@@ -243,10 +423,14 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.titleL.text = @"11111111";
-            cell.contentL.text = @"222222222222222222222";
-            cell.numL.text = @"共20条";
-            cell.timeL.text = @"123123123123123";
+            cell.moreBtn.tag = indexPath.section;
+            if (_dataDic[@"dynamic"]) {
+                
+                cell.numL.text = [NSString stringWithFormat: @"（共%@条）",_dataDic[@"dynamic"][@"count"]];
+                cell.titleL.text = _dataDic[@"dynamic"][@"first"][@"title"];
+                cell.timeL.text = _dataDic[@"dynamic"][@"first"][@"update_time"];
+                cell.contentL.text = _dataDic[@"dynamic"][@"first"][@"abstract"];
+            }
             
             return cell;
             break;
@@ -260,6 +444,19 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
+            if([_dataDic[@"project_basic_info"][@"total_float_url"] length] > 0){
+                
+                [cell.bigImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataDic[@"project_basic_info"][@"total_float_url"]]] placeholderImage:[UIImage imageNamed:@"banner_default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                    
+                    if (error) {
+                        
+                        [UIImage imageNamed:@"banner_default_2"];
+                    }
+                }];
+            }else{
+                
+                cell.bigImg.image = [UIImage imageNamed:@"banner_default_2"];
+            }
             return cell;
             break;
         }
@@ -391,6 +588,20 @@
             return cell;
             break;
         }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 2) {
+    
+        SecDistributVC *nextVC = [[SecDistributVC alloc] init];
+        nextVC.urlfor3d = _model.total_float_url_panorama;
+        nextVC.projiect_id = _projectId;
+        nextVC.img_name = _model.total_float_url_phone;
+        nextVC.status = @"rent";
+        nextVC.comName = _model.project_name;
+        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 

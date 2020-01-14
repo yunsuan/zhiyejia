@@ -8,7 +8,7 @@
 
 #import "BuildingAlbumVC.h"
 #import <WebKit/WebKit.h>
-//#import "WaitAnimation.h"
+#import "WaitAnimation.h"
 
 @interface BuildingAlbumVC ()<WKNavigationDelegate>
 
@@ -20,12 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = CLLineColor;
+    self.view.backgroundColor = CLBackColor;
     self.navBackgroundView.hidden = YES;
-    
-//    self.titleLabel.text = @"操作指南";
     //2.创建URL
-    //    NSURL *URL = [NSURL URLWithString:@"http://120.27.21.136:2798/360/index.html"];
     NSURL *URL = [NSURL URLWithString:_weburl];
     
     //3.创建Request
@@ -50,7 +47,7 @@
 #pragma mark - WKNavigationDelegate
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
-//    [WaitAnimation startAnimation];
+    [WaitAnimation startAnimation];
     
 }
 // 当内容开始返回时调用
@@ -59,7 +56,7 @@
 }
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
-//    [WaitAnimation stopAnimation];
+    [WaitAnimation stopAnimation];
 }
 //// 页面加载失败时调用
 //- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
@@ -89,7 +86,7 @@
 {
     [super viewWillDisappear:animated];
     [_webwivw stopLoading];
-//    [WaitAnimation stopAnimation];
+    [WaitAnimation stopAnimation];
 }
 
 @end

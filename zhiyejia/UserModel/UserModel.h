@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserModel : NSObject
 
+@property (nonatomic, strong) NSString *agent_id;
+
 @property (nonatomic, strong) NSString *phone;
 
 @property (nonatomic, strong) NSString *passWord;

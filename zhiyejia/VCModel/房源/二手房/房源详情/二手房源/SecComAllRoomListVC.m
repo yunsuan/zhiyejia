@@ -8,6 +8,9 @@
 
 #import "SecComAllRoomListVC.h"
 
+#import "SecRoomHouseDetailVC.h"
+#import "SecRoomStoreDetailVC.h"
+#import "SecRoomOfficeDetailVC.h"
 
 #import "SecHouseCell.h"
 
@@ -113,7 +116,7 @@
     }
     [dic setObject:_projectId forKey:@"project_id"];
 //    [dic setObject:[UserModelArchiver unarchive].agent_id forKey:@"agent_id"];
-    [BaseRequest GET:HouseHouseList_URL parameters:dic success:^(id resposeObject) {
+    [BaseRequest GET:HouseList_URL parameters:dic success:^(id resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -148,7 +151,7 @@
     }
     [dic setObject:_projectId forKey:@"project_id"];
 //    [dic setObject:[UserModelArchiver unarchive].agent_id forKey:@"agent_id"];
-    [BaseRequest GET:HouseHouseList_URL parameters:dic success:^(id resposeObject) {
+    [BaseRequest GET:HouseList_URL parameters:dic success:^(id resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -208,20 +211,19 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    SecProjectModel *model = _dataArr[indexPath.row];
-    if ([self.status isEqualToString:@"protocol"]) {
+    SecHouseModel *model = _dataArr[indexPath.row];
+    if ([model.type integerValue] == 1) {
+
+        SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([model.type integerValue] == 2){
         
-        if (self.secComAllRoomListVCBlock) {
-            
-//            self.secComAllRoomListVCBlock(model);
-        }
-        [self.navigationController popViewControllerAnimated:YES];
+        SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
-        
-//        SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:model.house_id city:_city];
-//        nextVC.type = [model.type integerValue];
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
+
+        SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 

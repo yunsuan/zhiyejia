@@ -20,6 +20,17 @@
     return self;
 }
 
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
+    
+    _titleL.text = @"物业类型信息";
+    _houseL.text = @"住宅";
+    _houseDetailL.text = [NSString stringWithFormat:@"在售：%@套",dataDic[@"house_num"]];
+    _storeL.text = @"商铺";
+    _storeDetailL.text = [NSString stringWithFormat:@"在售：%@套",dataDic[@"shop_num"]];
+    _buildL.text = @"写字楼";
+    _buildDetailL.text = [NSString stringWithFormat:@"在售：%@套",dataDic[@"office_num"]];
+}
+
 - (void)initUI{
     
     self.contentView.backgroundColor = CLLineColor;

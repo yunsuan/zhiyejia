@@ -53,9 +53,6 @@
 
 - (NSArray *)viewControllers {
     
-    
-    
-    
     RoomVC *room_vc = [[RoomVC alloc] init];
     UIViewController *room_nav = [[CYLBaseNavigationController alloc]
                                   initWithRootViewController:room_vc];

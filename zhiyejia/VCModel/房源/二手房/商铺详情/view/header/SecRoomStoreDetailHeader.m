@@ -138,7 +138,7 @@
     
     _priceL.text = [NSString stringWithFormat:@"￥%@万",storeModel.price];
     
-    _typeL.text = storeModel.house_type;
+    _typeL.text = storeModel.shop_type;
     
     _areaL.text = [NSString stringWithFormat:@"%@㎡",storeModel.build_area];
     _areaTL.text = @"面积";

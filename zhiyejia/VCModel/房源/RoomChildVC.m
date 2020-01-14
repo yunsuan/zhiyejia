@@ -74,7 +74,7 @@
     
     if (_AllType == 0) {
 
-        _urlString = HouseHouseList_URL;
+        _urlString = HouseList_URL;
         if ([self.param isEqualToString:@"houseProject"]) {
 
             _urlString = HouseProjectList_URL;
@@ -83,10 +83,10 @@
 
         if ([self.status isEqualToString:@"关注"]) {
 
-//            _urlString = UserFocusNews_URL;
+            _urlString = UserFocusNews_URL;
         }else{
 
-//            _urlString = ProjectRecommendInfo_URL;
+            _urlString = RecommendGetList_URL;
         }
     }else if(_AllType == 3){
 
@@ -233,20 +233,20 @@
     
     if (_AllType == 0) {
         
-        _urlString = HouseHouseList_URL;
+        _urlString = HouseList_URL;
         if ([self.param isEqualToString:@"houseProject"]) {
             
             _urlString = HouseProjectList_URL;
         }
     }else if (_AllType == 1){
         
-//        if ([self.status isEqualToString:@"关注"]) {
-//            
-//                        _urlString = UserFocusNews_URL;
-//        }else{
-//            
-//                        _urlString = ProjectRecommendInfo_URL;
-//        }
+        if ([self.status isEqualToString:@"关注"]) {
+            
+            _urlString = UserFocusNews_URL;
+        }else{
+            
+            _urlString = RecommendGetList_URL;
+        }
     }else if(_AllType == 3){
         
         _urlString = RentProjectList_URL;
@@ -458,18 +458,16 @@
                             }
                         }];
                         
-//                        RoomListModel *model = [[RoomListModel alloc] initWithDictionary:tempDic];
-//
-//                        [_dataArr addObject:model];
+                        NewRoomModel *model = [[NewRoomModel alloc] initWithDictionary:tempDic];
+                        [_dataArr addObject:model];
                     }else if ([tempDic[@"type"] integerValue] == 1){
                         
-//                        AttetionComModel *model = [[AttetionComModel alloc] initWithDictionary:tempDic];
-//                        [_dataArr addObject:model];
-                        
+                        SecProjectModel *model = [[SecProjectModel alloc] initWithDictionary:tempDic];
+                        [_dataArr addObject:model];
                     }else{
                         
-//                        AttetionRentingComModel *model = [[AttetionRentingComModel alloc] initWithDictionary:tempDic];
-//                        [_dataArr addObject:model];
+                        RentProjectModel *model = [[RentProjectModel alloc] initWithDictionary:tempDic];
+                        [_dataArr addObject:model];
                     }
                 }else{
                     
@@ -478,14 +476,12 @@
                         
                     }else if ([tempDic[@"focus_type"] integerValue] == 1){
                         
-//                        AttentionHouseModel *model = [[AttentionHouseModel alloc] initWithDictionary:tempDic];
-//                        [_dataArr addObject:model];
-                        
+                        SecHouseModel *model = [[SecHouseModel alloc] initWithDictionary:tempDic];
+                        [_dataArr addObject:model];
                     }else{
                         
-//                        AtteionRentingHouseModel *model = [[AtteionRentingHouseModel alloc] initWithDictionary:tempDic];
-//                        [_dataArr addObject:model];
-                        
+                        RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
+                        [_dataArr addObject:model];
                     }
                 }
             }
@@ -536,20 +532,6 @@
                     }
                 }];
                 RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
-//                model.price_change = tempDic[@"price_change"];
-//                model.img_url = tempDic[@"img_url"];
-//                model.house_id = tempDic[@"house_id"];
-//                model.title = tempDic[@"title"];
-//                model.describe = tempDic[@"describe"];
-//                model.price = tempDic[@"price"];
-//                model.unit_price = tempDic[@"unit_price"];
-//                model.property_type = tempDic[@"property_type"];
-//                model.store_name = tempDic[@"store_name"];
-//                model.project_tags = [NSMutableArray arrayWithArray:tempDic[@"project_tags"]];
-//                model.house_tags = [NSMutableArray arrayWithArray:tempDic[@"house_tags"]];
-//                model.type = tempDic[@"type"];
-//                model.info_id = tempDic[@"info_id"];
-//                model.level = tempDic[@"level"];
                 [_dataArr addObject:model];
             }
         }else{
@@ -611,7 +593,6 @@
         {
             if ([self.param isEqualToString:@"house"]) {
 
-//                return [[UITableViewCell alloc] init];
                 SecHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseCell"];
                 if (!cell) {
 
@@ -637,123 +618,73 @@
             }
             break;
         }
-//        case 1:{
-//
-//            if ([self.status isEqualToString:@"关注"]) {
-//
-//                if ([_dataArr[indexPath.row] isKindOfClass:[AttetionRentingComModel class]]) {
-//
-//                    AttentionRentingComCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AttentionRentingComCell"];
-//                    if (!cell) {
-//
-//                        cell = [[AttentionRentingComCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AttentionRentingComCell"];
-//                    }
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                    cell.model = _dataArr[indexPath.row];
-//                    return cell;
-//                    break;
-//                }else if([_dataArr[indexPath.row] isKindOfClass:[AttetionComModel class]]){
-//
-//                    AttentionComCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AttentionComCell"];
-//                    if (!cell) {
-//
-//                        cell = [[AttentionComCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AttentionComCell"];
-//                    }
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                    cell.model = _dataArr[indexPath.row];
-//                    return cell;
-//                    break;
-//                }else if([_dataArr[indexPath.row] isKindOfClass:[AttentionHouseModel class]]){
-//
-//                    AttentionHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AttentionHouseCell"];
-//                    if (!cell) {
-//
-//                        cell = [[AttentionHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AttentionHouseCell"];
-//                    }
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                    cell.model = _dataArr[indexPath.row];
-//                    return cell;
-//                    break;
-//                }else if ([_dataArr[indexPath.row] isKindOfClass:[AtteionRentingHouseModel class]]){
-//
-//                    AttentionRentingHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AttentionRentingHouseCell"];
-//                    if (!cell) {
-//
-//                        cell = [[AttentionRentingHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AttentionRentingHouseCell"];
-//                    }
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//                    cell.model = _dataArr[indexPath.row];
-//                    return cell;
-//                    break;
-//                }else{
-//
-//                    RoomListModel *model = _dataArr[indexPath.row];
-//                    if ([model.guarantee_brokerage integerValue] == 2) {
-//
-//                        static NSString *CellIdentifier = @"CompanyCell";
-//
-//                        CompanyCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//                        if (!cell) {
-//                            cell = [[CompanyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//                        }
-//                        [cell SetTitle:model.project_name image:model.img_url contentlab:model.absolute_address statu:model.sale_state];
-//                        [cell settagviewWithdata:@[model.property_tags,model.project_tags]];
-//                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                        return cell;
-//
-//                    }else{
-//
-//                        static NSString *CellIdentifier = @"PeopleCell";
-//
-//                        PeopleCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//                        if (!cell) {
-//                            cell = [[PeopleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//                        }
-//                        [cell SetTitle:model.project_name image:model.img_url contentlab:model.absolute_address statu:model.sale_state];
-//
-//                        cell.statusImg.hidden = YES;
-//                        cell.surelab.hidden = YES;
-//
-//                        NSArray *project_tags = model.project_tags?model.project_tags:@[];
-//                        NSArray *property_tags = model.property_tags?model.property_tags:@[];
-//                        [cell settagviewWithdata:@[property_tags,project_tags]];
-//                        cell.getLevel.hidden = YES;
-//                        //                        if (model.sort) {
-//                        //
-//                        //                            cell.rankView.rankL.text = [NSString stringWithFormat:@"佣金:第%@名",model.sort];
-//                        //                        }else{
-//                        //
-//                        //                            cell.rankView.rankL.text = [NSString stringWithFormat:@"佣金:无排名"];
-//                        //                        }
-//                        //                        [cell.rankView.rankL mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                        //
-//                        //                            make.left.equalTo(cell.rankView).offset(0);
-//                        //                            make.top.equalTo(cell.rankView).offset(0);
-//                        //                            make.height.equalTo(@(10 *SIZE));
-//                        //                            make.width.equalTo(@(cell.rankView.rankL.mj_textWidth + 5 *SIZE));
-//                        //                        }];
-//                        //                        if ([model.brokerSortCompare integerValue] == 0) {
-//                        //
-//                        //                            cell.rankView.statusImg.image = nil;
-//                        //                        }else if ([model.brokerSortCompare integerValue] == 1){
-//                        //
-//                        //                            cell.rankView.statusImg.image = [UIImage imageNamed:@"rising"];
-//                        //                        }else if ([model.brokerSortCompare integerValue] == 2){
-//                        //
-//                        //                            cell.rankView.statusImg.image = [UIImage imageNamed:@"falling"];
-//                        //                        }
-//                        //                        [cell.getLevel SetImage:[UIImage imageNamed:@"lightning_1"] selectImg:[UIImage imageNamed:@"lightning"] num:[model.cycle integerValue]];
-//
-//                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                        return cell;
-//                    }
-//                }
-//            }else{
-//
+        case 1:{
+
+            if ([self.status isEqualToString:@"关注"]) {
+
+                if ([_dataArr[indexPath.row] isKindOfClass:[RentProjectModel class]]) {
+
+                    RentRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentRoomCell"];
+                    if (!cell) {
+
+                        cell = [[RentRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentRoomCell"];
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+                    cell.model = _dataArr[indexPath.row];
+                    return cell;
+                    break;
+                }else if([_dataArr[indexPath.row] isKindOfClass:[SecProjectModel class]]){
+
+                    SecRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomCell"];
+                    if (!cell) {
+
+                        cell = [[SecRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomCell"];
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+                    cell.model = _dataArr[indexPath.row];
+                    return cell;
+                    break;
+                }else if([_dataArr[indexPath.row] isKindOfClass:[SecHouseModel class]]){
+
+                    SecHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseCell"];
+                    if (!cell) {
+
+                        cell = [[SecHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecHouseCell"];
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+                    cell.model = _dataArr[indexPath.row];
+                    return cell;
+                    break;
+                }else if ([_dataArr[indexPath.row] isKindOfClass:[RentHouseModel class]]){
+
+                    RentHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentHouseCell"];
+                    if (!cell) {
+
+                        cell = [[RentHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentHouseCell"];
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+                    cell.model = _dataArr[indexPath.row];
+                    return cell;
+                    break;
+                }else{
+
+                    NewRoomModel *model = _dataArr[indexPath.row];
+                    NewRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomCell"];
+                    if (!cell) {
+                        
+                        cell = [[NewRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewRoomCell"];
+                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                                
+                    cell.model = _dataArr[indexPath.row];
+                    return cell;
+                }
+            }else{
+
 //                RecommendInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecommendInfoCell"];
 //                if (!cell) {
 //
@@ -763,8 +694,8 @@
 //
 //                cell.model = _dataArr[indexPath.row];
 //                return cell;
-//            }
-//        }
+            }
+        }
         case 2:{
 
     

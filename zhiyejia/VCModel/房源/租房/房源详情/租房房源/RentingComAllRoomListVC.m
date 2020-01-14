@@ -141,7 +141,7 @@
     }
     [dic setObject:_projectId forKey:@"project_id"];
 //    [dic setObject:[UserModelArchiver unarchive].agent_id forKey:@"agent_id"];
-    [BaseRequest GET:HouseHouseList_URL parameters:dic success:^(id resposeObject) {
+    [BaseRequest GET:HouseList_URL parameters:dic success:^(id resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {

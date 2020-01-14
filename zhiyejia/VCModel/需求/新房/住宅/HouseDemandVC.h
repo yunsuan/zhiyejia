@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^HouseDemandVCBlock)(void);
+
 @interface HouseDemandVC : BaseViewController
+
+@property (nonatomic, copy) HouseDemandVCBlock houseDemandVCBlock;
 
 @end
 

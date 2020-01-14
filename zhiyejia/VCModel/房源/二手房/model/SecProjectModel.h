@@ -30,6 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *subs_num;
 
+@property (nonatomic, strong) NSString *total_float_url;
+
+@property (nonatomic, strong) NSString *total_float_url_phone;
+
+@property (nonatomic, strong) NSString *total_float_url_panorama;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -88,10 +88,15 @@
             [UserModel defaultModel].passWord = self->_PassWordTF.text;
             [UserModel defaultModel].time = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"time"]];
             [UserModel defaultModel].token = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"token"]];
+            [UserModel defaultModel].agent_id = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"agent_id"]];
             [UserModelArchiver archive];
             if (self.loginVCBlock) {
                 
                 self.loginVCBlock();
+            }
+            if (self.loginVCReturnBlock) {
+                
+                self.loginVCReturnBlock();
             }
             [self.navigationController popViewControllerAnimated:YES];
         }else{

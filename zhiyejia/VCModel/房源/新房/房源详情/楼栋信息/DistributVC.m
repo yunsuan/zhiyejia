@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     self.navBackgroundView.hidden = NO;
     [self initDataSouce];
     [self initUI];
@@ -52,8 +52,9 @@
              success:^(id resposeObject) {
 
                  if ([resposeObject[@"code"] integerValue] ==200) {
-                     _dylist = resposeObject[@"data"];
-                     [self setItemforchoosebuildingviewbyarr:_dylist];
+                     
+                     self->_dylist = resposeObject[@"data"];
+                     [self setItemforchoosebuildingviewbyarr:self->_dylist];
                  }
 
              }
@@ -209,7 +210,7 @@
                 
                 if (error) {
                     
-                    _backimg.image =   [UIImage imageNamed:@"banner_default_2"];
+                    self->_backimg.image = [UIImage imageNamed:@"banner_default_2"];
                 }
             }];
         }
@@ -229,7 +230,7 @@
         _leftbutton.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
         _leftbutton.center = CGPointMake(25 * SIZE, STATUS_BAR_HEIGHT+20);
         _leftbutton.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
-        [_leftbutton setImage:[UIImage imageNamed:@"leftarrow_white.png"] forState:UIControlStateNormal];
+        [_leftbutton setImage:[UIImage imageNamed:@"return.png"] forState:UIControlStateNormal];
          
         [_leftbutton addTarget:self action:@selector(action_back) forControlEvents:UIControlEventTouchUpInside];
     }

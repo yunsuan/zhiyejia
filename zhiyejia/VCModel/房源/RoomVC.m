@@ -8,6 +8,9 @@
 
 
 #import "RoomVC.h"
+
+#import "PYSearchViewController.h"
+
 //项目
 #import "NewRoomProjectDetailVC.h"
 #import "SecRoomProjectDetailVC.h"
@@ -22,7 +25,12 @@
 #import "RentRoomOfficeDetailVC.h"
 
 #import "RoomChildVC.h"
+//城市
 #import "CityVC.h"
+//搜索
+//#import "HouseSearchVC.h"
+//#import "SecProhectSearchVC.h"
+//#import "SecHouseSearchVC.h"
 
 #import "HNChannelView.h"
 
@@ -137,43 +145,55 @@
 
 - (void)ActionSearchBtn:(UIButton *)btn{
     
-//    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:_searchArr searchBarPlaceholder:@"请输入楼盘名或地址" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-//        // 开始搜索执行以下代码
-//        // 如：跳转到指定控制器
-//        if (![self isEmpty:searchText]) {
-//
-//            RoomChildVC *vc = self.childViewControllers[0];
-//            if ([vc.status containsString:@"新房"]) {
-//
-//                HouseSearchVC *nextVC = [[HouseSearchVC alloc] initWithTitle:searchText city:_city];
-//                [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//            }else if ([vc.status containsString:@"推荐"] || [vc.status containsString:@"关注"]){
-//
-//                HouseSearchVC *nextVC = [[HouseSearchVC alloc] initWithTitle:searchText city:_city];
-//                [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//            }else if ([vc.status containsString:@"小区"]){
-//
-//                SecProhectSearchVC *nextVC = [[SecProhectSearchVC alloc] initWithTitle:searchText city:_city];
-//                //                nextVC.type = self
-//                [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//            }else{
-//
-//                SecHouseSearchVC *nextVC = [[SecHouseSearchVC alloc] initWithTitle:searchText city:_city];
-//                [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//            }
-//
-//        }
-//    }];
-//    // 3. 设置风格
-//    searchViewController.searchBar.returnKeyType = UIReturnKeySearch;
-//    searchViewController.hotSearchStyle = 3; // 热门搜索风格根据选择
-//    searchViewController.searchHistoryStyle = PYHotSearchStyleDefault; // 搜索历史风格为
-//    // 4. 设置代理
-//    searchViewController.delegate = self;
-//    // 5. 跳转到搜索控制器
-//    //    [self.navigationController pushViewController:searchViewController animated:YES];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-//    [self.navigationController presentViewController:nav  animated:NO completion:nil];
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:_searchArr searchBarPlaceholder:@"请输入楼盘名或地址" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+            // 开始搜索执行以下代码
+            // 如：跳转到指定控制器
+            if (![self isEmpty:searchText]) {
+                
+                RoomChildVC *vc = self.childViewControllers[0];
+//                if ([vc.status containsString:@"新房"]) {
+//                    
+//                    HouseSearchVC *nextVC = [[HouseSearchVC alloc] initWithTitle:searchText city:_city];
+//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
+//                }else if ([vc.status containsString:@"推荐"] || [vc.status containsString:@"关注"]){
+//                    
+//                    HouseSearchVC *nextVC = [[HouseSearchVC alloc] initWithTitle:searchText city:_city];
+//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
+//                }else if ([vc.status containsString:@"小区"]){
+//                    
+//                    SecProhectSearchVC *nextVC = [[SecProhectSearchVC alloc] initWithTitle:searchText city:_city];
+//    //                nextVC.type = self
+//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
+//                }else{
+//                    
+//                    SecHouseSearchVC *nextVC = [[SecHouseSearchVC alloc] initWithTitle:searchText city:_city];
+//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
+//                }
+                
+            }
+        }];
+        // 3. 设置风格
+        searchViewController.searchBar.returnKeyType = UIReturnKeySearch;
+        searchViewController.hotSearchStyle = 3; // 热门搜索风格根据选择
+        searchViewController.searchHistoryStyle = PYHotSearchStyleDefault; // 搜索历史风格为
+        if (@available(iOS 13.0, *)) {
+            
+            [searchViewController setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        } else {
+            // Fallback on earlier versions
+        }
+        // 4. 设置代理
+        searchViewController.delegate = self;
+        // 5. 跳转到搜索控制器
+        //    [self.navigationController pushViewController:searchViewController animated:YES];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+        if (@available(iOS 13.0, *)) {
+            
+            [nav setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        } else {
+            // Fallback on earlier versions
+        }
+        [self.navigationController presentViewController:nav animated:NO completion:nil];
 }
 
 - (void)ActionCityBtn:(UIButton *)btn{
@@ -335,7 +355,7 @@
     //二手房项目
     vc.roomChildVCSecRoomProjectBlock = ^(SecProjectModel * _Nonnull model) {
         
-        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id city:self->_city];
+        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id infoId:model.info_id city:self->_city];
         
         nextVC.type = weakvc.typeId;
         nextVC.hidesBottomBarWhenPushed = YES;
@@ -344,25 +364,25 @@
     //二手房房源详情
     vc.roomChildVCSecRoomHouseBlock = ^(SecHouseModel * _Nonnull model) {
       
-//        if ([model.type integerValue] == 1) {
-//
-//            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-//            [self.navigationController pushViewController:nextVC animated:YES];
-//        }else if ([model.type integerValue] == 2){
+        if ([model.type integerValue] == 1) {
+
+            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([model.type integerValue] == 2){
             
             SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
             [self.navigationController pushViewController:nextVC animated:YES];
-//        }else{
-//            
-//            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-//            [self.navigationController pushViewController:nextVC animated:YES];
-//        }
+        }else{
+
+            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
     };
     
     //租房项目
     vc.roomChildVCRentRoomProjectBlock = ^(RentProjectModel * _Nonnull model) {
         
-        RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id city:self->_city];
+        RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id infoId:model.info_id city:self->_city];
         
         nextVC.type = weakvc.typeId;
         nextVC.hidesBottomBarWhenPushed = YES;

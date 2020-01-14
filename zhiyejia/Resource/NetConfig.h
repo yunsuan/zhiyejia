@@ -71,6 +71,7 @@ static NSString *const PersonalCancelFocusProjectList_URL = @"user/personal/canc
 
 //意见反馈
 static NSString *const PersonalSendAdvice_URL = @"user/personal/sendAdvice";
+
 #pragma mark ---  房源  ---
 
 //获取开放区域
@@ -78,11 +79,11 @@ static NSString *const OpenCity_URL = @"user/project/openCity";
 
 #pragma mark -- 推荐 --
 
-////推荐
-//static NSString *const ProjectRecommendInfo_URL = @"user/project/recommendInfo";
+//推荐列表
+static NSString *const RecommendGetList_URL = @"home/recommend/getList";
 //
-////房源-关注
-//static NSString *const UserFocusNews_URL = @"user/focusNews/list";
+//房源-关注
+static NSString *const UserFocusNews_URL = @"home/focusNews/list";
 
 #pragma mark -- 新房
 //获取源标签
@@ -95,22 +96,28 @@ static NSString *const HomeProjectList_URL = @"home/project/list";
 static NSString *const HomeProjectDetail_URL = @"home/project/detail";
 
 ////获取项目的具体信息
-//static NSString *const ProjectBuildInfo_URL = @"user/project/buildInfo/v2.7";
+static NSString *const ProjectBuildInfo_URL = @"home/project/buildInfo/v2.7";
 //
-////获取动态列表
+//获取动态列表
 //static NSString *const DynamicList_URL = @"user/dynamic/list/v2.7";
 //
 //获取项目图片
-static NSString *const GetImg_URL = @"user/img/get/v2.7";
+static NSString *const GetImg_URL = @"home/img/get/v2.7";
 
 //获取楼栋
 static NSString *const GetBuilding_URL = @"user/yunsuan/build";
 
+//获取所有楼栋
+static NSString *const GetAllBuilding_URL = @"user/yunsuan/buildAll";
+
+//获取单元
+static NSString *const GetUnit_URL = @"user/yunsuan/unit";
+
 //取消订阅项目
-static NSString *const CancelFocusProject_URL = @"agent/personal/cancelFocusProject";
+static NSString *const CancelFocusProject_URL = @"home/personal/cancelFocusProject";
 
 //订阅项目
-static NSString *const PersonalFocusProject_URL = @"agent/personal/focusProject";
+static NSString *const PersonalFocusProject_URL = @"home/personal/focusProject";
 
 //金牌经纪人详情
 static NSString *const GetAgentRankDetail_URL = @"home/agent/getAgentRankDetail";
@@ -120,19 +127,25 @@ static NSString *const GetAwesomeOperate_URL = @"home/agent/getAwesomeOperate";
 
 //活动列表
 static NSString *const GetProjectActiveList_URL = @"home/project/getProjectActiveList";
+
+//户型详情
+static NSString *const HouseTypeDetail_URL = @"home/houseType/detail";
+
 #pragma mark -- 二手房 --
 //项目列表
-static NSString *const HouseProjectList_URL = @"user/house/project/list";
-//
-//房源列表
-static NSString *const HouseHouseList_URL = @"user/house/house/list";
+static NSString *const HouseProjectList_URL = @"home/house/project/list";
+
+//二手房源
+static NSString *const HouseList_URL = @"home/house/list";
 
 //项目详情
 static NSString *const HomeHouseProjectDetail_URL = @"home/house/project/detail";
 
 //房源详情
-static NSString *const HouseHouseDetail_URL = @"user/house/house/detail";
+static NSString *const HouseHouseDetail_URL = @"home/house/detail";
 
+//成交详情
+static NSString *const ProjectGetHouseDealList_URL = @"home/project/getHouseDealList";
 #pragma mark -- 租房 --
 
 //项目列表
@@ -146,4 +159,18 @@ static NSString *const HomeRentProjectDetail_URL = @"home/rent/project/detail";
 
 //房源详情
 static NSString *const RentHouseDetail_URL =  @"user/rent/house/detail";
+
+#pragma mark ---  需求  ---
+
+//获取平台开放城市
+static NSString *const ForunOpenCityList_URL = @"user/forum/openCity/list";
+
+//获取平台开放区域
+static NSString *const ForumOpenDistrictList_URL = @"user/forum/openDistrict/list";
+#pragma mark -- 求购 --
+//列表
+static NSString *const NeedBuyList_URL =  @"home/need/buy/list";
+
+//添加
+static NSString *const NeedBuyAdd_URL = @"home/need/buy/add";
 #endif /* NetConfig_h */

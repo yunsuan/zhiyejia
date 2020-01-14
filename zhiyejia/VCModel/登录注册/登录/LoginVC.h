@@ -12,9 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^LoginVCBlock)(void);
 
+typedef void(^LoginVCReturnBlock)(void);
+
 @interface LoginVC : BaseViewController
 
 @property (nonatomic, copy) LoginVCBlock loginVCBlock;
+
+@property (nonatomic, copy) LoginVCReturnBlock loginVCReturnBlock;
 
 @end
 

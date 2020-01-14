@@ -35,11 +35,11 @@
 #import "NewRoomProjectAgentMoreView.h"
 
 
-@interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
+
+@interface NewRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
 {
     
     NewRoomModel *_model;
-//    NSString *_projectId;
     NSString *_phone;
     NSString *_latitude;
     NSString *_longitude;
@@ -48,6 +48,7 @@
     
     NSMutableDictionary *_focusDic;
     
+    NSMutableArray *_imgArr;
     NSMutableArray *_albumArr;
 }
 
@@ -62,14 +63,12 @@
 
 @implementation NewRoomProjectDetailVC
 
-//- (instancetype)initWithProjectId:(NSString *)projectId
 - (instancetype)initWithModel:(NewRoomModel *)model
 {
     self = [super init];
     if (self) {
 
         _model = model;
-//        _projectId = projectId;
     }
     return self;
 }
@@ -80,30 +79,93 @@
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
+    [self ImgRequest];
 }
 
 - (void)initDataSource{
     
     _focusDic = [@{} mutableCopy];
     _albumArr = [@[] mutableCopy];
+    _imgArr = [@[] mutableCopy];
+}
+
+- (void)ImgRequest{
+    
+    [BaseRequest GET:GetImg_URL parameters:@{@"info_id":_model.info_id} success:^(id resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+                
+                [self SetImg:resposeObject[@"data"]];
+            }else{
+                
+            }
+        }
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)SetImg:(NSArray *)data{
+    
+    [_albumArr removeAllObjects];
+    for ( int i = 0; i < data.count; i++) {
+        
+        if ([data[i] isKindOfClass:[NSDictionary class]]) {
+            
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data[i]];
+            
+            [_albumArr addObject:tempDic];
+        }
+    }
 }
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:HomeProjectDetail_URL parameters:@{@"project_id":_model.project_id} success:^(id  _Nonnull resposeObject) {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_model.project_id}];
+    if ([UserModel defaultModel].token) {
+        
+        [dic setValue:[UserModel defaultModel].agent_id forKey:@"user_id"];
+    }
+    [BaseRequest GET:HomeProjectDetail_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = resposeObject[@"data"];
             self->_focusDic = self->_dataDic[@"focus"];
+            if ([self->_focusDic[@"is_focus"] integerValue]) {
+                
+                [self->_attentBtn setImage:IMAGE_WITH_NAME(@"Focus_selected") forState:UIControlStateNormal];
+                [self->_attentBtn setTitle:@"取消订阅" forState:UIControlStateNormal];
+            }else{
+                
+                [self->_attentBtn setImage:IMAGE_WITH_NAME(@"Focus") forState:UIControlStateNormal];
+                [self->_attentBtn setTitle:@"订阅" forState:UIControlStateNormal];
+            }
             if (self->_dataDic[@"butter_tel"]) {
                 
                 self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
             }
             self->_latitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"latitude"]];
             self->_longitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"longitude"]];
-            self->_albumArr = [NSMutableArray arrayWithArray:self->_dataDic[@"project_img"][@"url"]];
+            self->_imgArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"project_img"][@"url"]];
+            
+            [self->_imgArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if ([obj isKindOfClass:[NSDictionary class]]) {
+                    
+                    if ([obj[@"img_url"] isKindOfClass:[NSNull class]]) {
+                        
+                        [self->_imgArr replaceObjectAtIndex:idx withObject:@{@"img_url":@""}];
+                    }
+                }else{
+                    
+                    [self->_imgArr replaceObjectAtIndex:idx withObject:@{@"img_url":@""}];
+                }
+            }];
             [self->_roomTable reloadData];
         }else{
             
@@ -145,45 +207,51 @@
 
 - (void)ActionAttentionBtn:(UIButton *)btn{
     
-    if (_focusDic.count) {
+    if ([UserModel defaultModel].token) {
         
-        if ([_focusDic[@"is_focus"] integerValue] !=0) {
+        if (_focusDic.count) {
             
-            [BaseRequest GET:CancelFocusProject_URL parameters:@{@"sub_id":_focusDic[@"is_focus"]} success:^(id resposeObject) {
+            if ([_focusDic[@"is_focus"] integerValue] !=0) {
                 
-                NSLog(@"%@",resposeObject);
-                if ([resposeObject[@"code"] integerValue] == 200) {
+                [BaseRequest POST:CancelFocusProject_URL parameters:@{@"sub_id":_focusDic[@"is_focus"]} success:^(id resposeObject) {
                     
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+                    }
+                    else{
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError *error) {
+                    
+                    NSLog(@"%@",error);
+                    [self showContent:@"网络错误"];
+                }];
+            }else{
+                
+                [BaseRequest POST:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"0"} success:^(id resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
                     [self RequestMethod];
-                }
-                else{
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError *error) {
-                
-                NSLog(@"%@",error);
-                [self showContent:@"网络错误"];
-            }];
-        }else{
-            
-            [BaseRequest GET:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"0"} success:^(id resposeObject) {
-                
-                NSLog(@"%@",resposeObject);
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
+                } failure:^(NSError *error) {
                     
-                    [self RequestMethod];
-                }else{
-                    
-                    [self showContent:resposeObject[@"msg"]];
-                }
-                [self RequestMethod];
-            } failure:^(NSError *error) {
-                
-                NSLog(@"%@",error);
-                [self showContent:@"网络错误"];
-            }];
+                    NSLog(@"%@",error);
+                    [self showContent:@"网络错误"];
+                }];
+            }
         }
+    }else{
+        
+        [self GotoLogin];
     }
 }
 
@@ -340,58 +408,58 @@
         
         header.newRoomProjectHeaderImgBtnBlock = ^(NSInteger num, NSArray *imgArr) {
             
-//            NSMutableArray *tempArr = [NSMutableArray array];
-//            [imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                
-//                YBImageBrowserModel *model = [YBImageBrowserModel new];
-//                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
-//                [tempArr addObject:model];
-//            }];
-//            if (self->_albumArr.count) {
-//                
-//                YBImageBrowser *browser = [YBImageBrowser new];
-//                browser.delegate = self;
-//                browser.dataArray = tempArr;
-//                browser.albumArr = self->_albumArr;
-//                
-////                browser.infoid = _info_id;
-//                browser.currentIndex = num;
-//                [browser show];
-//            }else{
-//                
-//                [BaseRequest GET:GetImg_URL parameters:@{@"project_id":self->_projectId} success:^(id resposeObject) {
-//                    
-//                    if ([resposeObject[@"code"] integerValue] == 200) {
-//                        
-//                        if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
-//                            
-//                            [self->_albumArr removeAllObjects];
-//                            for ( int i = 0; i < [resposeObject[@"data"] count]; i++) {
-//                                
-//                                if ([resposeObject[@"data"][i] isKindOfClass:[NSDictionary class]]) {
-//                                    
-//                                    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"][i]];
-//                                    
-//                                    [self->_albumArr addObject:tempDic];
-//                                    
-//                                    YBImageBrowser *browser = [YBImageBrowser new];
-//                                    browser.delegate = self;
-//                                    browser.albumArr = self->_albumArr;
-//                                    browser.dataArray = tempArr;
-////                                    browser.infoid = _info_id;
-//                                    browser.currentIndex = num;
-//                                    [browser show];
-//                                }
-//                            }
-//                        }else{
-//                            
-//                        }
-//                    }
-//                } failure:^(NSError *error) {
-//                    
-//                    NSLog(@"%@",error);
-//                }];
-//            }
+            NSMutableArray *tempArr = [NSMutableArray array];
+            [imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                YBImageBrowserModel *model = [YBImageBrowserModel new];
+                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj[@"img_url"]]];
+                [tempArr addObject:model];
+            }];
+            if (self->_albumArr.count) {
+
+                YBImageBrowser *browser = [YBImageBrowser new];
+                browser.delegate = self;
+                browser.dataArray = tempArr;
+                browser.albumArr = self->_albumArr;
+                
+                browser.infoid = self->_model.info_id;
+                browser.currentIndex = num;
+                [browser show];
+            }else{
+                
+                [BaseRequest GET:GetImg_URL parameters:@{@"project_id":self->_model.project_id,@"info_id":self->_model.info_id} success:^(id resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+                            
+                            [self->_albumArr removeAllObjects];
+                            for ( int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                                
+                                if ([resposeObject[@"data"][i] isKindOfClass:[NSDictionary class]]) {
+                                    
+                                    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"][i]];
+                                    
+                                    [self->_albumArr addObject:tempDic];
+                                    
+                                    YBImageBrowser *browser = [YBImageBrowser new];
+                                    browser.delegate = self;
+                                    browser.albumArr = self->_albumArr;
+                                    browser.dataArray = tempArr;
+                                    browser.infoid = self->_model.info_id;
+                                    browser.currentIndex = num;
+                                    [browser show];
+                                }
+                            }
+                        }else{
+                            
+                        }
+                    }
+                } failure:^(NSError *error) {
+                    
+                    NSLog(@"%@",error);
+                }];
+            }
         };
         
         header.newRoomProjectHeaderMoreBlock = ^{

@@ -285,7 +285,7 @@
             header.moreBtn.hidden = NO;
             header.titleRightBtnHeaderMoreBlock = ^{
                 
-                RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id city:self->_city];
+                RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id infoId:self->_model.info_id city:self->_city];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
         }else{

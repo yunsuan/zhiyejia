@@ -24,15 +24,15 @@
     
     if (houseModel.project_img_url.length > 0) {
         
-        [_roomImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,houseModel.project_img_url]] placeholderImage:[UIImage imageNamed:@"default_1"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [_roomImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,houseModel.project_img_url]] placeholderImage:[UIImage imageNamed:@"default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
             if (error) {
                 
-                self->_roomImg.image = [UIImage imageNamed:@"default_1"];
+                self->_roomImg.image = [UIImage imageNamed:@"default_2"];
             }
         }];
     }else{
-        _roomImg.image = [UIImage imageNamed:@"default_1"];
+        _roomImg.image = [UIImage imageNamed:@"default_2"];
     }
     
     
@@ -59,15 +59,16 @@
     
     if (storeModel.project_img_url.length > 0) {
         
-        [_roomImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,storeModel.project_img_url]] placeholderImage:[UIImage imageNamed:@"default_1"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [_roomImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,storeModel.project_img_url]] placeholderImage:[UIImage imageNamed:@"default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
             if (error) {
                 
-                self->_roomImg.image = [UIImage imageNamed:@"default_1"];
+                self->_roomImg.image = [UIImage imageNamed:@"default_2"];
             }
         }];
     }else{
-        _roomImg.image = [UIImage imageNamed:@"default_1"];
+        
+        _roomImg.image = [UIImage imageNamed:@"default_2"];
     }
     
     
@@ -94,15 +95,15 @@
     
     if (officeModel.project_img_url.length > 0) {
         
-        [_roomImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,officeModel.project_img_url]] placeholderImage:[UIImage imageNamed:@"default_1"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [_roomImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,officeModel.project_img_url]] placeholderImage:[UIImage imageNamed:@"default_2"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
             if (error) {
                 
-                self->_roomImg.image = [UIImage imageNamed:@"default_1"];
+                self->_roomImg.image = [UIImage imageNamed:@"default_2"];
             }
         }];
     }else{
-        _roomImg.image = [UIImage imageNamed:@"default_1"];
+        _roomImg.image = [UIImage imageNamed:@"default_2"];
     }
     
     
@@ -151,7 +152,7 @@
     [self.contentView addSubview:_roomL];
     
     _roomImg = [[UIImageView alloc] init];
-    _roomImg.backgroundColor = [UIColor redColor];
+//    _roomImg.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_roomImg];
     
     [self MasonryUI];

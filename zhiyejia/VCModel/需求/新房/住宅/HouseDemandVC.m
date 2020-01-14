@@ -10,6 +10,7 @@
 
 #import "DropDownBtn.h"
 #import "RightTextField.h"
+#import "SinglePickView.h"
 
 #import "TTRangeSlider.h"
 
@@ -21,6 +22,9 @@
 
 @interface HouseDemandVC ()<UIScrollViewDelegate,UITextViewDelegate,UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
+    
+    NSMutableArray *_cityArr;
+    NSMutableArray *_districtArr;
     
     
 }
@@ -43,11 +47,7 @@
 
 @property (nonatomic, strong) UIView *addressLine;
 
-@property (nonatomic, strong) TitleBaseHeader *typeHeader;
-
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
-
-@property (nonatomic, strong) UICollectionView *typeColl;
 
 @property (nonatomic, strong) TitleBaseHeader *priceHeader;
 
@@ -84,11 +84,139 @@
 
 - (void)initDataSource{
     
+    
+    _cityArr = [@[] mutableCopy];
+    _districtArr = [@[] mutableCopy];
+}
+
+- (void)ActionCityBtn:(UIButton *)btn{
+    
+    if (!self->_cityArr.count) {
+    
+        [BaseRequest GET:ForunOpenCityList_URL parameters:@{} success:^(id resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                    
+                    [self->_cityArr addObject:@{@"param":resposeObject[@"data"][i][@"city_name"],@"id":resposeObject[@"data"][i][@"city_code"]}];
+                }
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_cityArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+
+                    self->_areaBtn.content.text = @"";
+                    self->_areaBtn->str = @"";
+                    self->_areaBtn.content.text = [NSString stringWithFormat:@"%@不限",MC];
+                    self->_areaBtn->str = [NSString stringWithFormat:@"%@",ID];
+                    [self DistrictRequest:[NSString stringWithFormat:@"%@",ID]];
+                    self->_areaBtn->str = [NSString stringWithFormat:@"%@,0",ID];
+                };
+                [self.view addSubview:view];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_cityArr];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+
+            self->_areaBtn.content.text = @"";
+            self->_areaBtn->str = @"";
+            self->_areaBtn.content.text = [NSString stringWithFormat:@"%@不限",MC];
+            self->_areaBtn->str = [NSString stringWithFormat:@"%@",ID];
+            [self DistrictRequest:[NSString stringWithFormat:@"%@",ID]];
+            self->_areaBtn->str = [NSString stringWithFormat:@"%@,0",ID];
+        };
+        [self.view addSubview:view];
+    }
+}
+
+- (void)DistrictRequest:(NSString *)str{
+    
+    [BaseRequest GET:ForumOpenDistrictList_URL parameters:@{@"city":self->_areaBtn->str} success:^(id resposeObject) {
+        
+        [self->_districtArr removeAllObjects];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                
+                [self->_districtArr addObject:@{@"param":resposeObject[@"data"][i][@"name"],@"id":resposeObject[@"data"][i][@"code"]}];
+            }
+            [self->_districtArr insertObject:@{@"param":@"不限",@"id":@"0"} atIndex:0];
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_districtArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_areaBtn.content.text = [NSString stringWithFormat:@"%@%@",self->_areaBtn.content.text,MC];
+                self->_areaBtn->str = [NSString stringWithFormat:@"%@,%@",self->_areaBtn->str,ID];
+            };
+            [self.view addSubview:view];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)ActionUseBtn:(UIButton *)btn{
+    
+    
 }
 
 - (void)ActionConfirmBtn:(UIButton *)btn{
     
+    if ([[_areaBtn->str componentsSeparatedByString:@","] count] < 2) {
+        
+        [self showContent:@"请选择城市区域"];
+        return;
+    }
     
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][0] forKey:@"recommend_city"];
+    [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][1] forKey:@"recommend_district"];
+    [dic setValue:@"0" forKey:@"type"];
+    [dic setValue:@"1" forKey:@"property_type"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMinimum] forKey:@"price_min"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMaximum] forKey:@"price_max"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMinimum] forKey:@"area_min"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMaximum] forKey:@"area_max"];
+    if (_addressTF.textfield.text.length) {
+        
+        [dic setValue:_addressTF.textfield.text forKey:@"need_address"];
+    }
+    if (_markTV.text.length) {
+        
+        [dic setValue:_addressTF.textfield.text forKey:@"comment"];
+    }
+    
+    [BaseRequest POST:NeedBuyAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self showContent:@"发布成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                if (self.houseDemandVCBlock) {
+                    
+                    self.houseDemandVCBlock();
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -144,7 +272,8 @@
     [_contentView addSubview:_addressL];
     
     _areaBtn = [[DropDownBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 42 *SIZE)];
-    _areaBtn.content.text = @"成都市青羊区";
+    [_areaBtn addTarget:self action:@selector(ActionCityBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    _areaBtn.content.text = @"成都市青羊区";
     [_contentView addSubview:_areaBtn];
     
     _addressTF = [[RightTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 42 *SIZE)];
@@ -170,21 +299,9 @@
         }
     }
     
-    _typeHeader = [[TitleBaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _typeHeader.titleL.text = @"住宅类型";
-    _typeHeader.lineView.hidden = YES;
-    [_contentView addSubview:_typeHeader];
-    
     _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:9 *SIZE];
     _flowLayout.itemSize = CGSizeMake(60 *SIZE, 27 *SIZE);
     _flowLayout.sectionInset = UIEdgeInsetsMake(4 *SIZE, 10 *SIZE, 4 *SIZE, 10 *SIZE);
-    
-    _typeColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 100 *SIZE) collectionViewLayout:_flowLayout];
-    _typeColl.backgroundColor = CLWhiteColor;
-    _typeColl.delegate = self;
-    _typeColl.dataSource = self;
-    [_typeColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
-    [_contentView addSubview:_typeColl];
     
     _priceHeader = [[TitleBaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _priceHeader.titleL.text = @"意向总价";
@@ -319,26 +436,10 @@
         make.height.mas_equalTo(1 *SIZE);
     }];
     
-    [_typeHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_addressLine.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(360 *SIZE);
-        make.height.mas_equalTo(40 *SIZE);
-    }];
-    
-    [_typeColl mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_typeHeader.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(360 *SIZE);
-        make.height.mas_equalTo(self->_typeColl.collectionViewLayout.collectionViewContentSize.height);
-    }];
-    
     [_priceHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_typeColl.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_addressLine.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(40 *SIZE);
     }];
@@ -393,21 +494,21 @@
 //        make.bottom.equalTo(self->_scrollView).offset(-26 *SIZE);
     }];
     
-    [_buyUseL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_useView).offset(10 *SIZE);
-        make.top.equalTo(self->_useView).offset(15 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
-    [_buyUseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_useView).offset(80 *SIZE);
-        make.top.equalTo(self->_useView).offset(0 *SIZE);
-        make.width.mas_equalTo(270 *SIZE);
-        make.height.mas_equalTo(42 *SIZE);
-        make.bottom.equalTo(self->_useView.mas_bottom).offset(0 *SIZE);
-    }];
+//    [_buyUseL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self->_useView).offset(10 *SIZE);
+//        make.top.equalTo(self->_useView).offset(15 *SIZE);
+//        make.width.mas_equalTo(70 *SIZE);
+//    }];
+//
+//    [_buyUseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self->_useView).offset(80 *SIZE);
+//        make.top.equalTo(self->_useView).offset(0 *SIZE);
+//        make.width.mas_equalTo(270 *SIZE);
+//        make.height.mas_equalTo(42 *SIZE);
+//        make.bottom.equalTo(self->_useView.mas_bottom).offset(0 *SIZE);
+//    }];
     
     
     [_markTV mas_makeConstraints:^(MASConstraintMaker *make) {

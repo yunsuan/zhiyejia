@@ -89,25 +89,23 @@
 //}
 
 -(void)post{
-//    [BaseRequest GET:GetUnit_URL parameters:@{
-//                                              @"project_id":_project_id,
-//                                              @"build_id":_build_id,
-//                                              @"unit_id":_unit_id,
-//                                              @"type":@"0"
-//                                              }
-//             success:^(id resposeObject) {
-//
-//                 if ([resposeObject[@"code"] integerValue]==200) {
-//                     _datasouce = resposeObject[@"data"];
-//                     [self initInterFace];
-//                 }
-//
-//            }
-//        failure:^(NSError *error) {
-//
-//        }];
+    [BaseRequest GET:GetUnit_URL parameters:@{
+                                              @"project_id":_project_id,
+                                              @"build_id":_build_id,
+                                              @"unit_id":_unit_id,
+                                              @"type":@"0"
+                                              }
+             success:^(id resposeObject) {
 
- 
+                 if ([resposeObject[@"code"] integerValue]==200) {
+                     _datasouce = resposeObject[@"data"];
+                     [self initInterFace];
+                 }
+
+            }
+        failure:^(NSError *error) {
+
+        }];
 }
 
 

@@ -31,7 +31,7 @@
 
 #import "SecRoomMapCell.h"
 
-@interface SecRoomOfficeDetailVC ()<UITableViewDelegate,UITableViewDataSource>//,YBImageBrowserDelegate>
+@interface SecRoomOfficeDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
 {
     NSString *_houseId;
     NSString *_city;
@@ -90,10 +90,11 @@
 
 - (void)RequestMethod{
     
-    NSDictionary *dic = @{@"house_id":_houseId,
-                          @"agent_id":@"21",
-                          @"type":@(3)
-                          };
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"house_id":_houseId,@"type":@"3"}];
+    if ([UserModel defaultModel].token) {
+        
+        [dic setValue:[UserModel defaultModel].agent_id forKey:@"agent_id"];
+    }
     [BaseRequest GET:HouseHouseDetail_URL parameters:dic success:^(id resposeObject) {
         
         NSLog(@"%@",resposeObject);
@@ -238,7 +239,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 11;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -284,40 +285,43 @@
         header.secRoomHouseDetailHeaderImgBlock = ^(NSInteger num, NSArray * _Nonnull imgArr) {
           
             NSMutableArray *tempArr = [NSMutableArray array];
-            
+                
             NSMutableArray *tempArr1 = [NSMutableArray array];
+            NSMutableArray *tempArr2 = [NSMutableArray array];
             for (NSDictionary *dic in imgArr) {
                 
                 for (NSDictionary *subDic in dic[@"list"]) {
                     
                     [tempArr1 addObject:subDic[@"img_url"]];
+                    [tempArr2 addObject:subDic[@"agent_name"]];
                 }
             }
-//            [tempArr1 enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//
-//                YBImageBrowserModel *model = [YBImageBrowserModel new];
-//                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj]];
-//                [tempArr addObject:model];
-//            }];
+            [tempArr1 enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                YBImageBrowserModel *model = [YBImageBrowserModel new];
+                model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj]];
+                model.name = tempArr2[idx];
+                [tempArr addObject:model];
+            }];
             
-            [self->_imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [_imgArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
                 NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:obj];
                 [tempDic setObject:obj[@"type"] forKey:@"name"];
                 
                 [tempDic setObject:obj[@"list"] forKey:@"data"];
-                [self->_imgArr replaceObjectAtIndex:idx withObject:tempDic];
+                [_imgArr replaceObjectAtIndex:idx withObject:tempDic];
                 
             }];
             
-//            YBImageBrowser *browser = [YBImageBrowser new];
-//            browser.delegate = self;
-//            browser.dataArray = tempArr;
-//            browser.albumArr = self->_imgArr;
-//            browser.infoid = self->_model.info_id;
-//            browser.currentIndex = num;
-//            browser.toolBar.titleLabel.text = @"房源相册";
-//            [browser show];
+            YBImageBrowser *browser = [YBImageBrowser new];
+            browser.delegate = self;
+            browser.dataArray = tempArr;
+            browser.albumArr = _imgArr;
+            browser.infoid = _model.info_id;
+            browser.currentIndex = num;
+            browser.toolBar.titleLabel.text = @"房源相册";
+            [browser show];
         };
         return header;
     }else{
@@ -349,11 +353,11 @@
             header.titleL.text = @"房源动态";
         }else if (section == 8){
             
-            header.titleL.text = _model.title;
+            header.titleL.text = _model.project_name;
             header.moreBtn.hidden = NO;
             header.titleRightBtnHeaderMoreBlock = ^{
                 
-                SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id city:_city];
+                SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:self->_model.project_id infoId:self->_model.info_id city:self->_city];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
         }else{
@@ -565,6 +569,7 @@
 
 - (void)initUI{
     
+    self.titleLabel.text = @"房源详情";
     
     _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 57 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
     
