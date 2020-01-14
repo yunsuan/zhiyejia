@@ -38,8 +38,8 @@
 - (void)setModel:(SecRoomStoreDetailModel *)model{
 
     
-    _propertyArr = [NSMutableArray arrayWithArray:model.project_tags];
-    _tagArr = [NSMutableArray arrayWithArray:model.house_tags];
+    _propertyArr = [NSMutableArray arrayWithArray:model.house_tags];
+    _tagArr = [NSMutableArray arrayWithArray:model.project_tags];
     
     [_propertyColl reloadData];
     SS(strongSelf);
@@ -116,19 +116,8 @@
 
 - (void)setOfficeModel:(SecRoomOfficeDetailModel *)officeModel{
     
-//    [_tagView setData:officeModel.project_tags];
-//    [_tagView2 setData:officeModel.house_tags];
-    
-//    if ([officeModel.unit_price integerValue]) {
-//
-//        _codeL.text = [NSString stringWithFormat:@"房源编号：%@",officeModel.price];
-//    }else{
-//
-//        _codeL.text = [NSString stringWithFormat:@"房源编号：暂无数据"];
-//    }
-    
-    _propertyArr = [NSMutableArray arrayWithArray:officeModel.project_tags];
-    _tagArr = [NSMutableArray arrayWithArray:officeModel.house_tags];
+    _propertyArr = [NSMutableArray arrayWithArray:officeModel.house_tags];
+    _tagArr = [NSMutableArray arrayWithArray:officeModel.project_tags];
     
     [_propertyColl reloadData];
     SS(strongSelf);

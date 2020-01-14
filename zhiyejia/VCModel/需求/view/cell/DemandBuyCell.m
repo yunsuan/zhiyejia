@@ -22,15 +22,15 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _regionL.text = @"成都市青羊区";
-    _statusL.text = @"待接单";
-    _typeL.text = @"物业类型：住宅";
-    _priceL.text = @"意向总价：80-90万";
-    _areaL.text = @"意向总价：40-100㎡";
-    _houseTypeL.text = @"意向户型：两室一厅";
-    _useL.text = @"购买用途：自住";
-    _decorateL.text = @"装修标准：精装";
-    _otherL.text = @"其他要求：无";
+    _regionL.text = [NSString stringWithFormat:@"%@%@",dataDic[@"city_name"],dataDic[@""]];
+    _statusL.text = dataDic[@"current_state_name"];
+    _typeL.text = [NSString stringWithFormat:@"物业类型：%@",dataDic[@"type_name"]];
+    _priceL.text = [NSString stringWithFormat:@"意向总价：%@-%@万",dataDic[@"price_min"],dataDic[@"price_max"]];
+    _areaL.text = [NSString stringWithFormat:@"意向面积：%@-%@㎡",dataDic[@"area_min"],dataDic[@"area_max"]];
+    _houseTypeL.text = [NSString stringWithFormat:@"意向户型：%@",dataDic[@"type_name"]];
+    _useL.text = [NSString stringWithFormat:@"购买用途：%@",dataDic[@"type_name"]];;
+    _decorateL.text = [NSString stringWithFormat:@"装修标准：%@",dataDic[@"type_name"]];
+    _otherL.text = [NSString stringWithFormat:@"其他要求：%@",dataDic[@"type_name"]];
 }
 
 - (void)initUI{

@@ -64,6 +64,7 @@
     
     [BaseRequest GET:NeedBuyList_URL parameters:@{@"type":@"0"} success:^(id  _Nonnull resposeObject) {
         
+        [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_buyArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
@@ -74,6 +75,7 @@
         }
     } failure:^(NSError * _Nonnull error) {
         
+        [self->_table.mj_header endRefreshing];
         [self showContent:@"网络错误"];
     }];
 }
@@ -142,12 +144,37 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    if (section == 0) {
+        
+        return _sellArr.count;
+    }else{
+        
+        return _buyArr.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 40 *SIZE;
+    if (section == 0) {
+        
+        if (_sellArr.count) {
+            
+            return 40 *SIZE;
+        }else{
+            
+            return 0;
+        }
+    }else{
+        
+        if (_buyArr.count) {
+            
+            return 40 *SIZE;
+        }else{
+            
+            return 0;
+        }
+    }
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -158,7 +185,14 @@
         header = [[BaseColorHeader alloc] initWithReuseIdentifier:@"BaseColorHeader"];
     }
     
-    header.titleL.text = @"二手房出售";
+    if (section == 0) {
+        
+        header.titleL.text = @"二手房出售";
+    }else{
+        
+        header.titleL.text = @"二手房求购";
+    }
+    
     
     return header;
 }
@@ -202,7 +236,7 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = @{};
+        cell.dataDic = _buyArr[indexPath.row];
         
         return cell;
     }
@@ -216,7 +250,7 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        SecHouseBuyDemandDetailVC *nextVC = [[SecHouseBuyDemandDetailVC alloc] init];
+        SecHouseBuyDemandDetailVC *nextVC = [[SecHouseBuyDemandDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
@@ -240,6 +274,10 @@
     _table.delegate = self;
     _table.dataSource = self;
     [self.view addSubview:_table];
+    _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+       
+        [self RequestMethod];
+    }];
 }
 
 

@@ -38,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *storeL;
 
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyColl;
+
 @property (nonatomic, strong) UIView *line;
 @end
 

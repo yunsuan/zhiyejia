@@ -17,12 +17,12 @@ static AFHTTPSessionManager *updatemanager ;
     
 //    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
-//    if ([UserModel defaultModel].token.length) {
+    if ([UserModel defaultModel].token.length) {
     
         [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
         [manager.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
-//    }
-//
+    }
+
     
     NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];
     
@@ -62,11 +62,11 @@ static AFHTTPSessionManager *updatemanager ;
 + (void)POST:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
 //    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
-//    if ([UserModel defaultModel].token.length) {
+    if ([UserModel defaultModel].token.length) {
     
         [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
         [manager.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
-//    }
+    }
     
     
     NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];

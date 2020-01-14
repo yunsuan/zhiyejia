@@ -40,14 +40,14 @@
 
 - (void)ActionImgBtn{
     
-//    if (self.secAllRoomDetailTableHeaderImgBlock) {
-//
-//        if (_imgArr.count) {
-//
-//            self.secAllRoomDetailTableHeaderImgBlock(_nowNum, _imgArr);
-//
-//        }
-//    }
+    if (self.secRoomHouseDetailHeaderImgBlock) {
+
+        if (_imgArr.count) {
+
+            self.secRoomHouseDetailHeaderImgBlock(_nowNum, _imgArr);
+
+        }
+    }
 }
 
 - (void)setImgArr:(NSMutableArray *)imgArr{
@@ -216,7 +216,35 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-
+    _num = (scrollView.contentOffset.x / SCREEN_Width) + 1;
+    _nowNum = scrollView.contentOffset.x / SCREEN_Width;
+    NSInteger count = 0;
+    for (int i = 0; i < _imgArr.count; i++) {
+        
+        
+        if ([_imgArr[i][@"list"] count]) {
+            
+            if (([_imgArr[i][@"list"] count]  + count)< _num) {
+                
+                count = count + [_imgArr[i][@"list"] count];
+            }else{
+                
+                [_imgColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:NO scrollPosition:0];
+                break;
+            }
+        }else{
+            
+            if ((1  + count)< _num) {
+                
+                count = count + 1;
+            }else{
+                
+                [_imgColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:NO scrollPosition:0];
+                break;
+            }
+        }
+    }
+    _numL.text = [NSString stringWithFormat:@"%ld/%ld",_num,_total];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

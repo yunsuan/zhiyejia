@@ -149,16 +149,16 @@ static NSString *const ProjectGetHouseDealList_URL = @"home/project/getHouseDeal
 #pragma mark -- 租房 --
 
 //项目列表
-static NSString *const RentProjectList_URL = @"user/rent/project/list";
+static NSString *const RentProjectList_URL = @"home/rent/project/list";
 //
 //房源列表
-static NSString *const RentHouseList_URL = @"user/rent/house/list";
+static NSString *const RentHouseList_URL = @"home/rent/house/list";
 
 //项目详情
 static NSString *const HomeRentProjectDetail_URL = @"home/rent/project/detail";
 
 //房源详情
-static NSString *const RentHouseDetail_URL =  @"user/rent/house/detail";
+static NSString *const RentHouseDetail_URL =  @"home/rent/house/detail";
 
 #pragma mark ---  需求  ---
 
@@ -173,4 +173,15 @@ static NSString *const NeedBuyList_URL =  @"home/need/buy/list";
 
 //添加
 static NSString *const NeedBuyAdd_URL = @"home/need/buy/add";
+
+//待确认详情
+static NSString *const NeedBuyWaitDeail_URL = @"home/need/buy/wait/detail";
+
+//已确认详情
+static NSString *const NeedBuyValueDeail_URL = @"home/need/buy/value/detail";
+
+//取消发布
+static NSString *const NeedBuyBuyCancel_URL = @"home/need/buy/buy/cancel";
+
+
 #endif /* NetConfig_h */

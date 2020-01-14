@@ -18,17 +18,48 @@
 #import "SecHouseBuyDemandDetailHouseCell.h"
 
 @interface SecHouseBuyDemandDetailVC ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    
+    NSString *_recommend_id;
+}
 @property (nonatomic, strong) UITableView *table;
 
 @end
 
 @implementation SecHouseBuyDemandDetailVC
 
+- (instancetype)initWithRecomendId:(NSString *)recommend_id
+{
+    self = [super init];
+    if (self) {
+        
+        _recommend_id = recommend_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initUI];
+    [self RequestMethod];
+}
+
+- (void)RequestMethod{
+
+    [BaseRequest GET:NeedBuyValueDeail_URL parameters:@{@"recommend_id":_recommend_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

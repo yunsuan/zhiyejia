@@ -40,8 +40,8 @@
 
 - (void)setModel:(SecRoomHouseDetailModel *)model{
     
-    _propertyArr = [NSMutableArray arrayWithArray:model.project_tags];
-    _tagArr = [NSMutableArray arrayWithArray:model.house_tags];
+    _propertyArr = [NSMutableArray arrayWithArray:model.house_tags];
+    _tagArr = [NSMutableArray arrayWithArray:model.project_tags];
     
     [_propertyColl reloadData];
     SS(strongSelf);
@@ -175,10 +175,13 @@
         
     }else{
         
-        if (_propertyArr.count>0) {
-             [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+        if (_propertyArr.count) {
+            
+            [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+        }else{
+            
+            [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
         }
-       
     }
     
     return cell;

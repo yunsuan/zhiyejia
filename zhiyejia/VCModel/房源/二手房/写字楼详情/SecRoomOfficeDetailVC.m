@@ -159,7 +159,11 @@
             
             _focusId = [NSString stringWithFormat:@"%@",data[@"focus"][@"is_focus"]];
             _attentL.text = @"取消关注";
-//            [_attentBtn setTitle:@"取消关注" forState:UIControlStateNormal];
+            _attentImg.image = IMAGE_WITH_NAME(@"subscribe_click");
+        }else{
+            
+            _attentL.text = @"关注";
+            _attentImg.image = IMAGE_WITH_NAME(@"subscribe");
         }
         _focusDic = [NSMutableDictionary dictionaryWithDictionary:data[@"focus"]];
     }
@@ -191,8 +195,9 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                self->_attentL.text = @"取消关注";
-                self->_focusId = [NSString stringWithFormat:@"%@",resposeObject[@"data"]];
+                [self RequestMethod];
+//                self->_attentL.text = @"取消关注";
+//                self->_focusId = [NSString stringWithFormat:@"%@",resposeObject[@"data"]];
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];
@@ -207,8 +212,9 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                self->_attentL.text = @"关注";
-                self->_focusId = @"";
+                [self RequestMethod];
+//                self->_attentL.text = @"关注";
+//                self->_focusId = @"";
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];

@@ -59,6 +59,7 @@
     [UserModel defaultModel].province = @"";
     [UserModel defaultModel].sex = @"";
     [UserModel defaultModel].tel = @"";
+    [UserModelArchiver archive];
 //    [UserModel defaultModel].cityArr = [@[] mutableCopy];
 //    [UserModel defaultModel].tagDic = [@{} mutableCopy];
 //    [UserModel defaultModel].tagAllArr = [@[] mutableCopy];

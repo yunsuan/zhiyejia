@@ -34,10 +34,7 @@
     if (self) {
         
         _projectId = projectId;
-        if (_city.length) {
-            
-            _city = city;
-        }
+        _city = city;
     }
     return self;
 }

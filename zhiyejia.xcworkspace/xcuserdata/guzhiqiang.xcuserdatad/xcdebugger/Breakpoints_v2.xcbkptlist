@@ -53,22 +53,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "17810073-9DB3-4466-98E9-648F8E6B4998"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/&#x4e8c;&#x624b;&#x623f;/&#x4f4f;&#x5b85;&#x8be6;&#x60c5;/SecRoomHouseDetailVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "-RequestMethod"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "378BEA5C-451C-434B-BAB1-72B1AFA9C24E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -85,32 +69,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B7ACC9E2-3B28-49D2-830B-6E01D1FA50EA"
+            uuid = "EB722090-8BA7-4948-AA79-65C5E573FF3D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/&#x4e8c;&#x624b;&#x623f;/&#x5546;&#x94fa;&#x8be6;&#x60c5;/SecRoomStoreDetailVC.m"
+            filePath = "zhiyejia/VCModel/&#x9700;&#x6c42;/&#x4e8c;&#x624b;&#x623f;/&#x4e8c;&#x624b;&#x623f;&#x6c42;&#x8d2d;&#x8be6;&#x60c5;/SecHouseBuyDemandDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "-RequestMethod"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "92D920AE-948B-42D1-8449-E36F611A8FBE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "zhiyejia/Resource/BaseRequest.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "+GET:parameters:success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -156,6 +156,11 @@
             
             _focusId = [NSString stringWithFormat:@"%@",data[@"focus"][@"is_focus"]];
             _attentL.text = @"取消关注";
+            _attentImg.image = IMAGE_WITH_NAME(@"subscribe_click");
+        }else{
+            
+            _attentL.text = @"关注";
+            _attentImg.image = IMAGE_WITH_NAME(@"subscribe");
         }
         _focusDic = [NSMutableDictionary dictionaryWithDictionary:data[@"focus"]];
     }
@@ -187,8 +192,9 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                self->_attentL.text = @"取消关注";
-                self->_focusId = [NSString stringWithFormat:@"%@",resposeObject[@"data"]];
+                [self RequestMethod];
+//                self->_attentL.text = @"取消关注";
+//                self->_focusId = [NSString stringWithFormat:@"%@",resposeObject[@"data"]];
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];
@@ -203,8 +209,9 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                self->_attentL.text = @"关注";
-                self->_focusId = @"";
+                [self RequestMethod];
+//                self->_attentL.text = @"关注";
+//                self->_focusId = @"";
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];
@@ -292,14 +299,14 @@
                 for (NSDictionary *subDic in dic[@"list"]) {
                     
                     [tempArr1 addObject:subDic[@"img_url"]];
-                    [tempArr2 addObject:subDic[@"agent_name"]];
+//                    [tempArr2 addObject:subDic[@"agent_name"]];
                 }
             }
             [tempArr1 enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
                 YBImageBrowserModel *model = [YBImageBrowserModel new];
                 model.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,obj]];
-                model.name = tempArr2[idx];
+//                model.name = tempArr2[idx];
                 [tempArr addObject:model];
             }];
             
@@ -316,7 +323,7 @@
             YBImageBrowser *browser = [YBImageBrowser new];
             browser.delegate = self;
             browser.dataArray = tempArr;
-            browser.albumArr = _imgArr;
+            browser.albumArr = self->_imgArr;
             browser.infoid = _model.info_id;
             browser.currentIndex = num;
             browser.toolBar.titleLabel.text = @"房源相册";
