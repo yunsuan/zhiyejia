@@ -14,6 +14,8 @@ typedef void(^HouseDemandVCBlock)(void);
 
 @interface HouseDemandVC : BaseViewController
 
+- (instancetype)initWithType:(NSString *)type property:(NSString *)property;
+
 @property (nonatomic, copy) HouseDemandVCBlock houseDemandVCBlock;
 
 @end

@@ -15,8 +15,13 @@
 #import "StoreDemandVC.h"
 
 //二手房
+#import "SecHouseSaleHouseDemandVC.h"
+
 #import "SecHouseSaleDemandDetailVC.h"
-#import "SecHouseBuyDemandDetailVC.h"
+#import "SecHouseBuyDemandWaitDetailVC.h"
+#import "SecHouseBuyDemandDoingDetailVC.h"
+#import "SecHouseBuyDemandRecommendDetailVC.h"
+#import "SecHouseBuyDemandDealDetailVC.h"
 
 #import "SecHouseDemandVC.h"
 #import "SecStoreDemandVC.h"
@@ -51,7 +56,14 @@
     
     [self initDataSource];
     [self initUI];
-    [self RequestMethod];
+    if ([UserModel defaultModel].token) {
+        
+        [self RequestMethod];
+    }else{
+        
+        
+    }
+    
 }
 
 - (void)initDataSource{
@@ -82,59 +94,119 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    if ([UserModel defaultModel].agent_id) {
-        
-        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"新房-住宅",@"id":@"1"},@{@"param":@"新房-商铺",@"id":@"2"},@{@"param":@"新房-写字楼",@"id":@"3"},@{@"param":@"二手房-住宅",@"id":@"4"},@{@"param":@"二手房-商铺",@"id":@"5"},@{@"param":@"二手房-写字楼",@"id":@"6"}]];
-        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-            
-            
-            switch ([ID integerValue]) {
-                case 1:
-                {
-                    HouseDemandVC *nextVC = [[HouseDemandVC alloc] init];
-                    [self.navigationController pushViewController:nextVC animated:YES];
-                    break;
-                }
-                case 2:
-                {
-                    OfficeDemandVC *nextVC = [[OfficeDemandVC alloc] init];
-                    [self.navigationController pushViewController:nextVC animated:YES];
-                    break;
-                }
-                case 3:
-                {
-                    OfficeDemandVC *nextVC = [[OfficeDemandVC alloc] init];
-                    [self.navigationController pushViewController:nextVC animated:YES];
-                    break;
-                }
-                case 4:
-                {
-                    SecHouseDemandVC *nextVC = [[SecHouseDemandVC alloc] init];
-                    [self.navigationController pushViewController:nextVC animated:YES];
-                    break;
-                }
-                case 5:
-                {
-                    SecStoreDemandVC *nextVC = [[SecStoreDemandVC alloc] init];
-                    [self.navigationController pushViewController:nextVC animated:YES];
-                    break;
-                }
-                case 6:
-                {
-                    SecOfficeDemandVC *nextVC = [[SecOfficeDemandVC alloc] init];
-                    [self.navigationController pushViewController:nextVC animated:YES];
-                    break;
-                }
-                default:
-                    break;
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"发布需求" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *buy = [UIAlertAction actionWithTitle:@"求购" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       
+        if ([UserModel defaultModel].agent_id) {
+                
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[/*@{@"param":@"新房-住宅",@"id":@"1"},@{@"param":@"新房-商铺",@"id":@"2"},@{@"param":@"新房-写字楼",@"id":@"3"},*/@{@"param":@"住宅",@"id":@"1"},@{@"param":@"商铺",@"id":@"2"},@{@"param":@"写字楼",@"id":@"3"}]];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    
+        //            switch ([ID integerValue]) {
+        //                case 1:
+        //                {
+                    NSString *type;
+                    NSString *property;
+        //            if ([ID integerValue] < 4) {
+        //
+        //                type = @"0";
+        //                property = ID;
+        //            }else{
+                        
+                        type = @"1";
+                        property = ID;
+        //                property = [NSString stringWithFormat:@"%ld",[ID integerValue] - 3];
+        //            }
+                            HouseDemandVC *nextVC = [[HouseDemandVC alloc] initWithType:type property:property];
+                            nextVC.houseDemandVCBlock = ^{
+                      
+                                [self RequestMethod];
+                            };
+                            [self.navigationController pushViewController:nextVC animated:YES];
+        //                    break;
+        //                }
+        //                case 2:
+        //                {
+        //                    OfficeDemandVC *nextVC = [[OfficeDemandVC alloc] init];
+        //                    [self.navigationController pushViewController:nextVC animated:YES];
+        //                    break;
+        //                }
+        //                case 3:
+        //                {
+        //                    OfficeDemandVC *nextVC = [[OfficeDemandVC alloc] init];
+        //                    [self.navigationController pushViewController:nextVC animated:YES];
+        //                    break;
+        //                }
+        //                case 4:
+        //                {
+        //                    SecHouseDemandVC *nextVC = [[SecHouseDemandVC alloc] init];
+        //                    [self.navigationController pushViewController:nextVC animated:YES];
+        //                    break;
+        //                }
+        //                case 5:
+        //                {
+        //                    SecStoreDemandVC *nextVC = [[SecStoreDemandVC alloc] init];
+        //                    [self.navigationController pushViewController:nextVC animated:YES];
+        //                    break;
+        //                }
+        //                case 6:
+        //                {
+        //                    SecOfficeDemandVC *nextVC = [[SecOfficeDemandVC alloc] init];
+        //                    [self.navigationController pushViewController:nextVC animated:YES];
+        //                    break;
+        //                }
+        //                default:
+        //                    break;
+        //            }
+                };
+                [[UIApplication sharedApplication].keyWindow addSubview:view];
+            }else{
+                
+                [self GotoLogin];
+                [self RequestMethod];
             }
-        };
-        [[UIApplication sharedApplication].keyWindow addSubview:view];
-    }else{
+    }];
+    
+    UIAlertAction *sale = [UIAlertAction actionWithTitle:@"出售" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        [self GotoLogin];
-        [self RequestMethod];
-    }
+        if ([UserModel defaultModel].agent_id) {
+                
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"住宅",@"id":@"1"},@{@"param":@"商铺",@"id":@"2"},@{@"param":@"写字楼",@"id":@"3"}]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                NSString *type;
+                NSString *property;
+                
+                type = @"1";
+                property = ID;
+                
+                SecHouseSaleHouseDemandVC *nextVC = [[SecHouseSaleHouseDemandVC alloc] initWithType:type property:property];
+                nextVC.secHouseSaleHouseDemandVCBlock = ^{
+                
+                    [self RequestMethod];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
+            [[UIApplication sharedApplication].keyWindow addSubview:view];
+        }else{
+                
+            [self GotoLogin];
+            [self RequestMethod];
+        }
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:buy];
+    [alert addAction:sale];
+    [alert addAction:cancel];
+    
+    [self.navigationController presentViewController:alert animated:YES completion:^{
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -250,8 +322,32 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        SecHouseBuyDemandDetailVC *nextVC = [[SecHouseBuyDemandDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
-        [self.navigationController pushViewController:nextVC animated:YES];
+        if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 1) {
+            
+            SecHouseBuyDemandWaitDetailVC *nextVC = [[SecHouseBuyDemandWaitDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            nextVC.secHouseBuyDemandWaitDetailVCBlock = ^{
+                
+                [self->_buyArr removeObjectAtIndex:indexPath.row];
+                [tableView reloadData];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 2){
+            
+            SecHouseBuyDemandDoingDetailVC *nextVC = [[SecHouseBuyDemandDoingDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 3){
+            
+            SecHouseBuyDemandRecommendDetailVC *nextVC = [[SecHouseBuyDemandRecommendDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 4){
+            
+            SecHouseBuyDemandWaitDetailVC *nextVC = [[SecHouseBuyDemandWaitDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            SecHouseBuyDemandDealDetailVC *nextVC = [[SecHouseBuyDemandDealDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
     }
 }
 
@@ -276,7 +372,13 @@
     [self.view addSubview:_table];
     _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
        
-        [self RequestMethod];
+        if ([UserModel defaultModel].token) {
+            
+            [self RequestMethod];
+        }else{
+            
+            [_table.mj_header endRefreshing];
+        }
     }];
 }
 

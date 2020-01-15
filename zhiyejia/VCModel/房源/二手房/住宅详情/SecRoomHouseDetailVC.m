@@ -34,14 +34,16 @@
     
     NSString *_houseId;
     NSString *_city;
-    
-    SecRoomHouseDetailModel *_model;
     NSString *_phone;
-    NSMutableArray *_imgArr;
-    NSMutableDictionary *_focusDic;
     NSString *_focusId;
+    SecRoomHouseDetailModel *_model;
+    
+    NSMutableArray *_imgArr;
     NSMutableArray *_houseArr;
+    
     NSMutableDictionary *_takeInfoDic;
+    NSMutableDictionary *_focusDic;
+    NSMutableDictionary *_agentInfoDic;
 }
 @property (nonatomic, strong) UITableView *roomTable;
 
@@ -82,9 +84,12 @@
 - (void)initDataSource{
     
     _imgArr = [@[] mutableCopy];
-    _model = [[SecRoomHouseDetailModel alloc] init];
-    _focusDic = [@{} mutableCopy];
     _houseArr = [@[] mutableCopy];
+    
+    _model = [[SecRoomHouseDetailModel alloc] init];
+    
+    _focusDic = [@{} mutableCopy];
+    _agentInfoDic = [@{} mutableCopy];
     _takeInfoDic = [@{} mutableCopy];
 }
 
@@ -174,6 +179,10 @@
     if ([data[@"take_info"] isKindOfClass:[NSDictionary class]]) {
         
         _takeInfoDic = [NSMutableDictionary dictionaryWithDictionary:data[@"take_info"]];
+    }
+    if ([data[@"agent_info"] isKindOfClass:[NSDictionary class]]) {
+        
+        _agentInfoDic = [NSMutableDictionary dictionaryWithDictionary:data[@"agent_info"]];
     }
     
     [_roomTable reloadData];
@@ -414,7 +423,26 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = @{};
+        cell.dataDic = _agentInfoDic;
+        
+        cell.secRoomHouseAgentCellWorkBlock = ^{
+            
+        };
+        
+        cell.secRoomHouseAgentCellPhoneBlock = ^{
+          
+            NSString *phone = [NSString stringWithFormat:@"%@",self->_agentInfoDic[@"tel"]];
+            if (phone.length) {
+                
+                //获取目标号码字符串,转换成URL
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                //调用系统方法拨号
+                [[UIApplication sharedApplication] openURL:url];
+            }else{
+                
+                [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+            }
+        };
         
         return cell;
     }else if (indexPath.section == 4){
@@ -560,8 +588,8 @@
     [self.view addSubview:_attentBtn];
     
     _consultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _consultBtn.frame = CGRectMake(78 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 133 *SIZE, 43 *SIZE + TAB_BAR_MORE);
-    _consultBtn.layer.cornerRadius = 7 *SIZE;//21.5 *SIZE + 17;
+    _consultBtn.frame = CGRectMake(78 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 273 *SIZE, 43 *SIZE + TAB_BAR_MORE);
+    _consultBtn.layer.cornerRadius = 21.5 *SIZE + 17;//7 *SIZE;//21.5 *SIZE + 17;
     _consultBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_consultBtn addTarget:self action:@selector(ActionConsultBtn:) forControlEvents:UIControlEventTouchUpInside];
     //    [_counselBtn setTitle:@"电话咨询" forState:UIControlStateNormal];
@@ -579,7 +607,7 @@
     [gradientLayer0 setEndPoint:CGPointMake(1, 0)];
     [_consultBtn.layer addSublayer:gradientLayer0];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 133 *SIZE, 13 *SIZE)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 273 *SIZE, 13 *SIZE)];
     label.textColor = CLWhiteColor;
     label.text = @"电话咨询";
     label.font = [UIFont systemFontOfSize:13 *SIZE];
@@ -613,7 +641,7 @@
     label1.font = [UIFont systemFontOfSize:13 *SIZE];
     label1.textAlignment = NSTextAlignmentCenter;;
     [_appointBtn addSubview:label1];
-    [self.view addSubview:_appointBtn];
+//    [self.view addSubview:_appointBtn];
 }
     
 @end

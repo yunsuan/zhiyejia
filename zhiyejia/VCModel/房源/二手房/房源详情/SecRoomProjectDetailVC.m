@@ -43,6 +43,7 @@
     
     NSMutableArray *_imgArr;
     NSMutableArray *_albumArr;
+    NSMutableArray *_agentInfoArr;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -83,6 +84,7 @@
     
     _imgArr = [@[] mutableCopy];
     _albumArr = [@[] mutableCopy];
+    _agentInfoArr = [@[] mutableCopy];
     
     _focusDic = [@{} mutableCopy];
 }
@@ -134,6 +136,7 @@
                 }];
                 self->_model = [[SecProjectModel alloc] initWithDictionary:tempDic];
             }
+            _agentInfoArr = [NSMutableArray arrayWithArray:self->_dataDic[@"agent_info"]];
             if ([self->_dataDic[@"project_img"] isKindOfClass:[NSDictionary class]]) {
 
                 if ([self->_dataDic[@"project_img"][@"url"] isKindOfClass:[NSArray class]]) {
@@ -288,6 +291,9 @@
     }else if (section == 4){
         
         return 4;
+    }else if (section == 6){
+        
+        return _agentInfoArr.count > 3? 3:_agentInfoArr.count;;
     }else{
         
         return 1;
@@ -595,8 +601,26 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.dataDic = @{};
+            cell.dataDic = _agentInfoArr[indexPath.row];
             
+            cell.secRoomProjectAgentCellWorkBlock = ^{
+                
+            };
+            
+            cell.secRoomProjectAgentCellPhoneBlock = ^{
+                
+                NSString *phone = [NSString stringWithFormat:@"%@",self->_agentInfoArr[indexPath.row][@"tel"]];
+                if (phone.length) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
             return cell;
             break;
         }

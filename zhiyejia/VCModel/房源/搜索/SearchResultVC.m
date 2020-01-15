@@ -1,14 +1,21 @@
 //
-//  RoomChildVC.m
+//  SearchResultVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/2/21.
-//  Copyright © 2019 xiaoq. All rights reserved.
+//  Created by 谷治墙 on 2020/1/14.
+//  Copyright © 2020 xiaoq. All rights reserved.
 //
 
-#import "RoomChildVC.h"
+#import "SearchResultVC.h"
 
-@interface RoomChildVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "NewRoomCell.h"
+#import "SecRoomCell.h"
+#import "RentRoomCell.h"
+
+#import "SecHouseCell.h"
+#import "RentHouseCell.h"
+
+@interface SearchResultVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSMutableArray *_dataArr;
@@ -28,14 +35,16 @@
 
 @end
 
-@implementation RoomChildVC
+@implementation SearchResultVC
 
-- (instancetype)initWithType:(NSInteger)type
+- (instancetype)initWithType:(NSString *)type title:(NSString *)title city:(NSString *)city
 {
     self = [super init];
     if (self) {
         
-        _AllType = type;
+        self.title = title;
+        _AllType = [type integerValue];
+        _city = city;
     }
     return self;
 }
@@ -117,7 +126,15 @@
         [_MainTableView.mj_header endRefreshing];
         return;
     }
-
+    if (_AllType == 0 && ![self.param isEqualToString:@"houseProject"]) {
+        
+        [dic setValue:self.title forKey:@"search_content"];
+    }else{
+        
+        [dic setValue:self.title forKey:@"project_name"];
+    }
+    
+    
     if (_AllType == 1) {
 
         if ([self.status isEqualToString:@"关注"]) {
@@ -126,6 +143,7 @@
             [dic removeObjectForKey:@"sort_type"];
             [dic removeObjectForKey:@"city"];
         }
+        
     }else{
 
         if ([self.param isEqualToString:@"houseProject"]) {
@@ -195,8 +213,8 @@
                     }
                 }else{
 
-                    [self SetData:resposeObject[@"data"][@"data"]];
-                    if ([resposeObject[@"data"][@"data"] count] < 15) {
+                    [self SetData:resposeObject[@"data"]];
+                    if ([resposeObject[@"data"] count] < 15) {
 
                         self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
                     }
@@ -271,6 +289,14 @@
         [_MainTableView.mj_footer endRefreshing];
         [self alertControllerWithNsstring:@"温馨提示" And:@"请选择城市"];
         return;
+    }
+    
+    if (_AllType == 0 && ![self.param isEqualToString:@"houseProject"]) {
+        
+        [dic setValue:self.title forKey:@"search_content"];
+    }else{
+        
+        [dic setValue:self.title forKey:@"project_name"];
     }
 
     if (_AllType == 1) {
@@ -374,7 +400,7 @@
         self->_page -= 1;
         [self showContent:@"网络错误"];
         [self.MainTableView.mj_footer endRefreshing];
-    }];    
+    }];
 }
 
 
@@ -754,108 +780,34 @@
         if ([self.param isEqualToString:@"house"]) {
 
             SecHouseModel *model = _dataArr[indexPath.row];
-            if (self.roomChildVCSecRoomHouseBlock) {
-                
-                self.roomChildVCSecRoomHouseBlock(model);
-            }
-//            SecdaryAllTableModel *model = _dataArr[indexPath.row];
-//
-//            if (self.roomChildVCSecModelBlock) {
-//
-//                self.roomChildVCSecModelBlock(model);
-//            }
+            
         }else{
 
             SecProjectModel *model = _dataArr[indexPath.row];
 
-            if (self.roomChildVCSecRoomProjectBlock) {
-
-                self.roomChildVCSecRoomProjectBlock(model);
-            }
+            
         }
     }else if (_AllType == 1){
 
-        if ([self.status isEqualToString:@"关注"]) {
+        
 
-//            if ([_dataArr[indexPath.row] isKindOfClass:[AttetionRentingComModel class]]) {
-
-//                AttetionRentingComModel *model = _dataArr[indexPath.row];
-//                if (self.roomChildVCAttentionRentComModelBlock) {
-//
-//                    self.roomChildVCAttentionRentComModelBlock(model);
-//                }
-//            }else if([_dataArr[indexPath.row] isKindOfClass:[AttetionComModel class]]){
-
-//                AttetionComModel *model = _dataArr[indexPath.row];
-//                if (self.roomChildVCAttentionSecComModelBlock) {
-//
-//                    self.roomChildVCAttentionSecComModelBlock(model);
-//                }
-//            }else if([_dataArr[indexPath.row] isKindOfClass:[AttentionHouseModel class]]){
-
-//                AttentionHouseModel *model = _dataArr[indexPath.row];
-//
-//                if ([model.detail_get integerValue] == 1) {
-//
-//                    if (self.roomChildVCAttentionSecModelBlock) {
-//
-//                        self.roomChildVCAttentionSecModelBlock(model);
-//                    }
-//                }
-
-//            }else if ([_dataArr[indexPath.row] isKindOfClass:[AtteionRentingHouseModel class]]){
-
-//                AtteionRentingHouseModel *model = _dataArr[indexPath.row];
-//                if ([model.detail_get integerValue] == 1) {
-//
-//                    if (self.roomChildVCAttentionRentModelBlock) {
-//
-//                        self.roomChildVCAttentionRentModelBlock(model);
-//                    }
-//                }
-//            }else{
-
-                NewRoomModel *model = _dataArr[indexPath.row];
-                if (self.roomChildVCNewRoomProjectBlock) {
-                    
-                    self.roomChildVCNewRoomProjectBlock(model);
-//                }
-            }
-        }else{
-
-//            RecommendInfoModel *model = _dataArr[indexPath.row];
-//
-//            if (self.roomChildVCRecommendBlock) {
-//
-//                self.roomChildVCRecommendBlock(model);
-//            }
-        }
     }else if(_AllType == 3){
 
         if ([self.param isEqualToString:@"rent"]) {
 
             RentHouseModel *model = _dataArr[indexPath.row];
 
-            if (self.roomChildVCRentRoomHouseBlock) {
-
-                self.roomChildVCRentRoomHouseBlock(model);
-            }
+            
         }else{
 
             RentProjectModel *model = _dataArr[indexPath.row];
 
-            if (self.roomChildVCRentRoomProjectBlock) {
 
-                self.roomChildVCRentRoomProjectBlock(model);
-            }
         }
     }else{
 
         NewRoomModel *model = _dataArr[indexPath.row];
-        if (self.roomChildVCNewRoomProjectBlock) {
-            
-            self.roomChildVCNewRoomProjectBlock(model);
-        }
+        
     }
 }
 
@@ -865,7 +817,7 @@
     
     self.navBackgroundView.hidden = YES;
     
-    _MainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, SCREEN_Width, SCREEN_Height - 46 - 46 *SIZE - STATUS_BAR_HEIGHT - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
+    _MainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, 360*SIZE, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     
     _MainTableView.rowHeight = UITableViewAutomaticDimension;
     _MainTableView.estimatedRowHeight = 120 *SIZE;

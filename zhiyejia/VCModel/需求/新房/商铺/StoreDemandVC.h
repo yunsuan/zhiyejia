@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^StoreDemandVCBlock)(void);
+
 @interface StoreDemandVC : BaseViewController
+
+@property (nonatomic, copy) StoreDemandVCBlock storeDemandVCBlock;
 
 @end
 

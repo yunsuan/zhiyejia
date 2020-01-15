@@ -1,12 +1,12 @@
 //
-//  SecHouseBuyDemandDetailVC.m
+//  SecHouseBuyDemandDealDetailVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2020/1/3.
+//  Created by 谷治墙 on 2020/1/15.
 //  Copyright © 2020 xiaoq. All rights reserved.
 //
 
-#import "SecHouseBuyDemandDetailVC.h"
+#import "SecHouseBuyDemandDealDetailVC.h"
 
 #import "SecHouseCompanyDetailVC.h"
 #import "SecHouseBuyDemandDetailRecommendVC.h"
@@ -17,7 +17,7 @@
 #import "SecHouseBuyDemandDetailAgentCell.h"
 #import "SecHouseBuyDemandDetailHouseCell.h"
 
-@interface SecHouseBuyDemandDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface SecHouseBuyDemandDealDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSString *_recommend_id;
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation SecHouseBuyDemandDetailVC
+@implementation SecHouseBuyDemandDealDetailVC
 
 - (instancetype)initWithRecomendId:(NSString *)recommend_id
 {

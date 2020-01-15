@@ -1,8 +1,8 @@
 //
-//  SecHouseBuyDemandDetailVC.h
+//  SecHouseBuyDemandDealDetailVC.h
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2020/1/3.
+//  Created by 谷治墙 on 2020/1/15.
 //  Copyright © 2020 xiaoq. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SecHouseBuyDemandDetailVC : BaseViewController
+@interface SecHouseBuyDemandDealDetailVC : BaseViewController
 
 - (instancetype)initWithRecomendId:(NSString *)recommend_id;
 

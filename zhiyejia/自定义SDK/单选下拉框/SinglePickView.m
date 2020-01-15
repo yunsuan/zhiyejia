@@ -226,6 +226,10 @@
 #pragma mark -- Button
 - (void)cancleBtnClick
 {
+    if (self.cancelBlock) {
+        
+        self.cancelBlock();
+    }
     [self hidePickerView];
 }
 

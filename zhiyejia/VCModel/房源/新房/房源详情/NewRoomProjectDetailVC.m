@@ -286,7 +286,7 @@
     
     if (section == 0) {
         
-        if ([_dataDic[@"project_active"] count]) {
+        if ([_dataDic[@"project_active"] isKindOfClass:[NSArray class]] && [_dataDic[@"project_active"] count]) {
             
             return 1;
         }else{
@@ -295,7 +295,7 @@
         }
     }else if(section == 1){
      
-        if ([_dataDic[@"project_dynamic"] count]) {
+        if ([_dataDic[@"project_dynamic"] isKindOfClass:[NSArray class]] && [_dataDic[@"project_dynamic"] count]) {
             
             return 1;
         }else{
@@ -325,7 +325,7 @@
         
         if ([_dataDic[@"resident_agent_list"] count]) {
             
-            return [_dataDic[@"resident_agent_list"] count];
+            return [_dataDic[@"resident_agent_list"] count] > 3? 3:[_dataDic[@"resident_agent_list"] count];
         }
         return 0;
     }else{
@@ -858,7 +858,7 @@
     [self.view addSubview:_attentBtn];
     
     _counselBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _counselBtn.frame = CGRectMake(87 *SIZE, self.view.frame.size.height - 47 *SIZE - TAB_BAR_MORE, 87 *SIZE, 47 *SIZE + TAB_BAR_MORE);
+    _counselBtn.frame = CGRectMake(87 *SIZE, self.view.frame.size.height - 47 *SIZE - TAB_BAR_MORE, 273 *SIZE, 47 *SIZE + TAB_BAR_MORE);
     _counselBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_counselBtn addTarget:self action:@selector(ActionCounselBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_counselBtn setTitle:@"电话咨询" forState:UIControlStateNormal];
@@ -866,12 +866,12 @@
     [_counselBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:_counselBtn];
     
-    _appointBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _appointBtn.frame = CGRectMake(174 *SIZE, self.view.frame.size.height - 47 *SIZE - TAB_BAR_MORE, 186 *SIZE, 47 *SIZE + TAB_BAR_MORE);
-    _appointBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
-    [_appointBtn addTarget:self action:@selector(ActionAppointionBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_appointBtn setTitle:@"预约看房" forState:UIControlStateNormal];
-    [_appointBtn setBackgroundColor:CLBlueBtnColor];
-    [self.view addSubview:_appointBtn];
+//    _appointBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _appointBtn.frame = CGRectMake(174 *SIZE, self.view.frame.size.height - 47 *SIZE - TAB_BAR_MORE, 186 *SIZE, 47 *SIZE + TAB_BAR_MORE);
+//    _appointBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
+//    [_appointBtn addTarget:self action:@selector(ActionAppointionBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [_appointBtn setTitle:@"预约看房" forState:UIControlStateNormal];
+//    [_appointBtn setBackgroundColor:CLBlueBtnColor];
+//    [self.view addSubview:_appointBtn];
 }
 @end

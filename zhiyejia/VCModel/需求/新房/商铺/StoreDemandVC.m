@@ -10,6 +10,7 @@
 
 #import "DropDownBtn.h"
 #import "RightTextField.h"
+#import "SinglePickView.h"
 
 #import "TTRangeSlider.h"
 
@@ -22,7 +23,8 @@
 @interface StoreDemandVC ()<UIScrollViewDelegate,UITextViewDelegate,UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
-    
+    NSMutableArray *_cityArr;
+    NSMutableArray *_districtArr;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -80,11 +82,133 @@
 
 - (void)initDataSource{
     
+    _cityArr = [@[] mutableCopy];
+    _districtArr = [@[] mutableCopy];
+}
+
+- (void)ActionCityBtn:(UIButton *)btn{
+    
+    if (!self->_cityArr.count) {
+    
+        [BaseRequest GET:ForunOpenCityList_URL parameters:@{} success:^(id resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                    
+                    [self->_cityArr addObject:@{@"param":resposeObject[@"data"][i][@"city_name"],@"id":resposeObject[@"data"][i][@"city_code"]}];
+                }
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_cityArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+
+                    self->_areaBtn.content.text = @"";
+                    self->_areaBtn->str = @"";
+                    self->_areaBtn.content.text = [NSString stringWithFormat:@"%@不限",MC];
+                    self->_areaBtn->str = [NSString stringWithFormat:@"%@",ID];
+                    [self DistrictRequest:[NSString stringWithFormat:@"%@",ID]];
+                    self->_areaBtn->str = [NSString stringWithFormat:@"%@,0",ID];
+                };
+                [self.view addSubview:view];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_cityArr];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+
+            self->_areaBtn.content.text = @"";
+            self->_areaBtn->str = @"";
+            self->_areaBtn.content.text = [NSString stringWithFormat:@"%@不限",MC];
+            self->_areaBtn->str = [NSString stringWithFormat:@"%@",ID];
+            [self DistrictRequest:[NSString stringWithFormat:@"%@",ID]];
+            self->_areaBtn->str = [NSString stringWithFormat:@"%@,0",ID];
+        };
+        [self.view addSubview:view];
+    }
+}
+
+- (void)DistrictRequest:(NSString *)str{
+    
+    [BaseRequest GET:ForumOpenDistrictList_URL parameters:@{@"city":self->_areaBtn->str} success:^(id resposeObject) {
+        
+        [self->_districtArr removeAllObjects];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                
+                [self->_districtArr addObject:@{@"param":resposeObject[@"data"][i][@"name"],@"id":resposeObject[@"data"][i][@"code"]}];
+            }
+            [self->_districtArr insertObject:@{@"param":@"不限",@"id":@"0"} atIndex:0];
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_districtArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_areaBtn.content.text = [NSString stringWithFormat:@"%@%@",self->_areaBtn.content.text,MC];
+                self->_areaBtn->str = [NSString stringWithFormat:@"%@,%@",self->_areaBtn->str,ID];
+            };
+            [self.view addSubview:view];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)ActionConfirmBtn:(UIButton *)btn{
     
+    if ([[_areaBtn->str componentsSeparatedByString:@","] count] < 2) {
+        
+        [self showContent:@"请选择城市区域"];
+        return;
+    }
     
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][0] forKey:@"recommend_city"];
+    [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][1] forKey:@"recommend_district"];
+    [dic setValue:@"0" forKey:@"type"];
+    [dic setValue:@"2" forKey:@"property_type"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMinimum] forKey:@"price_min"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMaximum] forKey:@"price_max"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMinimum] forKey:@"area_min"];
+    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMaximum] forKey:@"area_max"];
+    if (_addressTF.textfield.text.length) {
+        
+        [dic setValue:_addressTF.textfield.text forKey:@"need_address"];
+    }
+    if (_markTV.text.length) {
+        
+        [dic setValue:_addressTF.textfield.text forKey:@"comment"];
+    }
+    
+    [BaseRequest POST:NeedBuyAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self showContent:@"发布成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                if (self.storeDemandVCBlock) {
+                    
+                    self.storeDemandVCBlock();
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

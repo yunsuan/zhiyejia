@@ -183,5 +183,11 @@ static NSString *const NeedBuyValueDeail_URL = @"home/need/buy/value/detail";
 //取消发布
 static NSString *const NeedBuyBuyCancel_URL = @"home/need/buy/buy/cancel";
 
+#pragma mark -- 出售 --
 
+//添加
+static NSString *const NeedSaleAdd_URL = @"home/need/sale/add";
+
+//项目列表
+static NSString *const SaleProgressAdd_URL = @"sale/progress/add";
 #endif /* NetConfig_h */

@@ -28,15 +28,13 @@
 //城市
 #import "CityVC.h"
 //搜索
-//#import "HouseSearchVC.h"
-//#import "SecProhectSearchVC.h"
-//#import "SecHouseSearchVC.h"
+#import "SearchResultVC.h"
 
 #import "HNChannelView.h"
 
 #import <BMKLocationKit/BMKLocationComponent.h>
 
-@interface RoomVC ()<WMPageControllerDataSource,WMPageControllerDelegate,BMKLocationManagerDelegate>
+@interface RoomVC ()<WMPageControllerDataSource,WMPageControllerDelegate,BMKLocationManagerDelegate,PYSearchViewControllerDelegate>
 {
     
     NSMutableArray *_searchArr;
@@ -151,25 +149,24 @@
             if (![self isEmpty:searchText]) {
                 
                 RoomChildVC *vc = self.childViewControllers[0];
-//                if ([vc.status containsString:@"新房"]) {
-//                    
-//                    HouseSearchVC *nextVC = [[HouseSearchVC alloc] initWithTitle:searchText city:_city];
-//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//                }else if ([vc.status containsString:@"推荐"] || [vc.status containsString:@"关注"]){
-//                    
-//                    HouseSearchVC *nextVC = [[HouseSearchVC alloc] initWithTitle:searchText city:_city];
-//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//                }else if ([vc.status containsString:@"小区"]){
-//                    
-//                    SecProhectSearchVC *nextVC = [[SecProhectSearchVC alloc] initWithTitle:searchText city:_city];
-//    //                nextVC.type = self
-//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//                }else{
-//                    
-//                    SecHouseSearchVC *nextVC = [[SecHouseSearchVC alloc] initWithTitle:searchText city:_city];
-//                    [searchViewController.navigationController pushViewController:nextVC animated:YES];
-//                }
-                
+                NSString *str;
+                if ([vc.status containsString:@"新房"]) {
+                                
+                    str = @"2";
+                }else if ([vc.status containsString:@"推荐"] || [vc.status containsString:@"关注"]){
+                                
+                    str = @"1";
+                }else if ([vc.status containsString:@"小区"]){
+                                
+                    str = @"0";
+                }else{
+                                
+                    str = @"3";
+                }
+                SearchResultVC *nextVC = [[SearchResultVC alloc] initWithType:[NSString stringWithFormat:@"%@",str] title:searchText city:self->_city];
+                nextVC.param = vc.param;
+                nextVC.status = vc.status;
+                [searchViewController.navigationController pushViewController:nextVC animated:YES];
             }
         }];
         // 3. 设置风格
@@ -405,123 +402,7 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         }
     };
-//    vc.roomChildVCRoomModelBlock = ^(RoomListModel *model) {
-//
-//        if ([dic[@"tag"] isEqualToString:@"关注"]) {
-//
-//            RoomDetailVC1 *nextVC = [[RoomDetailVC1 alloc] initWithModel:model];
-//            if ([model.guarantee_brokerage integerValue] == 2) {
-//
-//                nextVC.brokerage = @"no";
-//            }else{
-//
-//                if ([[UserModelArchiver unarchive].agent_identity integerValue] == 1) {
-//
-//                }else{
-//
-//                    nextVC.isRecommend = @"NO";
-//                }
-//                nextVC.brokerage = @"yes";
-//            }
-//
-//            nextVC.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:nextVC animated:YES];
-//        }else{
-//
-//            RoomDetailVC1 *nextVC = [[RoomDetailVC1 alloc] initWithModel:model];
-//            if ([model.guarantee_brokerage integerValue] == 2) {
-//
-//                nextVC.brokerage = @"no";
-//            }else{
-//
-//                if ([model.sort integerValue] == 0 && [model.cycle integerValue] == 0){
-//
-//                    nextVC.isRecommend = @"NO";
-//                }
-//                else{
-//
-//                    if ([[UserModelArchiver unarchive].agent_identity integerValue] == 1) {
-//
-//                    }else{
-//
-//                        nextVC.isRecommend = @"NO";
-//                    }
-//                }
-//                nextVC.brokerage = @"yes";
-//            }
-//
-//            nextVC.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:nextVC animated:YES];
-//        }
-//    };
-//
-//    vc.roomChildVCSecModelBlock = ^(SecdaryAllTableModel *model) {
-//
-//        SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:model.house_id city:_city];
-//        nextVC.type = [model.type integerValue];
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//
-//    };
-//
-//    vc.roomChildVCAttentionSecModelBlock = ^(AttentionHouseModel *model) {
-//
-//        SecAllRoomDetailVC *nextVC = [[SecAllRoomDetailVC alloc] initWithHouseId:model.house_id city:_city];
-//        nextVC.type = [model.type integerValue];
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    };
-//
-
-//
-//    vc.roomChildVCAttentionSecComModelBlock = ^(AttetionComModel *model) {
-//
-//        SecComRoomDetailVC *nextVC = [[SecComRoomDetailVC alloc] initWithProjectId:model.project_id infoid:model.info_id city:_city];
-//
-//        nextVC.type = weakvc.typeId;
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    };
-//
-//    vc.roomChildVCRecommendBlock = ^(RecommendInfoModel *model) {
-//
-//        RecommendInfoVC *vc = [[RecommendInfoVC alloc] initWithUrlStr:model.content_url titleStr:model.title imageUrl:model.img_url briefStr:model.desc];
-//        [self.navigationController pushViewController:vc animated:YES];
-//    };
-//
-//    vc.roomChildVCRentModelBlock = ^(RentingAllTableModel *model) {
-//
-//        RentingAllRoomDetailVC *nextVC = [[RentingAllRoomDetailVC alloc] initWithHouseId:model.house_id city:_city];
-//        nextVC.type = [model.type integerValue];
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    };
-//
-//    vc.roomChildVCAttentionRentModelBlock = ^(AtteionRentingHouseModel *model) {
-//
-//        RentingAllRoomDetailVC *nextVC = [[RentingAllRoomDetailVC alloc] initWithHouseId:model.house_id city:_city];
-//        nextVC.type = [model.type integerValue];
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    };
-//
-//    vc.roomChildVCRentComModelBlock = ^(RentingComModel *model) {
-//
-//        RentingComRoomDetailVC *nextVC = [[RentingComRoomDetailVC alloc] initWithProjectId:model.project_id infoid:model.info_id city:_city];
-//        nextVC.type = weakvc.typeId;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    };
-//
-//    vc.roomChildVCAttentionRentComModelBlock = ^(AttetionRentingComModel *model) {
-//
-//        RentingComRoomDetailVC *nextVC = [[RentingComRoomDetailVC alloc] initWithProjectId:model.project_id infoid:model.info_id city:_city];
-//        nextVC.type = weakvc.typeId;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    };
-//
     return vc;
-    
-    
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {

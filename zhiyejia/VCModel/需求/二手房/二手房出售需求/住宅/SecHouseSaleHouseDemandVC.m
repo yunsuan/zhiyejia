@@ -1,32 +1,32 @@
 //
-//  HouseDemandVC.m
+//  SecHouseSaleHouseDemandVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2019/4/26.
-//  Copyright © 2019 xiaoq. All rights reserved.
+//  Created by 谷治墙 on 2020/1/15.
+//  Copyright © 2020 xiaoq. All rights reserved.
 //
 
-#import "HouseDemandVC.h"
+#import "SecHouseSaleHouseDemandVC.h"
 
 #import "DropDownBtn.h"
-#import "BorderTextField.h"
 #import "RightTextField.h"
+#import "BorderTextField.h"
 #import "SinglePickView.h"
 
-#import "TTRangeSlider.h"
-
-#import "GZQFlowLayout.h"
+#import "AddNumeralCodeColl.h"
+#import "AddNumeralCodeCollCell.h"
 
 #import "BaseColorHeader.h"
-#import "TitleBaseHeader.h"
-#import "TagCollCell.h"
 
-@interface HouseDemandVC ()<UIScrollViewDelegate,UITextViewDelegate,UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+
+@interface SecHouseSaleHouseDemandVC ()<UIScrollViewDelegate,UITextViewDelegate,UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
     NSString *_type;
     NSString *_property;
     
+    NSMutableArray *_projectArr;
+    NSMutableArray *_containArr;
     NSMutableArray *_cityArr;
     NSMutableArray *_districtArr;
 }
@@ -49,7 +49,17 @@
 
 @property (nonatomic, strong) UIView *addressLine;
 
-@property (nonatomic, strong) GZQFlowLayout *flowLayout;
+@property (nonatomic, strong) UILabel *projectL;
+
+@property (nonatomic, strong) BorderTextField *projectBtn;
+
+@property (nonatomic, strong) UIView *projectLine;
+
+@property (nonatomic, strong) UILabel *buildL;
+
+@property (nonatomic, strong) BorderTextField *buildTF;
+
+@property (nonatomic, strong) UIView *buildlLine;
 
 @property (nonatomic, strong) UILabel *priceHeader;
 
@@ -58,35 +68,18 @@
 @property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) BorderTextField *maxPriceTF;
-//@property (strong, nonatomic) TTRangeSlider *priceSlider;
-
-@property (nonatomic, strong) UILabel *areaHeader;
-
-@property (nonatomic, strong) BorderTextField *minAreaTF;
-
-@property (nonatomic, strong) UILabel *placeL;
-
-@property (nonatomic, strong) BorderTextField *maxAreaTF;
-
-//@property (strong, nonatomic) TTRangeSlider *areaSlider;
-
-@property (nonatomic, strong) TitleBaseHeader *houseHeader;
-
-@property (nonatomic, strong) UICollectionView *houseColl;
-
-@property (nonatomic, strong) UIView *useView;
-
-@property (nonatomic, strong) UILabel *buyUseL;
-
-@property (nonatomic, strong) DropDownBtn *buyUseBtn;
 
 @property (nonatomic, strong) UITextView *markTV;
+
+@property (nonatomic, strong) AddNumeralCodeColl *coll;
+
+@property (nonatomic, strong) GZQFlowLayout *layout;
 
 @property (nonatomic, strong) UIButton *confirmBtn;
 
 @end
 
-@implementation HouseDemandVC
+@implementation SecHouseSaleHouseDemandVC
 
 - (instancetype)initWithType:(NSString *)type property:(NSString *)property
 {
@@ -111,6 +104,8 @@
     
     _cityArr = [@[] mutableCopy];
     _districtArr = [@[] mutableCopy];
+    _containArr = [@[] mutableCopy];
+    _projectArr = [@[] mutableCopy];
 }
 
 - (void)ActionCityBtn:(UIButton *)btn{
@@ -177,6 +172,11 @@
                 
                 self->_areaBtn.content.text = [NSString stringWithFormat:@"%@%@",[self->_areaBtn.content.text substringToIndex:self->_areaBtn.content.text.length - 2],MC];
                 self->_areaBtn->str = [NSString stringWithFormat:@"%@,%@",[self->_areaBtn->str componentsSeparatedByString:@","][0],ID];
+                [self RequestProject];
+            };
+            view.cancelBlock = ^{
+                
+                [self RequestProject];
             };
             [self.view addSubview:view];
         }else{
@@ -184,6 +184,33 @@
             [self showContent:resposeObject[@"msg"]];
         }
     } failure:^(NSError *error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)RequestProject{
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:[self->_areaBtn->str componentsSeparatedByString:@","][0] forKey:@"city"];
+    if ([[self->_areaBtn->str componentsSeparatedByString:@","] count] > 1) {
+        
+        if ([[self->_areaBtn->str componentsSeparatedByString:@","][1] integerValue] != 0) {
+            
+            [dic setValue:[self->_areaBtn->str componentsSeparatedByString:@","][1] forKey:@"district"];
+        }
+    }
+    
+    [BaseRequest POST:SaleProgressAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_projectArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
         
         [self showContent:@"网络错误"];
     }];
@@ -202,39 +229,15 @@
         return;
     }
     
-    if (!_minPriceTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最低价格"];
-        return;
-    }
-    
-    if (!_maxPriceTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最高价格"];
-        return;
-    }
-    
-    if (!_minAreaTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最低面积"];
-        return;
-    }
-    
-    if (!_maxAreaTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最大价格"];
-        return;
-    }
-    
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][0] forKey:@"recommend_city"];
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][1] forKey:@"recommend_district"];
     [dic setValue:_type forKey:@"type"];
     [dic setValue:_property forKey:@"property_type"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_minPriceTF.textfield.text] forKey:@"price_min"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_maxPriceTF.textfield.text] forKey:@"price_max"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_minAreaTF.textfield.text] forKey:@"area_min"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_maxAreaTF.textfield.text] forKey:@"area_max"];
+//    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMinimum] forKey:@"price_min"];
+//    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMaximum] forKey:@"price_max"];
+//    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMinimum] forKey:@"area_min"];
+//    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMaximum] forKey:@"area_max"];
     if (_addressTF.textfield.text.length) {
         
         [dic setValue:_addressTF.textfield.text forKey:@"need_address"];
@@ -251,9 +254,9 @@
             [self showContent:@"发布成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-                if (self.houseDemandVCBlock) {
+                if (self.secHouseSaleHouseDemandVCBlock) {
                     
-                    self.houseDemandVCBlock();
+                    self.secHouseSaleHouseDemandVCBlock();
                 }
                 [self.navigationController popViewControllerAnimated:YES];
             });
@@ -267,24 +270,61 @@
     }];
 }
 
+- (void)TextFieldDidChange{
+    
+    _coll.hidden = YES;
+    [_containArr removeAllObjects];
+    NSMutableArray *tempArr = [@[] mutableCopy];
+    
+    for (int i = 0; i < _projectArr.count; i++) {
+        
+        if ([[NSString stringWithFormat:@"%@",_projectArr[i][@"project_name"]] containsString:_projectBtn.textfield.text]) {
+            
+            [_containArr addObject:_projectArr[i]];
+        }
+    }
+    
+    [_coll reloadData];
+    if (_containArr.count) {
+        
+        _coll.hidden = NO;
+        [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(_scrollView).offset(80 *SIZE);
+            make.top.equalTo(_projectBtn.mas_bottom).offset(5 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(132 *SIZE);
+        }];
+    }else{
+        
+        _coll.hidden = YES;
+    }
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 4;
+    return _containArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
+    AddNumeralCodeCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddNumeralCodeCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 60 *SIZE, 27 *SIZE)];
+        cell = [[AddNumeralCodeCollCell alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
     }
     
-    cell.contentL.font = FONT(12 *SIZE);
-    cell.contentL.text = @"住宅";
-    cell.contentView.backgroundColor = CLLineColor;
+    cell.titleL.text = [NSString stringWithFormat:@"%@",_containArr[indexPath.item][@"project_name"]];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    [_infoDic setObject:[NSString stringWithFormat:@"%@",_collArr[indexPath.item][@"row_code"]] forKey:@"row_code"];
+//    _addNumeralInfoView.dataDic = _infoDic;
+    _projectBtn.textfield.text = [NSString stringWithFormat:@"%@",_containArr[indexPath.item][@"project_name"]];
+    collectionView.hidden = YES;
 }
 
 - (void)initUI{
@@ -349,7 +389,7 @@
     _addressTF.textfield.userInteractionEnabled = YES;
     [_contentView addSubview:_addressTF];
  
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 4; i++) {
         
         UIView *line = [[UIView alloc] init];
         line.backgroundColor = CLLineColor;
@@ -357,6 +397,14 @@
             
             _areaLine = line;
             [_contentView addSubview:_areaLine];
+        }else if (i == 1){
+            
+            _projectLine = line;
+            [_contentView addSubview:_projectLine];
+        }else if (i == 2){
+            
+            _buildlLine = line;
+            [_contentView addSubview:_buildlLine];
         }else{
             
             _addressLine = line;
@@ -364,13 +412,27 @@
         }
     }
     
-    _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:9 *SIZE];
-    _flowLayout.itemSize = CGSizeMake(60 *SIZE, 27 *SIZE);
-    _flowLayout.sectionInset = UIEdgeInsetsMake(4 *SIZE, 10 *SIZE, 4 *SIZE, 10 *SIZE);
+    _projectL = [[UILabel alloc] init];
+    _projectL.textColor = CLTitleLabColor;
+    _projectL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _projectL.text = @"项目名称";
+    [_contentView addSubview:_projectL];
     
-//    _priceHeader = [[TitleBaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//    _priceHeader.titleL.text = @"意向总价";
-//    _priceHeader.lineView.hidden = YES;
+    _projectBtn = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 258 *SIZE, 33 *SIZE)];
+    _projectBtn.textfield.delegate = self;
+    [_projectBtn.textfield addTarget:self action:@selector(TextFieldDidChange) forControlEvents:UIControlEventEditingChanged];
+    [_contentView addSubview:_projectBtn];
+    
+    _buildL = [[UILabel alloc] init];
+    _buildL.textColor = CLTitleLabColor;
+    _buildL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _buildL.text = @"楼栋房号";
+    [_contentView addSubview:_buildL];
+    
+    _buildTF = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 258 *SIZE, 33 *SIZE)];
+    _buildTF.textfield.delegate = self;
+    [_contentView addSubview:_buildTF];
+    
     _priceHeader = [[UILabel alloc] init];
     _priceHeader.textColor = CLTitleLabColor;
     _priceHeader.font = [UIFont systemFontOfSize:13 *SIZE];
@@ -389,87 +451,14 @@
     _maxPriceTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_maxPriceTF];
     
-    
-    _minAreaTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
-    _minAreaTF.textfield.delegate = self;
-    _minAreaTF.unitL.text = @"㎡";
-    _minAreaTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
-    [_contentView addSubview:_minAreaTF];
-    
-    
-    _maxAreaTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
-    _maxAreaTF.textfield.delegate = self;
-    _maxAreaTF.unitL.text = @"㎡";
-    _maxAreaTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
-    [_contentView addSubview:_maxAreaTF];
-    
-//    _priceSlider = [[TTRangeSlider alloc] initWithFrame:CGRectMake(10 *SIZE, 0, 340 *SIZE, 40 *SIZE)];
-//    _priceSlider.minValue = 0;
-//    _priceSlider.maxValue = 1000;
-//    NSNumberFormatter *customFormatter = [[NSNumberFormatter alloc] init];
-//    customFormatter.positiveSuffix = @"万";
-//    _priceSlider.maxFormatter = customFormatter;
-//    _priceSlider.minFormatter = customFormatter;
-//    [_contentView addSubview:_priceSlider];
-    
-//    _areaHeader = [[TitleBaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//    _areaHeader.titleL.text = @"意向面积";
-//    _areaHeader.lineView.hidden = YES;
-    _areaHeader = [[UILabel alloc] init];
-    _areaHeader.textColor = CLTitleLabColor;
-    _areaHeader.font = [UIFont systemFontOfSize:13 *SIZE];
-    _areaHeader.text = @"意向区域";
-    [_contentView addSubview:_areaHeader];
-    
-//    _areaSlider = [[TTRangeSlider alloc] initWithFrame:CGRectMake(10 *SIZE, 0, 340 *SIZE, 40 *SIZE)];
-//    _areaSlider.minValue = 0;
-//    _areaSlider.maxValue = 1000;
-//    NSNumberFormatter *customFormatter1 = [[NSNumberFormatter alloc] init];
-//    customFormatter1.positiveSuffix = @"㎡";
-//    _areaSlider.maxFormatter = customFormatter1;
-//    _areaSlider.minFormatter = customFormatter1;
-//    [_contentView addSubview:_areaSlider];
-    
-//    _houseHeader = [[TitleBaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//    _houseHeader.titleL.text = @"意向户型";
-//    _houseHeader.lineView.hidden = YES;
-//    [_contentView addSubview:_houseHeader];
-//    
-//    _houseColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 100 *SIZE) collectionViewLayout:_flowLayout];
-//    _houseColl.backgroundColor = CLWhiteColor;
-//    _houseColl.delegate = self;
-//    _houseColl.dataSource = self;
-//    [_houseColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
-//    [_contentView addSubview:_houseColl];
-    
-//    _useView = [[UIView alloc] init];
-//    _useView.backgroundColor = [UIColor whiteColor];
-//    [_scrollView addSubview:_useView];
-//
-//    _buyUseL = [[UILabel alloc] init];
-//    _buyUseL.textColor = CLTitleLabColor;
-//    _buyUseL.font = [UIFont systemFontOfSize:13 *SIZE];
-//    _buyUseL.text = @"购买用途";
-//    [_useView addSubview:_buyUseL];
-//
-//    _buyUseBtn = [[DropDownBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 42 *SIZE)];
-//    _buyUseBtn.content.text = @"自住";
-//    [_useView addSubview:_buyUseBtn];
-    
-    _markTV = [[UITextView alloc] init];
-    [_scrollView addSubview:_markTV];
-    
     _priceL = [[UILabel alloc] init];
     _priceL.textColor = CLTitleLabColor;
     _priceL.font = [UIFont systemFontOfSize:13 *SIZE];
     _priceL.text = @"至";
     [_contentView addSubview:_priceL];
     
-    _placeL = [[UILabel alloc] init];
-    _placeL.textColor = CLTitleLabColor;
-    _placeL.font = [UIFont systemFontOfSize:13 *SIZE];
-    _placeL.text = @"至";
-    [_contentView addSubview:_placeL];
+    _markTV = [[UITextView alloc] init];
+    [_scrollView addSubview:_markTV];
     
     _confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
@@ -479,6 +468,21 @@
     _confirmBtn.layer.cornerRadius = 20 *SIZE;
     _confirmBtn.clipsToBounds = YES;
     [_scrollView addSubview:_confirmBtn];
+    
+    _layout = [[GZQFlowLayout alloc] initWithType:1 betweenOfCell:0 *SIZE];
+    _layout.itemSize = CGSizeMake(258 *SIZE, 33 *SIZE);
+    
+    _coll = [[AddNumeralCodeColl alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
+    _coll.backgroundColor = CLWhiteColor;
+    _coll.delegate = self;
+    _coll.dataSource = self;
+    [_coll registerClass:[AddNumeralCodeCollCell class] forCellWithReuseIdentifier:@"AddNumeralCodeCollCell"];
+    _coll.hidden = YES;
+    _coll.layer.cornerRadius = 5 *SIZE;
+    _coll.clipsToBounds = YES;
+    _coll.layer.borderColor = CLLineColor.CGColor;
+    _coll.layer.borderWidth = SIZE;
+    [_scrollView addSubview:_coll];
     
     [self MasonryUI];
 }
@@ -547,134 +551,90 @@
         make.height.mas_equalTo(1 *SIZE);
     }];
     
-//    [_priceHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_contentView).offset(0 *SIZE);
-//        make.top.equalTo(self->_addressLine.mas_bottom).offset(0 *SIZE);
-//        make.width.mas_equalTo(360 *SIZE);
-//        make.height.mas_equalTo(40 *SIZE);
-//    }];
-    
-    [_priceHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_projectL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(10 *SIZE);
         make.top.equalTo(self->_addressLine.mas_bottom).offset(15 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-//    [_priceSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_contentView).offset(10 *SIZE);
-//        make.top.equalTo(self->_priceHeader.mas_bottom).offset(0 *SIZE);
-//        make.width.mas_equalTo(340 *SIZE);
-//        make.height.mas_equalTo(40 *SIZE);
-//    }];
-    [_minPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_projectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(80 *SIZE);
         make.top.equalTo(self->_addressLine.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(270 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_projectLine mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_contentView).offset(0 *SIZE);
+        make.top.equalTo(self->_projectBtn.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(360 *SIZE);
+        make.height.mas_equalTo(0 *SIZE);
+    }];
+    
+    [_buildL mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_projectLine.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_buildTF mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_contentView).offset(80 *SIZE);
+        make.top.equalTo(self->_projectLine.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(270 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_buildlLine mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_contentView).offset(0 *SIZE);
+        make.top.equalTo(self->_buildTF.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(360 *SIZE);
+        make.height.mas_equalTo(0 *SIZE);
+    }];
+    
+    [_priceHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_buildlLine.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+
+    [_minPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_contentView).offset(80 *SIZE);
+        make.top.equalTo(self->_buildlLine.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
+        make.bottom.equalTo(self->_contentView).offset(-26 *SIZE);
     }];
     
     [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(209 *SIZE);
-        make.top.equalTo(self->_addressLine.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_buildlLine.mas_bottom).offset(15 *SIZE);
         make.width.mas_equalTo(20 *SIZE);
     }];
     
     [_maxPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(230 *SIZE);
-        make.top.equalTo(self->_addressLine.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_buildlLine.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_areaHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_minPriceTF.mas_bottom).offset(15 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-//        make.height.mas_equalTo(40 *SIZE);
+        make.left.equalTo(_scrollView).offset(80 *SIZE);
+        make.top.equalTo(_projectBtn.mas_bottom).offset(5 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(132 *SIZE);
     }];
-    
-    [_minAreaTF mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_contentView).offset(80 *SIZE);
-        make.top.equalTo(self->_minPriceTF.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-        make.bottom.equalTo(self->_contentView).offset(-26 *SIZE);
-    }];
-    
-    [_placeL mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_contentView).offset(209 *SIZE);
-        make.top.equalTo(self->_minPriceTF.mas_bottom).offset(15 *SIZE);
-        make.width.mas_equalTo(20 *SIZE);
-    }];
-    
-    [_maxAreaTF mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_contentView).offset(230 *SIZE);
-        make.top.equalTo(self->_minPriceTF.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-    }];
-    
-//    [_areaSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_contentView).offset(10 *SIZE);
-//        make.top.equalTo(self->_areaHeader.mas_bottom).offset(0 *SIZE);
-//        make.width.mas_equalTo(340 *SIZE);
-//        make.height.mas_equalTo(40 *SIZE);
-//        make.bottom.equalTo(self->_contentView).offset(-26 *SIZE);
-//    }];
-    
-//    [_houseHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_contentView).offset(0 *SIZE);
-//        make.top.equalTo(self->_areaSlider.mas_bottom).offset(0 *SIZE);
-//        make.width.mas_equalTo(360 *SIZE);
-//        make.height.mas_equalTo(40 *SIZE);
-//    }];
-//
-//    [_houseColl mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_contentView).offset(0 *SIZE);
-//        make.top.equalTo(self->_houseHeader.mas_bottom).offset(0 *SIZE);
-//        make.width.mas_equalTo(360 *SIZE);
-//        make.height.mas_equalTo(self->_houseColl.collectionViewLayout.collectionViewContentSize.height);
-//        make.bottom.equalTo(self->_contentView).offset(-26 *SIZE);
-//    }];
-    
-//    [_useView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_scrollView).offset(0);
-//        make.top.equalTo(self->_contentView.mas_bottom).offset(5 *SIZE);
-//        make.right.equalTo(self->_scrollView).offset(0);
-//        make.width.equalTo(@(SCREEN_Width));
-//        make.bottom.equalTo(self->_scrollView).offset(-26 *SIZE);
-//    }];
-    
-//    [_buyUseL mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_useView).offset(10 *SIZE);
-//        make.top.equalTo(self->_useView).offset(15 *SIZE);
-//        make.width.mas_equalTo(70 *SIZE);
-//    }];
-//
-//    [_buyUseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_useView).offset(80 *SIZE);
-//        make.top.equalTo(self->_useView).offset(0 *SIZE);
-//        make.width.mas_equalTo(270 *SIZE);
-//        make.height.mas_equalTo(42 *SIZE);
-//        make.bottom.equalTo(self->_useView.mas_bottom).offset(0 *SIZE);
-//    }];
-    
     
     [_markTV mas_makeConstraints:^(MASConstraintMaker *make) {
         

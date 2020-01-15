@@ -69,16 +69,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EB722090-8BA7-4948-AA79-65C5E573FF3D"
+            uuid = "55614BAD-528E-4E5E-A21B-76EE26767EBC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "zhiyejia/VCModel/&#x9700;&#x6c42;/&#x4e8c;&#x624b;&#x623f;/&#x4e8c;&#x624b;&#x623f;&#x6c42;&#x8d2d;&#x8be6;&#x60c5;/SecHouseBuyDemandDetailVC.m"
+            filePath = "zhiyejia/VCModel/&#x9700;&#x6c42;/DemandVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "-RequestMethod"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2169C05B-6919-42B4-9A61-6B668B5B91C3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x9700;&#x6c42;/&#x4e8c;&#x624b;&#x623f;/&#x4e8c;&#x624b;&#x623f;&#x51fa;&#x552e;&#x9700;&#x6c42;/&#x4f4f;&#x5b85;/SecHouseSaleHouseDemandVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "-RequestProject"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2169C05B-6919-42B4-9A61-6B668B5B91C3 - 37a838d05f4c4290"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SecHouseSaleHouseDemandVC RequestProject]"
+                  moduleName = "zhiyejia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/zhiyejia/zhiyejia/VCModel/%E9%9C%80%E6%B1%82/%E4%BA%8C%E6%89%8B%E6%88%BF/%E4%BA%8C%E6%89%8B%E6%88%BF%E5%87%BA%E5%94%AE%E9%9C%80%E6%B1%82/%E4%BD%8F%E5%AE%85/SecHouseSaleHouseDemandVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "836">
+               </Location>
+               <Location
+                  uuid = "2169C05B-6919-42B4-9A61-6B668B5B91C3 - da4f5edb80e192ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__43-[SecHouseSaleHouseDemandVC RequestProject]_block_invoke"
+                  moduleName = "zhiyejia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/zhiyejia/zhiyejia/VCModel/%E9%9C%80%E6%B1%82/%E4%BA%8C%E6%89%8B%E6%88%BF/%E4%BA%8C%E6%89%8B%E6%88%BF%E5%87%BA%E5%94%AE%E9%9C%80%E6%B1%82/%E4%BD%8F%E5%AE%85/SecHouseSaleHouseDemandVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "206"
+                  endingLineNumber = "206"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E3CBD5ED-1F69-4DE9-B0E2-30396F3E9E62"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x9700;&#x6c42;/&#x4e8c;&#x624b;&#x623f;/&#x4e8c;&#x624b;&#x623f;&#x51fa;&#x552e;&#x9700;&#x6c42;/&#x4f4f;&#x5b85;/SecHouseSaleHouseDemandVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "-RequestProject"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "373A0CC2-E4B0-4E2E-A683-81FF9D6BADA7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x9700;&#x6c42;/&#x4e8c;&#x624b;&#x623f;/&#x4e8c;&#x624b;&#x623f;&#x51fa;&#x552e;&#x9700;&#x6c42;/&#x4f4f;&#x5b85;/SecHouseSaleHouseDemandVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "-RequestProject"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

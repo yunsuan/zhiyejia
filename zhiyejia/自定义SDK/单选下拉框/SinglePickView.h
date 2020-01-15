@@ -13,12 +13,18 @@ typedef void(^selctblook)(NSString * MC, NSString * ID);//回传ID和名称
 
 typedef void(^SelectNumblook)(NSInteger idx);//回传ID和名称
 
+typedef void(^CancelBlock)(void);
+
 @interface SinglePickView : UIView
 
 @property(nonatomic, copy) selctblook selectedBlock;
 
 @property(nonatomic, copy) SelectNumblook selectNumblook;
-@property (nonatomic , strong) NSString *key;
+
+@property(nonatomic, copy) CancelBlock cancelBlock;
+
+@property(nonatomic , strong) NSString *key;
+
 @property(nonatomic, strong) NSArray * dataSource;
 
 - (instancetype)initWithFrame:(CGRect)frame WithData:(NSArray *)date;
