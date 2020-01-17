@@ -8,6 +8,9 @@
 
 #import "RoomChildVC.h"
 
+#import "AttentionHouseCell.h" //二手房
+#import "AttentionComCell.h" //二手房
+
 @interface RoomChildVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -462,7 +465,7 @@
                         [_dataArr addObject:model];
                     }else if ([tempDic[@"type"] integerValue] == 1){
                         
-                        SecProjectModel *model = [[SecProjectModel alloc] initWithDictionary:tempDic];
+                        AttetionComModel *model = [[AttetionComModel alloc] initWithDictionary:tempDic];
                         [_dataArr addObject:model];
                     }else{
                         

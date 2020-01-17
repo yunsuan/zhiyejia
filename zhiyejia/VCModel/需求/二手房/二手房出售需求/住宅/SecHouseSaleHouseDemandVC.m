@@ -24,6 +24,7 @@
     
     NSString *_type;
     NSString *_property;
+    NSString *_project_id;
     
     NSMutableArray *_projectArr;
     NSMutableArray *_containArr;
@@ -201,7 +202,7 @@
         }
     }
     
-    [BaseRequest POST:SaleProgressAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:NeedHouseProjectList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -229,25 +230,50 @@
         return;
     }
     
+    if (!_minPriceTF.textfield.text.length) {
+        
+        [self showContent:@"请输入最低价格"];
+        return;
+    }
+    
+    if (!_maxPriceTF.textfield.text.length) {
+        
+        [self showContent:@"请输入最高价格"];
+        return;
+    }
+    if (!_projectBtn.textfield.text.length) {
+        
+        [self showContent:@"请选择项目"];
+        return;
+    }
+    
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][0] forKey:@"recommend_city"];
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][1] forKey:@"recommend_district"];
     [dic setValue:_type forKey:@"type"];
     [dic setValue:_property forKey:@"property_type"];
-//    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMinimum] forKey:@"price_min"];
-//    [dic setValue:[NSString stringWithFormat:@"%.0f",_priceSlider.selectedMaximum] forKey:@"price_max"];
-//    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMinimum] forKey:@"area_min"];
-//    [dic setValue:[NSString stringWithFormat:@"%.0f",_areaSlider.selectedMaximum] forKey:@"area_max"];
+    [dic setValue:_project_id forKey:@"project_id"];
+    [dic setValue:_projectBtn.textfield.text forKey:@"project_name"];
+    [dic setValue:[NSString stringWithFormat:@"%@",_minPriceTF.textfield.text] forKey:@"price_min"];
+    [dic setValue:[NSString stringWithFormat:@"%@",_maxPriceTF.textfield.text] forKey:@"price_max"];
     if (_addressTF.textfield.text.length) {
         
         [dic setValue:_addressTF.textfield.text forKey:@"need_address"];
+    }
+    if (_buildTF.textfield.text.length) {
+        
+        [dic setValue:_buildTF.textfield.text forKey:@"house_info"];
     }
     if (_markTV.text.length) {
         
         [dic setValue:_addressTF.textfield.text forKey:@"comment"];
     }
+    if (_markTV.text.length) {
+        
+        [dic setValue:_markTV.text forKey:@"comment"];
+    }
     
-    [BaseRequest POST:NeedBuyAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest POST:NeedSaleAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -272,6 +298,7 @@
 
 - (void)TextFieldDidChange{
     
+    _project_id = @"0";
     _coll.hidden = YES;
     [_containArr removeAllObjects];
     NSMutableArray *tempArr = [@[] mutableCopy];
@@ -324,6 +351,7 @@
 //    [_infoDic setObject:[NSString stringWithFormat:@"%@",_collArr[indexPath.item][@"row_code"]] forKey:@"row_code"];
 //    _addNumeralInfoView.dataDic = _infoDic;
     _projectBtn.textfield.text = [NSString stringWithFormat:@"%@",_containArr[indexPath.item][@"project_name"]];
+    _project_id = [NSString stringWithFormat:@"%@",_containArr[indexPath.item][@"project_id"]];
     collectionView.hidden = YES;
 }
 
@@ -442,12 +470,14 @@
     _minPriceTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
     _minPriceTF.textfield.delegate = self;
     _minPriceTF.unitL.text = @"万";
+    _minPriceTF.textfield.textAlignment = NSTextAlignmentLeft;
     _minPriceTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_minPriceTF];
     
     _maxPriceTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
     _maxPriceTF.textfield.delegate = self;
     _maxPriceTF.unitL.text = @"万";
+    _maxPriceTF.textfield.textAlignment = NSTextAlignmentLeft;
     _maxPriceTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_maxPriceTF];
     

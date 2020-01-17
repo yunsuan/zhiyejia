@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *priceL;
 
+@property (nonatomic, strong) UIImageView *priceImg;
+
 @property (nonatomic, strong) UILabel *areaL;
 
 @property (nonatomic, strong) UILabel *refencePriceL;

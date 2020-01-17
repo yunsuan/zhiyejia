@@ -9,7 +9,7 @@
 #import "SecHouseBuyDemandWaitDetailVC.h"
 
 #import "SecHouseCompanyDetailVC.h"
-#import "SecHouseBuyDemandDetailRecommendVC.h"
+#import "SecRoomDetailVC.h"
 
 #import "BaseColorHeader.h"
 #import "SecHouseBuyDetailCell.h"
@@ -47,7 +47,7 @@
     [super viewDidLoad];
     
     [self initDataSource];
-    [self initUI];
+    self.titleLabel.text = @"发布详情";
     [self RequestMethod];
 }
 
@@ -96,10 +96,12 @@
                 
             }
             [self->_table reloadData];
+            
         }else{
             
             [self showContent:resposeObject[@"msg"]];
         }
+        [self initUI];
     } failure:^(NSError * _Nonnull error) {
         
         [self showContent:@"网络错误"];
@@ -108,37 +110,45 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    [self alertControllerWithNsstring:@"提示" And:@"您确认要取消当前购房需求？" WithCancelBlack:^{
+    FailView *view = [[FailView alloc] initWithFrame:self.view.bounds];
+    view.failViewBlock = ^(NSString *str) {
         
-    } WithDefaultBlack:^{
-       
-        [BaseRequest POST:NeedBuyBuyCancel_URL parameters:@{@"recommend_id":self->_recommend_id} success:^(id  _Nonnull resposeObject) {
+        NSString *reason;
+        if (str.length) {
             
+            reason = str;
+        }else{
+            
+            reason = @" ";
+        }
+        [BaseRequest POST:NeedBuyBuyCancel_URL parameters:@{@"recommend_id":self->_recommend_id,@"disabled_reason":reason} success:^(id  _Nonnull resposeObject) {
+
             if ([resposeObject[@"code"] integerValue] == 200) {
-                
+
                 [self showContent:@"取消成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
+
                     if (self.secHouseBuyDemandWaitDetailVCBlock) {
-                        
+
                         self.secHouseBuyDemandWaitDetailVCBlock();
                     }
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }else{
-                
+
                 [self showContent:resposeObject[@"msg"]];
             }
         } failure:^(NSError * _Nonnull error) {
-            
+
             [self showContent:@"网络错误"];
         }];
-    }];
+    };
+    [self.view addSubview:view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 4;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -148,7 +158,7 @@
         return 0;
     }else{
         
-        if (section == 3) {
+        if (section == 2) {
             
             if (_houseArr.count) {
                 
@@ -189,8 +199,8 @@
 //        header.contentL.text = @"已成交";
     }else if (section == 2){
         
-        header.titleL.text = @"金牌经纪人";
-    }else if (section == 3){
+//        header.titleL.text = @"金牌经纪人";
+//    }else if (section == 3){
         
         header.titleL.text = @"系统匹配房源";
     }
@@ -199,9 +209,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 3) {
+    if (section == 2) {
         
-        return _houseArr.count;
+        return _houseArr.count > 3 ? 3:_houseArr.count;
     }
     return 1;
 }
@@ -232,18 +242,18 @@
         
         cell.contentL.text = @"发布成功！已通知全城经纪人，请保持手机联络畅通，经纪人将会在周一至周日8:00-20:00给你回电。";
         return cell;
-    }else if (indexPath.section == 2){
-        
-        SecHouseBuyDemandDetailAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseBuyDemandDetailAgentCell"];
-        if (!cell) {
-            
-            cell = [[SecHouseBuyDemandDetailAgentCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecHouseBuyDemandDetailAgentCell"];
-        }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataDic = @{};
-        return cell;
+//    }else if (indexPath.section == 2){
+//
+//        SecHouseBuyDemandDetailAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseBuyDemandDetailAgentCell"];
+//        if (!cell) {
+//
+//            cell = [[SecHouseBuyDemandDetailAgentCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecHouseBuyDemandDetailAgentCell"];
+//        }
+//
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//
+//        cell.dataDic = @{};
+//        return cell;
     }else{
         
         SecHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseCell"];
@@ -261,9 +271,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         
-        SecHouseBuyDemandDetailRecommendVC *nextVC = [[SecHouseBuyDemandDetailRecommendVC alloc] init];
+        SecHouseModel *model = _houseArr[indexPath.row];
+        SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:@"0"];
+        nextVC.type = [model.type integerValue];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
@@ -271,10 +283,14 @@
 - (void)initUI{
     
     self.rightBtn.hidden = NO;
+    if ([self.status integerValue]) {
+        
+        self.rightBtn.hidden = YES;
+    }
+    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
     [self.rightBtn setTitle:@"取消发布" forState:UIControlStateNormal];
+    [self.rightBtn setTitleColor:CLTitleLabColor forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.titleLabel.text = @"发布详情";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.backgroundColor = CLLineColor;

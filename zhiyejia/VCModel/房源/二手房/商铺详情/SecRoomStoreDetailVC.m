@@ -9,8 +9,9 @@
 #import "SecRoomStoreDetailVC.h"
 
 #import "SecRoomProjectDetailVC.h"
-#import "SecRoomHouseDetailVC.h"
-#import "SecRoomOfficeDetailVC.h"
+//#import "SecRoomHouseDetailVC.h"
+//#import "SecRoomOfficeDetailVC.h"
+#import "SecRoomDetailVC.h"
 
 //#import "YBImageBrowserModel.h"
 //#import "YBImageBrowser.h"
@@ -100,7 +101,7 @@
 - (void)RequestMethod{
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"house_id":_houseId,@"type":@"2"}];
-    if ([UserModel defaultModel].token) {
+    if ([UserModel defaultModel].token.length) {
         
         [dic setValue:[UserModel defaultModel].agent_id forKey:@"agent_id"];
     }
@@ -545,15 +546,18 @@
                 
                 if ([self->_houseArr[index][@"type"] integerValue] == 1) {
                     
-                    SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    nextVC.type = 1;
                     [self.navigationController pushViewController:nextVC animated:YES];
                 }else if ([self->_houseArr[index][@"type"] integerValue] == 2){
                     
-                    SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    nextVC.type = 2;
                     [self.navigationController pushViewController:nextVC animated:YES];
                 }else{
                     
-                    SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:self->_houseArr[index][@"house_id"] city:self->_city];
+                    nextVC.type = 3;
                     [self.navigationController pushViewController:nextVC animated:YES];
                 }
             }
@@ -607,9 +611,9 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"房源详情";
+//    self.titleLabel.text = @"房源详情";
     
-    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 57 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
+    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, self.view.frame.size.height - 57 *SIZE - TAB_BAR_MORE - NAVIGATION_BAR_HEIGHT) style:UITableViewStyleGrouped];
     
     _roomTable.rowHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedRowHeight = 200 *SIZE;
@@ -623,7 +627,7 @@
     [self.view addSubview:_roomTable];
     
     _attentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _attentBtn.frame = CGRectMake(0, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 70 *SIZE, 43 *SIZE + TAB_BAR_MORE);
+    _attentBtn.frame = CGRectMake(0, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE - NAVIGATION_BAR_HEIGHT, 70 *SIZE, 43 *SIZE + TAB_BAR_MORE);
     _attentBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_attentBtn addTarget:self action:@selector(ActionAttentBtn:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -643,7 +647,7 @@
     [self.view addSubview:_attentBtn];
     
     _consultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _consultBtn.frame = CGRectMake(78 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 273 *SIZE, 43 *SIZE + TAB_BAR_MORE);
+    _consultBtn.frame = CGRectMake(78 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE - NAVIGATION_BAR_HEIGHT, 273 *SIZE, 43 *SIZE + TAB_BAR_MORE);
     _consultBtn.layer.cornerRadius = 21.5 *SIZE + 17;//7 *SIZE;//21.5 *SIZE + 17;
     _consultBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_consultBtn addTarget:self action:@selector(ActionConsultBtn:) forControlEvents:UIControlEventTouchUpInside];

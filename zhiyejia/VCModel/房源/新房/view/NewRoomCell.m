@@ -49,7 +49,6 @@
 
     _priceL.text = @"均价：";
     _addressL.text = [NSString stringWithFormat:@"%@-%@-%@",model.province_name,model.city_name,model.district_name];
-//    _statusL.text = model.sale_state;
     
     _tagArr = [NSMutableArray arrayWithArray:model.project_tags];
     

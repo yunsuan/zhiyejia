@@ -83,7 +83,7 @@
 - (void)RequestMethod{
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_projectId}];
-    if ([UserModel defaultModel].token) {
+    if ([UserModel defaultModel].token.length) {
         
         [dic setValue:[UserModel defaultModel].agent_id forKey:@"user_id"];
     }
@@ -173,7 +173,7 @@
 
 - (void)ActionAttentionBtn:(UIButton *)btn{
     
-    if ([UserModel defaultModel].token) {
+    if ([UserModel defaultModel].token.length) {
         
         if (_focusDic.count) {
             

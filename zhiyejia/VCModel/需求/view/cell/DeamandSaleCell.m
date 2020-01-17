@@ -22,17 +22,17 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _titleL.text = @"新城建院";
-    _statusL.text = @"待勘察";
-    _houseNumL.text = @"房间号码：1栋203";
-    _priceL.text = @"挂牌价：80万";
-    NSString *str = @"电话：15983804766";
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
-    [attr addAttribute:NSForegroundColorAttributeName value:CLBlueBtnColor range:NSMakeRange(3, str.length - 3)];
-    [attr addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(3, str.length - 3)];
-    _phoneL.attributedText = attr;
+    _titleL.text = dataDic[@"project_name"];
+    _statusL.text = dataDic[@"current_state_name"];
+    _houseNumL.text = dataDic[@"house_info"];
+    _priceL.text = [NSString stringWithFormat:@"挂牌价：%@-%@万",dataDic[@"price_min"],dataDic[@"price_max"]];
+//    NSString *str = [NSString stringWithFormat:@"电话：%@",@""];
+//    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
+//    [attr addAttribute:NSForegroundColorAttributeName value:CLBlueBtnColor range:NSMakeRange(3, str.length - 3)];
+//    [attr addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(3, str.length - 3)];
+//    _phoneL.attributedText = attr;
 
-    _timeL.text = @"2020.1.2";
+    _timeL.text = dataDic[@"create_time"];
 }
 
 - (void)ActionTap{
@@ -74,22 +74,22 @@
     _priceL.font = FONT(13 *SIZE);
     [_whiteView addSubview:_priceL];
     
-    _line = [[UIView alloc] init];
-    _line.backgroundColor = CLLineColor;
-    [self.contentView addSubview:_line];
+//    _line = [[UIView alloc] init];
+//    _line.backgroundColor = CLLineColor;
+//    [self.contentView addSubview:_line];
     
     _timeL = [[UILabel alloc] init];
     _timeL.textColor = CLContentLabColor;
     _timeL.font = FONT(13 *SIZE);
     [_whiteView addSubview:_timeL];
     
-    _phoneL = [[UILabel alloc] init];
-    _phoneL.textColor = CLContentLabColor;
-    _phoneL.font = FONT(13 *SIZE);
-    _phoneL.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionTap)];
-    [_phoneL addGestureRecognizer:tap];
-    [_whiteView addSubview:_phoneL];
+//    _phoneL = [[UILabel alloc] init];
+//    _phoneL.textColor = CLContentLabColor;
+//    _phoneL.font = FONT(13 *SIZE);
+//    _phoneL.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionTap)];
+//    [_phoneL addGestureRecognizer:tap];
+//    [_whiteView addSubview:_phoneL];
     
     [_whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -103,14 +103,14 @@
        
         make.left.equalTo(self->_whiteView).offset(15 *SIZE);
         make.top.equalTo(self->_whiteView).offset(15 *SIZE);
-        make.width.mas_lessThanOrEqualTo(250 *SIZE);
+        make.width.mas_lessThanOrEqualTo(230 *SIZE);
     }];
     
     [_statusL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self->_whiteView).offset(-15 *SIZE);
         make.top.equalTo(self->_whiteView).offset(17 *SIZE);
-        make.width.mas_lessThanOrEqualTo(50 *SIZE);
+        make.width.mas_lessThanOrEqualTo(70 *SIZE);
     }];
     
     [_houseNumL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,13 +127,13 @@
         make.width.mas_lessThanOrEqualTo(250 *SIZE);
     }];
     
-    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_whiteView).offset(0 *SIZE);
-        make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(330 *SIZE);
-        make.height.mas_equalTo(1 *SIZE);
-    }];
+//    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self->_whiteView).offset(0 *SIZE);
+//        make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
+//        make.width.mas_equalTo(330 *SIZE);
+//        make.height.mas_equalTo(1 *SIZE);
+//    }];
     
     [_phoneL mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -145,9 +145,10 @@
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.right.equalTo(self->_whiteView).offset(-15 *SIZE);
-        make.top.equalTo(self->_line.mas_bottom).offset(10 *SIZE);
+        make.left.equalTo(self->_whiteView).offset(15 *SIZE);
+        make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(250 *SIZE);
+        make.bottom.equalTo(self->_whiteView.mas_bottom).offset(-15 *SIZE);
     }];
 }
 

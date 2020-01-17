@@ -49,6 +49,7 @@
     }
     [UserModel defaultModel].time = @"";
     [UserModel defaultModel].token = @"";
+    [UserModel defaultModel].agent_id = @"";
     [UserModel defaultModel].absolute_address = @"";
     [UserModel defaultModel].account = @"";
     [UserModel defaultModel].birth = @"";

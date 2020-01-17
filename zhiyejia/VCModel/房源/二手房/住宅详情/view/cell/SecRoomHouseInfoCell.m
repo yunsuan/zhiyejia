@@ -56,7 +56,15 @@
         _upTimeL.text = [NSString stringWithFormat:@"上架时间：%@",model.unit_price];
     }else{
 
-        _upTimeL.text = [NSString stringWithFormat:@"上架时间：暂无数据"];
+        _upTimeL.text = [NSString stringWithFormat:@"上架时间："];
+    }
+    
+    if (model.level.length) {
+
+        _levelL.text = [NSString stringWithFormat:@"房源等级：%@级",model.level];
+    }else{
+
+        _levelL.text = [NSString stringWithFormat:@"房源等级："];
     }
     
     if ([model.unit_price integerValue]) {
@@ -64,16 +72,8 @@
         _unitL.text = [NSString stringWithFormat:@"单价：%@元/m²",model.unit_price];
     }else{
 
-        _unitL.text = [NSString stringWithFormat:@"单价：暂无数据"];
+        _unitL.text = [NSString stringWithFormat:@"单价："];
     }
-
-    //    if ([model.unit_price integerValue]) {
-    //
-    //        _yearL.text = [NSString stringWithFormat:@"建成年代：%@",model.price];
-    //    }else{
-    //
-    _yearL.text = [NSString stringWithFormat:@"建成年代：暂无数据"];
-    //    }
 
 
     if (model.decoration.length) {
@@ -81,15 +81,7 @@
         _decorateL.text = [NSString stringWithFormat:@"装修：%@",model.decoration];
     }else{
 
-        _decorateL.text = [NSString stringWithFormat:@"装修：暂无数据"];
-    }
-
-    if (model.permit_time.length) {
-
-        _timeL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
-    }else{
-
-        _timeL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
+        _decorateL.text = [NSString stringWithFormat:@"装修："];
     }
 
     if (model.floor_type.length) {
@@ -97,7 +89,31 @@
         _floorL.text = [NSString stringWithFormat:@"楼层：%@",model.floor_type];
     }else{
 
-        _floorL.text = [NSString stringWithFormat:@"楼层：暂无数据"];
+        _floorL.text = [NSString stringWithFormat:@"楼层："];
+    }
+    
+    if ([model.property_limit integerValue]) {
+
+        _yearL.text = [NSString stringWithFormat:@"产权年限：%@年",model.property_limit];
+    }else{
+
+        _yearL.text = [NSString stringWithFormat:@"产权年限："];
+    }
+    
+    if (model.permit_time.length) {
+
+        _proLimitL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
+    }else{
+
+        _proLimitL.text = [NSString stringWithFormat:@"拿证时间："];
+    }
+
+    if (model.check_way.length) {
+
+        _seeL.text = [NSString stringWithFormat:@"看房方式：%@",model.check_way];
+    }else{
+
+        _seeL.text = [NSString stringWithFormat:@"看房方式："];
     }
 
     if (model.check_in_time.length && ![model.check_in_time containsString:@"0000"]) {
@@ -108,12 +124,28 @@
         _inTimeL.text = [NSString stringWithFormat:@"可入住时间：随时入住"];
     }
 
-    if ([model.property_limit integerValue]) {
+    if ([model.intent integerValue]) {
 
-        _proLimitL.text = [NSString stringWithFormat:@"产权年限：%@年",model.property_limit];
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度：%@",model.property_limit];
     }else{
 
-        _proLimitL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度："];
+    }
+    
+    if ([model.urgency integerValue]) {
+
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度：%@",model.property_limit];
+    }else{
+
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度："];
+    }
+    
+    if ([model.pay_way count]) {
+
+        _payL.text = [NSString stringWithFormat:@"付款方式：%@",[model.check_way stringByAppendingPathComponent:@","]];
+    }else{
+
+        _payL.text = [NSString stringWithFormat:@"付款方式："];
     }
 
     if (model.comment.length) {
@@ -121,7 +153,7 @@
         _markL.text = [NSString stringWithFormat:@" 其他要求：%@\n",model.comment];
     }else{
 
-        _markL.text = [NSString stringWithFormat:@"其他要求：暂无数据"];
+        _markL.text = [NSString stringWithFormat:@"其他要求："];
     }
 }
 
@@ -204,7 +236,7 @@
     [_propertyColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
     [self.contentView addSubview:_propertyColl];
     
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 13; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CL86Color;
@@ -237,8 +269,8 @@
             }
             case 4:
             {
-                _timeL = label;
-                [self.contentView addSubview:_timeL];
+                _levelL = label;
+                [self.contentView addSubview:_levelL];
                 break;
             }
             case 5:
@@ -263,6 +295,30 @@
             {
                 _markL = label;
                 [_markView addSubview:_markL];
+                break;
+            }
+            case 9:
+            {
+                _seeL = label;
+                [_markView addSubview:_seeL];
+                break;
+            }
+            case 10:
+            {
+                _intentL = label;
+                [_markView addSubview:_intentL];
+                break;
+            }
+            case 11:
+            {
+                _urgentL = label;
+                [_markView addSubview:_urgentL];
+                break;
+            }
+            case 12:
+            {
+                _payL = label;
+                [_markView addSubview:_payL];
                 break;
             }
             default:
@@ -290,39 +346,39 @@
         make.width.equalTo(@(150 *SIZE));
     }];
     
-    [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_levelL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
         make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
-    [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_upTimeL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_decorateL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
-    }];
-    
-    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_yearL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_upTimeL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_floorL mas_makeConstraints:^(MASConstraintMaker *make) {
         
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_unitL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(150 *SIZE));
+    }];
+    
+    [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self->_decorateL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_unitL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
@@ -330,21 +386,50 @@
         
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_timeL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_floorL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
-    [_inTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_seeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(200 *SIZE);
         make.top.equalTo(self->_floorL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
+    [_inTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_proLimitL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(150 *SIZE));
+    }];
+    
+    [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.top.equalTo(self->_proLimitL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(150 *SIZE));
+    }];
+    
+    [_urgentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_intentL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(150 *SIZE));
+    }];
+    
+    [_payL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_urgentL.mas_bottom).offset(19 *SIZE);
+        make.width.mas_equalTo(340 *SIZE);
+    }];
+    
     [_markView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_proLimitL.mas_bottom).offset(16 *SIZE);
+        make.top.equalTo(self->_payL.mas_bottom).offset(16 *SIZE);
         make.width.equalTo(@(340 *SIZE));
         make.bottom.equalTo(self.contentView).offset(-16 *SIZE);
     }];

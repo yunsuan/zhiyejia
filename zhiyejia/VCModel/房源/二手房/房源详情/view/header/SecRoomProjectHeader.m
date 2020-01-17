@@ -255,7 +255,7 @@
     _imgScroll.delegate = self;
     _imgScroll.showsVerticalScrollIndicator = NO;
     _imgScroll.showsHorizontalScrollIndicator = NO;
-    _imgScroll.backgroundColor = [UIColor redColor];
+//    _imgScroll.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_imgScroll];
     
     _numL = [[UILabel alloc] init];

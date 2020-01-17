@@ -19,8 +19,8 @@ static AFHTTPSessionManager *updatemanager ;
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     if ([UserModel defaultModel].token.length) {
     
-        [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
-        [manager.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
+        [htttmanger.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
+        [htttmanger.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
     }
 
     
@@ -64,10 +64,9 @@ static AFHTTPSessionManager *updatemanager ;
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     if ([UserModel defaultModel].token.length) {
     
-        [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
-        [manager.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
+        [htttmanger.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
+        [htttmanger.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
     }
-    
     
     NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];
     [htttmanger POST:str parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -102,15 +101,37 @@ static AFHTTPSessionManager *updatemanager ;
     }];
 }
 
++ (void)VersionUpdateSuccess:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
+    
+    AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
+    NSString *str = @"https://itunes.apple.com/cn/lookup?id=1377016786";
+    [htttmanger POST:str parameters:@{} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        success(responseObject);
+        return ;
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        //        [htttmanger invalidateSessionCancelingTasks:YES];
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
 
 + (void)Updateimg:(NSString *)url parameters:(NSDictionary *)parameters constructionBody:(void (^)(id<AFMultipartFormData>))blocks success:(void (^)(id))success failure:(void (^)(NSError *))failure{
-//    [WaitAnimation startAnimation];
+
     NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];
-    str = [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:str]];
     
     AFHTTPSessionManager *htttmanger = [self sharedHttpSessionUpdateManager];
-//    [updatemanager.requestSerializer setValue:kACCESSROLE forHTTPHeaderField:@"ACCESS-ROLE"];
-//    [updatemanager.requestSerializer setValue:[UserModelArchiver unarchive].Token forHTTPHeaderField:@"ACCESS-TOKEN"];
+    
+    if ([UserModel defaultModel].token.length) {
+    
+        [htttmanger.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
+        [htttmanger.requestSerializer setValue:@"user" forHTTPHeaderField:@"ACCESS-ROLE"];
+    }
     
     [htttmanger POST:str parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         blocks(formData);

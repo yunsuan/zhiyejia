@@ -8,7 +8,11 @@
 
 #import "MySubscibeVC.h"
 
-#import "MySubscibeCell.h"
+#import "NewRoomProjectDetailVC.h"
+#import "SecRoomProjectDetailVC.h"
+
+#import "NewRoomCell.h"
+#import "SecRoomCell.h"
 
 @interface MySubscibeVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -91,26 +95,48 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MySubscibeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MySubscibeCell"];
-    if (!cell) {
+    if ([_dataArr[indexPath.row][@"sub_type"] integerValue] == 0) {
         
-        cell = [[MySubscibeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MySubscibeCell"];
+        NewRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomCell"];
+        if (!cell) {
+            
+            cell = [[NewRoomCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"NewRoomCell"];
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.model = [[NewRoomModel alloc] initWithDictionary:_dataArr[indexPath.row]];
+        
+        return cell;
+    }else{
+        
+        SecRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomCell"];
+        if (!cell) {
+            
+            cell = [[SecRoomCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecRoomCell"];
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.model = [[SecProjectModel alloc] initWithDictionary:_dataArr[indexPath.row]];
+        
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.dataDic = _dataArr[indexPath.row];
-//    cell.titleL.text = @"新希望国际大厦";
-//    cell.statusL.text = @"在售";
-//    cell.addressL.text = @"高新区-天府三街-北街22号";
-//    cell.priceL.text = @"均价：16000元/m²";
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    AppointSeeRoomVC *nextVC = [[AppointSeeRoomVC alloc] init];
-//    [self.navigationController pushViewController:nextVC animated:YES];
+    if ([_dataArr[indexPath.row][@"sub_type"] integerValue] == 0) {
+            
+        NewRoomModel *model = [[NewRoomModel alloc] initWithDictionary:_dataArr[indexPath.row]];
+        NewRoomProjectDetailVC *nextVC = [[NewRoomProjectDetailVC alloc] initWithModel:model];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else{
+            
+        SecProjectModel *model = [[SecProjectModel alloc] initWithDictionary:_dataArr[indexPath.row]];
+        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id infoId:model.info_id city:@"0"];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{

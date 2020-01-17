@@ -10,6 +10,7 @@
 
 #import "RegisterVC.h"
 #import "FindPassWordVC.h"
+#import "UserRuleVC.h"
 
 @interface LoginVC ()
 
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) UILabel *protocolLabel;
 
 @property (nonatomic, strong) UIButton *ProtocolBtn;
+
+@property (nonatomic, strong) UIButton *ProtocolBtn1;
 
 @property (nonatomic, strong) UIButton *registerBtn;
 
@@ -121,6 +124,12 @@
     }
 }
 
+- (void)ActionProtocolBtn1:(UIButton *)btn{
+    
+    UserRuleVC *nextVC = [[UserRuleVC alloc] init];
+    [self.navigationController pushViewController:nextVC animated:YES];
+}
+
 - (void)ActionRegisterBtn:(UIButton *)btn{
     
     RegisterVC *nextVC = [[RegisterVC alloc] init];
@@ -175,16 +184,25 @@
     _protocolLabel.textColor = CLContentLabColor;
     _protocolLabel.font = [UIFont systemFontOfSize:12 *SIZE];
     _protocolLabel.text = @"我已阅读并同意《置业家使用条例》";
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:_protocolLabel.text];
+    [attr addAttribute:NSForegroundColorAttributeName value:CLBlueBtnColor range:NSMakeRange(7, _protocolLabel.text.length - 7)];
+    [attr addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(7, _protocolLabel.text.length - 7)];
+    _protocolLabel.attributedText = attr;
     [self.view addSubview:_protocolLabel];
     
     _ProtocolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _ProtocolBtn.frame =  CGRectMake(20*SIZE, 259 *SIZE + NAVIGATION_BAR_HEIGHT, 300 *SIZE, 23 *SIZE);
+    _ProtocolBtn.frame =  CGRectMake(20*SIZE, 259 *SIZE + NAVIGATION_BAR_HEIGHT, 40 *SIZE, 23 *SIZE);
     [_ProtocolBtn addTarget:self action:@selector(ActionProtocolBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_ProtocolBtn];
     if ([UserModel defaultModel].phone.length) {
         
         [self ActionProtocolBtn:_ProtocolBtn];
     }
+    
+    _ProtocolBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    _ProtocolBtn1.frame =  CGRectMake(65 *SIZE, 259 *SIZE + NAVIGATION_BAR_HEIGHT, 250 *SIZE, 23 *SIZE);
+    [_ProtocolBtn1 addTarget:self action:@selector(ActionProtocolBtn1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_ProtocolBtn1];
     
     _LoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _LoginBtn.frame = CGRectMake(22*SIZE, 310 *SIZE + NAVIGATION_BAR_HEIGHT, 316*SIZE, 41*SIZE);

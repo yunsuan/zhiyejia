@@ -11,7 +11,10 @@
 #import "TagCollCell.h"
 
 @interface SecHouseBuyDemandDetailHouseCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
-
+{
+    
+    NSMutableArray *_projectArr;
+}
 @end
 
 @implementation SecHouseBuyDemandDetailHouseCell
@@ -28,23 +31,58 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _statusL.text = @"在售";
-    _titleL.text = @"【天鹅湖小区】  临街门面  转角双开间";
-    _priceL.text = @"150万";
-    _houseTypeL.text = @"两室一厅";
-    _areaL.text = @"24㎡";
-    _decorateL.text = @"精装";
-    _typeL.text = @"别墅";
-    _refencePriceL.text = @"参考价：150万";
-    _numL.text = @"看房人数：1231231";
-    _addressL.text = @"详细地址：1231231";
-    _intentL.text = @"关注量：1231231";
-    _mySeeL.text = @"我的看房次数：1231231";
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"img_url"]]] placeholderImage:IMAGE_WITH_NAME(@"default_2") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+       
+        if (error) {
+            
+            self->_headImg.image = IMAGE_WITH_NAME(@"default_2");
+        }
+    }];
+    _statusL.text = dataDic[@"house_state"];
+//    if ([_statusL.text isEqualToString:@"在售"]) {
+//
+//        _statusL.textColor = [UIColor greenColor];
+//    }else{
+//
+//        _statusL.textColor = [UIColor redColor];
+//    }
+    _titleL.text = dataDic[@"title"];
+    _priceL.text = [NSString stringWithFormat:@"%@万",dataDic[@"price"]];;
+    if ([dataDic[@"price_change"] integerValue] == 0) {
+        
+        _priceImg.image = IMAGE_WITH_NAME(@"");
+    }else if ([dataDic[@"price_change"] integerValue] == 1){
+        
+        _priceImg.image = IMAGE_WITH_NAME(@"rising");
+    }else{
+        
+        _priceImg.image = IMAGE_WITH_NAME(@"falling");
+    }
+    _houseTypeL.text = dataDic[@"describe"];
+//    _areaL.text = @"24㎡";
+//    _decorateL.text = @"精装";
+    _typeL.text = dataDic[@"property_type"];
+//    _refencePriceL.text = @"参考价：150万";
+    _numL.text = [NSString stringWithFormat:@"看房人数：%@",dataDic[@"take_num"]];
+    _addressL.text = [NSString stringWithFormat:@"详细地址：%@",dataDic[@"absolute_address"]];
+    _intentL.text = [NSString stringWithFormat:@"关注量：%@",dataDic[@"intent"]];
+    _mySeeL.text = [NSString stringWithFormat:@"我的看房次数：%@",dataDic[@"take_visit_num"]];
+    
+    _projectArr = [[NSMutableArray alloc] initWithArray:dataDic[@"house_tags"]];
+    [_coll reloadData];
+    
+    [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(120 *SIZE);
+        make.top.equalTo(self->_houseTypeL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(220 *SIZE);
+        make.height.mas_equalTo(_coll.collectionViewLayout.collectionViewContentSize.height);
+    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 2;
+    return _projectArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -56,7 +94,7 @@
     }
     
     cell.contentL.font = FONT(12 *SIZE);
-    cell.contentL.text = @"住宅";
+    cell.contentL.text = _projectArr[indexPath.item];
     cell.contentView.backgroundColor = CLLineColor;
     
     return cell;
@@ -72,9 +110,12 @@
     [self.contentView addSubview:_headImg];
     
     _statusL = [[UILabel alloc] init];
-    _statusL.textColor = CLTitleLabColor;
-    _statusL.font = FONT(15 *SIZE);
-    [self.contentView addSubview:_statusL];
+    _statusL.textColor = [UIColor whiteColor];
+    _statusL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _statusL.textAlignment = NSTextAlignmentCenter;
+    _statusL.backgroundColor = [UIColor blackColor];
+    _statusL.alpha = 0.5;
+    [_headImg addSubview:_statusL];
     
     _titleL = [[UILabel alloc] init];
     _titleL.textColor = CLTitleLabColor;
@@ -82,9 +123,13 @@
     [self.contentView addSubview:_titleL];
     
     _priceL = [[UILabel alloc] init];
-    _priceL.textColor = CLTitleLabColor;
+    _priceL.textColor = [UIColor redColor];
     _priceL.font = FONT(13 *SIZE);
     [self.contentView addSubview:_priceL];
+    
+    _priceImg = [[UIImageView alloc] init];
+    _priceImg.clipsToBounds = YES;
+    [self.contentView addSubview:_priceImg];
     
     _areaL = [[UILabel alloc] init];
     _areaL.textColor = CLTitleLabColor;
@@ -160,36 +205,45 @@
     
     [_statusL mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.contentView).offset(120 *SIZE);
-        make.top.equalTo(self.contentView).offset(15 *SIZE);
-        make.width.mas_lessThanOrEqualTo(50 *SIZE);
+        make.left.equalTo(_headImg).offset(0 *SIZE);
+        make.top.equalTo(_headImg).offset(62 *SIZE);
+        make.width.mas_equalTo(100 *SIZE);
+        make.height.mas_equalTo(17 *SIZE);
     }];
     
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self->_statusL.mas_right).offset(10 *SIZE);
+        make.left.equalTo(self.contentView).offset(120 *SIZE);
         make.top.equalTo(self.contentView).offset(15 *SIZE);
-        make.width.mas_lessThanOrEqualTo(140 *SIZE);
+        make.width.mas_lessThanOrEqualTo(200 *SIZE);
     }];
     
     [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(120 *SIZE);
-        make.top.equalTo(self->_statusL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(60 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(200 *SIZE);
+    }];
+    
+    [_priceImg mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_priceL.mas_right).offset(10 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_offset(15 *SIZE);
+        make.height.mas_offset(15 *SIZE);
     }];
     
     [_areaL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(190 *SIZE);
-        make.top.equalTo(self->_statusL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(60 *SIZE);
     }];
     
     [_refencePriceL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.contentView).offset(-20 *SIZE);
-        make.top.equalTo(self->_statusL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(90 *SIZE);
     }];
     
@@ -197,12 +251,13 @@
        
         make.left.equalTo(self.contentView).offset(120 *SIZE);
         make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(60 *SIZE);
+        make.right.equalTo(self.contentView).offset(-20 *SIZE);
+//        make.width.mas_lessThanOrEqualTo(100 *SIZE);
     }];
     
     [_decorateL mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.contentView).offset(190 *SIZE);
+        make.left.equalTo(self.contentView).offset(230 *SIZE);
         make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(60 *SIZE);
     }];
@@ -211,7 +266,7 @@
        
         make.right.equalTo(self.contentView).offset(-20 *SIZE);
         make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(80 *SIZE);
+        make.width.mas_lessThanOrEqualTo(50 *SIZE);
     }];
     
     [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -233,7 +288,7 @@
                
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_numL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(170 *SIZE);
+        make.width.mas_lessThanOrEqualTo(200 *SIZE);
     }];
         
     [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -247,7 +302,7 @@
                
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
         make.top.equalTo(self->_numL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(170 *SIZE);
+        make.width.mas_lessThanOrEqualTo(150 *SIZE);
     }];
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {

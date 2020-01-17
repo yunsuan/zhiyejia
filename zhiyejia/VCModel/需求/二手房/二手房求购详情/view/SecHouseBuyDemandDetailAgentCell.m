@@ -22,10 +22,17 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = @"利用";
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+       
+        if (error) {
+            
+            self->_headImg.image = IMAGE_WITH_NAME(@"def_head");
+        }
+    }];
+    _nameL.text = dataDic[@"agent_name"];
     _professionL.text = @"专业评分：20";
     _serviceL.text = @"服务评分：50";
-    _typeL.text = @"成都大唐";
+    _typeL.text = dataDic[@"store_name"];
 }
 
 - (void)ActionWorkBtn:(UIButton *)btn{
@@ -59,6 +66,8 @@
     _headImg = [[UIImageView alloc] init];
 //    _headImg.textColor = CLTitleLabColor;
 //    _headImg.font = FONT(13 *SIZE);
+    _headImg.layer.cornerRadius = 25 *SIZE;
+    _headImg.clipsToBounds = YES;
     [self.contentView addSubview:_headImg];
     
     _nameL = [[UILabel alloc] init];
@@ -83,6 +92,7 @@
     
     _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_phoneBtn addTarget:self action:@selector(ActionPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_phoneBtn setImage:IMAGE_WITH_NAME(@"phone1") forState:UIControlStateNormal];
     [self.contentView addSubview:_phoneBtn];
     
     _changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -129,7 +139,7 @@
     [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.contentView).offset(-15 *SIZE);
-        make.top.equalTo(self.contentView.mas_bottom).offset(50 *SIZE);
+        make.top.equalTo(self.contentView).offset(50 *SIZE);
         make.width.height.mas_equalTo(30 *SIZE);
 //        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);
     }];

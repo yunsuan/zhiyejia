@@ -33,6 +33,13 @@
 
 @implementation MineVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    [_table reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -44,13 +51,14 @@
 - (void)initDataSource{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadUserInfo) name:@"reloadUser" object:nil];
-    _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"意见反馈",@"关于置业家"];
-    _imgArr = @[@"personaldata",@"work",@"makeanappointment",@"subscribe",@"opinion",@"about"];
+    _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"我的关注",@"意见反馈",@"关于置业家"];
+    _imgArr = @[@"personaldata",@"work",@"makeanappointment",@"subscribe",@"housin",@"opinion",@"about"];
 }
 
 - (void)ReloadUserInfo{
     
-    if ([UserModel defaultModel].token) {
+    [_table reloadData];
+    if ([UserModel defaultModel].token.length) {
         
         
     }else{
@@ -100,6 +108,50 @@
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
+-(void)updateheadimgbyimg:(UIImage *)img
+{
+    NSData *data = [self resetSizeOfImageData:img maxSize:150];
+    
+    [BaseRequest Updateimg:UserFileUpload_URL parameters:@{
+                                                @"file_name":@"img"
+                                                    }
+          constructionBody:^(id<AFMultipartFormData> formData) {
+              [formData appendPartWithFileData:data name:@"img" fileName:@"img.jpg" mimeType:@"image/jpg"];
+    } success:^(id resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            [self HeadUpdate:resposeObject[@"data"]];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+        
+    } failure:^(NSError *error) {
+
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)HeadUpdate:(NSString *)head_img{
+    
+    [BaseRequest POST:PersonalChangeAgentInfo_URL parameters:@{@"head_img":head_img} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [UserModel defaultModel].head_img = head_img;
+            [UserModelArchiver archive];
+            [_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return _titleArr.count;
@@ -134,7 +186,13 @@
         
         if ([UserModel defaultModel].token.length) {
             
-            
+            [ZZQAvatarPicker startSelected:^(UIImage * _Nonnull image) {
+
+                if (image) {
+                    
+                    [self updateheadimgbyimg:image];
+                }
+            }];
         }else{
             
             [self GotoLogin];
@@ -145,7 +203,13 @@
       
         if ([UserModel defaultModel].token.length) {
             
-            
+            [ZZQAvatarPicker startSelected:^(UIImage * _Nonnull image) {
+
+                if (image) {
+                                    
+                    [self updateheadimgbyimg:image];
+                }
+            }];
         }else{
             
             [self GotoLogin];
@@ -190,6 +254,17 @@
     return header;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.row == 1 || indexPath.row == 2) {
+        
+        return 0;
+    }else{
+        
+        return UITableViewAutomaticDimension;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineCell"];
@@ -202,6 +277,23 @@
     cell.titleL.text = _titleArr[indexPath.row];
     cell.titleImg.image = IMAGE_WITH_NAME(_imgArr[indexPath.row]);
     cell.rightImg.image = IMAGE_WITH_NAME(@"rightarrow");
+    if (indexPath.row == 6) {
+        
+        cell.contentL.text = YQDversion;
+        cell.rightImg.hidden = YES;
+    }else{
+        
+        cell.contentL.text = @"";
+        cell.rightImg.hidden = NO;
+    }
+    
+    if (indexPath.row == 1 || indexPath.row == 2) {
+        
+        cell.hidden = YES;
+    }else{
+        
+        cell.hidden = NO;
+    }
     return cell;
 }
 
@@ -262,6 +354,18 @@
             break;
         }
         case 4:{
+            
+            if ([UserModel defaultModel].token.length) {
+                
+                AttentionHouseVC *nextVC = [[AttentionHouseVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                [self GotoLogin];
+            }
+            break;
+        }
+        case 5:{
             
             if ([UserModel defaultModel].token.length) {
                 

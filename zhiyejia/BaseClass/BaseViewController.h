@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 //返回按钮
 @property (nonatomic, strong)UIButton *leftButton;
 
+//给返回按钮蒙上一层 使其好点击
+@property (nonatomic, strong)UIButton *maskButton;
+
 @property (nonatomic, strong)UIButton *rightBtn;
 
 @property (nonatomic, strong) UIView *line;
@@ -33,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 //没有点击效果的弹出框
 - (void)alertControllerWithNsstring:(NSString *)str And:(NSString *)str1;
+
+//图片压缩至希望的大小
+- (NSData *)resetSizeOfImageData:(UIImage *)source_image maxSize:(NSInteger)maxSize;
+
+//拍照后对图片进行处理
+- (UIImage *)fixOrientation:(UIImage *)aImage;
 
 /**
  *  检查输入的手机号正确与否

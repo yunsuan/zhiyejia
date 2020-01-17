@@ -20,14 +20,37 @@
     return self;
 }
 
+- (void)setDataArr:(NSMutableArray *)dataArr{
+    
+    NSInteger recommend = 0;
+    NSInteger intent = 0;
+    NSInteger see = 0;
+    _recommendL.text = [NSString stringWithFormat:@"%ld",dataArr.count];
+    for (int i = 0; i < dataArr.count; i++) {
+        
+        if ([dataArr[i][@"client_request"] integerValue] == 1) {
+            
+            intent += 1;
+        }
+    }
+    _intentL.text = [NSString stringWithFormat:@"%ld",intent];
+}
+
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _recommendL.text = @"4";
-    _intentL.text = @"2";
-    _agentL.text = @"利用";
-    _seeL.text = @"2";
-    _companyL.text = @"奥术大师大";
-    _timeL.text = @"2020.1.1";
+    [_agentImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"house"][@"agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+       
+        if (error) {
+            
+            self->_agentImg.image = IMAGE_WITH_NAME(@"def_head");
+        }
+    }];
+//    _recommendL.text = @"4";
+//    _intentL.text = @"2";
+    _agentL.text = dataDic[@"house"][@"agent_name"];
+//    _seeL.text = @"2";
+    _companyL.text = dataDic[@"house"][@"store_name"];
+    _timeL.text = [NSString stringWithFormat:@"推荐时间：%@",dataDic[@"house"][@"accept_time"]];
 }
 
 - (void)initUI{
@@ -77,10 +100,15 @@
         }
     }
     
-    _companyL = [[UILabel alloc] init];//WithFrame:CGRectMake(60 + 100 *SIZE * i, 35 *SIZE, 100 *SIZE, 11 *SIZE)];
+    _agentL = [[UILabel alloc] init];
+    _agentL.textColor = CLContentLabColor;
+    _agentL.font = [UIFont systemFontOfSize:12 *SIZE];
+    _agentL.adjustsFontSizeToFitWidth = YES;
+    [self.contentView addSubview:_agentL];
+    
+    _companyL = [[UILabel alloc] init];
     _companyL.textColor = CLContentLabColor;
     _companyL.font = [UIFont systemFontOfSize:12 *SIZE];
-//    _companyL.textAlignment = NSTextAlignmentCenter;
     _companyL.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:_companyL];
     
@@ -88,10 +116,12 @@
     _timeL.textColor = CLContentLabColor;
     _timeL.font = [UIFont systemFontOfSize:12 *SIZE];
     _timeL.textAlignment = NSTextAlignmentRight;
-    _timeL.adjustsFontSizeToFitWidth = YES;
+//    _timeL.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:_timeL];
     
     _agentImg = [[UIImageView alloc] init];
+    _agentImg.layer.cornerRadius = 25 *SIZE;
+    _agentImg.clipsToBounds = YES;
     [self.contentView addSubview:_agentImg];
     
     [_agentImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -101,20 +131,27 @@
         make.width.height.mas_equalTo(50 *SIZE);
 //        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
     }];
+    
+    [_agentL mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_agentImg.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width / 2);
+    }];
 
     [_companyL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_agentImg.mas_bottom).offset(15 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width / 4);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self->_agentL.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width / 2);
     }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        make.top.equalTo(self->_agentImg.mas_bottom).offset(15 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width / 4);
+        make.top.equalTo(self->_agentL.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width / 2);
+        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
 //        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
     }];
 }

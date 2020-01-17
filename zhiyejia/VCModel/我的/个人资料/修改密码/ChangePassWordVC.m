@@ -86,7 +86,7 @@
             [UserModelArchiver archive];
             
             //            [self alertControllerWithNsstring:@"系统提示" And:[NSString stringWithFormat:@"修改密码成功，你的新密码为：%@，请妥善保管",_PassWord.text]];
-            [self alertControllerWithNsstring:@"系统提示" And:[NSString stringWithFormat:@"修改密码成功，你的新密码为：%@，请妥善保管",self->_PassWord.text] WithDefaultBlack:^{
+            [self alertControllerWithNsstring:@"系统提示" And:[NSString stringWithFormat:@"修改密码成功，请妥善保管"] WithDefaultBlack:^{
                 [self.navigationController popViewControllerAnimated:YES];
             }];
             

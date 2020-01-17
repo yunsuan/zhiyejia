@@ -22,10 +22,10 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _agentL.text = @"带看经纪人：来说都";
-    _companyL.text = @"所属公司：阿萨德马上都";
+    _agentL.text = [NSString stringWithFormat:@"带看经纪人：%@",dataDic[@"log_agent_name"]];
+    _companyL.text = [NSString stringWithFormat:@"所属公司：%@",dataDic[@"log_agent_name"]];
 //    _timeL.text = @"带看日期：2020.1.1";
-    _detailL.text = @"维护内容：奥术大师大";
+    _detailL.text = [NSString stringWithFormat:@"维护内容：%@",dataDic[@"comment"]];
 //    _priceL.text = @"买方出价：131";
 //    _commentL.text = @"买房评论：1231231";
 }
@@ -66,6 +66,7 @@
     
     _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_phoneBtn addTarget:self action:@selector(ActionPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_phoneBtn setImage:IMAGE_WITH_NAME(@"phone1") forState:UIControlStateNormal];
     [self.contentView addSubview:_phoneBtn];
     
     [_agentL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -101,7 +102,7 @@
     [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.contentView).offset(-15 *SIZE);
-        make.top.equalTo(self.contentView.mas_bottom).offset(50 *SIZE);
+        make.top.equalTo(self.contentView).offset(50 *SIZE);
         make.width.height.mas_equalTo(30 *SIZE);
 //        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);
     }];

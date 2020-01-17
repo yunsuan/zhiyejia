@@ -11,12 +11,25 @@
 #import "SecHouseBuyDemandDetailRecommendDetailCell.h"
 
 @interface SecHouseBuyDemandDetailRecommendDetailVC ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    
+    NSArray *_dataArr;
+}
 @property (nonatomic, strong) UITableView *table;
 
 @end
 
 @implementation SecHouseBuyDemandDetailRecommendDetailVC
+
+- (instancetype)initWithDataArr:(NSArray *)dataArr
+{
+    self = [super init];
+    if (self) {
+        
+        _dataArr = dataArr;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,7 +39,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -34,12 +47,12 @@
     SecHouseBuyDemandDetailRecommendDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseBuyDemandDetailRecommendDetailCell"];
     if (!cell) {
         
-        cell = [[ SecHouseBuyDemandDetailRecommendDetailCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecHouseBuyDemandDetailRecommendDetailCell"];
+        cell = [[SecHouseBuyDemandDetailRecommendDetailCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecHouseBuyDemandDetailRecommendDetailCell"];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataArr[indexPath.row];
     return cell;
 }
 
@@ -52,7 +65,7 @@
     
     self.titleLabel.text = @"推荐详情";
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStyleGrouped];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.backgroundColor = CLLineColor;
     _table.delegate = self;
     _table.dataSource = self;

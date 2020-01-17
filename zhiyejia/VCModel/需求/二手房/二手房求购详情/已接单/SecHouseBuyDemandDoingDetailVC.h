@@ -16,6 +16,8 @@ typedef void(^SecHouseBuyDemandDoingDetailVCBlock)(void);
 
 @property (nonatomic, copy) SecHouseBuyDemandDoingDetailVCBlock secHouseBuyDemandDoingDetailVCBlock;
 
+@property (nonatomic, copy) NSString *status;
+
 - (instancetype)initWithRecomendId:(NSString *)recommend_id;
 
 @end

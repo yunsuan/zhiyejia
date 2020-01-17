@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initUI];
+    self.titleLabel.text = @"发布详情";
     [self RequestMethod];
 }
 
@@ -60,6 +60,7 @@
             
             [self showContent:resposeObject[@"msg"]];
         }
+        [self initUI];
     } failure:^(NSError * _Nonnull error) {
         
         [self showContent:@"网络错误"];
@@ -68,32 +69,40 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    [self alertControllerWithNsstring:@"提示" And:@"您确认要取消当前购房需求？" WithCancelBlack:^{
+    FailView *view = [[FailView alloc] initWithFrame:self.view.bounds];
+    view.failViewBlock = ^(NSString *str) {
         
-    } WithDefaultBlack:^{
-       
-        [BaseRequest POST:NeedBuyBuyCancel_URL parameters:@{@"recommend_id":self->_recommend_id} success:^(id  _Nonnull resposeObject) {
+        NSString *reason;
+        if (str.length) {
             
+            reason = str;
+        }else{
+            
+            reason = @" ";
+        }
+        [BaseRequest POST:NeedBuyBuyCancel_URL parameters:@{@"recommend_id":self->_recommend_id,@"disabled_reason":reason} success:^(id  _Nonnull resposeObject) {
+
             if ([resposeObject[@"code"] integerValue] == 200) {
-                
+
                 [self showContent:@"取消成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
+
                     if (self.secHouseBuyDemandDoingDetailVCBlock) {
-                        
+
                         self.secHouseBuyDemandDoingDetailVCBlock();
                     }
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }else{
-                
+
                 [self showContent:resposeObject[@"msg"]];
             }
         } failure:^(NSError * _Nonnull error) {
-            
+
             [self showContent:@"网络错误"];
         }];
-    }];
+    };
+    [self.view addSubview:view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -182,10 +191,14 @@
 - (void)initUI{
     
     self.rightBtn.hidden = NO;
+    if ([self.status integerValue]) {
+        
+        self.rightBtn.hidden = YES;
+    }
+    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
     [self.rightBtn setTitle:@"取消发布" forState:UIControlStateNormal];
+    [self.rightBtn setTitleColor:CLTitleLabColor forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.titleLabel.text = @"发布详情";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.backgroundColor = CLLineColor;

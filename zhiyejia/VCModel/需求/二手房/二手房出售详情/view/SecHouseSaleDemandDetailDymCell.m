@@ -22,17 +22,17 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _sevenL.text = @"10";
-    _thirtyL.text = @"10";
-    _intentL.text = @"10";
-    _seeL.text = @"10";
+    _sevenL.text = [NSString stringWithFormat:@"%@",dataDic[@"range_take"]];
+    _thirtyL.text = [NSString stringWithFormat:@"%@",dataDic[@"total_take"]];
+    _intentL.text = [NSString stringWithFormat:@"%@",dataDic[@"focus_num"]];
+    _seeL.text = [NSString stringWithFormat:@"%@",dataDic[@"view_num"]];
 }
 
 - (void)initUI{
     
     self.contentView.backgroundColor = CLBlueBtnColor;
     
-    NSArray *titleArr = @[@"近7日带看（次）",@"近30日带看（次）",@"关注量",@"浏览量"];
+    NSArray *titleArr = @[@"近7日带看（次）",@"总带看（次）",@"关注量",@"浏览量"];
     for (int i = 0; i < 4; i++) {
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_Width / 4 * i, 35 *SIZE, SCREEN_Width / 4, 13 *SIZE)];

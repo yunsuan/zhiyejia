@@ -22,12 +22,12 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _titleL.text = @"小区名称：红都花园";
+    _titleL.text = [NSString stringWithFormat:@"小区名称：%@",dataDic[@"project_name"]];
 //    _statusL.text = @"待勘察";
-    _houseNumL.text = @"房间号码：1栋203";
-    _priceL.text = @"挂牌价：80万";
-    _timeL.text = @"发布时间：2020.1.2";
-    _referencePriceL.text = @"参考价：80万";
+    _houseNumL.text = [NSString stringWithFormat:@"房间号码：%@",dataDic[@"house_info"]];
+    _priceL.text = [NSString stringWithFormat:@"挂牌价：%@-%@万",dataDic[@"price_min"],dataDic[@"price_max"]];
+    _timeL.text = [NSString stringWithFormat:@"发布时间：%@",dataDic[@"create_time"]];
+//    _referencePriceL.text = @"参考价：80万";
 }
 
 - (void)initUI{
@@ -60,10 +60,10 @@
     _timeL.font = FONT(13 *SIZE);
     [self.contentView addSubview:_timeL];
     
-    _referencePriceL = [[UILabel alloc] init];
-    _referencePriceL.textColor = CLContentLabColor;
-    _referencePriceL.font = FONT(13 *SIZE);
-    [self.contentView addSubview:_referencePriceL];
+//    _referencePriceL = [[UILabel alloc] init];
+//    _referencePriceL.textColor = CLContentLabColor;
+//    _referencePriceL.font = FONT(13 *SIZE);
+//    [self.contentView addSubview:_referencePriceL];
     
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -93,14 +93,14 @@
         make.width.mas_lessThanOrEqualTo(250 *SIZE);
     }];
 
-    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.right.equalTo(self.contentView).offset(-15 *SIZE);
-        make.top.equalTo(self->_houseNumL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(250 *SIZE);
-    }];
+//    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.right.equalTo(self.contentView).offset(-15 *SIZE);
+//        make.top.equalTo(self->_houseNumL.mas_bottom).offset(10 *SIZE);
+//        make.width.mas_lessThanOrEqualTo(250 *SIZE);
+//    }];
     
-    [_referencePriceL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(15 *SIZE);
         make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);

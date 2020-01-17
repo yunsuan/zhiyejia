@@ -34,7 +34,7 @@
 //    _serviceL.text = @"服务评分：50";
     _typeL.text = @"房源勘察经纪人";
     _companyL.text = dataDic[@"company_name"];
-    _contentL.text = @"我和房主签订委托书，获得房主信赖";
+//    _contentL.text = @"我和房主签订委托书，获得房主信赖";
 }
 
 - (void)ActionWorkBtn:(UIButton *)btn{
@@ -65,6 +65,7 @@
     _headImg = [[UIImageView alloc] init];
     _headImg.contentMode = UIViewContentModeScaleAspectFill;
     _headImg.clipsToBounds = YES;
+    _headImg.layer.cornerRadius = 25 *SIZE;
     [self.contentView addSubview:_headImg];
     
     _nameL = [[UILabel alloc] init];

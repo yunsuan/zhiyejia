@@ -59,9 +59,9 @@
         _hideView.hidden = NO;
     }
 
-    _titleL.text = model.title;
-    _roomLevelL.text = model.level;
-    _contentL.text = model.describe;
+    _titleL.text = [NSString stringWithFormat:@"%@",model.title];
+    _roomLevelL.text = [NSString stringWithFormat:@"%@",model.level];
+    _contentL.text = [NSString stringWithFormat:@"%@",model.describe];
     
     if (model.price.length) {
         
@@ -71,7 +71,7 @@
         _priceL.text = @"暂无售价信息";
     }
     
-    if (model.unit_price.length) {
+    if ([model.unit_price floatValue]) {
         
         _averageL.text = [NSString stringWithFormat:@"%@元/㎡",model.unit_price];
     }else{

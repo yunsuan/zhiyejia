@@ -22,8 +22,8 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _sevenL.text = @"10";
-    _seeL.text = @"300";
+    _sevenL.text = [NSString stringWithFormat:@"%@",dataDic[@"range_take"]];
+    _seeL.text = [NSString stringWithFormat:@"%@",dataDic[@"total_take"]];
 }
 
 - (void)initUI{

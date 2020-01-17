@@ -22,26 +22,26 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    if (dataDic[@"range_take"]) {
+    if ([dataDic[@"range_take"] integerValue]) {
         
         _daysL.text = [NSString stringWithFormat:@"%@",dataDic[@"range_take"]];
     }else{
         
-        _daysL.text = @"0";
+        _daysL.text = @"--";
     }
-    if (dataDic[@"total_take"]) {
+    if ([dataDic[@"total_take"] integerValue]) {
         
         _allL.text = [NSString stringWithFormat:@"%@",dataDic[@"total_take"]];
     }else{
         
-        _allL.text = @"0";
+        _allL.text = @"--";
     }
-    if (dataDic[@"suggest_price"]) {
+    if ([dataDic[@"suggest_price"] integerValue]) {
         
         _intentL.text = [NSString stringWithFormat:@"%@",dataDic[@"suggest_price"]];
     }else{
         
-        _intentL.text = @"0";
+        _intentL.text = @"--";
     }
 }
 

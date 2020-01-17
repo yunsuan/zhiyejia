@@ -10,8 +10,10 @@
 
 #import "SecHouseCompanyDetailVC.h"
 #import "SecHouseBuyDemandDetailRecommendVC.h"
+#import "SecHouseBuyDemandDetailRecommendDetailVC.h"
+#import "LookMaintainDetailLookRecordVC.h"
 
-#import "RightBtnColorHeader.h"
+#import "BaseColorHeader.h"
 #import "SecHouseBuyDetailCell.h"
 #import "SecHouseBuyDemandDetailRecommendCell.h"
 #import "SecHouseBuyDemandDetailAgentCell.h"
@@ -21,6 +23,11 @@
 {
     
     NSString *_recommend_id;
+    
+    NSDictionary *_dataDic;
+    
+    NSMutableArray *_houseArr;
+    NSMutableArray *_houseRecommendArr;
 }
 @property (nonatomic, strong) UITableView *table;
 
@@ -41,8 +48,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initUI];
+    self.titleLabel.text = @"发布详情";
+    [self initDataSource];
     [self RequestMethod];
+}
+
+- (void)initDataSource{
+    
+    _houseRecommendArr = [@[] mutableCopy];
+    _houseArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -51,16 +65,22 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            
+            self->_dataDic = resposeObject[@"data"];
+            self->_houseArr = [NSMutableArray arrayWithArray:self->_dataDic[@"recommend"][@"house"][@"take_follow"]];
+            self->_houseRecommendArr = [NSMutableArray arrayWithArray:self->_dataDic[@"house_recommend"]];
+                
+            [self->_table reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];
         }
+        [self initUI];
     } failure:^(NSError * _Nonnull error) {
         
         [self showContent:@"网络错误"];
     }];
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
@@ -69,11 +89,25 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    if (section == 0) {
+    if (section == 0 || section == 1) {
         
         return 0;
+    }else{
+        
+        if (section == 4) {
+            
+            if (_houseArr.count) {
+                
+                return 40 *SIZE;
+            }else{
+                
+                return 0;
+            }
+        }else{
+            
+            return 40 *SIZE;
+        }
     }
-    return 40 *SIZE;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -88,17 +122,13 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    RightBtnColorHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"RightBtnColorHeader"];
+    BaseColorHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BaseColorHeader"];
     if (!header) {
         
-        header = [[RightBtnColorHeader alloc] initWithReuseIdentifier:@"RightBtnColorHeader"];
+        header = [[BaseColorHeader alloc] initWithReuseIdentifier:@"BaseColorHeader"];
     }
     
-    if (section == 0) {
-        
-//        header.titleL.text = @"房源详情";
-//        header.contentL.text = @"已成交";
-    }else if (section == 1){
+    if (section == 1) {
         
         header.titleL.text = @"推荐房源";
     }else if (section == 2){
@@ -107,7 +137,7 @@
     }else if (section == 3){
         
         header.titleL.text = @"交易详情";
-    }else{
+    }else if (section == 4){
         
         header.titleL.text = @"看房记录";
     }
@@ -116,6 +146,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    if (section == 4) {
+        
+        return _houseArr.count;
+    }
     return 1;
 }
 
@@ -131,7 +165,7 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = @{};
+        cell.dataDic = _dataDic[@"client"];
         return cell;
     }else if (indexPath.section == 1){
         
@@ -143,7 +177,9 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = @{};
+        cell.dataDic = _dataDic[@"recommend"];
+        cell.dataArr = _houseRecommendArr;
+        cell.seeL.text = [NSString stringWithFormat:@"%ld",_houseArr.count];
         return cell;
     }else if (indexPath.section == 2){
         
@@ -155,19 +191,47 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = @{};
+        cell.dataDic = self->_dataDic[@"recommend"][@"house"];
+        cell.secHouseBuyDemandDetailAgentCellPhoneBlock = ^{
+            
+            NSString *phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"recommend"][@"house"][@"agent_tel"]];
+            if (phone.length) {
+                
+                //获取目标号码字符串,转换成URL
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                //调用系统方法拨号
+                [[UIApplication sharedApplication] openURL:url];
+            }else{
+                
+                [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+            }
+        };
+        return cell;
+    }else if (indexPath.section == 2){
+     
+        SecHouseBuyDemandDetailHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseBuyDemandDetailHouseCell"];
+        if (!cell) {
+            
+            cell = [[SecHouseBuyDemandDetailHouseCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecHouseBuyDemandDetailHouseCell"];
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = self->_dataDic[@"deal"][@"houseInfo"];
+        
         return cell;
     }else{
         
         SecHouseBuyDemandDetailHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseBuyDemandDetailHouseCell"];
         if (!cell) {
-                   
+            
             cell = [[SecHouseBuyDemandDetailHouseCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecHouseBuyDemandDetailHouseCell"];
         }
-            
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-               
-        cell.dataDic = @{};
+        
+        cell.dataDic = self->_houseArr[indexPath.row];
+        
         return cell;
     }
 }
@@ -176,14 +240,31 @@
     
     if (indexPath.section == 1) {
         
-        SecHouseBuyDemandDetailRecommendVC *nextVC = [[SecHouseBuyDemandDetailRecommendVC alloc] init];
+        SecHouseBuyDemandDetailRecommendDetailVC *nextVC = [[SecHouseBuyDemandDetailRecommendDetailVC alloc] initWithDataArr:_houseRecommendArr];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.section == 2){
+        
+        LookMaintainDetailLookRecordVC *nextVC = [[LookMaintainDetailLookRecordVC alloc] initWithData:self->_dataDic[@"deal"][@"houseInfo"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.section == 3){
+        
+        LookMaintainDetailLookRecordVC *nextVC = [[LookMaintainDetailLookRecordVC alloc] initWithData:_houseArr[indexPath.row]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = @"发布详情";
+//    self.rightBtn.hidden = NO;
+//    if ([self.status integerValue]) {
+//        
+//        self.rightBtn.hidden = YES;
+//    }
+//    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
+//    [self.rightBtn setTitle:@"取消发布" forState:UIControlStateNormal];
+//    [self.rightBtn setTitleColor:CLTitleLabColor forState:UIControlStateNormal];
+//    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.backgroundColor = CLLineColor;
@@ -194,5 +275,6 @@
     _table.estimatedRowHeight = 100 *SIZE;
     [self.view addSubview:_table];
 }
+
 
 @end

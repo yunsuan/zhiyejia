@@ -17,11 +17,17 @@
 //二手房
 #import "SecHouseSaleHouseDemandVC.h"
 
-#import "SecHouseSaleDemandDetailVC.h"
+//买
 #import "SecHouseBuyDemandWaitDetailVC.h"
 #import "SecHouseBuyDemandDoingDetailVC.h"
 #import "SecHouseBuyDemandRecommendDetailVC.h"
 #import "SecHouseBuyDemandDealDetailVC.h"
+
+//卖
+#import "SecHouseSaleDemandWaitDetailVC.h"
+#import "SecHouseSaleDemandDoingDetailVC.h"
+
+#import "SecHouseSaleDemandDetailVC.h"
 
 #import "SecHouseDemandVC.h"
 #import "SecStoreDemandVC.h"
@@ -56,9 +62,10 @@
     
     [self initDataSource];
     [self initUI];
-    if ([UserModel defaultModel].token) {
+    if ([UserModel defaultModel].token.length) {
         
         [self RequestMethod];
+        [self SaleRequest];
     }else{
         
         
@@ -70,6 +77,26 @@
     
     _sellArr = [@[] mutableCopy];
     _buyArr = [@[] mutableCopy];
+}
+
+- (void)SaleRequest{
+    
+    [BaseRequest GET:NeedSaleList_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+        
+        [self->_table.mj_header endRefreshing];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_sellArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+            [self->_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self->_table.mj_header endRefreshing];
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)RequestMethod{
@@ -98,7 +125,7 @@
     
     UIAlertAction *buy = [UIAlertAction actionWithTitle:@"求购" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
        
-        if ([UserModel defaultModel].agent_id) {
+        if ([UserModel defaultModel].token.length) {
                 
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[/*@{@"param":@"新房-住宅",@"id":@"1"},@{@"param":@"新房-商铺",@"id":@"2"},@{@"param":@"新房-写字楼",@"id":@"3"},*/@{@"param":@"住宅",@"id":@"1"},@{@"param":@"商铺",@"id":@"2"},@{@"param":@"写字楼",@"id":@"3"}]];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
@@ -169,9 +196,9 @@
             }
     }];
     
-    UIAlertAction *sale = [UIAlertAction actionWithTitle:@"出售" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sale = [UIAlertAction actionWithTitle:@"卖房" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        if ([UserModel defaultModel].agent_id) {
+        if ([UserModel defaultModel].token.length) {
                 
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"住宅",@"id":@"1"},@{@"param":@"商铺",@"id":@"2"},@{@"param":@"写字楼",@"id":@"3"}]];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
@@ -185,7 +212,7 @@
                 SecHouseSaleHouseDemandVC *nextVC = [[SecHouseSaleHouseDemandVC alloc] initWithType:type property:property];
                 nextVC.secHouseSaleHouseDemandVCBlock = ^{
                 
-                    [self RequestMethod];
+                    [self SaleRequest];
                 };
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
@@ -200,8 +227,10 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
-    [alert addAction:buy];
+    
     [alert addAction:sale];
+    [alert addAction:buy];
+    
     [alert addAction:cancel];
     
     [self.navigationController presentViewController:alert animated:YES completion:^{
@@ -229,22 +258,22 @@
     
     if (section == 0) {
         
-        if (_sellArr.count) {
+//        if (_sellArr.count) {
             
             return 40 *SIZE;
-        }else{
-            
-            return 0;
-        }
+//        }else{
+//
+//            return 0;
+//        }
     }else{
         
-        if (_buyArr.count) {
+//        if (_buyArr.count) {
             
             return 40 *SIZE;
-        }else{
-            
-            return 0;
-        }
+//        }else{
+//
+//            return 0;
+//        }
     }
     
 }
@@ -259,10 +288,10 @@
     
     if (section == 0) {
         
-        header.titleL.text = @"二手房出售";
+        header.titleL.text = [NSString stringWithFormat:@"二手房出售(%ld)",_sellArr.count];;
     }else{
         
-        header.titleL.text = @"二手房求购";
+        header.titleL.text = [NSString stringWithFormat:@"二手房求购(%ld)",_buyArr.count];;
     }
     
     
@@ -281,7 +310,7 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = @{};
+        cell.dataDic = _sellArr[indexPath.row];
         
         cell.deamandSaleCellBlock = ^{
           
@@ -318,13 +347,33 @@
     
     if (indexPath.section == 0) {
         
-        SecHouseSaleDemandDetailVC *nextVC = [[SecHouseSaleDemandDetailVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
+        if ([_sellArr[indexPath.row][@"current_state"] integerValue] == 1) {
+            
+            SecHouseSaleDemandWaitDetailVC *nextVC = [[SecHouseSaleDemandWaitDetailVC alloc] initWithRecomendId:_sellArr[indexPath.row][@"recommend_id"]];
+            nextVC.status = [NSString stringWithFormat:@"%@",_sellArr[indexPath.row][@"disabled_state"]];
+            nextVC.secHouseSaleDemandWaitDetailVCBlock = ^{
+                
+                [self->_sellArr removeObjectAtIndex:indexPath.row];
+                [tableView reloadData];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            SecHouseSaleDemandDoingDetailVC *nextVC = [[SecHouseSaleDemandDoingDetailVC alloc] initWithRecomendId:_sellArr[indexPath.row][@"recommend_id"]];
+            nextVC.status = [NSString stringWithFormat:@"%@",_sellArr[indexPath.row][@"disabled_state"]];
+            nextVC.secHouseSaleDemandDoingDetailVCBlock = ^{
+                                   
+                [self->_sellArr removeObjectAtIndex:indexPath.row];
+                [tableView reloadData];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
     }else{
         
         if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 1) {
             
             SecHouseBuyDemandWaitDetailVC *nextVC = [[SecHouseBuyDemandWaitDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            nextVC.status = [NSString stringWithFormat:@"%@",_buyArr[indexPath.row][@"disabled_state"]];
             nextVC.secHouseBuyDemandWaitDetailVCBlock = ^{
                 
                 [self->_buyArr removeObjectAtIndex:indexPath.row];
@@ -333,19 +382,31 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         }else if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 2){
             
-            SecHouseBuyDemandDoingDetailVC *nextVC = [[SecHouseBuyDemandDoingDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            SecHouseBuyDemandWaitDetailVC *nextVC = [[SecHouseBuyDemandWaitDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            nextVC.status = [NSString stringWithFormat:@"%@",_buyArr[indexPath.row][@"disabled_state"]];
+            nextVC.secHouseBuyDemandWaitDetailVCBlock = ^{
+                
+                [self->_buyArr removeObjectAtIndex:indexPath.row];
+                [tableView reloadData];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
+//            SecHouseBuyDemandDoingDetailVC *nextVC = [[SecHouseBuyDemandDoingDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+//            nextVC.status = [NSString stringWithFormat:@"%@",_buyArr[indexPath.row][@"disabled_state"]];
+//            [self.navigationController pushViewController:nextVC animated:YES];
         }else if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 3){
             
             SecHouseBuyDemandRecommendDetailVC *nextVC = [[SecHouseBuyDemandRecommendDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            nextVC.status = [NSString stringWithFormat:@"%@",_buyArr[indexPath.row][@"disabled_state"]];
+            nextVC.secHouseBuyDemandRecommendDetailVCBlock = ^{
+              
+                [self->_buyArr removeObjectAtIndex:indexPath.row];
+                [tableView reloadData];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         }else if ([_buyArr[indexPath.row][@"current_state"] integerValue] == 4){
             
-            SecHouseBuyDemandWaitDetailVC *nextVC = [[SecHouseBuyDemandWaitDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        }else{
-            
             SecHouseBuyDemandDealDetailVC *nextVC = [[SecHouseBuyDemandDealDetailVC alloc] initWithRecomendId:_buyArr[indexPath.row][@"recommend_id"]];
+            nextVC.status = [NSString stringWithFormat:@"%@",_buyArr[indexPath.row][@"disabled_state"]];
             [self.navigationController pushViewController:nextVC animated:YES];
         }
     }
@@ -372,9 +433,10 @@
     [self.view addSubview:_table];
     _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
        
-        if ([UserModel defaultModel].token) {
+        if ([UserModel defaultModel].token.length) {
             
             [self RequestMethod];
+            [self SaleRequest];
         }else{
             
             [_table.mj_header endRefreshing];

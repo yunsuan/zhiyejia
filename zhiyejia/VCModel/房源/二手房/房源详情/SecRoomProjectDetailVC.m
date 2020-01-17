@@ -13,6 +13,9 @@
 #import "SecRoomDealListVC.h"
 #import "SecDistributVC.h"
 
+#import "HouseDemandVC.h"
+#import "SecHouseSaleHouseDemandVC.h"
+
 #import "SecRoomProjectHeader.h"
 #import "TitleBaseHeader.h"
 #import "NewRoomProjectDetailFooter.h"
@@ -23,6 +26,8 @@
 #import "NewRoomProjectMapCell.h"
 #import "SecRoomProjectAgentCell.h"
 #import "SecRoomProjectPropertyTypeInfoCell.h"
+
+#import "SinglePickView.h"
 
 @interface SecRoomProjectDetailVC ()<UITableViewDelegate,UITableViewDataSource,YBImageBrowserDelegate>
 {
@@ -92,7 +97,7 @@
 - (void)RequestMethod{
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_projectId}];
-    if ([UserModel defaultModel].token) {
+    if ([UserModel defaultModel].token.length) {
         
         [dic setValue:[UserModel defaultModel].agent_id forKey:@"user_id"];
     }
@@ -204,7 +209,7 @@
 
 - (void)ActionAttentionBtn:(UIButton *)btn{
     
-    if ([UserModel defaultModel].token) {
+    if ([UserModel defaultModel].token.length) {
         
         if (_focusDic.count) {
             
@@ -227,7 +232,7 @@
                 }];
             }else{
                 
-                [BaseRequest POST:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"0"} success:^(id resposeObject) {
+                [BaseRequest POST:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"1"} success:^(id resposeObject) {
                     
                     NSLog(@"%@",resposeObject);
                     
@@ -408,15 +413,56 @@
             
             if (btnNum == 1) {
                 
-//
+                if ([UserModel defaultModel].token.length) {
+                        
+                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"住宅",@"id":@"1"},@{@"param":@"商铺",@"id":@"2"},@{@"param":@"写字楼",@"id":@"3"}]];
+                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                        
+                        NSString *type;
+                        NSString *property;
+
+                        type = @"1";
+                        property = ID;
+
+                        HouseDemandVC *nextVC = [[HouseDemandVC alloc] initWithType:type property:property];
+                        nextVC.houseDemandVCBlock = ^{
+                                                   
+//                            [self RequestMethod];
+                        };
+                        [self.navigationController pushViewController:nextVC animated:YES];
+                    };
+                    [[UIApplication sharedApplication].keyWindow addSubview:view];
+                }else{
+                        
+                    [self GotoLogin];
+                    [self RequestMethod];
+                }
             }else if (btnNum == 2){
                 
-//                SecDistributVC *nextVC = [[SecDistributVC alloc] init];
-//                nextVC.projiect_id = _projectId;
-//                nextVC.img_name = _model.total_float_url_phone;
-//                nextVC.status = @"release";
-//                nextVC.comName = _model.project_name;
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                if ([UserModel defaultModel].token.length) {
+                        
+                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"住宅",@"id":@"1"},@{@"param":@"商铺",@"id":@"2"},@{@"param":@"写字楼",@"id":@"3"}]];
+                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                            
+                        NSString *type;
+                        NSString *property;
+                        
+                        type = @"1";
+                        property = ID;
+                        
+                        SecHouseSaleHouseDemandVC *nextVC = [[SecHouseSaleHouseDemandVC alloc] initWithType:type property:property];
+                        nextVC.secHouseSaleHouseDemandVCBlock = ^{
+                        
+//                            [self RequestMethod];
+                        };
+                        [self.navigationController pushViewController:nextVC animated:YES];
+                    };
+                    [[UIApplication sharedApplication].keyWindow addSubview:view];
+                }else{
+                        
+                    [self GotoLogin];
+                    [self RequestMethod];
+                }
             }else if (btnNum == 3){
                 
                 SecComAllRoomListVC *nextVC = [[SecComAllRoomListVC alloc] initWithProjectId:self->_projectId city:self->_city];

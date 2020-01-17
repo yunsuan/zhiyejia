@@ -25,14 +25,16 @@
 #import "TagCollCell.h"
 #import "GZQFlowLayout.h"
 #import "UIImage+WaterImg.h"
-
+#import "FailView.h"
 
 #import "YBImageBrowser.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
+#import "ZZQAvatarPicker.h"
 
+#define YQDversion @"1.0.0"
 
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 #define SS(strongSelf)  __strong __typeof(&*self)strongSelf = self;

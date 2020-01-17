@@ -82,6 +82,8 @@
 
 @property (nonatomic, strong) UITextView *markTV;
 
+@property (nonatomic, strong) UILabel *markL;
+
 @property (nonatomic, strong) UIButton *confirmBtn;
 
 @end
@@ -202,39 +204,66 @@
         return;
     }
     
-    if (!_minPriceTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最低价格"];
-        return;
-    }
-    
-    if (!_maxPriceTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最高价格"];
-        return;
-    }
-    
-    if (!_minAreaTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最低面积"];
-        return;
-    }
-    
-    if (!_maxAreaTF.textfield.text.length) {
-        
-        [self showContent:@"请输入最大价格"];
-        return;
-    }
+//    if (!_minPriceTF.textfield.text.length) {
+//
+//        [self showContent:@"请输入最低价格"];
+//        return;
+//    }
+//
+//    if (!_maxPriceTF.textfield.text.length) {
+//
+//        [self showContent:@"请输入最高价格"];
+//        return;
+//    }
+//
+//    if (!_minAreaTF.textfield.text.length) {
+//
+//        [self showContent:@"请输入最低面积"];
+//        return;
+//    }
+//
+//    if (!_maxAreaTF.textfield.text.length) {
+//
+//        [self showContent:@"请输入最大价格"];
+//        return;
+//    }
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][0] forKey:@"recommend_city"];
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][1] forKey:@"recommend_district"];
     [dic setValue:_type forKey:@"type"];
     [dic setValue:_property forKey:@"property_type"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_minPriceTF.textfield.text] forKey:@"price_min"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_maxPriceTF.textfield.text] forKey:@"price_max"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_minAreaTF.textfield.text] forKey:@"area_min"];
-    [dic setValue:[NSString stringWithFormat:@"%@",_maxAreaTF.textfield.text] forKey:@"area_max"];
+    if (_minPriceTF.textfield.text.length) {
+        
+        [dic setValue:[NSString stringWithFormat:@"%@",_minPriceTF.textfield.text] forKey:@"price_min"];
+    }else{
+        
+        [dic setValue:@" " forKey:@"price_min"];
+    }
+    
+    if (_maxPriceTF.textfield.text.length) {
+        
+        [dic setValue:[NSString stringWithFormat:@"%@",_maxPriceTF.textfield.text] forKey:@"price_max"];
+    }else{
+        
+        [dic setValue:@" " forKey:@"price_max"];
+    }
+    
+    if (_minAreaTF.textfield.text.length) {
+        
+        [dic setValue:[NSString stringWithFormat:@"%@",_minAreaTF.textfield.text] forKey:@"area_min"];
+    }else{
+        
+        [dic setValue:@" " forKey:@"area_min"];
+    }
+    
+    if (_maxAreaTF.textfield.text.length) {
+        
+        [dic setValue:[NSString stringWithFormat:@"%@",_maxAreaTF.textfield.text] forKey:@"area_max"];
+    }else{
+        
+        [dic setValue:@" " forKey:@"area_max"];
+    }
     if (_addressTF.textfield.text.length) {
         
         [dic setValue:_addressTF.textfield.text forKey:@"need_address"];
@@ -265,6 +294,17 @@
         
         [self showContent:@"网络错误"];
     }];
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    if (textView.text.length) {
+        
+        _markL.hidden = YES;
+    }else{
+        
+        _markL.hidden = NO;
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -327,7 +367,7 @@
     _areaL = [[UILabel alloc] init];
     _areaL.textColor = CLTitleLabColor;
     _areaL.font = [UIFont systemFontOfSize:13 *SIZE];
-    _areaL.text = @"城市区域";
+    _areaL.text = @"意向区域";
     [_contentView addSubview:_areaL];
     
     _addressL = [[UILabel alloc] init];
@@ -380,12 +420,14 @@
     _minPriceTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
     _minPriceTF.textfield.delegate = self;
     _minPriceTF.unitL.text = @"万";
+    _minPriceTF.textfield.textAlignment = NSTextAlignmentLeft;
     _minPriceTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_minPriceTF];
     
     _maxPriceTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
     _maxPriceTF.textfield.delegate = self;
     _maxPriceTF.unitL.text = @"万";
+    _maxPriceTF.textfield.textAlignment = NSTextAlignmentLeft;
     _maxPriceTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_maxPriceTF];
     
@@ -393,6 +435,7 @@
     _minAreaTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
     _minAreaTF.textfield.delegate = self;
     _minAreaTF.unitL.text = @"㎡";
+    _minAreaTF.textfield.textAlignment = NSTextAlignmentLeft;
     _minAreaTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_minAreaTF];
     
@@ -400,6 +443,7 @@
     _maxAreaTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
     _maxAreaTF.textfield.delegate = self;
     _maxAreaTF.unitL.text = @"㎡";
+    _maxAreaTF.textfield.textAlignment = NSTextAlignmentLeft;
     _maxAreaTF.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_maxAreaTF];
     
@@ -457,7 +501,14 @@
 //    [_useView addSubview:_buyUseBtn];
     
     _markTV = [[UITextView alloc] init];
+    _markTV.delegate = self;
     [_scrollView addSubview:_markTV];
+    
+    _markL = [[UILabel alloc] init];
+    _markL.textColor = CLContentLabColor;
+    _markL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _markL.text = @"补充说明";
+    [_markTV addSubview:_markL];
     
     _priceL = [[UILabel alloc] init];
     _priceL.textColor = CLTitleLabColor;
@@ -682,6 +733,13 @@
         make.top.equalTo(self->_contentView.mas_bottom).offset(5 *SIZE);
         make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(100 *SIZE);
+    }];
+    
+    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_markTV).offset(5 *SIZE);
+        make.top.equalTo(self->_markTV).offset(7 *SIZE);
+        make.width.mas_equalTo(100 *SIZE);
     }];
     
     [_confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {

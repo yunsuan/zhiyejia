@@ -31,6 +31,9 @@ static NSString *const Register_URL = @"user/register";
 //忘记密码
 static NSString *const ResetPassword_URL = @"user/user/resetPassword";
 
+//上传文件
+static NSString *const UserFileUpload_URL = @"user/file/upload";
+
 #pragma mark ---  我的  ---
 
 //获取个人信息
@@ -189,5 +192,20 @@ static NSString *const NeedBuyBuyCancel_URL = @"home/need/buy/buy/cancel";
 static NSString *const NeedSaleAdd_URL = @"home/need/sale/add";
 
 //项目列表
-static NSString *const SaleProgressAdd_URL = @"sale/progress/add";
+static NSString *const NeedHouseProjectList_URL = @"home/need/house/project/list";
+
+//列表
+static NSString *const NeedSaleList_URL = @"home/need/sale/list";
+
+//取消发布
+static NSString *const NeedSaleCancel_URL = @"home/need/sale/cancel";
+
+//待确认详情
+static NSString *const NeedSaleWaitDeail_URL = @"home/need/sale/wait/detail";
+
+//有效详情
+static NSString *const NeedSaleValueDeail_URL = @"home/need/sale/value/detail";
+
+//带看房源带看记录
+static NSString *const TakeMaintainHouseDetail_URL = @"home/take/maintain/house/detail";
 #endif /* NetConfig_h */

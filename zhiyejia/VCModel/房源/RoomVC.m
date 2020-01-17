@@ -16,9 +16,10 @@
 #import "SecRoomProjectDetailVC.h"
 #import "RentRoomProjectDetailVC.h"
 //二手房源
-#import "SecRoomStoreDetailVC.h"
-#import "SecRoomOfficeDetailVC.h"
-#import "SecRoomHouseDetailVC.h"
+#import "SecRoomDetailVC.h"
+//#import "SecRoomStoreDetailVC.h"
+//#import "SecRoomOfficeDetailVC.h"
+//#import "SecRoomHouseDetailVC.h"
 //租房房源
 #import "RentRoomHouseDetailVC.h"
 #import "RentRoomStoreDetailVC.h"
@@ -363,15 +364,18 @@
       
         if ([model.type integerValue] == 1) {
 
-            SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            nextVC.type = 1;;
             [self.navigationController pushViewController:nextVC animated:YES];
         }else if ([model.type integerValue] == 2){
             
-            SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            nextVC.type = 2;
             [self.navigationController pushViewController:nextVC animated:YES];
         }else{
 
-            SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            nextVC.type = 3;
             [self.navigationController pushViewController:nextVC animated:YES];
         }
     };

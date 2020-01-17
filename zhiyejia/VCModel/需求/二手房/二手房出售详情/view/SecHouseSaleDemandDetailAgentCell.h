@@ -38,6 +38,8 @@ typedef void(^SecHouseSaleDemandDetailAgentCellChangeBlock)(void);
 
 @property (nonatomic, strong) UIButton *phoneBtn;
 
+@property (nonatomic, strong) UIView *line;
+
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 
 @end

@@ -9,7 +9,10 @@
 #import "SecHouseSaleDemandDealVC.h"
 
 @interface SecHouseSaleDemandDealVC ()
-
+{
+    
+    
+}
 @property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) UILabel *timeL;
@@ -50,19 +53,28 @@
     
     _priceL = [[UILabel alloc] initWithFrame:CGRectMake(20 *SIZE, NAVIGATION_BAR_HEIGHT + 20 *SIZE, SCREEN_Width - 40 *SIZE, 18 *SIZE)];
     _priceL.textAlignment = NSTextAlignmentCenter;
-    _priceL.textColor = [UIColor redColor];
+    _priceL.textColor = CLTitleLabColor;
+    _priceL.font = FONT(15 *SIZE);
+    _priceL.text = [NSString stringWithFormat:@"%@万",self.dealDic[@"deal_money"]];
     [self.view addSubview:_priceL];
     
     _timeL = [[UILabel alloc] initWithFrame:CGRectMake(20 *SIZE, NAVIGATION_BAR_HEIGHT + 50 *SIZE, SCREEN_Width - 40 *SIZE, 18 *SIZE)];
-    _timeL.textColor = [UIColor redColor];
+    _timeL.textColor = CLTitleLabColor;
+    _timeL.font = FONT(13 *SIZE);
+    _timeL.text = [NSString stringWithFormat:@"签约时间：%@",self.dealDic[@"create_time"]];
     [self.view addSubview:_timeL];
     
     _agentL = [[UILabel alloc] initWithFrame:CGRectMake(20 *SIZE, NAVIGATION_BAR_HEIGHT + 70 *SIZE, SCREEN_Width - 40 *SIZE, 18 *SIZE)];
-    _agentL.textColor = [UIColor redColor];
+    _agentL.textColor = CLTitleLabColor;
+    _agentL.font = FONT(13 *SIZE);
+    _agentL.text = [NSString stringWithFormat:@"服务经纪人：%@",self.dealDic[@"deal_agent_name"]];
+    
     [self.view addSubview:_agentL];
     
     _companyL = [[UILabel alloc] initWithFrame:CGRectMake(20 *SIZE, NAVIGATION_BAR_HEIGHT + 90 *SIZE, SCREEN_Width - 40 *SIZE, 18 *SIZE)];
-    _companyL.textColor = [UIColor redColor];
+    _companyL.textColor = CLTitleLabColor;
+    _companyL.font = FONT(13 *SIZE);
+    _companyL.text = [NSString stringWithFormat:@"服务中介公司：%@",self.dealDic[@""]];
     [self.view addSubview:_companyL];
     
     _commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];

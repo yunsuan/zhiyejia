@@ -11,7 +11,11 @@
 #import "TagCollCell.h"
 
 @interface SecHouseBuyDemandDetailRecommendDetailCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
-
+{
+    
+    NSMutableArray *_projectArr;
+    NSMutableArray *_houseArr;;
+}
 @end
 
 @implementation SecHouseBuyDemandDetailRecommendDetailCell
@@ -28,21 +32,94 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _statusL.text = @"在售";
-    _titleL.text = @"【天鹅湖小区】  临街门面  转角双开间";
-    _priceL.text = @"150万";
-    _areaL.text = @"24㎡";
-    _typeL.text = @"别墅";
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"img_url"]]] placeholderImage:IMAGE_WITH_NAME(@"default_2") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+           
+        if (error) {
+                
+            self->_headImg.image = IMAGE_WITH_NAME(@"default_2");
+        }
+    }];
+    if ([dataDic[@"client_request"] integerValue] == 0) {
+        
+        _statusL.text = @"";
+    }else if ([dataDic[@"client_request"] integerValue] == 1){
+        
+        _statusL.text = @"感兴趣";
+    }else{
+        
+        _statusL.text = @"不感兴趣";
+    }
+    
+//    if ([_statusL.text isEqualToString:@"在售"]) {
+//
+//        _statusL.textColor = [UIColor greenColor];
+//    }else{
+//
+//        _statusL.textColor = [UIColor redColor];
+//    }
+    _titleL.text = dataDic[@"title"];
+    _priceL.text = dataDic[@"describe"];
+    if ([dataDic[@"price_change"] integerValue] == 0) {
+        
+        _priceImg.image = IMAGE_WITH_NAME(@"");
+    }else if ([dataDic[@"price_change"] integerValue] == 1){
+        
+        _priceImg.image = IMAGE_WITH_NAME(@"rising");
+    }else{
+        
+        _priceImg.image = IMAGE_WITH_NAME(@"falling");
+    }
+
+    _typeL.text = dataDic[@"property_type"];
+    
+    _projectArr = [[NSMutableArray alloc] initWithArray:dataDic[@"project_tags"]];
+    _houseArr = [[NSMutableArray alloc] initWithArray:dataDic[@"house_tags"]];
+    
+    [_coll reloadData];
+    
+    [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(120 *SIZE);
+        make.top.equalTo(self->_priceL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(220 *SIZE);
+        make.height.mas_equalTo(_coll.collectionViewLayout.collectionViewContentSize.height);
+    }];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return 2;
+    if (_projectArr.count && _houseArr.count) {
+        
+        return 2;
+    }else if (!_projectArr.count && !_houseArr.count){
+        
+        return 0;
+    }else{
+        
+        return 1;
+    }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
+    return CGSizeMake(260 *SIZE, 3 *SIZE);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 2;
+    if (section == 1) {
+        
+        return _houseArr.count;
+    }else{
+        
+        if (_projectArr.count) {
+            
+            return _projectArr.count;
+        }else{
+            
+            return _houseArr.count;
+        }
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -50,12 +127,23 @@
     TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 60 *SIZE, 27 *SIZE)];
+        cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 70 *SIZE, 20 *SIZE)];
     }
     
-    cell.contentL.font = FONT(12 *SIZE);
-    cell.contentL.text = @"住宅";
-    cell.contentView.backgroundColor = CLLineColor;
+    if (indexPath.section == 1) {
+        
+        [cell setStyleByType:@"1" lab:_houseArr[indexPath.item]];
+        
+    }else{
+        
+        if (_projectArr.count) {
+            
+            [cell setStyleByType:@"0" lab:_projectArr[indexPath.item]];
+        }else{
+            
+            [cell setStyleByType:@"1" lab:_houseArr[indexPath.item]];
+        }
+    }
     
     return cell;
 }
@@ -70,7 +158,7 @@
     [self.contentView addSubview:_headImg];
     
     _statusL = [[UILabel alloc] init];
-    _statusL.textColor = CLTitleLabColor;
+    _statusL.textColor = [UIColor redColor];
     _statusL.font = FONT(15 *SIZE);
     [_headImg addSubview:_statusL];
     
@@ -88,6 +176,10 @@
     _priceL.textColor = CLTitleLabColor;
     _priceL.font = FONT(13 *SIZE);
     [self.contentView addSubview:_priceL];
+    
+    _priceImg = [[UIImageView alloc] init];
+    _priceImg.clipsToBounds = YES;
+    [self.contentView addSubview:_priceImg];
     
     _areaL = [[UILabel alloc] init];
     _areaL.textColor = CLTitleLabColor;
@@ -161,7 +253,15 @@
        
         make.left.equalTo(self.contentView).offset(120 *SIZE);
         make.top.equalTo(self->_statusL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(60 *SIZE);
+        make.width.mas_lessThanOrEqualTo(200 *SIZE);
+    }];
+    
+    [_priceImg mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_priceL.mas_right).offset(10 *SIZE);
+        make.top.equalTo(self->_statusL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_offset(15 *SIZE);
+        make.height.mas_offset(15 *SIZE);
     }];
     
     [_areaL mas_makeConstraints:^(MASConstraintMaker *make) {

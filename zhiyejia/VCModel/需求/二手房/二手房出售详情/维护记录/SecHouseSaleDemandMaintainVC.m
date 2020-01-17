@@ -12,12 +12,25 @@
 #import "SecHouseDemandMaintainCell.h"
 
 @interface SecHouseSaleDemandMaintainVC ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    
+    NSArray *_dataArr;
+}
 @property (nonatomic, strong) UITableView *table;
 
 @end
 
 @implementation SecHouseSaleDemandMaintainVC
+
+- (instancetype)initWithDataArr:(NSArray *)dataArr
+{
+    self = [super init];
+    if (self) {
+        
+        _dataArr = dataArr;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,13 +57,13 @@
         header = [[BaseColorHeader alloc] initWithReuseIdentifier:@"BaseColorHeader"];
     }
 
-    header.titleL.text = @"总维护量：30";
+    header.titleL.text = [NSString stringWithFormat:@"总维护量：%ld",_dataArr.count];;
     return header;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -62,13 +75,28 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataArr[indexPath.row];
+    
+    cell.secHouseDemandMaintainCellPhoneBlock = ^{
+        
+        NSString *phone = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"agent_tel"]];
+        if (phone.length) {
+            
+            //获取目标号码字符串,转换成URL
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+            //调用系统方法拨号
+            [[UIApplication sharedApplication] openURL:url];
+        }else{
+            
+            [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+        }
+    };
     return cell;
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = @"公司详情";
+    self.titleLabel.text = @"房源维护记录";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.backgroundColor = CLLineColor;

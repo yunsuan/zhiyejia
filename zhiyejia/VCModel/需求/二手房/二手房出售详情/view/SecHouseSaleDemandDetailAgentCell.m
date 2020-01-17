@@ -83,11 +83,16 @@
     
     _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_phoneBtn addTarget:self action:@selector(ActionPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_phoneBtn setImage:IMAGE_WITH_NAME(@"phone1") forState:UIControlStateNormal];
     [self.contentView addSubview:_phoneBtn];
     
     _changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_changeBtn addTarget:self action:@selector(ActionChangeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_changeBtn];
+    
+    _line = [[UIView alloc] init];
+    _line.backgroundColor = CLLineColor;
+    [self.contentView addSubview:_line];
     
     [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -122,13 +127,22 @@
         make.left.equalTo(self.contentView).offset(80 *SIZE);
         make.top.equalTo(self->_professionL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(200 *SIZE);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);
+//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);
+    }];
+    
+    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.top.equalTo(self->_typeL.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(SIZE);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-0 *SIZE);
     }];
     
     [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.contentView).offset(-15 *SIZE);
-        make.top.equalTo(self.contentView.mas_bottom).offset(50 *SIZE);
+        make.top.equalTo(self.contentView).offset(50 *SIZE);
         make.width.height.mas_equalTo(30 *SIZE);
 //        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);
     }];

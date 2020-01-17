@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SecHouseBuyDemandDealDetailVC : BaseViewController
 
+@property (nonatomic, copy) NSString *status;
+
 - (instancetype)initWithRecomendId:(NSString *)recommend_id;
 
 @end
