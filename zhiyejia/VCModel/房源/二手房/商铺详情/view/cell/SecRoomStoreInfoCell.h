@@ -23,19 +23,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UICollectionView *propertyColl;
 
-@property (nonatomic, strong) UILabel *priceL;
+@property (nonatomic, strong) UILabel *upTimeL;
 
-@property (nonatomic, strong) UILabel *timeL;
+@property (nonatomic, strong) UILabel *levelL;
+
+@property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) UILabel *yearL;
 
-@property (nonatomic, strong) UILabel *rentPriceL;
-
-@property (nonatomic, strong) UILabel *referRentPriceL;
-
-@property (nonatomic, strong) UILabel *rentTimeL;
+@property (nonatomic, strong) UILabel *timeL;
 
 @property (nonatomic, strong) UILabel *formatL;
+
+@property (nonatomic, strong) UILabel *seeL;
+
+@property (nonatomic, strong) UILabel *intentL;
+
+@property (nonatomic, strong) UILabel *urgentL;
+
+@property (nonatomic, strong) UILabel *payL;
 
 @property (nonatomic, strong) UIView *markView;
 

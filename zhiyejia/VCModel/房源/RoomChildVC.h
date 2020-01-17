@@ -12,6 +12,9 @@
 #import "SecRoomCell.h"
 #import "RentRoomCell.h"
 
+#import "AttentionHouseCell.h" //二手房
+#import "AttentionComCell.h" //二手房
+
 #import "SecHouseCell.h"
 #import "RentHouseCell.h"
 
@@ -28,6 +31,10 @@ typedef void(^RoomChildVCSecRoomHouseBlock)(SecHouseModel *model);
 
 typedef void(^RoomChildVCRentRoomHouseBlock)(RentHouseModel *model);
 
+typedef void(^RoomChildVCAttentionSecHouseBlock)(AttentionHouseModel *model);
+
+typedef void(^RoomChildVCAttentionSecRoomBlock)(AttetionComModel *model);
+
 @interface RoomChildVC : BaseViewController
 
 @property (nonatomic, copy) RoomChildVCNewRoomProjectBlock roomChildVCNewRoomProjectBlock;
@@ -39,6 +46,10 @@ typedef void(^RoomChildVCRentRoomHouseBlock)(RentHouseModel *model);
 @property (nonatomic, copy) RoomChildVCSecRoomHouseBlock roomChildVCSecRoomHouseBlock;
 
 @property (nonatomic, copy) RoomChildVCRentRoomHouseBlock roomChildVCRentRoomHouseBlock;
+
+@property (nonatomic, copy) RoomChildVCAttentionSecRoomBlock roomChildVCAttentionSecRoomBlock;
+
+@property (nonatomic, copy) RoomChildVCAttentionSecHouseBlock roomChildVCAttentionSecHouseBlock;
 
 @property (nonatomic, strong) NSString *status;
 

@@ -51,17 +51,17 @@
     }];
 
 
-    if ([model.unit_price integerValue]) {
-
-        _upTimeL.text = [NSString stringWithFormat:@"上架时间：%@",model.unit_price];
-    }else{
-
-        _upTimeL.text = [NSString stringWithFormat:@"上架时间："];
-    }
+//    if ([model.unit_price integerValue]) {
+//
+//        _upTimeL.text = [NSString stringWithFormat:@"上架时间：%@",model.unit_price];
+//    }else{
+//
+//        _upTimeL.text = [NSString stringWithFormat:@"上架时间："];
+//    }
     
     if (model.level.length) {
 
-        _levelL.text = [NSString stringWithFormat:@"房源等级：%@级",model.level];
+        _levelL.text = [NSString stringWithFormat:@"房源等级：%@",model.level];
     }else{
 
         _levelL.text = [NSString stringWithFormat:@"房源等级："];
@@ -339,82 +339,82 @@
         make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
     }];
         
-    [_upTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
-        make.width.equalTo(@(150 *SIZE));
-    }];
+//    [_upTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(10 *SIZE);
+//        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
+//        make.width.equalTo(@(150 *SIZE));
+//    }];
     
     [_levelL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_upTimeL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_decorateL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self->_upTimeL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_levelL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_floorL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.top.equalTo(self->_levelL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_decorateL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_proLimitL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_floorL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.top.equalTo(self->_decorateL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_seeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self->_floorL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_yearL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_inTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_proLimitL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.top.equalTo(self->_yearL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(200 *SIZE);
-        make.top.equalTo(self->_proLimitL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_seeL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
     [_urgentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_intentL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(200 *SIZE);
+        make.top.equalTo(self->_seeL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
@@ -422,7 +422,7 @@
         
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_urgentL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_intentL.mas_bottom).offset(19 *SIZE);
         make.width.mas_equalTo(340 *SIZE);
     }];
     

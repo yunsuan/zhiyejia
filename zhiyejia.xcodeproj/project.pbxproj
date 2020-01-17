@@ -3918,7 +3918,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yskj.zhiyejia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.zhiyejia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3939,7 +3939,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yskj.zhiyejia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.zhiyejia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

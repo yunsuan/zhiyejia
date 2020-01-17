@@ -97,7 +97,7 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
         NSLog(@"%@",resposeObject);
         NSArray *array = resposeObject[@"results"];
         if (array.count) {
-            
+         
             NSDictionary *dic = array[0];
             NSString *appStoreVersion = dic[@"version"];
             if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YQDversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {

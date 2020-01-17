@@ -8,8 +8,7 @@
 
 #import "RoomChildVC.h"
 
-#import "AttentionHouseCell.h" //二手房
-#import "AttentionComCell.h" //二手房
+
 
 @interface RoomChildVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -467,10 +466,6 @@
                         
                         AttetionComModel *model = [[AttetionComModel alloc] initWithDictionary:tempDic];
                         [_dataArr addObject:model];
-                    }else{
-                        
-                        RentProjectModel *model = [[RentProjectModel alloc] initWithDictionary:tempDic];
-                        [_dataArr addObject:model];
                     }
                 }else{
                     
@@ -479,12 +474,12 @@
                         
                     }else if ([tempDic[@"focus_type"] integerValue] == 1){
                         
-                        SecHouseModel *model = [[SecHouseModel alloc] initWithDictionary:tempDic];
+                        AttentionHouseModel *model = [[AttentionHouseModel alloc] initWithDictionary:tempDic];
                         [_dataArr addObject:model];
                     }else{
-                        
-                        RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
-                        [_dataArr addObject:model];
+//
+//                        RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
+//                        [_dataArr addObject:model];
                     }
                 }
             }
@@ -535,7 +530,7 @@
                     }
                 }];
                 RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
-                [_dataArr addObject:model];
+//                [_dataArr addObject:model];
             }
         }else{
             
@@ -552,7 +547,7 @@
                 }];
                 
                 RentProjectModel *model = [[RentProjectModel alloc] initWithDictionary:tempDic];
-                [_dataArr addObject:model];
+//                [_dataArr addObject:model];
             }
         }
     }else{
@@ -625,55 +620,31 @@
 
             if ([self.status isEqualToString:@"关注"]) {
 
-                if ([_dataArr[indexPath.row] isKindOfClass:[RentProjectModel class]]) {
+                if([_dataArr[indexPath.row] isKindOfClass:[AttetionComModel class]]){
 
-                    RentRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentRoomCell"];
+                    AttentionComCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AttentionComCell"];
                     if (!cell) {
 
-                        cell = [[RentRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentRoomCell"];
+                        cell = [[AttentionComCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AttentionComCell"];
                     }
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
                     cell.model = _dataArr[indexPath.row];
                     return cell;
                     break;
-                }else if([_dataArr[indexPath.row] isKindOfClass:[SecProjectModel class]]){
+                }else if([_dataArr[indexPath.row] isKindOfClass:[AttentionHouseModel class]]){
 
-                    SecRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomCell"];
+                    AttentionHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AttentionHouseCell"];
                     if (!cell) {
 
-                        cell = [[SecRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomCell"];
+                        cell = [[AttentionHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AttentionHouseCell"];
                     }
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
                     cell.model = _dataArr[indexPath.row];
                     return cell;
                     break;
-                }else if([_dataArr[indexPath.row] isKindOfClass:[SecHouseModel class]]){
-
-                    SecHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseCell"];
-                    if (!cell) {
-
-                        cell = [[SecHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecHouseCell"];
-                    }
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                    cell.model = _dataArr[indexPath.row];
-                    return cell;
-                    break;
-                }else if ([_dataArr[indexPath.row] isKindOfClass:[RentHouseModel class]]){
-
-                    RentHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RentHouseCell"];
-                    if (!cell) {
-
-                        cell = [[RentHouseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RentHouseCell"];
-                    }
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                    cell.model = _dataArr[indexPath.row];
-                    return cell;
-                    break;
-                }else{
+                }else if ([_dataArr[indexPath.row] isKindOfClass:[NewRoomModel class]]){
 
                     NewRoomModel *model = _dataArr[indexPath.row];
                     NewRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewRoomCell"];
@@ -683,7 +654,7 @@
                     }
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                                 
-                    cell.model = _dataArr[indexPath.row];
+                    cell.model = model;
                     return cell;
                 }
             }else{
@@ -787,25 +758,26 @@
 //
 //                    self.roomChildVCAttentionRentComModelBlock(model);
 //                }
-//            }else if([_dataArr[indexPath.row] isKindOfClass:[AttetionComModel class]]){
+//            }else
+                if([_dataArr[indexPath.row] isKindOfClass:[AttetionComModel class]]){
 
-//                AttetionComModel *model = _dataArr[indexPath.row];
-//                if (self.roomChildVCAttentionSecComModelBlock) {
-//
-//                    self.roomChildVCAttentionSecComModelBlock(model);
-//                }
-//            }else if([_dataArr[indexPath.row] isKindOfClass:[AttentionHouseModel class]]){
+                AttetionComModel *model = _dataArr[indexPath.row];
+                if (self.roomChildVCAttentionSecRoomBlock) {
 
-//                AttentionHouseModel *model = _dataArr[indexPath.row];
-//
-//                if ([model.detail_get integerValue] == 1) {
-//
-//                    if (self.roomChildVCAttentionSecModelBlock) {
-//
-//                        self.roomChildVCAttentionSecModelBlock(model);
-//                    }
-//                }
+                    self.roomChildVCAttentionSecRoomBlock(model);
+                }
+            }else if([_dataArr[indexPath.row] isKindOfClass:[AttentionHouseModel class]]){
 
+                AttentionHouseModel *model = _dataArr[indexPath.row];
+
+                if ([model.detail_get integerValue] == 1) {
+
+                    if (self.roomChildVCAttentionSecHouseBlock) {
+
+                        self.roomChildVCAttentionSecHouseBlock(model);
+                    }
+                }
+            }
 //            }else if ([_dataArr[indexPath.row] isKindOfClass:[AtteionRentingHouseModel class]]){
 
 //                AtteionRentingHouseModel *model = _dataArr[indexPath.row];

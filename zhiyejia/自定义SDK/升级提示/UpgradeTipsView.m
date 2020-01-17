@@ -48,7 +48,7 @@
     [self addSubview:_whiteView];
     
     _img = [[UIImageView alloc] init];
-    _img.image = [UIImage imageNamed:@"1"];
+    _img.image = [UIImage imageNamed:@"LOG"];
     [_whiteView addSubview:_img];
     
     _scroll = [[UIScrollView alloc] init];
@@ -85,10 +85,10 @@
     
     [_img mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(_whiteView).offset(116.5 *SIZE);
+        make.left.equalTo(_whiteView).offset(130 *SIZE);
         make.top.equalTo(_whiteView).offset(15 *SIZE);
-        make.width.mas_equalTo(67 *SIZE);
-        make.height.mas_equalTo(43 *SIZE);
+        make.width.mas_equalTo(40 *SIZE);
+        make.height.mas_equalTo(40 *SIZE);
     }];
     
     [_scroll mas_makeConstraints:^(MASConstraintMaker *make) {

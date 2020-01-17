@@ -120,7 +120,7 @@
 
 - (void)SetData:(NSDictionary *)data{
     
-    _phone = [NSString stringWithFormat:@"%@",data[@"agent_info"]];
+    _phone = [NSString stringWithFormat:@"%@",data[@"agent_info"][@"tel"]];
     
     if ([data[@"basic_info"] isKindOfClass:[NSDictionary class]]) {
         
@@ -297,7 +297,13 @@
         header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
         
         header.model = _model;
-        
+        if (_focusDic.count) {
+            
+            header.attentL.text = [NSString stringWithFormat:@"关注人数：%@人",_focusDic[@"num"]];
+        }else{
+            
+            header.attentL.text = @"关注人数：0人";
+        }
         header.secRoomHouseDetailHeaderImgBlock = ^(NSInteger num, NSArray * _Nonnull imgArr) {
             
             NSMutableArray *tempArr = [NSMutableArray array];

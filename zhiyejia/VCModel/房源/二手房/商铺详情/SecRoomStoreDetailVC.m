@@ -124,7 +124,7 @@
 
 - (void)SetData:(NSDictionary *)data{
     
-    _phone = [NSString stringWithFormat:@"%@",data[@"agent_info"]];
+    _phone = [NSString stringWithFormat:@"%@",data[@"agent_info"][@"tel"]];
     
     if ([data[@"basic_info"] isKindOfClass:[NSDictionary class]]) {
         
@@ -303,6 +303,14 @@
         header.imgArr = [NSMutableArray arrayWithArray:_imgArr];
         
         header.storeModel = _model;
+        if (_focusDic.count) {
+            
+            header.attentL.text = [NSString stringWithFormat:@"关注人数：%@人",_focusDic[@"num"]];
+        }else{
+            
+            header.attentL.text = @"关注人数：0人";
+        }
+        
         header.secRoomStoreDetailHeaderImgBlock = ^(NSInteger num, NSArray * imgArr) {
           
             NSMutableArray *tempArr = [NSMutableArray array];
@@ -356,7 +364,13 @@
         header.moreBtn.hidden = YES;
         if (section == 1) {
             
-            header.titleL.text = @"房源信息";
+            if (_model.house_code.length) {
+                
+                header.titleL.text = [NSString stringWithFormat:@"房源信息(%@)",_model.house_code];
+            }else{
+                
+                header.titleL.text = @"房源信息";
+            }
         }else if (section == 2){
             
             header = nil;

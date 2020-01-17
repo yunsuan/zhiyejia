@@ -183,10 +183,10 @@
     _protocolLabel = [[UILabel alloc] initWithFrame:CGRectMake(43 *SIZE, 264 *SIZE + NAVIGATION_BAR_HEIGHT, 300 *SIZE, 12 *SIZE)];
     _protocolLabel.textColor = CLContentLabColor;
     _protocolLabel.font = [UIFont systemFontOfSize:12 *SIZE];
-    _protocolLabel.text = @"我已阅读并同意《置业家使用条例》";
+    _protocolLabel.text = @"我同意《用户协议及隐私政策》";
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:_protocolLabel.text];
-    [attr addAttribute:NSForegroundColorAttributeName value:CLBlueBtnColor range:NSMakeRange(7, _protocolLabel.text.length - 7)];
-    [attr addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(7, _protocolLabel.text.length - 7)];
+    [attr addAttribute:NSForegroundColorAttributeName value:CLBlueBtnColor range:NSMakeRange(3, _protocolLabel.text.length - 3)];
+    [attr addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(3, _protocolLabel.text.length - 3)];
     _protocolLabel.attributedText = attr;
     [self.view addSubview:_protocolLabel];
     

@@ -51,7 +51,7 @@
 - (void)initDataSource{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadUserInfo) name:@"reloadUser" object:nil];
-    _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"我的关注",@"意见反馈",@"关于置业家"];
+    _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"关注房源",@"意见反馈",@"关于置业家"];
     _imgArr = @[@"personaldata",@"work",@"makeanappointment",@"subscribe",@"housin",@"opinion",@"about"];
 }
 

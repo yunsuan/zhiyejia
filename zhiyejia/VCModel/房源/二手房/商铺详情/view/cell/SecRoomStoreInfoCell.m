@@ -48,12 +48,36 @@
         make.height.mas_equalTo(strongSelf->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
     }];
     
+//    if ([model.unit_price integerValue]) {
+//
+//        _upTimeL.text = [NSString stringWithFormat:@"上架时间：%@",model.unit_price];
+//    }else{
+//
+//        _upTimeL.text = [NSString stringWithFormat:@"上架时间："];
+//    }
+    if (model.level.length) {
+
+        _levelL.text = [NSString stringWithFormat:@"房源等级：%@",model.level];
+    }else{
+
+        _levelL.text = [NSString stringWithFormat:@"房源等级："];
+    }
+    
     if ([model.unit_price integerValue]) {
         
         _priceL.text = [NSString stringWithFormat:@"单价：%@元/m²",model.unit_price];
     }else{
         
-        _priceL.text = [NSString stringWithFormat:@"单价：暂无数据"];
+        _priceL.text = [NSString stringWithFormat:@"单价："];
+    }
+    
+    
+    if ([model.property_limit integerValue]) {
+        
+        _yearL.text = [NSString stringWithFormat:@"产权年限：%@",model.property_limit];
+    }else{
+        
+        _yearL.text = [NSString stringWithFormat:@"产权年限："];
     }
     
     if (model.permit_time.length) {
@@ -61,48 +85,48 @@
         _timeL.text = [NSString stringWithFormat:@"拿证时间：%@",model.permit_time];
     }else{
         
-        _timeL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
-    }
-    
-    if ([model.property_limit integerValue]) {
-        
-        _yearL.text = [NSString stringWithFormat:@"产权年限：%@",model.property_limit];
-    }else{
-        
-        _yearL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
-    }
-    
-    
-    if ([model.rent_money integerValue]) {
-        
-        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：%@元/月",model.rent_money];
-    }else{
-        
-        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：暂无数据"];
-    }
-    
-    if ([model.reference_rent integerValue]) {
-        
-        _referRentPriceL.text = [NSString stringWithFormat:@"参考租金：%@元/月",model.reference_rent];
-    }else{
-        
-        _referRentPriceL.text = [NSString stringWithFormat:@"参考租金：暂无数据"];
-    }
-    
-    if ([model.rent_over_time integerValue]) {
-        
-        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：%@",model.rent_over_time];
-    }else{
-        
-        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：暂无数据"];
+        _timeL.text = [NSString stringWithFormat:@"拿证时间："];
     }
     
     if (model.format_tags.length) {
-        
+
         _formatL.text = [NSString stringWithFormat:@"适合业态：%@",model.format_tags];
     }else{
-        
-        _formatL.text = [NSString stringWithFormat:@"适合业态：暂无数据"];
+
+        _formatL.text = [NSString stringWithFormat:@"适合业态："];
+    }
+    
+    
+    if (model.check_way.length) {
+
+        _seeL.text = [NSString stringWithFormat:@"看房方式：%@",model.check_way];
+    }else{
+
+        _seeL.text = [NSString stringWithFormat:@"看房方式："];
+    }
+
+    if ([model.intent integerValue]) {
+
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度：%@",model.property_limit];
+    }else{
+
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度："];
+    }
+    
+    if ([model.urgency integerValue]) {
+
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度：%@",model.property_limit];
+    }else{
+
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度："];
+    }
+    
+    if ([model.pay_way count]) {
+
+        _payL.text = [NSString stringWithFormat:@"付款方式：%@",[model.check_way stringByAppendingPathComponent:@","]];
+    }else{
+
+        _payL.text = [NSString stringWithFormat:@"付款方式："];
     }
     
     if (model.comment.length) {
@@ -126,12 +150,29 @@
         make.height.mas_equalTo(strongSelf->_propertyColl.collectionViewLayout.collectionViewContentSize.height + 10 *SIZE);
     }];
     
+    if (officeModel.level.length) {
+
+        _levelL.text = [NSString stringWithFormat:@"房源等级：%@",officeModel.level];
+    }else{
+
+        _levelL.text = [NSString stringWithFormat:@"房源等级："];
+    }
+    
     if ([officeModel.unit_price integerValue]) {
         
         _priceL.text = [NSString stringWithFormat:@"单价：%@元/m²",officeModel.unit_price];
     }else{
         
-        _priceL.text = [NSString stringWithFormat:@"单价：暂无数据"];
+        _priceL.text = [NSString stringWithFormat:@"单价："];
+    }
+    
+    
+    if ([officeModel.property_limit integerValue]) {
+        
+        _yearL.text = [NSString stringWithFormat:@"产权年限：%@",officeModel.property_limit];
+    }else{
+        
+        _yearL.text = [NSString stringWithFormat:@"产权年限："];
     }
     
     if (officeModel.permit_time.length) {
@@ -139,50 +180,49 @@
         _timeL.text = [NSString stringWithFormat:@"拿证时间：%@",officeModel.permit_time];
     }else{
         
-        _timeL.text = [NSString stringWithFormat:@"拿证时间：暂无数据"];
+        _timeL.text = [NSString stringWithFormat:@"拿证时间："];
     }
     
-    
-    if ([officeModel.property_limit integerValue]) {
-        
-        _yearL.text = [NSString stringWithFormat:@"产权年限：%@年",officeModel.property_limit];
+    if (officeModel.format_tags.length) {
+
+        _formatL.text = [NSString stringWithFormat:@"适合业态：%@",officeModel.format_tags];
     }else{
-        
-        _yearL.text = [NSString stringWithFormat:@"产权年限：暂无数据"];
+
+        _formatL.text = [NSString stringWithFormat:@"适合业态："];
     }
     
-    if (officeModel.floor_type.length) {
-        
-        _timeL.text = [NSString stringWithFormat:@"楼层：%@",officeModel.floor_type];
+    
+    if (officeModel.check_way.length) {
+
+        _seeL.text = [NSString stringWithFormat:@"看房方式：%@",officeModel.check_way];
     }else{
-        
-        _timeL.text = [NSString stringWithFormat:@"楼层：暂无数据"];
+
+        _seeL.text = [NSString stringWithFormat:@"看房方式："];
     }
-    
-    if ([officeModel.rent_money integerValue]) {
-        
-        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：%@元/㎡",officeModel.rent_money];
+
+    if ([officeModel.intent integerValue]) {
+
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度：%@",officeModel.property_limit];
     }else{
-        
-        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：暂无数据"];
+
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度："];
     }
     
-    if (officeModel.rent_over_time.length) {
-        
-        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：%@",officeModel.rent_over_time];
+    if ([officeModel.urgency integerValue]) {
+
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度：%@",officeModel.property_limit];
     }else{
-        
-        _rentTimeL.text = [NSString stringWithFormat:@"租期结束时间：暂无数据"];
+
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度："];
     }
     
-//    _.textColor = YJBlueBtnColor;
-    //    if ([officeModel.unit_price integerValue]) {
-    //
-    //        _proLimitL.text = [NSString stringWithFormat:@"参考租金：%@",officeModel.price];
-    //    }else{
-    //
-    _referRentPriceL.text = [NSString stringWithFormat:@"参考租金：暂无数据"];
-    //    }
+    if ([officeModel.pay_way count]) {
+
+        _payL.text = [NSString stringWithFormat:@"付款方式：%@",[officeModel.check_way stringByAppendingPathComponent:@","]];
+    }else{
+
+        _payL.text = [NSString stringWithFormat:@"付款方式："];
+    }
     
     if (officeModel.comment.length) {
         
@@ -265,7 +305,7 @@
     [_propertyColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
     [self.contentView addSubview:_propertyColl];
     
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 11; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CL86Color;
@@ -292,20 +332,20 @@
             }
             case 3:
             {
-                _rentTimeL = label;
-                [self.contentView addSubview:_rentTimeL];
+                _levelL = label;
+                [self.contentView addSubview:_levelL];
                 break;
             }
             case 4:
             {
-                _rentPriceL = label;
-                [self.contentView addSubview:_rentPriceL];
+                _seeL = label;
+                [self.contentView addSubview:_seeL];
                 break;
             }
             case 5:
             {
-                _referRentPriceL = label;
-                [self.contentView addSubview:_referRentPriceL];
+                _payL = label;
+                [self.contentView addSubview:_payL];
                 break;
             }
             case 6:
@@ -318,6 +358,24 @@
             {
                 _markL = label;
                 [_markView addSubview:_markL];
+                break;
+            }
+            case 8:
+            {
+                _intentL = label;
+                [_markView addSubview:_intentL];
+                break;
+            }
+            case 9:
+            {
+                _urgentL = label;
+                [_markView addSubview:_urgentL];
+                break;
+            }
+            case 10:
+            {
+                _priceL = label;
+                [_markView addSubview:_priceL];
                 break;
             }
             default:
@@ -338,9 +396,17 @@
         make.height.mas_equalTo(self->_propertyColl.collectionViewLayout.collectionViewContentSize.height);
     }];
     
-    [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_levelL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(150 *SIZE));
+        
+    }];
+    
+    [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
         make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
         
@@ -349,44 +415,58 @@
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(180 *SIZE);
-        make.top.equalTo(self->_propertyColl.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_levelL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(180 *SIZE));
     }];
     
     [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_priceL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_levelL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
-    [_rentPriceL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_formatL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         
-        make.left.equalTo(self.contentView).offset(180 *SIZE);
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_timeL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(180 *SIZE));
         
     }];
     
-    [_referRentPriceL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_seeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_yearL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
+        make.top.equalTo(self->_timeL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(150 *SIZE));
     }];
     
-    [_rentTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(180 *SIZE);
-        make.top.equalTo(self->_rentPriceL.mas_bottom).offset(19 *SIZE);
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_formatL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(180 *SIZE));
     }];
+    
+    [_urgentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
+        make.top.equalTo(self->_formatL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(180 *SIZE));
+    }];
+    
+    [_payL mas_makeConstraints:^(MASConstraintMaker *make) {
+           
+           make.left.equalTo(self.contentView).offset(10 *SIZE);
+           make.top.equalTo(self->_urgentL.mas_bottom).offset(19 *SIZE);
+           make.width.equalTo(@(340 *SIZE));
+       }];
     
     [_markView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_rentTimeL.mas_bottom).offset(16 *SIZE);
+        make.top.equalTo(self->_payL.mas_bottom).offset(16 *SIZE);
         make.width.equalTo(@(340 *SIZE));
         make.bottom.equalTo(self.contentView).offset(-16 *SIZE);
     }];

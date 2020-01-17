@@ -8,6 +8,8 @@
 
 #import "AttentionHouseVC.h"
 
+#import "SecRoomDetailVC.h"
+
 #import "SecHouseCell.h"
 #import "RentHouseCell.h"
 
@@ -54,7 +56,35 @@
 
 - (void)SetData:(NSArray *)data{
     
-    
+    for (int i = 0; i < data.count; i++) {
+        
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data[i]];
+        [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            
+            if ([obj isKindOfClass:[NSNull class]]) {
+                
+                if ([key isEqualToString:@"house_tags"] || [key isEqualToString:@"project_tags"]) {
+                    
+                    [tempDic setObject:@[] forKey:key];
+                }else{
+                    
+                    [tempDic setObject:@"" forKey:key];
+                }
+            }else{
+                
+                if ([key isEqualToString:@"house_tags"] || [key isEqualToString:@"project_tags"]) {
+                    
+                    
+                }else{
+                    
+                    [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                }
+            }
+        }];
+        SecHouseModel *model = [[SecHouseModel alloc] initWithDictionary:tempDic];
+        [_dataArr addObject:model];
+    }
+    [_table reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -71,12 +101,30 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.model = _dataArr[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    SecHouseModel *model = _dataArr[indexPath.row];;
     
+    if ([model.type integerValue] == 1) {
+
+        SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:@"0"];
+        nextVC.type = 1;;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([model.type integerValue] == 2){
+        
+        SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:@"0"];
+        nextVC.type = 2;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else{
+
+        SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:@"0"];
+        nextVC.type = 3;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{

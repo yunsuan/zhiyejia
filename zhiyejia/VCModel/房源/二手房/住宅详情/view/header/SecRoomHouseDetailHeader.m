@@ -191,8 +191,7 @@
         
         _propertyL.text = officeModel.property_type;
     }
-    
-    
+
     _priceL.text = [NSString stringWithFormat:@"￥%@万元",officeModel.price];
     
     _typeL.text = [NSString stringWithFormat:@"%@",officeModel.grade];

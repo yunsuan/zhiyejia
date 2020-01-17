@@ -343,6 +343,35 @@
     vc.city = _city;
     
     __weak RoomChildVC *weakvc = vc;
+    
+    vc.roomChildVCAttentionSecHouseBlock = ^(AttentionHouseModel * _Nonnull model) {
+        
+        if ([model.type integerValue] == 1) {
+
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            nextVC.type = 1;;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([model.type integerValue] == 2){
+            
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            nextVC.type = 2;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+            nextVC.type = 3;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
+    };
+    
+    vc.roomChildVCAttentionSecRoomBlock = ^(AttetionComModel * _Nonnull model) {
+        
+        SecRoomProjectDetailVC *nextVC = [[SecRoomProjectDetailVC alloc] initWithProjectId:model.project_id infoId:model.info_id city:self->_city];
+        
+        nextVC.type = weakvc.typeId;
+        nextVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    };
     //新房项目
     vc.roomChildVCNewRoomProjectBlock = ^(NewRoomModel * _Nonnull model) {
       
@@ -383,28 +412,28 @@
     //租房项目
     vc.roomChildVCRentRoomProjectBlock = ^(RentProjectModel * _Nonnull model) {
         
-        RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id infoId:model.info_id city:self->_city];
-        
-        nextVC.type = weakvc.typeId;
-        nextVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:nextVC animated:YES];
+//        RentRoomProjectDetailVC *nextVC = [[RentRoomProjectDetailVC alloc] initWithProjectId:model.project_id infoId:model.info_id city:self->_city];
+//        
+//        nextVC.type = weakvc.typeId;
+//        nextVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:nextVC animated:YES];
     };
     
     vc.roomChildVCRentRoomHouseBlock = ^(RentHouseModel * _Nonnull model) {
       
-        if ([model.type integerValue] == 1) {
-            
-            RentRoomHouseDetailVC *nextVC = [[RentRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        }else if ([model.type integerValue] == 2){
-            
-            RentRoomStoreDetailVC *nextVC = [[RentRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        }else{
-            
-            RentRoomOfficeDetailVC *nextVC = [[RentRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        }
+//        if ([model.type integerValue] == 1) {
+//
+//            RentRoomHouseDetailVC *nextVC = [[RentRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+//            [self.navigationController pushViewController:nextVC animated:YES];
+//        }else if ([model.type integerValue] == 2){
+//
+//            RentRoomStoreDetailVC *nextVC = [[RentRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+//            [self.navigationController pushViewController:nextVC animated:YES];
+//        }else{
+//
+//            RentRoomOfficeDetailVC *nextVC = [[RentRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+//            [self.navigationController pushViewController:nextVC animated:YES];
+//        }
     };
     return vc;
 }
