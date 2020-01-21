@@ -30,6 +30,8 @@ typedef void(^SecRoomProjectAgentCellPhoneBlock)(void);
 
 @property (nonatomic, strong) UILabel *historyL;
 
+@property (nonatomic, strong) UIView *line;
+
 @property (nonatomic, strong) UIButton *phoneBtn;
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;

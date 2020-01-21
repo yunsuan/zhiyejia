@@ -107,7 +107,7 @@
 
     if ([model.intent integerValue]) {
 
-        _intentL.text = [NSString stringWithFormat:@"卖房意愿度：%@",model.property_limit];
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度：%@",model.intent];
     }else{
 
         _intentL.text = [NSString stringWithFormat:@"卖房意愿度："];
@@ -115,7 +115,7 @@
     
     if ([model.urgency integerValue]) {
 
-        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度：%@",model.property_limit];
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度：%@",model.urgency];
     }else{
 
         _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度："];
@@ -123,7 +123,7 @@
     
     if ([model.pay_way count]) {
 
-        _payL.text = [NSString stringWithFormat:@"付款方式：%@",[model.check_way stringByAppendingPathComponent:@","]];
+        _payL.text = [NSString stringWithFormat:@"付款方式：%@",[model.pay_way componentsJoinedByString:@","]];
     }else{
 
         _payL.text = [NSString stringWithFormat:@"付款方式："];
@@ -202,7 +202,7 @@
 
     if ([officeModel.intent integerValue]) {
 
-        _intentL.text = [NSString stringWithFormat:@"卖房意愿度：%@",officeModel.property_limit];
+        _intentL.text = [NSString stringWithFormat:@"卖房意愿度：%@",officeModel.intent];
     }else{
 
         _intentL.text = [NSString stringWithFormat:@"卖房意愿度："];
@@ -210,7 +210,7 @@
     
     if ([officeModel.urgency integerValue]) {
 
-        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度：%@",officeModel.property_limit];
+        _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度：%@",officeModel.urgency];
     }else{
 
         _urgentL.text = [NSString stringWithFormat:@"卖房紧迫度："];
@@ -218,7 +218,7 @@
     
     if ([officeModel.pay_way count]) {
 
-        _payL.text = [NSString stringWithFormat:@"付款方式：%@",[officeModel.check_way stringByAppendingPathComponent:@","]];
+        _payL.text = [NSString stringWithFormat:@"付款方式：%@",[officeModel.pay_way componentsJoinedByString:@","]];
     }else{
 
         _payL.text = [NSString stringWithFormat:@"付款方式："];
@@ -345,6 +345,7 @@
             case 5:
             {
                 _payL = label;
+                _payL.numberOfLines = 0;
                 [self.contentView addSubview:_payL];
                 break;
             }

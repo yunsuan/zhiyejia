@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *statusL;
 
+@property (nonatomic, strong) UILabel *codeL;
+
 @property (nonatomic, strong) UILabel *houseNumL;
 
 @property (nonatomic, strong) UILabel *priceL;

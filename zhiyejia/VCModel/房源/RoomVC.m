@@ -90,6 +90,14 @@
     }
 }
 
+- (void)BMKLocationManager:(BMKLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    
+    if (status != kCLAuthorizationStatusNotDetermined) {
+        
+        [self StartLocation];
+    }
+}
+
 
 - (void)StartLocation{
     

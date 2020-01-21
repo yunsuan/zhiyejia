@@ -101,6 +101,9 @@
                 
                 self.loginVCReturnBlock();
             }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
+            
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             

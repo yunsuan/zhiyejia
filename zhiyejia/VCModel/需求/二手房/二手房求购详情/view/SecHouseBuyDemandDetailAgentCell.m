@@ -30,8 +30,10 @@
         }
     }];
     _nameL.text = dataDic[@"agent_name"];
-    _professionL.text = @"专业评分：20";
-    _serviceL.text = @"服务评分：50";
+//    _professionL.text = @"专业评分：20";
+    _professionL.text = @" ";
+//    _serviceL.text = @"服务评分：50";
+    _serviceL.text = @" ";
     _typeL.text = dataDic[@"store_name"];
 }
 

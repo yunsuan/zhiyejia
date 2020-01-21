@@ -54,6 +54,7 @@
             
             self.personalVCBlock();
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
         [self.navigationController popViewControllerAnimated:YES];
 //        [BaseRequest GET:LogOut_URL parameters:nil success:^(id resposeObject) {
 //

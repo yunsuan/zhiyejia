@@ -59,6 +59,8 @@
     _headImg = [[UIImageView alloc] init];
 //    _headImg.textColor = CLTitleLabColor;
 //    _headImg.font = FONT(13 *SIZE);
+    _headImg.layer.cornerRadius = 25 *SIZE;
+    _headImg.clipsToBounds = YES;
     [self.contentView addSubview:_headImg];
     
     _nameL = [[UILabel alloc] init];

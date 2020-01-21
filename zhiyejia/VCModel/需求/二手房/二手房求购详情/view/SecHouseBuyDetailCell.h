@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *typeL;
 
+@property (nonatomic, strong) UILabel *codeL;
+
 @property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) UILabel *areaL;

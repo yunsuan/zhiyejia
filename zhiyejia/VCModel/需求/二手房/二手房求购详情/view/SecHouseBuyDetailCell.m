@@ -44,6 +44,8 @@
         _typeL.text = @"住宅";
     }
     
+    _codeL.text = [NSString stringWithFormat:@"需求编号：%@",dataDic[@"code"]];
+    
     _priceL.text = [NSString stringWithFormat:@"意向总价：%@万",dataDic[@"price"]];
     _areaL.text = [NSString stringWithFormat:@"意向面积：%@㎡",dataDic[@"area"]];
     _houseTypeL.text = [NSString stringWithFormat:@"意向户型：%@",dataDic[@"address"]];
@@ -91,6 +93,11 @@
     _typeL.textColor = CLContentLabColor;
     _typeL.font = FONT(13 *SIZE);
     [self.contentView addSubview:_typeL];
+    
+    _codeL = [[UILabel alloc] init];
+    _codeL.textColor = CLContentLabColor;
+    _codeL.font = FONT(13 *SIZE);
+    [self.contentView addSubview:_codeL];
     
     _priceL = [[UILabel alloc] init];
     _priceL.textColor = CLContentLabColor;
@@ -167,17 +174,25 @@
         make.width.mas_lessThanOrEqualTo(150 *SIZE);
     }];
     
-    [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(15 *SIZE);
         make.top.equalTo(self->_regionL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(330 *SIZE);
+    }];
+    
+    [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(15 *SIZE);
+        make.top.equalTo(self->_codeL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(150 *SIZE);
     }];
     
     [_areaL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.contentView).offset(-15 *SIZE);
-        make.top.equalTo(self->_regionL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_codeL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(150 *SIZE);
     }];
     

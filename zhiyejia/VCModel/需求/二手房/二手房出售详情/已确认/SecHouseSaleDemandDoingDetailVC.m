@@ -11,6 +11,7 @@
 #import "SecHouseSaleDemandTakeLookVC.h"
 #import "SecHouseSaleDemandMaintainVC.h"
 #import "SecHouseSaleDemandDealVC.h"
+#import "SecRoomDetailVC.h"
 
 #import "BaseColorHeader.h"
 #import "SecHouseSaleDemandDetailHouseCell.h"
@@ -18,6 +19,7 @@
 #import "TitleContentRightBtnCell.h"
 #import "SecHouseSaleDemandDetailCompanyCell.h"
 #import "SecHouseSaleDemandDetailAgentCell.h"
+#import "SecHouseCell.h"
 
 @interface SecHouseSaleDemandDoingDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -25,6 +27,7 @@
     NSString *_recommend_id;
     
     NSDictionary *_dataDic;
+    NSDictionary *_houseDic;
     
     NSArray *_recordArr;
     NSMutableArray *_serviceArr;
@@ -50,6 +53,7 @@
     
     
     self.titleLabel.text = @"发布详情";
+    self->_serviceArr = [@[] mutableCopy];
     [self RequestMethod];
 }
 
@@ -61,7 +65,76 @@
             
             self->_dataDic = resposeObject[@"data"];
             self->_recordArr = @[self->_dataDic[@"take_info"],self->_dataDic[@"survey_log"],self->_dataDic[@"deal"]];
-            self->_serviceArr = [[NSMutableArray alloc] initWithArray:@[self->_dataDic[@"survey"],self->_dataDic[@"house"],self->_dataDic[@"deal"]]];
+            
+            if ([self->_dataDic[@"survey"] count]) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataDic[@"survey"]];
+                [tempDic setValue:@"勘察" forKey:@"type"];
+                [self->_serviceArr addObject:tempDic];
+            }
+            if ([self->_dataDic[@"house"] count]) {
+
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataDic[@"house"]];
+                [tempDic setValue:@"维护" forKey:@"type"];
+                if (self->_serviceArr.count) {
+                    
+                    if ([tempDic[@"house_agent_tel"] isEqualToString:self->_serviceArr[0][@"survey_agent_tel"]]) {
+                        
+                        [self->_serviceArr removeAllObjects];
+                        [tempDic setValue:@"勘察/维护" forKey:@"type"];
+                        [self->_serviceArr addObject:tempDic];
+                    }else{
+                        
+                        [self->_serviceArr addObject:tempDic];
+                    }
+                }else{
+                    
+                    [self->_serviceArr addObject:tempDic];
+                }
+            }
+            if ([self->_dataDic[@"deal"] count]) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataDic[@"deal"]];
+                [tempDic setValue:@"成交" forKey:@"type"];
+                if (self->_serviceArr.count) {
+                    
+                    if (self->_serviceArr.count == 1) {
+                        
+                        if ([tempDic[@"deal_agent_tel"] isEqualToString:self->_serviceArr[0][@"house_agent_tel"]]) {
+                            
+                            [tempDic setValue:[NSString stringWithFormat:@"%@/成交",self->_serviceArr[0][@"type"]] forKey:@"type"];
+                            [self->_serviceArr removeAllObjects];
+                            [self->_serviceArr addObject:tempDic];
+                        }else{
+                            
+                            [self->_serviceArr addObject:tempDic];
+                        }
+                    }else{
+                        
+                        if ([tempDic[@"deal_agent_tel"] isEqualToString:self->_serviceArr[0][@"survey_agent_tel"]]) {
+                            
+                            [self->_serviceArr removeObjectAtIndex:0];
+                            [tempDic setValue:@"勘察/成交" forKey:@"type"];
+                            [self->_serviceArr insertObject:tempDic atIndex:0];
+                        }else{
+                            
+                            if ([tempDic[@"deal_agent_tel"] isEqualToString:self->_serviceArr[1][@"house_agent_tel"]]) {
+                                
+                                [self->_serviceArr removeObjectAtIndex:1];
+                                [tempDic setValue:@"维护/成交" forKey:@"type"];
+                                [self->_serviceArr addObject:tempDic];
+                            }else{
+                                
+                                [self->_serviceArr addObject:tempDic];
+                            }
+                        }
+                    }
+                }else{
+                    
+                    [self->_serviceArr addObject:tempDic];
+                }
+            }
+            self->_houseDic = self->_dataDic[@"house_info"];
             [self->_table reloadData];
         }else{
             
@@ -114,12 +187,36 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 3;
+    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 40 *SIZE;
+    if (section == 1) {
+        
+        if ([self->_dataDic[@"take"] count]) {
+            
+            return 40 *SIZE;
+        }
+        return 0;
+    }else if (section == 2){
+        
+        if (_serviceArr.count) {
+            
+            return 40 *SIZE;
+        }
+        return 0;
+    }else if (section == 3){
+        
+        if ([_houseDic count]) {
+            
+            return 40 *SIZE;
+        }
+        return 0;
+    }else{
+     
+        return 40 *SIZE;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -148,9 +245,12 @@
     }else if (section == 1){
         
         header.titleL.text = @"房源动态";
-    }else{
+    }else if (section == 2){
         
         header.titleL.text = @"中介服务详情";
+    }else{
+        
+        header.titleL.text = @"上架房源";
     }
     return header;
 }
@@ -166,9 +266,56 @@
         return 0;
     }else if (section == 2){
         
-        return 3;
+        return _serviceArr.count;
+    }else if (section == 3){
+        
+        if ([_houseDic count]) {
+            
+            return 1;
+        }
+        return 0;
+    }else{
+     
+        return 1;
     }
-    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 1) {
+        
+        if (indexPath.row == 1) {
+            
+            if ([_recordArr[0] count]) {
+                
+                return UITableViewAutomaticDimension;
+            }
+            return 0;
+        }else if (indexPath.row == 2){
+            
+            if ([_recordArr[1] count]) {
+                
+                return UITableViewAutomaticDimension;
+            }
+            return 0;
+        }else if (indexPath.row == 3){
+            
+            if ([_recordArr[2] count]) {
+                
+                return UITableViewAutomaticDimension;
+            }
+            return 0;
+        }else{
+            
+            return UITableViewAutomaticDimension;
+        }
+    }else if (indexPath.section == 2){
+        
+        return UITableViewAutomaticDimension;
+    }else{
+        
+        return UITableViewAutomaticDimension;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -229,38 +376,44 @@
                 if ([_recordArr[0] count]) {
                     
                     cell.hidden = NO;
+                    
+                    cell.titleL.text = @"带看记录";
+                    cell.contentL.text = [NSString stringWithFormat:@"最近带看 %@",[_recordArr[0][0][@"take_time"] componentsSeparatedByString:@" "][0]];
                 }else{
                     
                     cell.hidden = YES;
                 }
-                cell.titleL.text = @"带看记录";
-                cell.contentL.text = [NSString stringWithFormat:@"最近带看 %@",[_recordArr[0][0][@"take_time"] componentsSeparatedByString:@" "][0]];
+                
             }else if (indexPath.row == 2) {
                 
                 if ([_recordArr[1] count]) {
                     
                     cell.hidden = NO;
+                    
+                    cell.titleL.text = @"房源维护记录";
+                    cell.contentL.text = [NSString stringWithFormat:@"最近维护 %@",[_recordArr[1][0][@"create_time"]  componentsSeparatedByString:@" "][0]];
                 }else{
                     
                     cell.hidden = YES;
                 }
-                cell.titleL.text = @"房源维护记录";
-                cell.contentL.text = [NSString stringWithFormat:@"最近维护 %@",[_recordArr[1][0][@"create_time"]  componentsSeparatedByString:@" "][0]];
+                
             }else{
                 
                 if ([_recordArr[2] count]) {
                     
                     cell.hidden = NO;
+                    
+                    cell.titleL.text = @"成交详情";
+                    cell.contentL.text = @"";
                 }else{
                     
                     cell.hidden = YES;
                 }
-                cell.titleL.text = @"成交详情";
-                cell.contentL.text = @"";
+                
             }
             return cell;
         }
-    }else{
+    }else if (indexPath.section == 2){
         
         SecHouseSaleDemandDetailAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseSaleDemandDetailAgentCell"];
         if (!cell) {
@@ -270,23 +423,23 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-        if (indexPath.row == 0) {
+        if (_serviceArr[indexPath.row][@"survey_agent_img"]) {
             
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_serviceArr[0][@"survey_agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_serviceArr[indexPath.row][@"survey_agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                
                 if (error) {
                     
                     cell.headImg.image = IMAGE_WITH_NAME(@"def_head");
                 }
             }];
-            cell.nameL.text = _serviceArr[0][@"survey_agent_name"];
-            cell.professionL.text = @"专业评分";
-            cell.serviceL.text = @"服务评分";
-            cell.typeL.text = @"勘察经纪人";
+            cell.nameL.text = _serviceArr[indexPath.row][@"survey_agent_name"];
+//            cell.professionL.text = @"专业评分";
+//            cell.serviceL.text = @"服务评分";
+           cell.typeL.text = _serviceArr[indexPath.row][@"type"];
             
             cell.secHouseSaleDemandDetailAgentCellPhoneBlock = ^{
                 
-                NSString *phone = [NSString stringWithFormat:@"%@",self->_serviceArr[0][@"survey_agent_tel"]];
+                NSString *phone = [NSString stringWithFormat:@"%@",self->_serviceArr[indexPath.row][@"survey_agent_tel"]];
                 if (phone.length) {
                     
                     //获取目标号码字符串,转换成URL
@@ -298,23 +451,23 @@
                     [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
                 }
             };
-        }else if (indexPath.row == 1){
+        }else if (_serviceArr[indexPath.row][@"house_agent_img"]) {
             
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_serviceArr[1][@"house_agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_serviceArr[indexPath.row][@"house_agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                
                 if (error) {
                     
                     cell.headImg.image = IMAGE_WITH_NAME(@"def_head");
                 }
             }];
-            cell.nameL.text = _serviceArr[1][@"house_agent_name"];
-            cell.professionL.text = @"专业评分";
-            cell.serviceL.text = @"服务评分";
-            cell.typeL.text = @"房源维护经纪人";
+            cell.nameL.text = _serviceArr[indexPath.row][@"house_agent_name"];
+//            cell.professionL.text = @"专业评分";
+//            cell.serviceL.text = @"服务评分";
+            cell.typeL.text = _serviceArr[indexPath.row][@"type"];
             
             cell.secHouseSaleDemandDetailAgentCellPhoneBlock = ^{
                 
-                NSString *phone = [NSString stringWithFormat:@"%@",self->_serviceArr[1][@"house_agent_tel"]];
+                NSString *phone = [NSString stringWithFormat:@"%@",self->_serviceArr[indexPath.row][@"house_agent_tel"]];
                 if (phone.length) {
                     
                     //获取目标号码字符串,转换成URL
@@ -328,21 +481,21 @@
             };
         }else{
             
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_serviceArr[2][@"deal_agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_serviceArr[indexPath.row][@"deal_agent_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                
                 if (error) {
                     
                     cell.headImg.image = IMAGE_WITH_NAME(@"def_head");
                 }
             }];
-            cell.nameL.text = _serviceArr[2][@"deal_agent_name"];
-            cell.professionL.text = @"专业评分";
-            cell.serviceL.text = @"服务评分";
-            cell.typeL.text = @"成交经纪人";
+            cell.nameL.text = _serviceArr[indexPath.row][@"deal_agent_name"];
+//            cell.professionL.text = @"专业评分";
+//            cell.serviceL.text = @"服务评分";
+            cell.typeL.text = _serviceArr[indexPath.row][@"type"];
             
             cell.secHouseSaleDemandDetailAgentCellPhoneBlock = ^{
                 
-                NSString *phone = [NSString stringWithFormat:@"%@",self->_serviceArr[2][@"deal_agent_tel"]];
+                NSString *phone = [NSString stringWithFormat:@"%@",self->_serviceArr[indexPath.row][@"deal_agent_tel"]];
                 if (phone.length) {
                     
                     //获取目标号码字符串,转换成URL
@@ -356,6 +509,19 @@
             };
         }
         return cell;
+    }else{
+        
+        SecHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecHouseCell"];
+        if (!cell) {
+            
+            cell = [[ SecHouseCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SecHouseCell"];
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.model = [[SecHouseModel alloc] initWithDictionary:_houseDic];;
+        
+        return cell;
     }
 }
 
@@ -363,6 +529,12 @@
     
     if (indexPath.section == 1) {
 
+        if (indexPath.row == 0) {
+            
+            SecHouseSaleDemandTakeLookVC *nextVC = [[SecHouseSaleDemandTakeLookVC alloc] initWithDataArr:_recordArr[0]];
+            nextVC.takeDic = self->_dataDic[@"take"];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
         if (indexPath.row == 1) {
 
             SecHouseSaleDemandTakeLookVC *nextVC = [[SecHouseSaleDemandTakeLookVC alloc] initWithDataArr:_recordArr[0]];
@@ -376,6 +548,26 @@
 
             SecHouseSaleDemandDealVC *nextVC = [[SecHouseSaleDemandDealVC alloc] init];
             nextVC.dealDic = self->_dataDic[@"deal"];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
+    }
+    if (indexPath.section == 3) {
+        
+        SecHouseModel *model = [[SecHouseModel alloc] initWithDictionary:_houseDic];
+        if ([model.type integerValue] == 1) {
+
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:@"0"];
+            nextVC.type = 1;;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if ([model.type integerValue] == 2){
+            
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:@"0"];
+            nextVC.type = 2;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+
+            SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:@"0"];
+            nextVC.type = 3;
             [self.navigationController pushViewController:nextVC animated:YES];
         }
     }

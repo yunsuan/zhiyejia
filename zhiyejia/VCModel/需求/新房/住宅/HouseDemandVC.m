@@ -270,7 +270,7 @@
     }
     if (_markTV.text.length) {
         
-        [dic setValue:_addressTF.textfield.text forKey:@"comment"];
+        [dic setValue:_markTV.text forKey:@"comment"];
     }
     
     [BaseRequest POST:NeedBuyAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
@@ -462,7 +462,7 @@
     _areaHeader = [[UILabel alloc] init];
     _areaHeader.textColor = CLTitleLabColor;
     _areaHeader.font = [UIFont systemFontOfSize:13 *SIZE];
-    _areaHeader.text = @"意向区域";
+    _areaHeader.text = @"意向面积";
     [_contentView addSubview:_areaHeader];
     
 //    _areaSlider = [[TTRangeSlider alloc] initWithFrame:CGRectMake(10 *SIZE, 0, 340 *SIZE, 40 *SIZE)];

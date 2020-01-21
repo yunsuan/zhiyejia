@@ -30,9 +30,9 @@
         }
     }];
     _nameL.text = dataDic[@"agent_name"];
-    _professionL.text = @"综合评分：20";
+//    _professionL.text = @"综合评分：20";
     _companyL.text = dataDic[@"company_name"];
-    _historyL.text = @"成交历史（买卖10套 租赁0套）近30天带看10次";
+//    _historyL.text = @"成交历史（买卖10套 租赁0套）近30天带看10次";
 }
 
 - (void)ActionWorkBtn:(UIButton *)btn{
@@ -73,12 +73,19 @@
     _companyL = [[UILabel alloc] init];
     _companyL.textColor = CLContentLabColor;
     _companyL.font = FONT(13 *SIZE);
+    _companyL.numberOfLines = 0;
     [self.contentView addSubview:_companyL];
     
     _historyL = [[UILabel alloc] init];
     _historyL.textColor = CLContentLabColor;
     _historyL.font = FONT(13 *SIZE);
+    _historyL.numberOfLines = 0;
     [self.contentView addSubview:_historyL];
+    
+    
+    _line = [[UIView alloc] init];
+    _line.backgroundColor = CLLineColor;
+    [self.contentView addSubview:_line];
     
     _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_phoneBtn setImage:IMAGE_WITH_NAME(@"phone1") forState:UIControlStateNormal];
@@ -110,7 +117,7 @@
        
         make.left.equalTo(self.contentView).offset(80 *SIZE);
         make.top.equalTo(self->_nameL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(100 *SIZE);
+        make.width.mas_lessThanOrEqualTo(150 *SIZE);
     }];
 
     [_historyL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -118,7 +125,16 @@
         make.left.equalTo(self.contentView).offset(80 *SIZE);
         make.top.equalTo(self->_companyL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(200 *SIZE);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);
+//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);
+    }];
+    
+    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.top.equalTo(self->_historyL.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(SIZE);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-0 *SIZE);
     }];
     
     [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {

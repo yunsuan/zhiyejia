@@ -22,6 +22,7 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
+    _codeL.text = [NSString stringWithFormat:@"需求编号：%@",dataDic[@"code"]];
     _titleL.text = [NSString stringWithFormat:@"小区名称：%@",dataDic[@"project_name"]];
 //    _statusL.text = @"待勘察";
     _houseNumL.text = [NSString stringWithFormat:@"房间号码：%@",dataDic[@"house_info"]];
@@ -39,11 +40,16 @@
     _titleL.font = FONT(13 *SIZE);
     [self.contentView addSubview:_titleL];
     
-//    _statusL = [[UILabel alloc] init];
-//    _statusL.textColor = CLContentLabColor;
-//    _statusL.font = FONT(13 *SIZE);
-//    _statusL.textAlignment = NSTextAlignmentRight;
-//    [_whiteView addSubview:_statusL];
+    _statusL = [[UILabel alloc] init];
+    _statusL.textColor = CLContentLabColor;
+    _statusL.font = FONT(13 *SIZE);
+    _statusL.textAlignment = NSTextAlignmentRight;
+    [self.contentView addSubview:_statusL];
+    
+    _codeL = [[UILabel alloc] init];
+    _codeL.textColor = CLContentLabColor;
+    _codeL.font = FONT(13 *SIZE);
+    [self.contentView addSubview:_codeL];
     
     _houseNumL = [[UILabel alloc] init];
     _houseNumL.textColor = CLContentLabColor;
@@ -72,17 +78,24 @@
         make.width.mas_lessThanOrEqualTo(250 *SIZE);
     }];
     
-//    [_statusL mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.right.equalTo(self.contentView).offset(-15 *SIZE);
-//        make.top.equalTo(self.contentView).offset(17 *SIZE);
-//        make.width.mas_lessThanOrEqualTo(50 *SIZE);
-//    }];
+    [_statusL mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.right.equalTo(self.contentView).offset(-15 *SIZE);
+        make.top.equalTo(self.contentView).offset(17 *SIZE);
+        make.width.mas_lessThanOrEqualTo(50 *SIZE);
+    }];
+    
+    [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.contentView).offset(15 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(250 *SIZE);
+    }];
     
     [_houseNumL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(15 *SIZE);
-        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_codeL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(250 *SIZE);
     }];
     

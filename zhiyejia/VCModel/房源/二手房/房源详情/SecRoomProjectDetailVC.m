@@ -99,7 +99,7 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_projectId}];
     if ([UserModel defaultModel].token.length) {
         
-        [dic setValue:[UserModel defaultModel].agent_id forKey:@"user_id"];
+        [dic setValue:[UserModel defaultModel].agent_id forKey:@"agent_id"];
     }
     [BaseRequest GET:HomeHouseProjectDetail_URL parameters:dic success:^(id  _Nonnull resposeObject) {
 

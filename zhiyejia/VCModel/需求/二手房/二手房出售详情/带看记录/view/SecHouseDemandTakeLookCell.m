@@ -23,10 +23,10 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _agentL.text = [NSString stringWithFormat:@"带看经纪人：%@",dataDic[@"agent_name"]];
-    _companyL.text = [NSString stringWithFormat:@"所属公司：%@",dataDic[@"agent_name"]];
+//    _companyL.text = [NSString stringWithFormat:@"所属公司：%@",dataDic[@"agent_name"]];
     _timeL.text = [NSString stringWithFormat:@"带看日期：%@",dataDic[@"take_time"]];
     _detailL.text = [NSString stringWithFormat:@"带看情况：%@",dataDic[@"take_time"]];
-    _priceL.text = [NSString stringWithFormat:@"买方出价：%@",[dataDic[@"price"] integerValue]?dataDic[@"price"]:@"无"];
+    _priceL.text = [NSString stringWithFormat:@"买方出价：%@万",[dataDic[@"price"] integerValue]?dataDic[@"price"]:@"未出价"];
     _commentL.text = [NSString stringWithFormat:@"买房评论：%@",dataDic[@"take_time"]];
 }
 
@@ -92,17 +92,17 @@
         make.width.mas_lessThanOrEqualTo(300 *SIZE);
     }];
     
-    [_companyL mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self.contentView).offset(20 *SIZE);
-        make.top.equalTo(self->_agentL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(300 *SIZE);
-    }];
+//    [_companyL mas_makeConstraints:^(MASConstraintMaker *make) {
+//       
+//        make.left.equalTo(self.contentView).offset(20 *SIZE);
+//        make.top.equalTo(self->_agentL.mas_bottom).offset(10 *SIZE);
+//        make.width.mas_lessThanOrEqualTo(300 *SIZE);
+//    }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.contentView).offset(20 *SIZE);
-        make.top.equalTo(self->_companyL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_agentL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(300 *SIZE);
     }];
     

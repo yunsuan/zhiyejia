@@ -165,6 +165,7 @@
             _attentImg.image = IMAGE_WITH_NAME(@"subscribe_click");
         }else{
             
+            _focusId = @"";
             _attentL.text = @"关注";
             _attentImg.image = IMAGE_WITH_NAME(@"subscribe");
         }
@@ -203,8 +204,6 @@
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 [self RequestMethod];
-//                self->_attentL.text = @"取消关注";
-//                self->_focusId = [NSString stringWithFormat:@"%@",resposeObject[@"data"]];
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];

@@ -103,7 +103,14 @@ static CGFloat labelHeight = 40;
             else{
                 model.isRegular = NO;
             }
-            [wself.datas addObject:model];
+            if ([wself.myChannelArr[i] isEqualToString:@"推荐"]) {
+                
+                
+            }else{
+                
+                [wself.datas addObject:model];
+            }
+            
         }
         for (int i = 0 ; i < wself.recommendChannelArr.count; i++) {
             HNChannelModel *model = [[HNChannelModel alloc]init];

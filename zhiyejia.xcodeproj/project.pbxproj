@@ -532,6 +532,7 @@
 		0C4613F523D1C003007ADC9D /* SecdaryComModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecdaryComModel.m; sourceTree = "<group>"; };
 		0C4613F823D1C01F007ADC9D /* SecdaryAllTableModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecdaryAllTableModel.m; sourceTree = "<group>"; };
 		0C4613F923D1C01F007ADC9D /* SecdaryAllTableModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecdaryAllTableModel.h; sourceTree = "<group>"; };
+		0C4613FB23D2AD27007ADC9D /* zhiyejia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = zhiyejia.entitlements; sourceTree = "<group>"; };
 		0C58935B22375717005B78A6 /* SecHouseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseCell.h; sourceTree = "<group>"; };
 		0C58935C22375717005B78A6 /* SecHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseCell.m; sourceTree = "<group>"; };
 		0C58935E22375754005B78A6 /* SecHouseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseModel.h; sourceTree = "<group>"; };
@@ -3227,6 +3228,7 @@
 		10AFF8C2221D281300657217 /* zhiyejia */ = {
 			isa = PBXGroup;
 			children = (
+				0C4613FB23D2AD27007ADC9D /* zhiyejia.entitlements */,
 				0CE821EC221E3DB200576742 /* UserModel */,
 				0CE821BA221D549900576742 /* 自定义SDK */,
 				0CE821A9221D53FA00576742 /* VCModel */,
@@ -3908,7 +3910,9 @@
 			baseConfigurationReference = DC519D415C13B0B4CE251E90 /* Pods-zhiyejia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = zhiyejia/zhiyejia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/zhiyejia/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = zhiyejia/Info.plist;
@@ -3929,7 +3933,9 @@
 			baseConfigurationReference = 8EC3D1E52707E23FD5371AEB /* Pods-zhiyejia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = zhiyejia/zhiyejia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/zhiyejia/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = zhiyejia/Info.plist;

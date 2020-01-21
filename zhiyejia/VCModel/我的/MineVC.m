@@ -141,7 +141,7 @@
             
             [UserModel defaultModel].head_img = head_img;
             [UserModelArchiver archive];
-            [_table reloadData];
+            [self->_table reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];

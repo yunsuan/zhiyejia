@@ -39,9 +39,11 @@ static AFHTTPSessionManager *updatemanager ;
             [BaseRequest showConten:@"账号在其他地点登录，请重新登录！"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
+                success(responseObject);
                 [UserModelArchiver ClearUserInfoModel];
                 [[UIApplication sharedApplication].keyWindow.rootViewController.navigationController popViewControllerAnimated:YES];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUser" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"goLoginVC" object:nil];
             });
             return;
         }else{
@@ -82,9 +84,11 @@ static AFHTTPSessionManager *updatemanager ;
             [BaseRequest showConten:@"账号在其他地点登录，请重新登录！"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
+                success(responseObject);
                 [UserModelArchiver ClearUserInfoModel];
                 [[UIApplication sharedApplication].keyWindow.rootViewController.navigationController popViewControllerAnimated:YES];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadUser" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"goLoginVC" object:nil];
             });
             return;
         }else{

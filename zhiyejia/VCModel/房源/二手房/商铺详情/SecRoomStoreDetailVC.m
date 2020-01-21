@@ -172,6 +172,7 @@
             _attentImg.image = IMAGE_WITH_NAME(@"subscribe_click");
         }else{
             
+            _focusId = @"";
             _attentL.text = @"关注";
             _attentImg.image = IMAGE_WITH_NAME(@"subscribe");
         }
