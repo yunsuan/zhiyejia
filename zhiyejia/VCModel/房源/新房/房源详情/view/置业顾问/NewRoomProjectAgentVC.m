@@ -112,6 +112,7 @@
             
             NewRoomProjectAgentMoreView *view = [[NewRoomProjectAgentMoreView alloc] initWithFrame:self.view.bounds];
             view.dataDic = resposeObject[@"data"];
+            view.nameL.text = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.item][@"name"]];
             view.newRoomProjectAgentMoreViewPraiseBlock = ^{
                 
 //                if ([UserModel defaultModel].agent_id.length) {

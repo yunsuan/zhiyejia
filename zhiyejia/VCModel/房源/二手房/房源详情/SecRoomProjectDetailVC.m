@@ -711,7 +711,7 @@
     
     _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 57 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
 //    _roomTable.sectionHeaderHeight = UITableViewAutomaticDimension;
-//    _roomTable.estimatedSectionHeaderHeight = 100 *SIZE;
+    _roomTable.estimatedSectionHeaderHeight = 100 *SIZE;
     _roomTable.rowHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedRowHeight = 360 *SIZE;
     _roomTable.backgroundColor = self.view.backgroundColor;

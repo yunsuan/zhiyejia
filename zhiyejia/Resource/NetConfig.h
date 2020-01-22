@@ -12,9 +12,9 @@
 #pragma mark ---  基础接口  ---
 
 //基础接口测试
-//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
-static NSString *const TestBase_Net = @"http://47.107.246.94/";
+//static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
 #pragma mark -- 登录、注册 --
 

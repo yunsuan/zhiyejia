@@ -8,9 +8,10 @@
 
 #import "SecComAllRoomListVC.h"
 
-#import "SecRoomHouseDetailVC.h"
-#import "SecRoomStoreDetailVC.h"
-#import "SecRoomOfficeDetailVC.h"
+#import "SecRoomDetailVC.h"
+//#import "SecRoomHouseDetailVC.h"
+//#import "SecRoomStoreDetailVC.h"
+//#import "SecRoomOfficeDetailVC.h"
 
 #import "SecHouseCell.h"
 
@@ -209,19 +210,8 @@
 {
     
     SecHouseModel *model = _dataArr[indexPath.row];
-    if ([model.type integerValue] == 1) {
-
-        SecRoomHouseDetailVC *nextVC = [[SecRoomHouseDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }else if ([model.type integerValue] == 2){
-        
-        SecRoomStoreDetailVC *nextVC = [[SecRoomStoreDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }else{
-
-        SecRoomOfficeDetailVC *nextVC = [[SecRoomOfficeDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }
+    SecRoomDetailVC *nextVC = [[SecRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{

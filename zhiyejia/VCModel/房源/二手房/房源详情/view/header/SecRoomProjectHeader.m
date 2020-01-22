@@ -212,10 +212,10 @@
     return 2;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    
-    return CGSizeMake(260 *SIZE, 9 *SIZE);
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+//    
+//    return CGSizeMake(260 *SIZE, 9 *SIZE);
+//}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
@@ -282,14 +282,14 @@
 //    _statusL.text = @"在售";
     [self.contentView addSubview:_statusL];
     
-    _propertyFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:0 betweenOfCell:4 *SIZE];
     _propertyFlowLayout.estimatedItemSize = CGSizeMake(40 *SIZE, 20 *SIZE);
     if (@available(iOS 10.0, *)) {
         _propertyFlowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;
     } else {
         // Fallback on earlier versions
     }
-    _propertyFlowLayout.minimumInteritemSpacing = 4 *SIZE;
+//    _propertyFlowLayout.minimumInteritemSpacing = 4 *SIZE;
     
     //    _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_propertyFlowLayout];
     _propertyColl = [[UICollectionView alloc] initWithFrame:CGRectMake(10 *SIZE, 33 *SIZE + CGRectGetMaxY(_imgScroll.frame), 260 *SIZE, 20 *SIZE) collectionViewLayout:_propertyFlowLayout];

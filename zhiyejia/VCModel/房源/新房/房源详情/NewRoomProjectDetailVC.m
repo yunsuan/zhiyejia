@@ -730,6 +730,7 @@
                         
                         NewRoomProjectAgentMoreView *view = [[NewRoomProjectAgentMoreView alloc] initWithFrame:self.view.bounds];
                         view.dataDic = resposeObject[@"data"];
+                        view.nameL.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"agent_rank_list"][idx][@"name"]];
                         view.newRoomProjectAgentMoreViewPraiseBlock = ^{
                             
 //                            if ([UserModel defaultModel].agent_id.length) {
@@ -840,6 +841,7 @@
     _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
     _roomTable.rowHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedRowHeight = 360 *SIZE;
+    _roomTable.estimatedSectionHeaderHeight = 100 *SIZE;
     _roomTable.backgroundColor = self.view.backgroundColor;
     _roomTable.delegate = self;
     _roomTable.dataSource = self;

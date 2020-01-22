@@ -66,5 +66,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54AF5C0F-710E-4F08-A133-AC2E1C14F3E6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/&#x65b0;&#x623f;/&#x623f;&#x6e90;&#x8be6;&#x60c5;/NewRoomProjectDetailVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-PraiseRequest:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "54AF5C0F-710E-4F08-A133-AC2E1C14F3E6 - 79992c586449d6e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[NewRoomProjectDetailVC PraiseRequest:]"
+                  moduleName = "zhiyejia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/zhiyejia/zhiyejia/VCModel/%E6%88%BF%E6%BA%90/%E6%96%B0%E6%88%BF/%E6%88%BF%E6%BA%90%E8%AF%A6%E6%83%85/NewRoomProjectDetailVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "182"
+                  endingLineNumber = "182"
+                  offsetFromSymbolStart = "63">
+               </Location>
+               <Location
+                  uuid = "54AF5C0F-710E-4F08-A133-AC2E1C14F3E6 - a97f695047d0ce18"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[NewRoomProjectDetailVC PraiseRequest:]_block_invoke"
+                  moduleName = "zhiyejia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/zhiyejia/zhiyejia/VCModel/%E6%88%BF%E6%BA%90/%E6%96%B0%E6%88%BF/%E6%88%BF%E6%BA%90%E8%AF%A6%E6%83%85/NewRoomProjectDetailVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "54">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A5FBF87F-98D3-409A-A5F4-93613A1435E6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "zhiyejia/VCModel/&#x623f;&#x6e90;/&#x65b0;&#x623f;/&#x623f;&#x6e90;&#x8be6;&#x60c5;/NewRoomProjectDetailVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "-PraiseRequest:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

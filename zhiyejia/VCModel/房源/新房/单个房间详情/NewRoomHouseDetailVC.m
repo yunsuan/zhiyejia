@@ -80,7 +80,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_url = resposeObject[@"data"][@"url"];
-//            [[UIApplication sharedApplication].keyWindow addSubview:self.transmitView];
+
         }else{
             
             [self showContent:@"分享失败"];
@@ -287,9 +287,7 @@
         cell.collCellBlock = ^(NSInteger index) {
             
             if (self->_houseArr.count) {
-                NewRoomHouseDetailVC *nextVC = [[NewRoomHouseDetailVC alloc]initWithHouseTypeId:[NSString stringWithFormat:@"%@",self->_houseArr[index][@"id"]] index:index dataArr:self->_houseArr projectId:self->_projectId infoid:@""];
-                
-                //                    nextVC.model = _model;
+                NewRoomHouseDetailVC *nextVC = [[NewRoomHouseDetailVC alloc]initWithHouseTypeId:[NSString stringWithFormat:@"%@",self->_houseArr[index][@"id"]] index:index dataArr:self.dataArr projectId:self->_projectId infoid:self->_infoid];
                 [self.navigationController pushViewController:nextVC animated:YES];
             }
         };
@@ -333,85 +331,5 @@
     
 }
 
-//- (TransmitView *)transmitView{
-//
-//    if (!_transmitView) {
-//
-//        _transmitView = [[TransmitView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
-//        WS(weakSelf);
-//        _transmitView.transmitTagBtnBlock = ^(NSInteger index) {
-//
-//            if (index == 0) {
-//
-//                if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_QQ]) {
-//
-//                    [weakSelf shareWebPageToPlatformType:UMSocialPlatformType_QQ];
-//                }else{
-//
-//                    [weakSelf alertControllerWithNsstring:@"温馨提示" And:@"请先安装手机QQ"];
-//                }
-//            }else if (index == 1){
-//
-//                if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_QQ]) {
-//
-//                    [weakSelf shareWebPageToPlatformType:UMSocialPlatformType_Qzone];
-//                }else{
-//
-//                    [weakSelf alertControllerWithNsstring:@"温馨提示" And:@"请先安装手机QQ"];
-//                }
-//            }else if (index == 2){
-//
-//                if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]) {
-//
-//                    [weakSelf shareWebPageToPlatformType:UMSocialPlatformType_WechatSession];
-//                }else{
-//
-//                    [weakSelf alertControllerWithNsstring:@"温馨提示" And:@"请先安装微信"];
-//                }
-//            }else{
-//
-//                if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]) {
-//
-//                    [weakSelf shareWebPageToPlatformType:UMSocialPlatformType_WechatTimeLine];
-//                }else{
-//
-//                    [weakSelf alertControllerWithNsstring:@"温馨提示" And:@"请先安装微信"];
-//                }
-//            }
-//
-//        };
-//    }
-//    return _transmitView;
-//}
-//
-////
-//- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
-//{
-//    //创建分享消息对象
-//    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-//
-//    //创建网页内容对象
-//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"云渠道" descr:[NSString stringWithFormat:@"【云渠道】%@(%@)邀请您参观【%@】",[UserInfoModel defaultModel].name,[UserInfoModel defaultModel].tel,_model.project_name]  thumImage:[UIImage imageNamed:@"shareimg"]];
-//    //设置网页地址
-//    shareObject.webpageUrl = _url;
-//
-//    //分享消息对象设置分享内容对象
-//    messageObject.shareObject = shareObject;
-//
-//    if (platformType == UMSocialPlatformType_WechatTimeLine) {
-//        shareObject.title = [NSString stringWithFormat:@"【云渠道】%@(%@)邀请您参观【%@】",[UserInfoModel defaultModel].name,[UserInfoModel defaultModel].tel,_model.project_name];
-//    }
-//
-//    //调用分享接口
-//    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-//        if (error) {
-//            //            NSLog(@"************Share fail with error %@*********",error);
-//        }else{
-//            //            NSLog(@"response data is %@",data);
-//            [self showContent:@"分享成功"];
-//            [self.transmitView removeFromSuperview];
-//        }
-//    }];
-//}
 
 @end

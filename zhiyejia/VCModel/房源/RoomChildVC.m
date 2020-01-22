@@ -324,6 +324,7 @@
 
     [BaseRequest GET:_urlString parameters:dic success:^(id resposeObject) {
 
+        [self.MainTableView.mj_footer endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
 
             if (self->_AllType == 0) {
@@ -331,7 +332,10 @@
                 [self SetData:resposeObject[@"data"][@"data"]];
                 if ([resposeObject[@"data"][@"data"] count] < 15) {
 
-                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    });
                 }
             }else if (self->_AllType == 1){
 
@@ -340,14 +344,20 @@
                     [self SetData:resposeObject[@"data"]];
                     if ([resposeObject[@"data"] count] < 15) {
 
-                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            
+                            self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                        });
                     }
                 }else{
 
                     [self SetData:resposeObject[@"data"][@"data"]];
                     if ([resposeObject[@"data"][@"data"] count] < 15) {
 
-                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            
+                            self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                        });
                     }
                 }
             }else if (self->_AllType == 3){
@@ -355,14 +365,20 @@
                 [self SetData:resposeObject[@"data"][@"data"]];
                 if ([resposeObject[@"data"] count] < 15) {
 
-                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    });
                 }
             }else{
 
                 [self SetData:resposeObject[@"data"]];
                 if ([resposeObject[@"data"] count] < 15) {
 
-                    self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        self.MainTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    });
                 }
             }
         }else{

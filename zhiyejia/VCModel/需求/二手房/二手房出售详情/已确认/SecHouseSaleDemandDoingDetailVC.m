@@ -598,6 +598,7 @@
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
+    _table.estimatedSectionHeaderHeight = 100 *SIZE;
     [self.view addSubview:_table];
 }
 
