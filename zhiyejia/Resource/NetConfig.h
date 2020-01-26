@@ -12,9 +12,9 @@
 #pragma mark ---  基础接口  ---
 
 //基础接口测试
-static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
-//static NSString *const TestBase_Net = @"http://47.107.246.94/";
+static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
 #pragma mark -- 登录、注册 --
 
@@ -128,7 +128,8 @@ static NSString *const PersonalFocusProject_URL = @"home/personal/focusProject";
 static NSString *const GetAgentRankDetail_URL = @"home/agent/getAgentRankDetail";
 
 //点赞经纪人
-static NSString *const GetAwesomeOperate_URL = @"home/agent/getAwesomeOperate";
+static NSString *const GetAwesomeOperate_URL = @"home/agent/awesomeOperate";
+
 
 //活动列表
 static NSString *const GetProjectActiveList_URL = @"home/project/getProjectActiveList";

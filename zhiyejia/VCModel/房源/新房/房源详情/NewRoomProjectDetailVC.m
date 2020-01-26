@@ -177,23 +177,23 @@
     }];
 }
 
-- (void)PraiseRequest:(NSString *)rank_id{
+- (void)PraiseRequest:(NSString *)rank_id is_awesome:(NSString *)is_awesome{
     
-    [BaseRequest GET:GetAwesomeOperate_URL parameters:@{@"project_id":_model.project_id} success:^(id  _Nonnull resposeObject) {
+    NSDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"agent_id":rank_id}];
+    if ([is_awesome integerValue] == 1) {
+        
+        [dic setValue:@"0" forKey:@"is_awesome"];
+    }else{
+        
+        [dic setValue:@"1" forKey:@"is_awesome"];
+    }
+    
+    [BaseRequest POST:GetAwesomeOperate_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_dataDic = resposeObject[@"data"];
-            self->_focusDic = self->_dataDic[@"focus"];
-            if (self->_dataDic[@"butter_tel"]) {
-                
-                self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
-            }
-            self->_latitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"latitude"]];
-            self->_longitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"longitude"]];
-            self->_albumArr = [NSMutableArray arrayWithArray:self->_dataDic[@"project_img"][@"url"]];
-            [self->_roomTable reloadData];
+            
         }else{
             
             [self showContent:resposeObject[@"msg"]];
@@ -733,13 +733,13 @@
                         view.nameL.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"agent_rank_list"][idx][@"name"]];
                         view.newRoomProjectAgentMoreViewPraiseBlock = ^{
                             
-//                            if ([UserModel defaultModel].agent_id.length) {
+                            if ([UserModel defaultModel].agent_id.length) {
                                 
-                                [self PraiseRequest:self->_dataDic[@"agent_rank_list"][idx][@"agent_id"]];
-//                            }else{
-//
-//                                [self GotoLogin];
-//                            }
+                                [self PraiseRequest:self->_dataDic[@"agent_rank_list"][idx][@"agent_id"] is_awesome:[NSString stringWithFormat:@"%@",self->_dataDic[@"agent_rank_list"][idx][@"is_awesome"]]];
+                            }else{
+
+                                [self GotoLogin];
+                            }
                         };
                         view.newRoomProjectAgentMoreViewPhoneBlock = ^{
                           

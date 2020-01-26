@@ -45,6 +45,9 @@
 
 -(void)InitUI
 {
+    
+    self.line.hidden = YES;
+    
     [self.view addSubview:self.RegisterBtn];
     [self.view addSubview:self.AccountTF];
     [self.view addSubview:self.CodeTF];
@@ -60,6 +63,7 @@
     [self.view addSubview:title];
     
     for (int i = 0; i < 4; i++) {
+        
         UIView *line = [[UIView alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+154*SIZE+47*SIZE*i, 316*SIZE, 0.5*SIZE)];
         line.backgroundColor = COLOR(180, 180, 180, 1);
         [self.view addSubview:line];

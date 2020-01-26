@@ -41,13 +41,20 @@
     [self initUI];
 }
 
-- (void)PraiseRequest:(NSString *)rank_id{
+- (void)PraiseRequest:(NSString *)rank_id is_awesome:(NSString *)is_awesome{
     
-    [BaseRequest GET:GetAwesomeOperate_URL parameters:@{@"project_id":self->_project_id} success:^(id  _Nonnull resposeObject) {
+    NSDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"agent_id":rank_id}];
+    if ([is_awesome integerValue] == 1) {
+        
+        [dic setValue:@"0" forKey:@"is_awesome"];
+    }else{
+        
+        [dic setValue:@"1" forKey:@"is_awesome"];
+    }
+    [BaseRequest GET:GetAwesomeOperate_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         NSLog(@"%@",resposeObject);
         if ([resposeObject[@"code"] integerValue] == 200) {
-            
             
             
         }else{
@@ -59,7 +66,6 @@
         [self showContent:@"网络错误"];
     }];
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
@@ -102,10 +108,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"agent_id":self->_dataArr[indexPath.item][@"agent_id"]}];
-//    if ([UserModel defaultModel].agent_id.length) {
-//
-//        [dic setValue:[UserModel defaultModel].agent_id forKey:@"awesome_agent_id"];
-//    }
     [BaseRequest GET:GetAgentRankDetail_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -115,13 +117,13 @@
             view.nameL.text = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.item][@"name"]];
             view.newRoomProjectAgentMoreViewPraiseBlock = ^{
                 
-//                if ([UserModel defaultModel].agent_id.length) {
+                if ([UserModel defaultModel].agent_id.length) {
                     
-                    [self PraiseRequest:self->_dataArr[indexPath.item][@"agent_id"]];
-//                }else{
-//
-//                    [self GotoLogin];
-//                }
+                    [self PraiseRequest:self->_dataArr[indexPath.item][@"agent_id"] is_awesome:[NSString stringWithFormat:@"%@",self->_dataArr[indexPath.item][@"is_awesome"]]];
+                }else{
+
+                    [self GotoLogin];
+                }
             };
             view.newRoomProjectAgentMoreViewPhoneBlock = ^{
                 

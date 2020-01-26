@@ -40,8 +40,35 @@
     
 }
 
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == _Account) {
+        if (textField.text.length > 11) {
+            textField.text = [textField.text substringToIndex:11];
+        }
+    }
+    if (textField == _Code) {
+        if (textField.text.length > 4) {
+            textField.text = [textField.text substringToIndex:4];
+        }
+    }
+    if (textField == _PassWord) {
+        if (textField.text.length > 20) {
+            textField.text = [textField.text substringToIndex:20];
+        }
+    }
+    if (textField == _SurePassWord) {
+        if (textField.text.length > 20) {
+            textField.text = [textField.text substringToIndex:20];
+        }
+    }
+}
+
 -(void)InitUI
 {
+    
+    self.line.hidden = YES;
+    
     [self.view addSubview:self.RegisterBtn];
     [self.view addSubview:self.Account];
     [self.view addSubview:self.Code];
@@ -178,7 +205,7 @@
         _Account.placeholder = @"请输入手机号码";
         _Account.keyboardType = UIKeyboardTypeNumberPad;
         _Account.font = [UIFont systemFontOfSize:14*SIZE];
-        
+        [_Account addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _Account;
 }
@@ -189,7 +216,7 @@
         _Code.placeholder = @"请输入验证码";
         _Code.keyboardType = UIKeyboardTypeNumberPad;
         _Code.font = [UIFont systemFontOfSize:14*SIZE];
-        
+        [_Code addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _Code;
 }
@@ -201,7 +228,7 @@
         _PassWord.placeholder = @"请输入密码";
         _PassWord.secureTextEntry = YES;
         _PassWord.font = [UIFont systemFontOfSize:14*SIZE];
-        
+        [_PassWord addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _PassWord;
 }
@@ -213,6 +240,7 @@
         _SurePassWord.placeholder = @"再次输入密码";
         _SurePassWord.secureTextEntry = YES;
         _SurePassWord.font = [UIFont systemFontOfSize:14*SIZE];
+        [_SurePassWord addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _SurePassWord;
 }

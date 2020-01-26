@@ -196,18 +196,19 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
-                        self->_updateView = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-                        self->_updateView.contentL.text = dic[@"releaseNotes"];
-                        self->_updateView.upgradeTipsViewBlock = ^{
-                            
-                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1377016786?mt=8"]];
-                        };
-                        if ([resposeObject[@"data"][@"must"] integerValue]) {
-
-                            self->_updateView.cancelBtn.hidden = YES;
-                        }
-                        
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            
+                            [self->_updateView removeFromSuperview];
+                            self->_updateView = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                            self->_updateView.contentL.text = dic[@"releaseNotes"];
+                            self->_updateView.upgradeTipsViewBlock = ^{
+                                
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1377016786?mt=8"]];
+                            };
+                            if ([resposeObject[@"data"][@"must"] integerValue]) {
+
+                                self->_updateView.cancelBtn.hidden = YES;
+                            }
                             
                             [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self->_updateView];
                         });

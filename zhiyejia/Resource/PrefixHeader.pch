@@ -34,7 +34,7 @@
 #import "MBProgressHUD.h"
 #import "ZZQAvatarPicker.h"
 
-#define YQDversion @"1.0.0"
+#define YQDversion @"1.0.1"
 
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 #define SS(strongSelf)  __strong __typeof(&*self)strongSelf = self;
