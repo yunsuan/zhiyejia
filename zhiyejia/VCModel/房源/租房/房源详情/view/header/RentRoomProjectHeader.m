@@ -298,7 +298,7 @@
 //    _statusL.text = @"在售";
     [self.contentView addSubview:_statusL];
     
-    _propertyFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _propertyFlowLayout = [[GZQFlowLayout alloc] initWithType:0 betweenOfCell:4 *SIZE];
     _propertyFlowLayout.estimatedItemSize = CGSizeMake(40 *SIZE, 20 *SIZE);
     if (@available(iOS 10.0, *)) {
         _propertyFlowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize;

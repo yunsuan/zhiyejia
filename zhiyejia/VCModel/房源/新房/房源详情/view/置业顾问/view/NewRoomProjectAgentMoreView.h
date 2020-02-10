@@ -36,6 +36,10 @@ typedef void(^NewRoomProjectAgentMoreViewPhoneBlock)(void);
 
 @property (nonatomic, strong) UILabel *activityL;
 
+@property (nonatomic, strong) UILabel *serverL;
+
+@property (nonatomic, strong) UILabel *dealL;
+
 @property (nonatomic, strong) UIButton *praiseBtn;
 
 @property (nonatomic, strong) UIButton *phoneBtn;

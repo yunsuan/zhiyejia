@@ -85,10 +85,11 @@
 
 - (void)RequestMethod{
     
-    NSDictionary *dic = @{@"house_id":_houseId,
-                          @"agent_id":@"21",
-                          @"type":@(2)
-                          };
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"house_id":_houseId,@"type":@"2"}];
+    if ([UserModel defaultModel].token.length) {
+        
+        [dic setValue:[UserModel defaultModel].agent_id forKey:@"agent_id"];
+    }
     [BaseRequest GET:RentHouseDetail_URL parameters:dic success:^(id resposeObject) {
         
         NSLog(@"%@",resposeObject);
@@ -414,7 +415,7 @@
 - (void)initUI{
     
     
-    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, self.view.frame.size.height - NAVIGATION_BAR_HEIGHT - 57 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
+    _roomTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, self.view.frame.size.height - 57 *SIZE - TAB_BAR_MORE - NAVIGATION_BAR_HEIGHT) style:UITableViewStyleGrouped];
     
     _roomTable.rowHeight = UITableViewAutomaticDimension;
     _roomTable.estimatedRowHeight = 200 *SIZE;
@@ -428,7 +429,7 @@
     [self.view addSubview:_roomTable];
     
     _attentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _attentBtn.frame = CGRectMake(0, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 70 *SIZE, 43 *SIZE + TAB_BAR_MORE);
+    _attentBtn.frame = CGRectMake(0, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE - NAVIGATION_BAR_HEIGHT, 70 *SIZE, 43 *SIZE + TAB_BAR_MORE);
     _attentBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_attentBtn addTarget:self action:@selector(ActionAttentBtn:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -448,7 +449,7 @@
     [self.view addSubview:_attentBtn];
     
     _consultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _consultBtn.frame = CGRectMake(78 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE, 133 *SIZE, 43 *SIZE + TAB_BAR_MORE);
+    _consultBtn.frame = CGRectMake(78 *SIZE, self.view.frame.size.height - 50 *SIZE - TAB_BAR_MORE - NAVIGATION_BAR_HEIGHT, 273 *SIZE, 43 *SIZE + TAB_BAR_MORE);
     _consultBtn.layer.cornerRadius = 7 *SIZE;//21.5 *SIZE + 17;
     _consultBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_consultBtn addTarget:self action:@selector(ActionConsultBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -467,7 +468,7 @@
     [gradientLayer0 setEndPoint:CGPointMake(1, 0)];
     [_consultBtn.layer addSublayer:gradientLayer0];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 133 *SIZE, 13 *SIZE)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 *SIZE, 273 *SIZE, 13 *SIZE)];
     label.textColor = CLWhiteColor;
     label.text = @"电话咨询";
     label.font = [UIFont systemFontOfSize:13 *SIZE];

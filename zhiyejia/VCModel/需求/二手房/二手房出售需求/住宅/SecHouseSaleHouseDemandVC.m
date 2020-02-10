@@ -8,10 +8,12 @@
 
 #import "SecHouseSaleHouseDemandVC.h"
 
+#import "DropDownBtn2.h"
 #import "DropDownBtn.h"
 #import "RightTextField.h"
 #import "BorderTextField.h"
 #import "SinglePickView.h"
+#import "HouseTypePickView.h"
 
 #import "AddNumeralCodeColl.h"
 #import "AddNumeralCodeCollCell.h"
@@ -40,7 +42,7 @@
 
 @property (nonatomic, strong) UILabel *areaL;
 
-@property (nonatomic, strong) DropDownBtn *areaBtn;
+@property (nonatomic, strong) DropDownBtn2 *areaBtn;
 
 @property (nonatomic, strong) UIView *areaLine;
 
@@ -404,7 +406,7 @@
     _addressL.text = @"详细地址";
     [_contentView addSubview:_addressL];
     
-    _areaBtn = [[DropDownBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 42 *SIZE)];
+    _areaBtn = [[DropDownBtn2 alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 42 *SIZE)];
     [_areaBtn addTarget:self action:@selector(ActionCityBtn:) forControlEvents:UIControlEventTouchUpInside];
 //    _areaBtn.content.text = @"成都市青羊区";
     [_contentView addSubview:_areaBtn];

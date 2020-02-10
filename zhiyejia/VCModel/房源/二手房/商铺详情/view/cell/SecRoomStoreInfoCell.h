@@ -37,6 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *seeL;
 
+@property (nonatomic, strong) UILabel *isRentL;
+
+@property (nonatomic, strong) UILabel *rentPriceL;
+
+@property (nonatomic, strong) UILabel *referenceRentL;
+
+@property (nonatomic, strong) UILabel *rentOverTimeL;
+
 @property (nonatomic, strong) UILabel *intentL;
 
 @property (nonatomic, strong) UILabel *urgentL;

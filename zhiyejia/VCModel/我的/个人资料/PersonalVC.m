@@ -27,6 +27,14 @@
 
 @implementation PersonalVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserModel defaultModel].account,@"******",[UserModel defaultModel].name,[UserModel defaultModel].tel]];
+    [_personTable reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

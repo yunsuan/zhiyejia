@@ -56,6 +56,8 @@
 		0C00125B23CC42D9005924FE /* SecDistributVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C00125A23CC42D8005924FE /* SecDistributVC.m */; };
 		0C00125E23CC4618005924FE /* ReleaseSenceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C00125D23CC4618005924FE /* ReleaseSenceVC.m */; };
 		0C00126223CC46B3005924FE /* ReportRoomDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C00126123CC46B2005924FE /* ReportRoomDetailView.m */; };
+		0C0ED99123E6627E00FB2D9B /* RentRoomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0ED99023E6627E00FB2D9B /* RentRoomDetailVC.m */; };
+		0C0ED99423E6628C00FB2D9B /* RentAllRoomAnalyzeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0ED99323E6628C00FB2D9B /* RentAllRoomAnalyzeVC.m */; };
 		0C2AAFE0224C92FA00136E4D /* DistributVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AAFDA224C92FA00136E4D /* DistributVC.m */; };
 		0C2AAFE1224C92FA00136E4D /* SingleHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AAFDC224C92FA00136E4D /* SingleHouseCell.m */; };
 		0C2AAFE2224C92FA00136E4D /* HousedistributVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AAFDE224C92FA00136E4D /* HousedistributVC.m */; };
@@ -215,9 +217,6 @@
 		0CF1F33422533E0A00C92A54 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1F33322533E0A00C92A54 /* UserInfoModel.m */; };
 		0CF43F662275434A00677844 /* OfficeDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F652275434A00677844 /* OfficeDemandVC.m */; };
 		0CF43F692275478700677844 /* StoreDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F682275478700677844 /* StoreDemandVC.m */; };
-		0CF43F6F22754A2B00677844 /* SecHouseDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F6E22754A2B00677844 /* SecHouseDemandVC.m */; };
-		0CF43F7222754A3A00677844 /* SecOfficeDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F7122754A3A00677844 /* SecOfficeDemandVC.m */; };
-		0CF43F7522754A4900677844 /* SecStoreDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F7422754A4900677844 /* SecStoreDemandVC.m */; };
 		0CF43F7F22754EC900677844 /* RentHouseDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F7E22754EC900677844 /* RentHouseDemandVC.m */; };
 		0CF43F8222754ED700677844 /* RentStoreDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F8122754ED700677844 /* RentStoreDemandVC.m */; };
 		0CF43F8522754F0000677844 /* RentOfficeDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF43F8422754F0000677844 /* RentOfficeDemandVC.m */; };
@@ -283,6 +282,10 @@
 		0CF46ECE222FA809008816E6 /* RentRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46ECD222FA809008816E6 /* RentRoomCell.m */; };
 		0CF46ED1222FA819008816E6 /* RentProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46ED0222FA819008816E6 /* RentProjectModel.m */; };
 		0CF46ED5222FC51C008816E6 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF46ED4222FC51C008816E6 /* LocationManager.m */; };
+		0CF94EB923EFB4320071FC9E /* SecHouseBuyHouseDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF94EB823EFB4320071FC9E /* SecHouseBuyHouseDemandVC.m */; };
+		0CF94EBC23EFB97F0071FC9E /* DropDownBtn2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF94EBB23EFB97F0071FC9E /* DropDownBtn2.m */; };
+		0CF94EC023EFBA560071FC9E /* HouseTypePickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF94EBF23EFBA560071FC9E /* HouseTypePickView.m */; };
+		0CF94EC323EFBB050071FC9E /* SecHouseBuyStoreDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF94EC223EFBB050071FC9E /* SecHouseBuyStoreDemandVC.m */; };
 		0CFD42E2227054BE0062C294 /* AgentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD42E1227054BE0062C294 /* AgentDetailVC.m */; };
 		0CFD42E6227058CB0062C294 /* AgentCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD42E5227058CB0062C294 /* AgentCompanyCell.m */; };
 		0CFD42E9227058DC0062C294 /* AgentCustomCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD42E8227058DC0062C294 /* AgentCustomCommentCell.m */; };
@@ -417,6 +420,10 @@
 		0C00125D23CC4618005924FE /* ReleaseSenceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseSenceVC.m; sourceTree = "<group>"; };
 		0C00126023CC46B2005924FE /* ReportRoomDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportRoomDetailView.h; sourceTree = "<group>"; };
 		0C00126123CC46B2005924FE /* ReportRoomDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportRoomDetailView.m; sourceTree = "<group>"; };
+		0C0ED98F23E6627E00FB2D9B /* RentRoomDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RentRoomDetailVC.h; sourceTree = "<group>"; };
+		0C0ED99023E6627E00FB2D9B /* RentRoomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentRoomDetailVC.m; sourceTree = "<group>"; };
+		0C0ED99223E6628C00FB2D9B /* RentAllRoomAnalyzeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RentAllRoomAnalyzeVC.h; sourceTree = "<group>"; };
+		0C0ED99323E6628C00FB2D9B /* RentAllRoomAnalyzeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentAllRoomAnalyzeVC.m; sourceTree = "<group>"; };
 		0C2AAFDA224C92FA00136E4D /* DistributVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistributVC.m; sourceTree = "<group>"; };
 		0C2AAFDB224C92FA00136E4D /* HousedistributVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HousedistributVC.h; sourceTree = "<group>"; };
 		0C2AAFDC224C92FA00136E4D /* SingleHouseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleHouseCell.m; sourceTree = "<group>"; };
@@ -739,12 +746,6 @@
 		0CF43F652275434A00677844 /* OfficeDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfficeDemandVC.m; sourceTree = "<group>"; };
 		0CF43F672275478700677844 /* StoreDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDemandVC.h; sourceTree = "<group>"; };
 		0CF43F682275478700677844 /* StoreDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDemandVC.m; sourceTree = "<group>"; };
-		0CF43F6D22754A2B00677844 /* SecHouseDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseDemandVC.h; sourceTree = "<group>"; };
-		0CF43F6E22754A2B00677844 /* SecHouseDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseDemandVC.m; sourceTree = "<group>"; };
-		0CF43F7022754A3A00677844 /* SecOfficeDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecOfficeDemandVC.h; sourceTree = "<group>"; };
-		0CF43F7122754A3A00677844 /* SecOfficeDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecOfficeDemandVC.m; sourceTree = "<group>"; };
-		0CF43F7322754A4900677844 /* SecStoreDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecStoreDemandVC.h; sourceTree = "<group>"; };
-		0CF43F7422754A4900677844 /* SecStoreDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecStoreDemandVC.m; sourceTree = "<group>"; };
 		0CF43F7D22754EC900677844 /* RentHouseDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RentHouseDemandVC.h; sourceTree = "<group>"; };
 		0CF43F7E22754EC900677844 /* RentHouseDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentHouseDemandVC.m; sourceTree = "<group>"; };
 		0CF43F8022754ED700677844 /* RentStoreDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RentStoreDemandVC.h; sourceTree = "<group>"; };
@@ -875,6 +876,14 @@
 		0CF46ED0222FA819008816E6 /* RentProjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RentProjectModel.m; sourceTree = "<group>"; };
 		0CF46ED3222FC51C008816E6 /* LocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		0CF46ED4222FC51C008816E6 /* LocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		0CF94EB723EFB4320071FC9E /* SecHouseBuyHouseDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseBuyHouseDemandVC.h; sourceTree = "<group>"; };
+		0CF94EB823EFB4320071FC9E /* SecHouseBuyHouseDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseBuyHouseDemandVC.m; sourceTree = "<group>"; };
+		0CF94EBA23EFB97F0071FC9E /* DropDownBtn2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropDownBtn2.h; sourceTree = "<group>"; };
+		0CF94EBB23EFB97F0071FC9E /* DropDownBtn2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropDownBtn2.m; sourceTree = "<group>"; };
+		0CF94EBE23EFBA560071FC9E /* HouseTypePickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseTypePickView.h; sourceTree = "<group>"; };
+		0CF94EBF23EFBA560071FC9E /* HouseTypePickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseTypePickView.m; sourceTree = "<group>"; };
+		0CF94EC123EFBB050071FC9E /* SecHouseBuyStoreDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseBuyStoreDemandVC.h; sourceTree = "<group>"; };
+		0CF94EC223EFBB050071FC9E /* SecHouseBuyStoreDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseBuyStoreDemandVC.m; sourceTree = "<group>"; };
 		0CFD42E0227054BE0062C294 /* AgentDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentDetailVC.h; sourceTree = "<group>"; };
 		0CFD42E1227054BE0062C294 /* AgentDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentDetailVC.m; sourceTree = "<group>"; };
 		0CFD42E4227058CB0062C294 /* AgentCompanyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentCompanyCell.h; sourceTree = "<group>"; };
@@ -1206,6 +1215,17 @@
 				0C00126123CC46B2005924FE /* ReportRoomDetailView.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		0C0ED98E23E6626C00FB2D9B /* 租房房源详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C0ED98F23E6627E00FB2D9B /* RentRoomDetailVC.h */,
+				0C0ED99023E6627E00FB2D9B /* RentRoomDetailVC.m */,
+				0C0ED99223E6628C00FB2D9B /* RentAllRoomAnalyzeVC.h */,
+				0C0ED99323E6628C00FB2D9B /* RentAllRoomAnalyzeVC.m */,
+			);
+			path = "租房房源详情";
 			sourceTree = "<group>";
 		};
 		0C2AAFD9224C92FA00136E4D /* 楼栋信息 */ = {
@@ -2113,13 +2133,11 @@
 		0C991C682272D8EE00AF2817 /* 二手房 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF94EB323EFB3C70071FC9E /* 二手房求购需求 */,
 				0C46136323CEF7B5007ADC9D /* 二手房出售需求 */,
 				0C81D60023BEE21F001C8DD1 /* 公司详情 */,
 				0C81D5F623BECE03001C8DD1 /* 二手房求购详情 */,
 				0C81D5E523BD95F9001C8DD1 /* 二手房出售详情 */,
-				0CF43F6A227549E400677844 /* 商铺 */,
-				0CF43F6C227549E400677844 /* 写字楼 */,
-				0CF43F6B227549E400677844 /* 住宅 */,
 			);
 			path = "二手房";
 			sourceTree = "<group>";
@@ -2177,6 +2195,8 @@
 			children = (
 				0C991C722272DAEE00AF2817 /* DropDownBtn.h */,
 				0C991C732272DAEE00AF2817 /* DropDownBtn.m */,
+				0CF94EBA23EFB97F0071FC9E /* DropDownBtn2.h */,
+				0CF94EBB23EFB97F0071FC9E /* DropDownBtn2.m */,
 			);
 			path = "自定义按钮";
 			sourceTree = "<group>";
@@ -2310,6 +2330,7 @@
 		0CE821BA221D549900576742 /* 自定义SDK */ = {
 			isa = PBXGroup;
 			children = (
+				0CF94EBD23EFBA560071FC9E /* 户型筛选 */,
 				0C4613A723D19057007ADC9D /* 升级提示 */,
 				0C46138C23D15877007ADC9D /* 弹窗 */,
 				0C46134123CD5F47007ADC9D /* 单选下拉框 */,
@@ -2492,33 +2513,6 @@
 				0CE8222E221EB37000576742 /* MineHeaderView.m */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		0CF43F6A227549E400677844 /* 商铺 */ = {
-			isa = PBXGroup;
-			children = (
-				0CF43F7322754A4900677844 /* SecStoreDemandVC.h */,
-				0CF43F7422754A4900677844 /* SecStoreDemandVC.m */,
-			);
-			path = "商铺";
-			sourceTree = "<group>";
-		};
-		0CF43F6B227549E400677844 /* 住宅 */ = {
-			isa = PBXGroup;
-			children = (
-				0CF43F6D22754A2B00677844 /* SecHouseDemandVC.h */,
-				0CF43F6E22754A2B00677844 /* SecHouseDemandVC.m */,
-			);
-			path = "住宅";
-			sourceTree = "<group>";
-		};
-		0CF43F6C227549E400677844 /* 写字楼 */ = {
-			isa = PBXGroup;
-			children = (
-				0CF43F7022754A3A00677844 /* SecOfficeDemandVC.h */,
-				0CF43F7122754A3A00677844 /* SecOfficeDemandVC.m */,
-			);
-			path = "写字楼";
 			sourceTree = "<group>";
 		};
 		0CF43F7A22754EBA00677844 /* 商铺 */ = {
@@ -2877,6 +2871,7 @@
 		0CF46DD522278470008816E6 /* 租房 */ = {
 			isa = PBXGroup;
 			children = (
+				0C0ED98E23E6626C00FB2D9B /* 租房房源详情 */,
 				0C58938A223A42B3005B78A6 /* 商铺详情 */,
 				0C58938C223A42B4005B78A6 /* 写字楼详情 */,
 				0C58938B223A42B4005B78A6 /* 住宅详情 */,
@@ -3165,6 +3160,50 @@
 				0CF46ED4222FC51C008816E6 /* LocationManager.m */,
 			);
 			path = "定位管理";
+			sourceTree = "<group>";
+		};
+		0CF94EB323EFB3C70071FC9E /* 二手房求购需求 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF94EB623EFB3E70071FC9E /* 写字楼 */,
+				0CF94EB523EFB3DF0071FC9E /* 商铺 */,
+				0CF94EB423EFB3D80071FC9E /* 住宅 */,
+			);
+			path = "二手房求购需求";
+			sourceTree = "<group>";
+		};
+		0CF94EB423EFB3D80071FC9E /* 住宅 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF94EB723EFB4320071FC9E /* SecHouseBuyHouseDemandVC.h */,
+				0CF94EB823EFB4320071FC9E /* SecHouseBuyHouseDemandVC.m */,
+			);
+			path = "住宅";
+			sourceTree = "<group>";
+		};
+		0CF94EB523EFB3DF0071FC9E /* 商铺 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF94EC123EFBB050071FC9E /* SecHouseBuyStoreDemandVC.h */,
+				0CF94EC223EFBB050071FC9E /* SecHouseBuyStoreDemandVC.m */,
+			);
+			path = "商铺";
+			sourceTree = "<group>";
+		};
+		0CF94EB623EFB3E70071FC9E /* 写字楼 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "写字楼";
+			sourceTree = "<group>";
+		};
+		0CF94EBD23EFBA560071FC9E /* 户型筛选 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF94EBE23EFBA560071FC9E /* HouseTypePickView.h */,
+				0CF94EBF23EFBA560071FC9E /* HouseTypePickView.m */,
+			);
+			path = "户型筛选";
 			sourceTree = "<group>";
 		};
 		0CFD42DF227054B00062C294 /* 经纪人详情 */ = {
@@ -3483,6 +3522,7 @@
 				0C58937D223A1E39005B78A6 /* EquipMentCollCell.m in Sources */,
 				0C5893B0223B733F005B78A6 /* RentRoomOfficeDetailVC.m in Sources */,
 				0C6BECAA2240D9A90039BD0D /* DynamicListVC.m in Sources */,
+				0CF94EC323EFBB050071FC9E /* SecHouseBuyStoreDemandVC.m in Sources */,
 				0C2C710F22700DA1001F3D22 /* CheckAgentCell.m in Sources */,
 				0C81D65523C1C6EC001C8DD1 /* NewRoomProjectAgentCollCell.m in Sources */,
 				0C589385223A2258005B78A6 /* SecRoomFloorCell.m in Sources */,
@@ -3531,6 +3571,7 @@
 				0C00124023CC08FA005924FE /* YBImageBrowserToolBar.m in Sources */,
 				0CE821CA221E35B500576742 /* WMPageController.m in Sources */,
 				0C00125E23CC4618005924FE /* ReleaseSenceVC.m in Sources */,
+				0C0ED99423E6628C00FB2D9B /* RentAllRoomAnalyzeVC.m in Sources */,
 				0C4613FA23D1C01F007ADC9D /* SecdaryAllTableModel.m in Sources */,
 				0CE821DE221E368700576742 /* HNChannelView.m in Sources */,
 				0C2AB007224C9F0600136E4D /* NewRoomHouseInfoCell.m in Sources */,
@@ -3557,6 +3598,7 @@
 				0C81D5E123BD8694001C8DD1 /* DeamandSaleCell.m in Sources */,
 				0C46134B23CD93F4007ADC9D /* SecRoomDealListCell.m in Sources */,
 				0CF46DAE22265BF0008816E6 /* AppointSeeRoomSuccessView.m in Sources */,
+				0CF94EB923EFB4320071FC9E /* SecHouseBuyHouseDemandVC.m in Sources */,
 				0C81D63523BF31C4001C8DD1 /* SecHouseBuyDemandDetailRecommendVC.m in Sources */,
 				0CF46E19222D0159008816E6 /* SecRoomOfficeEquipCell.m in Sources */,
 				0C81D61223BF094F001C8DD1 /* SecHouseSaleDemandMaintainVC.m in Sources */,
@@ -3603,6 +3645,7 @@
 				0CF46DBE22267468008816E6 /* MyAppointCell.m in Sources */,
 				0C0011CE23CB2093005924FE /* UIColor+PYSearchExtension.m in Sources */,
 				0C2C7103226FFBAA001F3D22 /* AgentTabCollCell.m in Sources */,
+				0CF94EC023EFBA560071FC9E /* HouseTypePickView.m in Sources */,
 				0CF46DB222266BE4008816E6 /* MyMessageVC.m in Sources */,
 				0C58935D22375717005B78A6 /* SecHouseCell.m in Sources */,
 				0C81D5EF23BD9B9A001C8DD1 /* SecHouseSaleDemandDetailDymCell.m in Sources */,
@@ -3635,7 +3678,6 @@
 				0CE821CE221E35B500576742 /* WMProgressView.m in Sources */,
 				0CFD42E9227058DC0062C294 /* AgentCustomCommentCell.m in Sources */,
 				0C81D63923BF33A0001C8DD1 /* SecHouseBuyDemandDetailRecommendDetailVC.m in Sources */,
-				0CF43F6F22754A2B00677844 /* SecHouseDemandVC.m in Sources */,
 				0CE82225221EA01600576742 /* FindPassWordVC.m in Sources */,
 				0CE82203221E701B00576742 /* NewRoomCell.m in Sources */,
 				0CE82229221EA6B600576742 /* MineCell.m in Sources */,
@@ -3648,14 +3690,12 @@
 				0CF46EC9222FA311008816E6 /* SecRoomCell.m in Sources */,
 				0C991C7F227303DF00AF2817 /* TTRangeSlider.m in Sources */,
 				0C46135E23CEAB90007ADC9D /* SecHouseRemindCell.m in Sources */,
-				0CF43F7522754A4900677844 /* SecStoreDemandVC.m in Sources */,
 				0CE821E3221E380B00576742 /* RoomChildVC.m in Sources */,
 				0CF46DD222268947008816E6 /* MyAttentionAgentCell.m in Sources */,
 				0CF46D8C2224DF06008816E6 /* NewRoomProjectAnalyzeCell.m in Sources */,
 				0C00119B23C5753B005924FE /* SecHouseBuyDemandDetailRecommendDymCell.m in Sources */,
 				0C81D62423BF1BFC001C8DD1 /* RightBtnColorHeader.m in Sources */,
 				0C46135B23CEA772007ADC9D /* SecHouseBuyDemandDealDetailVC.m in Sources */,
-				0CF43F7222754A3A00677844 /* SecOfficeDemandVC.m in Sources */,
 				0C00118323C2DA92005924FE /* SecRoomHouseMaintainCell.m in Sources */,
 				0CF46E32222E7AE8008816E6 /* NewRoomProjectDetailFooter.m in Sources */,
 				0C991C662272D4FB00AF2817 /* DemandTypeHeader.m in Sources */,
@@ -3733,12 +3773,14 @@
 				0C46138B23D058CF007ADC9D /* SecHouseSaleDemandDoingDetailVC.m in Sources */,
 				0C0011B223C6D0E2005924FE /* EventDetailSignVC.m in Sources */,
 				0CF43F8522754F0000677844 /* RentOfficeDemandVC.m in Sources */,
+				0CF94EBC23EFB97F0071FC9E /* DropDownBtn2.m in Sources */,
 				0CF46E05222CD3B3008816E6 /* SecRoomHouseProjectCell.m in Sources */,
 				0C46136223CEE6EB007ADC9D /* SecHouseBuyDemandRecommendDetailVC.m in Sources */,
 				0C81D5F223BD9FE2001C8DD1 /* SecHouseSaleDemandDetailCompanyCell.m in Sources */,
 				0C2AAFF1224C939500136E4D /* SMScrollView.m in Sources */,
 				0CF46E22222D0A7E008816E6 /* SecRoomStoreDetailVC.m in Sources */,
 				10AFF8C5221D281300657217 /* AppDelegate.m in Sources */,
+				0C0ED99123E6627E00FB2D9B /* RentRoomDetailVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

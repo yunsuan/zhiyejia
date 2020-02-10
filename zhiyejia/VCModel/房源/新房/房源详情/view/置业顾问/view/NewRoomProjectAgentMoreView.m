@@ -34,6 +34,10 @@
     _praiseL.text = [NSString stringWithFormat:@"%@",dataDic[@"awesome_num"]];
     _activityL.text = [NSString stringWithFormat:@"%@",dataDic[@"active_num"]];
     
+    _serverL.text = [NSString stringWithFormat:@"%@",dataDic[@"visit_num"]];
+    
+    _dealL.text = [NSString stringWithFormat:@"%@",dataDic[@"deal_num"]];
+    
     if ([dataDic[@"total_num"] integerValue] <= 1500) {
         
         _typeL.text = @"铜牌置业顾问";
@@ -119,6 +123,17 @@
         [self.whiteView addSubview:label];
     }
     
+    NSArray *arr1 = @[@"服务客户",@"成交客户"];
+    for (int i = 0; i < 2; i++) {
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i * 100 *SIZE, 160 *SIZE, 100 *SIZE, 15 *SIZE)];
+        label.textColor = CLTitleLabColor;
+        label.font = FONT(13 *SIZE);
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = arr1[i];
+        [self.whiteView addSubview:label];
+    }
+    
     _allL = [[UILabel alloc] init];
     _allL.textColor = CLTitleLabColor;
     _allL.font = FONT(13 *SIZE);
@@ -132,6 +147,21 @@
     _praiseL.textAlignment = NSTextAlignmentCenter;
     _praiseL.text = @"123";
     [self.whiteView addSubview:_praiseL];
+    
+    _serverL = [[UILabel alloc] init];
+    _serverL.textColor = CLTitleLabColor;
+    _serverL.font = FONT(13 *SIZE);
+    _serverL.textAlignment = NSTextAlignmentCenter;
+    _serverL.text = @"123";
+    [self.whiteView addSubview:_serverL];
+    
+    _dealL = [[UILabel alloc] init];
+    _dealL.textColor = CLTitleLabColor;
+    _dealL.font = FONT(13 *SIZE);
+    _dealL.textAlignment = NSTextAlignmentCenter;
+    _dealL.text = @"123";
+    [self.whiteView addSubview:_dealL];
+    
     
     _activityL = [[UILabel alloc] init];
     _activityL.textColor = CLTitleLabColor;
@@ -155,7 +185,7 @@
         make.left.equalTo(self).offset(30 *SIZE);
         make.top.equalTo(self).offset(250 *SIZE);
         make.width.mas_equalTo(300 *SIZE);
-        make.height.mas_equalTo(200 *SIZE);
+        make.height.mas_equalTo(240 *SIZE);
     }];
     
     [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -202,6 +232,20 @@
         make.width.mas_equalTo(80 *SIZE);
     }];
     
+    [_serverL mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.whiteView).offset(10 *SIZE);
+        make.top.equalTo(self->_allL.mas_bottom).offset(40 *SIZE);
+        make.width.mas_equalTo(80 *SIZE);
+    }];
+    
+    [_dealL mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.whiteView).offset(110 *SIZE);
+        make.top.equalTo(self->_allL.mas_bottom).offset(40 *SIZE);
+        make.width.mas_equalTo(80 *SIZE);
+    }];
+    
     [_activityL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.whiteView).offset(210 *SIZE);
@@ -212,7 +256,7 @@
     [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.whiteView).offset(-30 *SIZE);
-        make.top.equalTo(self->_allL.mas_bottom).offset(50 *SIZE);
+        make.top.equalTo(self->_serverL.mas_bottom).offset(50 *SIZE);
         make.width.height.mas_equalTo(30 *SIZE);
 //        make.bottom.equalTo(self.whiteView.mas_bottom).offset(-15 *SIZE);
     }];
@@ -220,7 +264,7 @@
     [_praiseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
            
         make.left.equalTo(self.whiteView).offset(30 *SIZE);
-        make.top.equalTo(self->_allL.mas_bottom).offset(50 *SIZE);
+        make.top.equalTo(self->_serverL.mas_bottom).offset(50 *SIZE);
 //        make.top.equalTo(self.contentView.mas_bottom).offset(10 *SIZE);
         make.width.height.mas_equalTo(30 *SIZE);
 //        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15 *SIZE);

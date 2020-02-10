@@ -13,7 +13,7 @@
 #import "SecRoomDealListVC.h"
 #import "SecDistributVC.h"
 
-#import "HouseDemandVC.h"
+#import "SecHouseBuyHouseDemandVC.h"
 #import "SecHouseSaleHouseDemandVC.h"
 
 #import "SecRoomProjectHeader.h"
@@ -424,8 +424,8 @@
                         type = @"1";
                         property = ID;
 
-                        HouseDemandVC *nextVC = [[HouseDemandVC alloc] initWithType:type property:property];
-                        nextVC.houseDemandVCBlock = ^{
+                        SecHouseBuyHouseDemandVC *nextVC = [[SecHouseBuyHouseDemandVC alloc] initWithType:type property:property];
+                        nextVC.secHouseBuyHouseDemandVCBlock = ^{
                                                    
 //                            [self RequestMethod];
                         };

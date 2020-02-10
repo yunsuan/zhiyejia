@@ -15,6 +15,7 @@
 #import "StoreDemandVC.h"
 
 //二手房
+#import "SecHouseBuyHouseDemandVC.h"
 #import "SecHouseSaleHouseDemandVC.h"
 
 //买
@@ -28,10 +29,6 @@
 #import "SecHouseSaleDemandDoingDetailVC.h"
 
 #import "SecHouseSaleDemandDetailVC.h"
-
-#import "SecHouseDemandVC.h"
-#import "SecStoreDemandVC.h"
-#import "SecOfficeDemandVC.h"
 
 //租房
 #import "RentHouseDemandVC.h"
@@ -146,8 +143,8 @@
                         property = ID;
         //                property = [NSString stringWithFormat:@"%ld",[ID integerValue] - 3];
         //            }
-                            HouseDemandVC *nextVC = [[HouseDemandVC alloc] initWithType:type property:property];
-                            nextVC.houseDemandVCBlock = ^{
+                            SecHouseBuyHouseDemandVC *nextVC = [[SecHouseBuyHouseDemandVC alloc] initWithType:type property:property];
+                            nextVC.secHouseBuyHouseDemandVCBlock = ^{
                       
                                 [self RequestMethod];
                             };

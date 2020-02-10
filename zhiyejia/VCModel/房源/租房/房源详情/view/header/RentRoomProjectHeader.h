@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GZQFlowLayout.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^RentRoomProjectHeaderMoreBlock)(void);
@@ -38,7 +40,7 @@ typedef void(^RentRoomProjectHeaderTagBlock)(NSInteger btnNum);
 
 @property (nonatomic, strong) UILabel *numL;
 
-@property (nonatomic, strong) UICollectionViewFlowLayout *propertyFlowLayout;
+@property (nonatomic, strong) GZQFlowLayout *propertyFlowLayout;
 
 @property (nonatomic, strong) UICollectionView *propertyColl;
 

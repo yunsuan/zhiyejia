@@ -291,6 +291,23 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 3) {
+        
+        if (_model.match_tags.count) {
+            
+            return UITableViewAutomaticDimension;
+        }else{
+            
+            return 0;
+        }
+    }else{
+        
+        return UITableViewAutomaticDimension;
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     if (section == 0) {

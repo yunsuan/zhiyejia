@@ -88,7 +88,6 @@
         }
     }];
     cell.nameL.text = _dataArr[indexPath.item][@"name"];
-    
     cell.newRoomProjectAgentCollCellPhoneBlock = ^{
         
         if ([self->_dataArr[indexPath.item][@"tel"] length]) {
@@ -115,6 +114,8 @@
             NewRoomProjectAgentMoreView *view = [[NewRoomProjectAgentMoreView alloc] initWithFrame:self.view.bounds];
             view.dataDic = resposeObject[@"data"];
             view.nameL.text = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.item][@"name"]];
+            view.serverL.text = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.item][@"visit_num"]];
+            view.dealL.text = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.item][@"deal_num"]];
             view.newRoomProjectAgentMoreViewPraiseBlock = ^{
                 
                 if ([UserModel defaultModel].agent_id.length) {

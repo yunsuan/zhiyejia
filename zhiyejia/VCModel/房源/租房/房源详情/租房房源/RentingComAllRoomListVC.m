@@ -8,7 +8,7 @@
 
 #import "RentingComAllRoomListVC.h"
 
-
+#import "RentRoomDetailVC.h"
 #import "RentHouseCell.h"
 
 @interface RentingComAllRoomListVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -201,21 +201,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    RentingAllTableModel *model = _dataArr[indexPath.row];
-    if ([self.status isEqualToString:@"protocol"]) {
-        
-        if (self.rentingComAllRoomListVCBlock) {
-            
-//            self.rentingComAllRoomListVCBlock(model);
-        }
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        
-//        RentingAllRoomDetailVC *nextVC = [[RentingAllRoomDetailVC alloc] initWithHouseId:model.house_id city:_city];
-//        nextVC.type = [model.type integerValue];
-//        nextVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-    }
+    RentHouseModel *model = _dataArr[indexPath.row];
+    RentRoomDetailVC *nextVC = [[RentRoomDetailVC alloc] initWithHouseId:model.house_id city:self->_city];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{

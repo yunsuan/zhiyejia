@@ -40,6 +40,7 @@
     
     NSMutableArray *_imgArr;
     NSMutableArray *_albumArr;
+    NSMutableArray *_agentInfoArr;
 }
 
 @property (nonatomic, strong) UITableView *roomTable;
@@ -78,6 +79,11 @@
 
 - (void)initDataSource{
     
+    _imgArr = [@[] mutableCopy];
+    _albumArr = [@[] mutableCopy];
+    _agentInfoArr = [@[] mutableCopy];
+    
+    _focusDic = [@{} mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -93,6 +99,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = resposeObject[@"data"];
+            self->_focusDic = self->_dataDic[@"focus"];
             self->_latitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"latitude"]];
             self->_longitude = [NSString stringWithFormat:@"%@",self->_dataDic[@"project_basic_info"][@"longitude"]];
             if ([self->_focusDic[@"is_focus"] integerValue]) {
@@ -103,6 +110,10 @@
                 
                 self->_attentImg.image = IMAGE_WITH_NAME(@"subscribe");
                 self->_attentL.text = @"订阅";
+            }
+            if (self->_dataDic[@"butter_tel"]) {
+                
+                self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
             }
             if ([self->_dataDic[@"project_basic_info"] isKindOfClass:[NSDictionary class]]) {
 
@@ -122,9 +133,27 @@
                 }];
                 self->_model = [[RentProjectModel alloc] initWithDictionary:tempDic];
             }
-            if (self->_dataDic[@"butter_tel"]) {
-                
-                self->_phone = [NSString stringWithFormat:@"%@",self->_dataDic[@"butter_tel"]];
+            _agentInfoArr = [NSMutableArray arrayWithArray:self->_dataDic[@"agent_info"]];
+            if ([self->_dataDic[@"project_img"] isKindOfClass:[NSDictionary class]]) {
+
+                if ([self->_dataDic[@"project_img"][@"url"] isKindOfClass:[NSArray class]]) {
+
+                    self->_imgArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"project_img"][@"url"]];
+
+                    [self->_imgArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+                        if ([obj isKindOfClass:[NSDictionary class]]) {
+
+                            if ([obj[@"img_url"] isKindOfClass:[NSNull class]]) {
+
+                                [self->_imgArr replaceObjectAtIndex:idx withObject:@{@"img_url":@""}];
+                            }
+                        }else{
+
+                            [self->_imgArr replaceObjectAtIndex:idx withObject:@{@"img_url":@""}];
+                        }
+                    }];
+                }
             }
             [self->_roomTable reloadData];
         }else{
@@ -196,7 +225,7 @@
                 }];
             }else{
                 
-                [BaseRequest POST:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"0"} success:^(id resposeObject) {
+                [BaseRequest POST:PersonalFocusProject_URL parameters:@{@"project_id":_model.project_id,@"type":@"1"} success:^(id resposeObject) {
                     
                     NSLog(@"%@",resposeObject);
                     
@@ -260,6 +289,9 @@
     }else if (section == 4){
         
         return 4;
+    }else if (section == 6){
+        
+        return _agentInfoArr.count > 3? 3:_agentInfoArr.count;;
     }else{
         
         return 1;
@@ -469,13 +501,7 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.titleL.text = @"物业类型信息";
-            cell.houseL.text = @"住宅";
-            cell.houseDetailL.text = @"在租：23套";
-            cell.storeL.text = @"商铺";
-            cell.storeDetailL.text = @"在租：23套";
-            cell.buildL.text = @"写字楼";
-            cell.buildDetailL.text = @"在租：23套";
+            cell.rentDic = _dataDic[@"property_count_list"];
             return cell;
             break;
         }

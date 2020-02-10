@@ -136,6 +136,31 @@
         
         _markL.text = [NSString stringWithFormat:@"其他要求：暂无数据"];
     }
+    
+    if ([model.is_rent integerValue] == 1) {
+        
+        _isRentL.text = @"当前出租：是";
+        _rentPriceL.text = [NSString stringWithFormat:@"当前租金：%@",model.rent_money];
+        _referenceRentL.text = [NSString stringWithFormat:@"参考租金：%@",model.reference_rent];
+        _rentOverTimeL.text = [NSString stringWithFormat:@"租期结束时间：%@",model.rent_over_time];
+        
+    }else{
+            
+        _isRentL.text = @"当前出租：否";
+        [_intentL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(10 *SIZE);
+            make.top.equalTo(self->_isRentL.mas_bottom).offset(19 *SIZE);
+            make.width.equalTo(@(180 *SIZE));
+        }];
+        
+        [_urgentL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(180 *SIZE);
+            make.top.equalTo(self->_isRentL.mas_bottom).offset(19 *SIZE);
+            make.width.equalTo(@(180 *SIZE));
+        }];
+    }
 }
 
 - (void)setOfficeModel:(SecRoomOfficeDetailModel *)officeModel{
@@ -305,7 +330,7 @@
     [_propertyColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
     [self.contentView addSubview:_propertyColl];
     
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 15; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CL86Color;
@@ -379,6 +404,30 @@
                 [_markView addSubview:_priceL];
                 break;
             }
+            case 11:
+            {
+                _isRentL = label;
+                [_markView addSubview:_isRentL];
+                break;
+            }
+            case 12:
+            {
+                _rentPriceL = label;
+                [_markView addSubview:_rentPriceL];
+                break;
+            }
+            case 13:
+            {
+                _referenceRentL = label;
+                [_markView addSubview:_referenceRentL];
+                break;
+            }
+            case 14:
+            {
+                _rentOverTimeL = label;
+                [_markView addSubview:_rentOverTimeL];
+                break;
+            }
             default:
                 break;
         }
@@ -443,17 +492,47 @@
         make.width.equalTo(@(150 *SIZE));
     }];
     
-    [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_isRentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self->_formatL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(180 *SIZE));
+        
+    }];
+    
+    [_rentPriceL mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.equalTo(self.contentView).offset(180 *SIZE);
+        make.top.equalTo(self->_formatL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(150 *SIZE));
+    }];
+    
+    [_referenceRentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_isRentL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(180 *SIZE));
+    }];
+    
+    [_rentOverTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_isRentL.mas_bottom).offset(19 *SIZE);
+        make.width.equalTo(@(180 *SIZE));
+    }];
+    
+    [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_referenceRentL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(180 *SIZE));
     }];
     
     [_urgentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(180 *SIZE);
-        make.top.equalTo(self->_formatL.mas_bottom).offset(19 *SIZE);
+        make.top.equalTo(self->_referenceRentL.mas_bottom).offset(19 *SIZE);
         make.width.equalTo(@(180 *SIZE));
     }];
     

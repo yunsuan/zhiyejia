@@ -19,7 +19,7 @@
 #import "SecRoomHouseDetailHeader.h"
 #import "TitleRightBtnHeader.h"
 #import "NewRoomProjectDetailFooter.h"
-#import "SecRoomStoreInfoCell.h"
+#import "SecRoomOfficeInfoCell.h"
 #import "SecRoomFloorCell.h"
 #import "SecRoomStoreEquipCell.h"
 #import "SecRoomStoreNeiborCell.h"
@@ -414,10 +414,10 @@
     
     if (indexPath.section == 1) {
         
-        SecRoomStoreInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomStoreInfoCell"];
+        SecRoomOfficeInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomOfficeInfoCell"];
         if (!cell) {
             
-            cell = [[SecRoomStoreInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomStoreInfoCell"];
+            cell = [[SecRoomOfficeInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomOfficeInfoCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -603,10 +603,10 @@
         }
     }else{
         
-        SecRoomStoreInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomStoreInfoCell"];
+        SecRoomOfficeInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecRoomOfficeInfoCell"];
         if (!cell) {
             
-            cell = [[SecRoomStoreInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomStoreInfoCell"];
+            cell = [[SecRoomOfficeInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SecRoomOfficeInfoCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

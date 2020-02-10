@@ -170,6 +170,15 @@
 
 
     }
+    
+    if ([_urlString isEqualToString:UserFocusNews_URL]) {
+        
+        if (![UserModel defaultModel].token.length) {
+            
+            [self.MainTableView.mj_header endRefreshing];
+            return;
+        }
+    }
 
     [BaseRequest GET:_urlString parameters:dic success:^(id resposeObject) {
 
@@ -322,6 +331,14 @@
     }
     [dic setObject:_asc forKey:@"sort_type"];
 
+    if ([_urlString isEqualToString:UserFocusNews_URL]) {
+        
+        if (![UserModel defaultModel].token.length) {
+            
+            [self.MainTableView.mj_footer endRefreshing];
+            return;
+        }
+    }
     [BaseRequest GET:_urlString parameters:dic success:^(id resposeObject) {
 
         [self.MainTableView.mj_footer endRefreshing];
@@ -482,6 +499,9 @@
                         
                         AttetionComModel *model = [[AttetionComModel alloc] initWithDictionary:tempDic];
                         [_dataArr addObject:model];
+                    }else{
+                        
+                        
                     }
                 }else{
                     
@@ -494,7 +514,7 @@
                         [_dataArr addObject:model];
                     }else{
 //
-//                        RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
+                        RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
 //                        [_dataArr addObject:model];
                     }
                 }
@@ -546,7 +566,7 @@
                     }
                 }];
                 RentHouseModel *model = [[RentHouseModel alloc] initWithDictionary:tempDic];
-//                [_dataArr addObject:model];
+                [_dataArr addObject:model];
             }
         }else{
             
@@ -563,7 +583,7 @@
                 }];
                 
                 RentProjectModel *model = [[RentProjectModel alloc] initWithDictionary:tempDic];
-//                [_dataArr addObject:model];
+                [_dataArr addObject:model];
             }
         }
     }else{

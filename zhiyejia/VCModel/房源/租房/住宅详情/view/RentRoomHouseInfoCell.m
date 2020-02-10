@@ -119,20 +119,19 @@
         
     }else{
         
-        [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+        if (_propertyArr.count) {
+            
+            [cell setStyleByType:@"0" lab:_propertyArr[indexPath.item]];
+        }else{
+            
+            [cell setStyleByType:@"1" lab:_tagArr[indexPath.item]];
+        }
     }
     
     return cell;
 }
 
 - (void)initUI{
-    
-//    _tagView = [[TagView alloc] initWithFrame:CGRectMake(10 *SIZE, 15 *SIZE, 300 *SIZE, 20 *SIZE) type:@"1"];
-//    [self.contentView addSubview:_tagView];
-//
-//    _tagView2 = [[TagView alloc] initWithFrame:CGRectMake(10 *SIZE, 46 *SIZE, 300 *SIZE, 20 *SIZE) type:@"1"];
-//    [self.contentView addSubview:_tagView2];
-    
     
     
     _markView = [[UIView alloc] init];
