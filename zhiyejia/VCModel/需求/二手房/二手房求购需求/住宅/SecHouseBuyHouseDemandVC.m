@@ -73,9 +73,9 @@
 
 @property (nonatomic, strong) DropDownBtn *houseTypeBtn;
 
-@property (nonatomic, strong) UILabel *buyPurposeL;
+@property (nonatomic, strong) UILabel *buyUseL;
 
-@property (nonatomic, strong) DropDownBtn *buyPurposeBtn;
+@property (nonatomic, strong) DropDownBtn *buyUseBtn;
 
 @property (nonatomic, strong) UILabel *decorateL;
 

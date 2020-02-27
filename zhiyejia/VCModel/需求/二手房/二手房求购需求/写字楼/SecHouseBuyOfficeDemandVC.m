@@ -1,22 +1,22 @@
 //
-//  SecHouseBuyStoreDemandVC.m
+//  SecHouseBuyOfficeDemandVC.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2020/2/9.
+//  Created by 谷治墙 on 2020/2/11.
 //  Copyright © 2020 xiaoq. All rights reserved.
 //
 
-#import "SecHouseBuyStoreDemandVC.h"
+#import "SecHouseBuyOfficeDemandVC.h"
 
-#import "BaseColorHeader.h"
 #import "DropDownBtn.h"
 #import "DropDownBtn2.h"
-#import "RightTextField.h"
 #import "BorderTextField.h"
-
+#import "RightTextField.h"
 #import "SinglePickView.h"
 
-@interface SecHouseBuyStoreDemandVC ()<UIScrollViewDelegate,UITextViewDelegate,UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+#import "BaseColorHeader.h"
+
+@interface SecHouseBuyOfficeDemandVC ()<UIScrollViewDelegate,UITextFieldDelegate>
 {
     
     NSMutableArray *_cityArr;
@@ -41,11 +41,7 @@
 
 @property (nonatomic, strong) UIView *addressLine;
 
-@property (nonatomic, strong) UILabel *storeTypeHeader;
-
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
-
-@property (nonatomic, strong) UICollectionView *storeTypeColl;
 
 @property (nonatomic, strong) UILabel *priceHeader;
 
@@ -63,9 +59,13 @@
 
 @property (nonatomic, strong) BorderTextField *maxAreaTF;
 
-@property (nonatomic, strong) UILabel *buyPurposeL;
+@property (nonatomic, strong) UILabel *buyUseL;
 
-@property (nonatomic, strong) DropDownBtn *buyPurposeBtn;
+@property (nonatomic, strong) DropDownBtn *buyUseBtn;
+
+@property (nonatomic, strong) UILabel *yearL;
+
+@property (nonatomic, strong) DropDownBtn *yearBtn;
 
 @property (nonatomic, strong) UITextView *markTV;
 
@@ -74,7 +74,7 @@
 @property (nonatomic, strong) UIButton *confirmBtn;
 @end
 
-@implementation SecHouseBuyStoreDemandVC
+@implementation SecHouseBuyOfficeDemandVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -166,12 +166,15 @@
 }
 
 
-
 - (void)ActionUseBtn:(UIButton *)btn{
     
     
 }
 
+- (void)ActionDecorateBtn:(UIButton *)btn{
+    
+    
+}
 
 - (void)ActionConfirmBtn:(UIButton *)btn{
     
@@ -209,7 +212,7 @@
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][0] forKey:@"recommend_city"];
     [dic setValue:[_areaBtn->str componentsSeparatedByString:@","][1] forKey:@"recommend_district"];
     [dic setValue:@"1" forKey:@"type"];
-    [dic setValue:@"2" forKey:@"property_type"];
+    [dic setValue:@"3" forKey:@"property_type"];
     if (_minPriceTF.textfield.text.length) {
         
         [dic setValue:[NSString stringWithFormat:@"%@",_minPriceTF.textfield.text] forKey:@"price_min"];
@@ -257,9 +260,9 @@
             [self showContent:@"发布成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-                if (self.secHouseBuyStoreDemandVCBlock) {
+                if (self.secHouseBuyOfficeDemandVCBlock) {
                     
-                    self.secHouseBuyStoreDemandVCBlock();
+                    self.secHouseBuyOfficeDemandVCBlock();
                 }
                 [self.navigationController popViewControllerAnimated:YES];
             });
@@ -304,11 +307,6 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-}
-
 - (void)initUI{
     
     self.navBackgroundView.hidden = NO;
@@ -326,15 +324,8 @@
     
     _titleHeader = [[BaseColorHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _titleHeader.contentView.backgroundColor = CLLineColor;
-//    _titleHeader.titleL.text = @"新房-商铺";
-//    if ([_type integerValue] == 0) {
-//
-//        _titleHeader.titleL.text = @"新房";
-//    }else{
-        
-        _titleHeader.titleL.text = @"二手房";
-//    }
-    _titleHeader.titleL.text = [NSString stringWithFormat:@"%@-商铺",_titleHeader.titleL.text];
+    _titleHeader.titleL.text = @"二手房";
+    _titleHeader.titleL.text = [NSString stringWithFormat:@"%@-写字楼",_titleHeader.titleL.text];
     [_contentView addSubview:_titleHeader];
     
     _areaL = [[UILabel alloc] init];
@@ -377,23 +368,9 @@
         }
     }
     
-    
-    _storeTypeHeader = [[UILabel alloc] init];
-    _storeTypeHeader.textColor = CLTitleLabColor;
-    _storeTypeHeader.font = [UIFont systemFontOfSize:13 *SIZE];
-    _storeTypeHeader.text = @"商铺类型";
-    [_contentView addSubview:_storeTypeHeader];
-    
     _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:9 *SIZE];
     _flowLayout.itemSize = CGSizeMake(60 *SIZE, 27 *SIZE);
     _flowLayout.sectionInset = UIEdgeInsetsMake(4 *SIZE, 10 *SIZE, 4 *SIZE, 10 *SIZE);
-    
-    _storeTypeColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 270 *SIZE, 10 *SIZE) collectionViewLayout:_flowLayout];
-    _storeTypeColl.backgroundColor = CLWhiteColor;
-    _storeTypeColl.delegate = self;
-    _storeTypeColl.dataSource = self;
-    [_storeTypeColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
-    [_contentView addSubview:_storeTypeColl];
     
 //    _priceHeader = [[TitleBaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
 //    _priceHeader.titleL.text = @"意向总价";
@@ -440,17 +417,25 @@
     _areaHeader.text = @"意向面积";
     [_contentView addSubview:_areaHeader];
     
-    _buyPurposeL = [[UILabel alloc] init];
-    _buyPurposeL.textColor = CLTitleLabColor;
-    _buyPurposeL.font = [UIFont systemFontOfSize:13 *SIZE];
-    _buyPurposeL.text = @"购买用途";
-    [_contentView addSubview:_buyPurposeL];
+    _buyUseL = [[UILabel alloc] init];
+    _buyUseL.textColor = CLTitleLabColor;
+    _buyUseL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _buyUseL.text = @"购买用途";
+    [_contentView addSubview:_buyUseL];
 
-    _buyPurposeBtn = [[DropDownBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 33 *SIZE)];
-    [_buyPurposeBtn addTarget:self action:@selector(ActionUseBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_contentView addSubview:_buyPurposeBtn];
+    _buyUseBtn = [[DropDownBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 33 *SIZE)];
+    [_buyUseBtn addTarget:self action:@selector(ActionUseBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_contentView addSubview:_buyUseBtn];
     
+    _yearL = [[UILabel alloc] init];
+    _yearL.textColor = CLTitleLabColor;
+    _yearL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _yearL.text = @"已使用年限";
+    [_contentView addSubview:_yearL];
 
+    _yearBtn = [[DropDownBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 0, 270 *SIZE, 33 *SIZE)];
+    [_yearBtn addTarget:self action:@selector(ActionDecorateBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_contentView addSubview:_yearBtn];
     
     _markTV = [[UITextView alloc] init];
     _markTV.delegate = self;
@@ -484,14 +469,6 @@
     [_scrollView addSubview:_confirmBtn];
     
     [self MasonryUI];
-    [_storeTypeColl reloadData];
-    [_storeTypeColl mas_remakeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_contentView).offset(80 *SIZE);
-        make.top.equalTo(self->_addressLine.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(270 *SIZE);
-        make.height.mas_equalTo(_storeTypeColl.collectionViewLayout.collectionViewContentSize.height);
-    }];
 }
 
 - (void)MasonryUI{
@@ -559,32 +536,17 @@
     }];
     
     
-    [_storeTypeHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_addressLine.mas_bottom).offset(15 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
-    [_storeTypeColl mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_contentView).offset(80 *SIZE);
-        make.top.equalTo(self->_addressLine.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(270 *SIZE);
-        make.height.mas_equalTo(_storeTypeColl.collectionViewLayout.collectionViewContentSize.height);
-    }];
-    
     [_priceHeader mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_storeTypeColl.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_addressLine.mas_bottom).offset(15 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
 
     [_minPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(80 *SIZE);
-        make.top.equalTo(self->_storeTypeColl.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_addressLine.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -592,14 +554,14 @@
     [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(209 *SIZE);
-        make.top.equalTo(self->_storeTypeColl.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_addressLine.mas_bottom).offset(15 *SIZE);
         make.width.mas_equalTo(20 *SIZE);
     }];
     
     [_maxPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_contentView).offset(230 *SIZE);
-        make.top.equalTo(self->_storeTypeColl.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_addressLine.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -633,18 +595,33 @@
         make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
-    
-    [_buyPurposeL mas_makeConstraints:^(MASConstraintMaker *make) {
+
+    [_buyUseL mas_makeConstraints:^(MASConstraintMaker *make) {
 
         make.left.equalTo(self->_contentView).offset(10 *SIZE);
         make.top.equalTo(self->_minAreaTF.mas_bottom).offset(15 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
 
-    [_buyPurposeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_buyUseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 
         make.left.equalTo(self->_contentView).offset(80 *SIZE);
         make.top.equalTo(self->_minAreaTF.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(270 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.equalTo(self->_contentView).offset(10 *SIZE);
+        make.top.equalTo(self->_buyUseBtn.mas_bottom).offset(15 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+
+    [_yearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.equalTo(self->_contentView).offset(80 *SIZE);
+        make.top.equalTo(self->_buyUseBtn.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(270 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self->_contentView).offset(-26 *SIZE);

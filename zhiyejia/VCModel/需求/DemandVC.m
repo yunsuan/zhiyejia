@@ -16,6 +16,9 @@
 
 //二手房
 #import "SecHouseBuyHouseDemandVC.h"
+#import "SecHouseBuyStoreDemandVC.h"
+#import "SecHouseBuyOfficeDemandVC.h"
+
 #import "SecHouseSaleHouseDemandVC.h"
 
 //买
@@ -27,7 +30,6 @@
 //卖
 #import "SecHouseSaleDemandWaitDetailVC.h"
 #import "SecHouseSaleDemandDoingDetailVC.h"
-
 #import "SecHouseSaleDemandDetailVC.h"
 
 //租房
@@ -128,19 +130,19 @@
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
                     
                     
-        //            switch ([ID integerValue]) {
-        //                case 1:
-        //                {
-                    NSString *type;
-                    NSString *property;
+                    switch ([ID integerValue]) {
+                        case 1:
+                        {
+                            NSString *type;
+                            NSString *property;
         //            if ([ID integerValue] < 4) {
         //
         //                type = @"0";
         //                property = ID;
         //            }else{
                         
-                        type = @"1";
-                        property = ID;
+                            type = @"1";
+                            property = ID;
         //                property = [NSString stringWithFormat:@"%ld",[ID integerValue] - 3];
         //            }
                             SecHouseBuyHouseDemandVC *nextVC = [[SecHouseBuyHouseDemandVC alloc] initWithType:type property:property];
@@ -149,20 +151,20 @@
                                 [self RequestMethod];
                             };
                             [self.navigationController pushViewController:nextVC animated:YES];
-        //                    break;
-        //                }
-        //                case 2:
-        //                {
-        //                    OfficeDemandVC *nextVC = [[OfficeDemandVC alloc] init];
-        //                    [self.navigationController pushViewController:nextVC animated:YES];
-        //                    break;
-        //                }
-        //                case 3:
-        //                {
-        //                    OfficeDemandVC *nextVC = [[OfficeDemandVC alloc] init];
-        //                    [self.navigationController pushViewController:nextVC animated:YES];
-        //                    break;
-        //                }
+                            break;
+                        }
+                        case 2:
+                        {
+                            SecHouseBuyStoreDemandVC *nextVC = [[SecHouseBuyStoreDemandVC alloc] init];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                            break;
+                        }
+                        case 3:
+                        {
+                            SecHouseBuyOfficeDemandVC *nextVC = [[SecHouseBuyOfficeDemandVC alloc] init];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                            break;
+                        }
         //                case 4:
         //                {
         //                    SecHouseDemandVC *nextVC = [[SecHouseDemandVC alloc] init];
@@ -181,9 +183,9 @@
         //                    [self.navigationController pushViewController:nextVC animated:YES];
         //                    break;
         //                }
-        //                default:
-        //                    break;
-        //            }
+                        default:
+                            break;
+                    }
                 };
                 [[UIApplication sharedApplication].keyWindow addSubview:view];
             }else{

@@ -115,6 +115,7 @@
 		0C4613F123D1BEFA007ADC9D /* AttentionHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4613EC23D1BEFA007ADC9D /* AttentionHouseCell.m */; };
 		0C4613F723D1C003007ADC9D /* SecdaryComModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4613F523D1C003007ADC9D /* SecdaryComModel.m */; };
 		0C4613FA23D1C01F007ADC9D /* SecdaryAllTableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4613F823D1C01F007ADC9D /* SecdaryAllTableModel.m */; };
+		0C4C47E223F2523700561E27 /* SecHouseBuyOfficeDemandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4C47E123F2523700561E27 /* SecHouseBuyOfficeDemandVC.m */; };
 		0C58935D22375717005B78A6 /* SecHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935C22375717005B78A6 /* SecHouseCell.m */; };
 		0C58936022375754005B78A6 /* SecHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58935F22375754005B78A6 /* SecHouseModel.m */; };
 		0C58936322375D11005B78A6 /* RentHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C58936222375D11005B78A6 /* RentHouseModel.m */; };
@@ -540,6 +541,8 @@
 		0C4613F823D1C01F007ADC9D /* SecdaryAllTableModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecdaryAllTableModel.m; sourceTree = "<group>"; };
 		0C4613F923D1C01F007ADC9D /* SecdaryAllTableModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecdaryAllTableModel.h; sourceTree = "<group>"; };
 		0C4613FB23D2AD27007ADC9D /* zhiyejia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = zhiyejia.entitlements; sourceTree = "<group>"; };
+		0C4C47E023F2523700561E27 /* SecHouseBuyOfficeDemandVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseBuyOfficeDemandVC.h; sourceTree = "<group>"; };
+		0C4C47E123F2523700561E27 /* SecHouseBuyOfficeDemandVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseBuyOfficeDemandVC.m; sourceTree = "<group>"; };
 		0C58935B22375717005B78A6 /* SecHouseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseCell.h; sourceTree = "<group>"; };
 		0C58935C22375717005B78A6 /* SecHouseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecHouseCell.m; sourceTree = "<group>"; };
 		0C58935E22375754005B78A6 /* SecHouseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecHouseModel.h; sourceTree = "<group>"; };
@@ -3193,6 +3196,8 @@
 		0CF94EB623EFB3E70071FC9E /* 写字楼 */ = {
 			isa = PBXGroup;
 			children = (
+				0C4C47E023F2523700561E27 /* SecHouseBuyOfficeDemandVC.h */,
+				0C4C47E123F2523700561E27 /* SecHouseBuyOfficeDemandVC.m */,
 			);
 			path = "写字楼";
 			sourceTree = "<group>";
@@ -3554,6 +3559,7 @@
 				0C81D65423C1C6EC001C8DD1 /* NewRoomProjectAgentCell.m in Sources */,
 				0C00123C23CC08FA005924FE /* YBImageBrowserAnimatedTransitioning.m in Sources */,
 				0C46135523CEA75B007ADC9D /* SecHouseBuyDemandWaitDetailVC.m in Sources */,
+				0C4C47E223F2523700561E27 /* SecHouseBuyOfficeDemandVC.m in Sources */,
 				0CE8220A221E709700576742 /* NewRoomModel.m in Sources */,
 				0C5893A2223B4BF5005B78A6 /* RentRoomHouseDetailModel.m in Sources */,
 				0C58939E223B487C005B78A6 /* RentRoomStoreDetailHeader.m in Sources */,

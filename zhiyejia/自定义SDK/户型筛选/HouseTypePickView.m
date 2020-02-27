@@ -86,7 +86,7 @@
 {
     [UIView animateWithDuration:0.3 animations:^{
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        _bgView.frame = CGRectMake(0, self.frame.size.height - BGHEIGHT, self.frame.size.width, BGHEIGHT);
+        self->_bgView.frame = CGRectMake(0, self.frame.size.height - BGHEIGHT, self.frame.size.width, BGHEIGHT);
     }];
 }
 
@@ -94,7 +94,8 @@
 - (void)hidePickerView
 {
     [UIView animateWithDuration:0.3 animations:^{
-        _bgView.frame = CGRectMake(0, self.frame.size.height , self.frame.size.width, BGHEIGHT);
+        
+        self->_bgView.frame = CGRectMake(0, self.frame.size.height , self.frame.size.width, BGHEIGHT);
         
         self.alpha = 0;
     } completion:^(BOOL finished) {
@@ -125,13 +126,13 @@
 //    return _dataSource[(NSUInteger) row][@"param"];
     if (component == 0) {
         
-        return [NSString stringWithFormat:@"%ld室",row];
+        return [NSString stringWithFormat:@"%ld室",(long)row];
     }else if (component == 1){
         
-        return [NSString stringWithFormat:@"%ld厅",row];
+        return [NSString stringWithFormat:@"%ld厅",(long)row];
     }else{
         
-        return [NSString stringWithFormat:@"%ld卫",row];
+        return [NSString stringWithFormat:@"%ld卫",(long)row];
     }
 }
 
@@ -140,13 +141,13 @@
     
     if (component == 0) {
         
-        _room = [NSString stringWithFormat:@"%ld",row];
+        _room = [NSString stringWithFormat:@"%ld",(long)row];
     }else if (component == 1){
         
-        _hall = [NSString stringWithFormat:@"%ld",row];
+        _hall = [NSString stringWithFormat:@"%ld",(long)row];
     }else{
         
-        _bath = [NSString stringWithFormat:@"%ld",row];
+        _bath = [NSString stringWithFormat:@"%ld",(long)row];
     }
 //    _name = _dataSource[(NSUInteger) row][@"param"];
 //    _ID = _dataSource[(NSUInteger) row][@"id"];
@@ -195,7 +196,7 @@
         _cancleBtn.frame = CGRectMake(10, 5, 50, BGHEIGHT - PICKERHEIGHT - 10);
         
         [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancleBtn setTitleColor:YJBlueBtnColor forState:UIControlStateNormal];
+        [_cancleBtn setTitleColor:CLBlueBtnColor forState:UIControlStateNormal];
         _cancleBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _cancleBtn.backgroundColor = [UIColor clearColor];
         [_cancleBtn addTarget:self action:@selector(cancleBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -209,7 +210,7 @@
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _sureBtn.frame = CGRectMake(self.frame.size.width - 60, 5, 50, BGHEIGHT - PICKERHEIGHT - 10);
         [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [_sureBtn setTitleColor:YJBlueBtnColor forState:UIControlStateNormal];
+        [_sureBtn setTitleColor:CLBlueBtnColor forState:UIControlStateNormal];
         _sureBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _sureBtn.backgroundColor = [UIColor clearColor];
         [_sureBtn addTarget:self action:@selector(sureBtnClick) forControlEvents:UIControlEventTouchUpInside];
