@@ -65,6 +65,9 @@
     BMKReverseGeoCodeSearchOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeSearchOption alloc] init];
     reverseGeocodeSearchOption.location = location.location.coordinate;
     
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%f",location.location.coordinate.latitude] forKey:@"latitude"];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%f",location.location.coordinate.longitude] forKey:@"longitude"];
+    
     BOOL flag = [_geocodesearch reverseGeoCode:reverseGeocodeSearchOption];
     
     if(flag){

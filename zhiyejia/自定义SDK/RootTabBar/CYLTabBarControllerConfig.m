@@ -10,20 +10,7 @@
 
 @import Foundation;
 @import UIKit;
-//@interface CYLBaseNavigationController : UINavigationController
-//
-//@end
-//@implementation CYLBaseNavigationController
-//
-//- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-//    if (self.viewControllers.count > 0) {
-//        viewController.hidesBottomBarWhenPushed = YES;
-//    }
-//    [super pushViewController:viewController animated:animated];
-//}
-//
-//
-//@end
+
 
 #import "RoomVC.h"
 #import "AgentVC.h"
@@ -60,11 +47,11 @@
     room_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
     
     
-//    AgentVC *agentVC = [[AgentVC alloc] init];
-//    UIViewController *agent_nav = [[CYLBaseNavigationController alloc] initWithRootViewController:agentVC];
-//    agentVC.navigationController.navigationBar.hidden = YES;
-//    //调整文字位置
-//    agent_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
+    AgentVC *agentVC = [[AgentVC alloc] init];
+    UIViewController *agent_nav = [[CYLBaseNavigationController alloc] initWithRootViewController:agentVC];
+    agentVC.navigationController.navigationBar.hidden = YES;
+    //调整文字位置
+    agent_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
     
     DemandVC *demandVC = [[DemandVC alloc] init];
     UIViewController *demand_nav = [[CYLBaseNavigationController alloc]
@@ -90,7 +77,7 @@
     
     NSArray *viewControllers = @[
                                  room_nav,
-//                                 agent_nav,
+                                 agent_nav,
                                  demand_nav,
                                  mine_nav
                                  ];
@@ -126,7 +113,7 @@
     NSArray *tabBarItemsAttributes;
     tabBarItemsAttributes = @[
                               dict1,
-//                              dict2,
+                              dict2,
                               dict3,
                               dict4
                               ];
@@ -225,6 +212,7 @@
 }
 
 - (void)dealloc {
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

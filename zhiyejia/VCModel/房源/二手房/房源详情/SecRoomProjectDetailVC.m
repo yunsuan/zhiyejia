@@ -87,6 +87,7 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"goHome" object:nil];
     _imgArr = [@[] mutableCopy];
     _albumArr = [@[] mutableCopy];
     _agentInfoArr = [@[] mutableCopy];
@@ -435,7 +436,7 @@
                 }else{
                         
                     [self GotoLogin];
-                    [self RequestMethod];
+//                    [self RequestMethod];
                 }
             }else if (btnNum == 2){
                 
@@ -461,7 +462,7 @@
                 }else{
                         
                     [self GotoLogin];
-                    [self RequestMethod];
+//                    [self RequestMethod];
                 }
             }else if (btnNum == 3){
                 

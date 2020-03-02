@@ -12,9 +12,9 @@
 #pragma mark ---  基础接口  ---
 
 //基础接口测试
-//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
-static NSString *const TestBase_Net = @"http://47.107.246.94/";
+//static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
 #pragma mark -- 登录、注册 --
 
@@ -166,6 +166,33 @@ static NSString *const HomeRentProjectDetail_URL = @"home/rent/project/detail";
 //房源详情
 static NSString *const RentHouseDetail_URL =  @"home/rent/house/detail";
 
+#pragma mark ---  经纪人  ---
+
+//经纪人关注与取消关注
+static NSString *const HomeFocusOperation_URL =  @"home/agent/homeFocusOperation";
+
+//经纪人店铺详情
+static NSString *const GetOnlineStoreInfo_URL = @"home/agent/getOnlineStoreInfo";
+
+//城市经纪人
+static NSString *const GetAgentList_URL = @"user/getAgentList";
+
+//经纪人推荐房源列表
+static NSString *const GetRecommendHouseList_URL =  @"home/agent/getRecommendHouseList";
+//经纪人评论列表
+static NSString *const GetCommentList_URL = @"home/agent/getCommentList";
+
+//增加经纪人浏览数
+static NSString *const AddAgentBrowseNum_URL = @"home/agent/addAgentBrowseNum";
+
+//获取经纪人印象评论标签列表
+static NSString *const GetAgentConfig_URL = @"config";
+
+//添加经纪人评论
+static NSString *const AddAgentHomeComment_URL = @"home/agent/addAgentHomeComment";
+
+//推荐房源详情
+static NSString *const GetHouseDetail_URL = @"home/project/getHouseDetail";
 #pragma mark ---  需求  ---
 
 //获取平台开放城市

@@ -74,6 +74,7 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"goHome" object:nil];
     _sellArr = [@[] mutableCopy];
     _buyArr = [@[] mutableCopy];
 }
@@ -191,7 +192,7 @@
             }else{
                 
                 [self GotoLogin];
-                [self RequestMethod];
+//                [self RequestMethod];
             }
     }];
     
@@ -219,7 +220,7 @@
         }else{
                 
             [self GotoLogin];
-            [self RequestMethod];
+//            [self RequestMethod];
         }
     }];
     
@@ -422,7 +423,7 @@
     self.leftButton.hidden = YES;
     self.titleLabel.text = @"需求";
 
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_MORE - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
