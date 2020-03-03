@@ -65,12 +65,47 @@
     [self initUI];
 }
 
+- (void)ReloadTitle{
+    
+    if (![UserModel defaultModel].token.length) {
+        
+        for (int i = 0; i < _titlearr.count; i++) {
+            
+            if ([_titlearr[i] isEqualToString:@"关注"]) {
+             
+                [_titlearr removeObjectAtIndex:i];
+            }
+        }
+    }else{
+        
+        if (![_titlearr[0] isEqualToString:@"关注"]) {
+            
+            [_titlearr insertObject:@"关注" atIndex:0];
+        }
+    }
+    [self reloadData];
+    [self forceLayoutSubviews];
+}
+
 - (void)initDataSource{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionGoto:) name:@"goto" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadTitle) name:@"goLoginVC" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadTitle) name:@"goHome" object:nil];
     
     _titlearr = [UserModel defaultModel].tagSelectArr;
-
+    
+    if (![UserModel defaultModel].token) {
+        
+        for (int i = 0; i < _titlearr.count; i++) {
+            
+            if ([_titlearr[i] isEqualToString:@"关注"]) {
+             
+                [_titlearr removeObjectAtIndex:i];
+            }
+        }
+    }
+    
     if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
 
         [self StartLocation];
@@ -124,7 +159,19 @@
         if (!self->_titlearr.count) {
 
             do {
+                
+                
                 self->_titlearr = [UserModel defaultModel].tagSelectArr;
+                if (![UserModel defaultModel].token) {
+                    
+                    for (int i = 0; i < self->_titlearr.count; i++) {
+                        
+                        if ([self->_titlearr[i] isEqualToString:@"关注"]) {
+                         
+                            [self->_titlearr removeObjectAtIndex:i];
+                        }
+                    }
+                }
             } while (!self->_titlearr.count);
         }
         [self reloadData];

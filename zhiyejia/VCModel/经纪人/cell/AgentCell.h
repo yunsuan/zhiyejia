@@ -43,6 +43,8 @@ typedef void(^AgentCellAttentBtnBlock)(NSInteger idx);
 
 @property (nonatomic, strong) UILabel *typeL;
 
+@property (nonatomic, strong) UILabel *takeNumL;
+
 @property (nonatomic, strong) UIView *line1;
 
 @property (nonatomic, strong) GZQFlowLayout *layout;

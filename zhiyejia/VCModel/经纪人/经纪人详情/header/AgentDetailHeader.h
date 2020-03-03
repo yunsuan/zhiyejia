@@ -32,6 +32,10 @@ typedef void(^AgentDetailHeaderBlock)(NSInteger idx);
 
 @property (nonatomic, strong) UILabel *typeL;
 
+@property (nonatomic, strong) UILabel *takeNumL;
+
+@property (nonatomic, strong) UILabel *dealL;
+
 @property (nonatomic, strong) UILabel *regionL;
 
 @property (nonatomic, strong) GZQFlowLayout *layout;

@@ -51,8 +51,8 @@
 - (void)initDataSource{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadUserInfo) name:@"reloadUser" object:nil];
-    _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"关注房源",@"意见反馈",@"关于置业家"];
-    _imgArr = @[@"personaldata",@"work",@"makeanappointment",@"subscribe",@"housin",@"opinion",@"about"];
+    _titleArr = @[@"个人资料",@"我的消息",@"我的预约",@"我的订阅",@"关注房源",@"我的置业顾问",@"意见反馈",@"关于置业家"];
+    _imgArr = @[@"personaldata",@"work",@"makeanappointment",@"subscribe",@"housin",@"makeanappointment",@"opinion",@"about"];
 }
 
 - (void)ReloadUserInfo{
@@ -366,6 +366,18 @@
             break;
         }
         case 5:{
+            
+            if ([UserModel defaultModel].token.length) {
+                
+                MyAttentionAgentVC *nextVC = [[MyAttentionAgentVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                [self GotoLogin];
+            }
+            break;
+        }
+        case 6:{
             
             if ([UserModel defaultModel].token.length) {
                 

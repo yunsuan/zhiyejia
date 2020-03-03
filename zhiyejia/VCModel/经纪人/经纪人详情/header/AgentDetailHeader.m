@@ -44,7 +44,11 @@
     
     [_headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"head_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
        
-        self->_headImg.image = IMAGE_WITH_NAME(@"def_head");
+        if (error) {
+          
+            self->_headImg.image = IMAGE_WITH_NAME(@"def_head");
+        }
+        
     }];
     
     _titleL.text = dataDic[@"agent_name"];
@@ -52,6 +56,8 @@
     _sexImg.image = [dataDic[@"sex"] integerValue]?[dataDic[@"sex"] integerValue] == 1?IMAGE_WITH_NAME(@"man"):IMAGE_WITH_NAME(@"girl"):IMAGE_WITH_NAME(@"");
     _companyL.text = dataDic[@"company_name"];
     _typeL.text = dataDic[@"agent_type"];
+    _takeNumL.text = [NSString stringWithFormat:@"带看量：%@",dataDic[@"take_push_num"]];
+    _dealL.text = [NSString stringWithFormat:@"成交量：%@",dataDic[@"deal_num"]];
     _scoreL.text = [NSString stringWithFormat:@"评分：%@分",dataDic[@"grade"]];
     _attentL.text = [NSString stringWithFormat:@"%@人关注 %@人浏览",dataDic[@"focus_info"][@"focus_num"],dataDic[@"browse_num"]];
     _descL.text = [NSString stringWithFormat:@"个性签名：%@",dataDic[@"self_desc"]];
@@ -155,10 +161,28 @@
         }
         cell.tag = indexPath.item;
         
-        [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_headImgArr[indexPath.item]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-           
-            cell.headImg.image = IMAGE_WITH_NAME(@"def_head");
-        }];
+        if ([_headImgArr[indexPath.item] containsString:@"http"]) {
+            
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_headImgArr[indexPath.item]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+               
+                if (error) {
+                    
+                    cell.headImg.image = IMAGE_WITH_NAME(@"def_head");
+                }
+                
+            }];
+        }else{
+            
+         
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_headImgArr[indexPath.item]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+               
+                if (error) {
+                    
+                    cell.headImg.image = IMAGE_WITH_NAME(@"def_head");
+                }
+                
+            }];
+        }
         
         return cell;
     }else{
@@ -221,6 +245,18 @@
     _typeL.font = [UIFont systemFontOfSize:11 *SIZE];
     _typeL.textAlignment = NSTextAlignmentRight;
     [_backView addSubview:_typeL];
+    
+    _takeNumL = [[UILabel alloc] init];
+    _takeNumL.textColor = CLContentLabColor;
+    _takeNumL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _takeNumL.textAlignment = NSTextAlignmentRight;
+    [_backView addSubview:_takeNumL];
+    
+    _dealL = [[UILabel alloc] init];
+    _dealL.textColor = CLContentLabColor;
+    _dealL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _dealL.textAlignment = NSTextAlignmentRight;
+    [_backView addSubview:_dealL];
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:2 *SIZE];
     
@@ -293,9 +329,12 @@
     [_shareBtn addSubview:_shareL];
     
     _attentLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:-10*SIZE];
+//    _attentLayout.minimumInteritemSpacing = -10 *SIZE;
+//    _attentLayout.minimumLineSpacing = - 10 *SIZE;
     _attentLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     _attentColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_attentLayout];
+    _attentColl.userInteractionEnabled = NO;
     _attentColl.backgroundColor = CLLineColor;
     _attentColl.delegate = self;
     _attentColl.dataSource = self;
@@ -354,6 +393,20 @@
         
         make.right.equalTo(self->_backView).offset(-10 *SIZE);
         make.top.equalTo(self->_backView).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(60 *SIZE);
+    }];
+    
+    [_takeNumL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self->_backView).offset(-10 *SIZE);
+        make.top.equalTo(self->_typeL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(60 *SIZE);
+    }];
+    
+    [_dealL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self->_backView).offset(-10 *SIZE);
+        make.top.equalTo(self->_takeNumL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(60 *SIZE);
     }];
     

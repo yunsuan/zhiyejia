@@ -26,6 +26,7 @@
 #import "GZQFlowLayout.h"
 #import "UIImage+WaterImg.h"
 #import "FailView.h"
+#import "WaitAnimation.h"
 
 #import "YBImageBrowser.h"
 #import <MJRefresh.h>

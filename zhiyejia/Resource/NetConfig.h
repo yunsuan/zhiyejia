@@ -56,14 +56,8 @@ static NSString *const PersonalFocusHouse_URL = @"user/personal/focusHouse";
 //取关房源
 static NSString *const PersonalCancelFocusHouse_URL = @"user/personal/cancelFocusHouse";
 
-//我关注的经纪人
-static NSString *const PersonalGetFocusAgent_URL = @"user/personal/getfocusAgent";
-
-//关注经纪人
-static NSString *const PersonalCancelFocusAgent_URL = @"user/personal/cancelFocusAgent";
-
-//取关经纪人
-static NSString *const PersonalFocusAgent_URL = @"user/personal/focusAgent";
+//关注经纪人列表
+static NSString *const GetFocusList_URL = @"home/agent/getFocusList";
 
 //我的订阅
 static NSString *const PersonalGetFocusProjectList_URL = @"user/personal/getFocusProjectList";

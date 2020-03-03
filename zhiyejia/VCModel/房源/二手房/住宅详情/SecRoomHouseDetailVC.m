@@ -84,6 +84,7 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"goHome" object:nil];
     _imgArr = [@[] mutableCopy];
     _houseArr = [@[] mutableCopy];
     
@@ -197,38 +198,44 @@
 
 - (void)ActionAttentBtn:(UIButton *)btn{
     
-    if (!_focusId.length) {
+    if ([UserModel defaultModel].token) {
         
-        [BaseRequest GET:PersonalFocusHouse_URL parameters:@{@"house_id":_houseId,@"type":@"1"} success:^(id  _Nonnull resposeObject) {
-            
-            if ([resposeObject[@"code"] integerValue] == 200) {
+        if (!_focusId.length) {
                 
-                [self RequestMethod];
+                [BaseRequest GET:PersonalFocusHouse_URL parameters:@{@"house_id":_houseId,@"type":@"1"} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
             }else{
                 
-                [self showContent:resposeObject[@"msg"]];
+                [BaseRequest GET:PersonalCancelFocusHouse_URL parameters:@{@"focus_id":_focusId} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+        //                self->_attentL.text = @"关注";
+        //                self->_focusId = @"";
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
             }
-        } failure:^(NSError * _Nonnull error) {
-            
-            [self showContent:@"网络错误"];
-        }];
     }else{
         
-        [BaseRequest GET:PersonalCancelFocusHouse_URL parameters:@{@"focus_id":_focusId} success:^(id  _Nonnull resposeObject) {
-            
-            if ([resposeObject[@"code"] integerValue] == 200) {
-                
-                [self RequestMethod];
-//                self->_attentL.text = @"关注";
-//                self->_focusId = @"";
-            }else{
-                
-                [self showContent:resposeObject[@"msg"]];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            
-            [self showContent:@"网络错误"];
-        }];
+        [self GotoLogin];
     }
 }
 

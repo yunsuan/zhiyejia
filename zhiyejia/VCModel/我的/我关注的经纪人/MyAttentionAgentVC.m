@@ -8,7 +8,9 @@
 
 #import "MyAttentionAgentVC.h"
 
-#import "MyAttentionAgentCell.h"
+#import "AgentDetailVC.h"
+
+#import "AgentCell.h"
 
 @interface MyAttentionAgentVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -39,7 +41,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:PersonalGetFocusAgent_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:GetFocusList_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -68,12 +70,10 @@
 - (void)RequestAddMethod{
     
     self->_table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:PersonalGetFocusAgent_URL parameters:@{@"page":@(_page)} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:GetFocusList_URL parameters:@{@"page":@(_page)} success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_footer endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            [self->_dataArr removeAllObjects];
             
             if ([resposeObject[@"data"][@"data"] count]) {
                 
@@ -122,61 +122,72 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MyAttentionAgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyAttentionAgentCell"];
+    AgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AgentCell"];
     if (!cell) {
         
-        cell = [[MyAttentionAgentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyAttentionAgentCell"];
+        cell = [[AgentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AgentCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.dataDic = _dataArr[indexPath.row];
     
+    cell.distanceL.hidden = YES;
+    [cell.attentBtn setImage:IMAGE_WITH_NAME(@"Focus_selected") forState:UIControlStateNormal];
+    
+    cell.agentCellPhoneBtnBlock = ^(NSInteger idx) {
+      
+        NSString *phone = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"tel"]];
+        if (phone.length) {
+            
+            //获取目标号码字符串,转换成URL
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+            //调用系统方法拨号
+            [[UIApplication sharedApplication] openURL:url];
+        }else{
+            
+            [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+        }
+    };
+
+    cell.agentCellAttentBtnBlock = ^(NSInteger idx) {
+      
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"agent_id":self->_dataArr[indexPath.row][@"agent_id"]}];
+        [dic setValue:@"0" forKey:@"is_focus"];
+        
+        [BaseRequest POST:HomeFocusOperation_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self->_dataArr removeObjectAtIndex:indexPath.row];
+                [self->_table reloadData];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    };
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    //    AppointSeeRoomVC *nextVC = [[AppointSeeRoomVC alloc] init];
-    //    [self.navigationController pushViewController:nextVC animated:YES];
+    AgentDetailVC *nextVC = [[AgentDetailVC alloc] initWithAgentId:[NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"agent_id"]]];
+    nextVC.agentDetailVCBlock = ^(NSString * str) {
+      
+        [self RequestMethod];
+        [self->_table reloadData];
+    };
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return UITableViewCellEditingStyleDelete;
-    
-}
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return @"取消关注";
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [BaseRequest GET:PersonalCancelFocusAgent_URL parameters:@{@"focus_agent_id":_dataArr[indexPath.row][@"agent_id"]} success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            [self->_dataArr removeObjectAtIndex:indexPath.row];
-            [tableView reloadData];
-        }else{
-            
-            [self showContent:resposeObject[@"msg"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        [self showContent:@"网络错误"];
-    }];
-}
 
 - (void)initUI{
     
-    self.titleLabel.text = @"我关注的经纪人";
+    self.titleLabel.text = @"我的置业顾问";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.rowHeight = UITableViewAutomaticDimension;

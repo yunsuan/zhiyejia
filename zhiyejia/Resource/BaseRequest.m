@@ -8,6 +8,7 @@
 
 #import "BaseRequest.h"
 
+
 static AFHTTPSessionManager *manager ;
 static AFHTTPSessionManager *updatemanager ;
 
@@ -15,7 +16,7 @@ static AFHTTPSessionManager *updatemanager ;
 
 + (void)GET:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
     
-//    [WaitAnimation startAnimation];
+    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     if ([UserModel defaultModel].token.length) {
     
@@ -29,7 +30,8 @@ static AFHTTPSessionManager *updatemanager ;
     [htttmanger GET:str parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [WaitAnimation stopAnimation];
+        
+        [WaitAnimation stopAnimation];
         if ([responseObject[@"code"] integerValue] == 200)
         {
             success(responseObject);
@@ -54,6 +56,7 @@ static AFHTTPSessionManager *updatemanager ;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
+        [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
             
@@ -62,7 +65,8 @@ static AFHTTPSessionManager *updatemanager ;
 }
 
 + (void)POST:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
-//    [WaitAnimation startAnimation];
+    
+    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     if ([UserModel defaultModel].token.length) {
     
@@ -74,7 +78,8 @@ static AFHTTPSessionManager *updatemanager ;
     [htttmanger POST:str parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [WaitAnimation stopAnimation];
+        
+        [WaitAnimation stopAnimation];
         if ([responseObject[@"code"] integerValue] == 200)
         {
             success(responseObject);
@@ -98,7 +103,7 @@ static AFHTTPSessionManager *updatemanager ;
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        [WaitAnimation stopAnimation];
+        [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
         }
@@ -106,6 +111,7 @@ static AFHTTPSessionManager *updatemanager ;
 }
 
 + (void)VersionUpdateSuccess:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
+    
     
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     NSString *str = @"https://itunes.apple.com/cn/lookup?id=1377016786";
@@ -127,6 +133,7 @@ static AFHTTPSessionManager *updatemanager ;
 
 + (void)Updateimg:(NSString *)url parameters:(NSDictionary *)parameters constructionBody:(void (^)(id<AFMultipartFormData>))blocks success:(void (^)(id))success failure:(void (^)(NSError *))failure{
 
+    [WaitAnimation startAnimation];
     NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];
     
     AFHTTPSessionManager *htttmanger = [self sharedHttpSessionUpdateManager];
@@ -142,11 +149,13 @@ static AFHTTPSessionManager *updatemanager ;
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [WaitAnimation stopAnimation];
+        
+        [WaitAnimation stopAnimation];
         success(responseObject);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        [WaitAnimation stopAnimation];
+        
+        [WaitAnimation stopAnimation];
         failure(error);
     }];
 }

@@ -28,6 +28,8 @@
 
 @property (nonatomic , strong) UITableView *MainTableView;
 
+@property (nonatomic, strong) AgentDetailCommentView *agentDetailCommentView;
+
 @end
 
 @implementation AgentDetailMoreCommentVC
@@ -166,36 +168,39 @@
             
             if (self->_configArr.count) {
                 
-                AgentDetailCommentView *view = [[AgentDetailCommentView alloc] initWithFrame:self.view.bounds];
-                view.tagArr = self->_configArr;
-                view.nameL.text = [NSString stringWithFormat:@"经纪人姓名：%@",self.name];
-                view.agentDetailCommentViewBlock = ^(NSString * comment, NSString * score, NSString * tag) {
-                    
-                    if (comment.length) {
-                        
-                        [BaseRequest POST:AddAgentHomeComment_URL parameters:@{@"agent_id":self->_agent_id,@"grade":score,@"comment_tags":tag,@"comment":comment} success:^(id  _Nonnull resposeObject) {
-                            
-                            if ([resposeObject[@"code"] integerValue] == 200) {
-                                
-                                if (self.agentDetailMoreCommentVCBlock) {
-                                    
-                                    self.agentDetailMoreCommentVCBlock();
-                                }
-                                [self RequestMethod];
-                            }else{
-                                
-                                [self showContent:resposeObject[@"msg"]];
-                            }
-                        } failure:^(NSError * _Nonnull error) {
-                            
-                            [self showContent:@"网络错误"];
-                        }];
-                    }else{
-                        
-                        [self showContent:@"请输入评价内容"];
-                    }
-                };
-                [self.view addSubview:view];
+//                AgentDetailCommentView *view = [[AgentDetailCommentView alloc] initWithFrame:self.view.bounds];
+//                view.tagArr = self->_configArr;
+//                view.nameL.text = [NSString stringWithFormat:@"经纪人姓名：%@",self.name];
+//                view.agentDetailCommentViewBlock = ^(NSString * comment, NSString * score, NSString * tag) {
+//
+//                    if (comment.length) {
+//
+//                        [BaseRequest POST:AddAgentHomeComment_URL parameters:@{@"agent_id":self->_agent_id,@"grade":score,@"comment_tags":tag,@"comment":comment} success:^(id  _Nonnull resposeObject) {
+//
+//                            if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//                                if (self.agentDetailMoreCommentVCBlock) {
+//
+//                                    self.agentDetailMoreCommentVCBlock();
+//                                }
+//                                [self RequestMethod];
+//                            }else{
+//
+//                                [self showContent:resposeObject[@"msg"]];
+//                            }
+//                        } failure:^(NSError * _Nonnull error) {
+//
+//                            [self showContent:@"网络错误"];
+//                        }];
+//                    }else{
+//
+//                        [self showContent:@"请输入评价内容"];
+//                    }
+//                };
+//                [self.view addSubview:view];
+                self.agentDetailCommentView.tagArr = self->_configArr;;
+                self.agentDetailCommentView.nameL.text = [NSString stringWithFormat:@"经纪人姓名：%@",self.name];
+                [self.view addSubview:self.agentDetailCommentView];
             }else{
                 
                 [BaseRequest GET:GetAgentConfig_URL parameters:@{@"id":@"80"} success:^(id  _Nonnull resposeObject) {
@@ -203,36 +208,39 @@
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
                         self->_configArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"80"][@"param"]];
-                        AgentDetailCommentView *view = [[AgentDetailCommentView alloc] initWithFrame:self.view.bounds];
-                        view.tagArr = self->_configArr;
-                        view.nameL.text = [NSString stringWithFormat:@"经纪人姓名：%@",self.name];
-                        view.agentDetailCommentViewBlock = ^(NSString * comment, NSString * score, NSString * tag) {
-                            
-                            if (comment.length) {
-                                
-                                [BaseRequest POST:AddAgentHomeComment_URL parameters:@{@"agent_id":self->_agent_id,@"grade":score,@"comment_tags":tag,@"comment":comment} success:^(id  _Nonnull resposeObject) {
-                                    
-                                    if ([resposeObject[@"code"] integerValue] == 200) {
-                                        
-                                        if (self.agentDetailMoreCommentVCBlock) {
-                                            
-                                            self.agentDetailMoreCommentVCBlock();
-                                        }
-                                        [self RequestMethod];
-                                    }else{
-                                        
-                                        [self showContent:resposeObject[@"msg"]];
-                                    }
-                                } failure:^(NSError * _Nonnull error) {
-                                    
-                                    [self showContent:@"网络错误"];
-                                }];
-                            }else{
-                                
-                                [self showContent:@"请输入评价内容"];
-                            }
-                        };
-                        [self.view addSubview:view];
+                        self.agentDetailCommentView.tagArr = self->_configArr;;
+                        self.agentDetailCommentView.nameL.text = [NSString stringWithFormat:@"经纪人姓名：%@",self.name];
+                        [self.view addSubview:self.agentDetailCommentView];
+//                        AgentDetailCommentView *view = [[AgentDetailCommentView alloc] initWithFrame:self.view.bounds];
+//                        view.tagArr = self->_configArr;
+//                        view.nameL.text = [NSString stringWithFormat:@"经纪人姓名：%@",self.name];
+//                        view.agentDetailCommentViewBlock = ^(NSString * comment, NSString * score, NSString * tag) {
+//
+//                            if (comment.length) {
+//
+//                                [BaseRequest POST:AddAgentHomeComment_URL parameters:@{@"agent_id":self->_agent_id,@"grade":score,@"comment_tags":tag,@"comment":comment} success:^(id  _Nonnull resposeObject) {
+//
+//                                    if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//                                        if (self.agentDetailMoreCommentVCBlock) {
+//
+//                                            self.agentDetailMoreCommentVCBlock();
+//                                        }
+//                                        [self RequestMethod];
+//                                    }else{
+//
+//                                        [self showContent:resposeObject[@"msg"]];
+//                                    }
+//                                } failure:^(NSError * _Nonnull error) {
+//
+//                                    [self showContent:@"网络错误"];
+//                                }];
+//                            }else{
+//
+//                                [self showContent:@"请输入评价内容"];
+//                            }
+//                        };
+//                        [self.view addSubview:view];
                     }else{
                         
                         
@@ -302,5 +310,37 @@
     [self.view addSubview:_MainTableView];
 }
 
+- (AgentDetailCommentView *)agentDetailCommentView{
+    
+    if (!_agentDetailCommentView) {
+        
+        _agentDetailCommentView = [[AgentDetailCommentView alloc] initWithFrame:self.view.bounds];
+        SS(strongSelf);
+        _agentDetailCommentView.agentDetailCommentViewBlock = ^(NSString * comment, NSString * score, NSString * tag) {
+            
+            strongSelf->_agentDetailCommentView.commentTV.text = @"";
+            if (comment.length) {
+                
+                [BaseRequest POST:AddAgentHomeComment_URL parameters:@{@"agent_id":strongSelf->_agent_id,@"grade":score,@"comment_tags":tag,@"comment":comment} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [strongSelf RequestMethod];
+                    }else{
+                        
+                        [strongSelf showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [strongSelf showContent:@"网络错误"];
+                }];
+            }else{
+                
+                [strongSelf showContent:@"请输入评价内容"];
+            }
+        };
+    }
+    return _agentDetailCommentView;
+}
 
 @end

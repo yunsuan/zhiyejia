@@ -62,6 +62,8 @@
     _scoreL.text = [NSString stringWithFormat:@"评分：%@分",dataDic[@"grade"]];
     _typeL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_type"]];
     [_attentBtn setTitle:[NSString stringWithFormat:@"%@",dataDic[@"focus_num"]] forState:UIControlStateNormal];
+    _distanceL.text = [NSString stringWithFormat:@"距我%@",dataDic[@"distance"]];
+    _takeNumL.text = [NSString stringWithFormat:@"带看量：%@",dataDic[@"take_push_num"]];
     
     _sexImg.image = [dataDic[@"sex"] integerValue]?[dataDic[@"sex"] integerValue] == 1?IMAGE_WITH_NAME(@"man"):IMAGE_WITH_NAME(@"girl"):IMAGE_WITH_NAME(@"");
     
@@ -121,6 +123,7 @@
     
     _headImg = [[UIImageView alloc] init];
     _headImg.clipsToBounds = YES;
+    _headImg.layer.cornerRadius = 33.5 *SIZE;
     _headImg.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:_headImg];
     
@@ -167,6 +170,12 @@
     _typeL.textColor = CLTitleLabColor;
     _typeL.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_typeL];
+    
+    _takeNumL = [[UILabel alloc] init];
+    _takeNumL.font = FONT(11 *SIZE);
+    _takeNumL.textColor = CLTitleLabColor;
+    _takeNumL.textAlignment = NSTextAlignmentRight;
+    [self.contentView addSubview:_takeNumL];
     
     _sexImg = [[UIImageView alloc] init];
     _sexImg.clipsToBounds = YES;
@@ -221,14 +230,14 @@
         
         make.left.equalTo(self.contentView).offset(85 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(160 *SIZE);
+        make.width.mas_lessThanOrEqualTo(120 *SIZE);
     }];
     
     [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_nameL.mas_right).offset(2 *SIZE);
         make.top.equalTo(self.contentView).offset(12 *SIZE);
-        make.width.mas_lessThanOrEqualTo(100 *SIZE);
+        make.width.mas_lessThanOrEqualTo(40 *SIZE);
     }];
     
     [_sexImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -238,16 +247,20 @@
         make.width.height.mas_equalTo(10 *SIZE);
     }];
     
-    [_distanceL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-    }];
-    
     [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
         make.top.equalTo(self.contentView).offset(5 *SIZE);
         make.width.height.mas_equalTo(30 *SIZE);
     }];
+    
+    [_distanceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self->_phoneBtn.mas_left).offset(5 *SIZE);
+        make.top.equalTo(self.contentView).offset(12 *SIZE);
+        make.width.mas_lessThanOrEqualTo(80 *SIZE);
+    }];
+    
     
     [_regionL mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -267,7 +280,7 @@
         
         make.left.equalTo(self.contentView).offset(85 *SIZE);
         make.top.equalTo(self->_codeL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(270 *SIZE);
+        make.width.mas_lessThanOrEqualTo(180 *SIZE);
     }];
     
     [_scoreL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -281,6 +294,13 @@
         
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
         make.top.equalTo(self->_regionL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(80 *SIZE);
+    }];
+    
+    [_takeNumL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self->_typeL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(80 *SIZE);
     }];
     

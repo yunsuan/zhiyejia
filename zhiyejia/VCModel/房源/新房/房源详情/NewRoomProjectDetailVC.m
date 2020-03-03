@@ -84,6 +84,7 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"goHome" object:nil];
     _focusDic = [@{} mutableCopy];
     _albumArr = [@[] mutableCopy];
     _imgArr = [@[] mutableCopy];
@@ -590,7 +591,7 @@
                     
                     if (error) {
                         
-                        [UIImage imageNamed:@"banner_default_2"];
+                        cell.bigImg.image = [UIImage imageNamed:@"banner_default_2"];
                     }
                 }];
             }else{

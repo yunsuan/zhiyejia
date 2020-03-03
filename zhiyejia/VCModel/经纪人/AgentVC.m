@@ -26,6 +26,7 @@
     NSString *_city;
     NSString *_search;
     NSString *_num_sort;
+    NSString *_distance_sort;
     
     NSMutableArray *_cityArr;
     NSMutableArray *_dataArr;
@@ -71,7 +72,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"goHome" object:nil];
     _page = 1;
-    _num_sort = @"1";
+    _num_sort = @"";
+    _distance_sort = @"1";
     
     _dataArr = [@[] mutableCopy];
     
@@ -167,6 +169,7 @@
 
 - (void)RequestMethod{
     
+    _page = 1;
     _table.mj_footer.state = MJRefreshStateIdle;
     
     if (!_city.length) {
@@ -185,7 +188,15 @@
         [dic setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"] forKey:@"latitude"];
         [dic setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"] forKey:@"longitude"];
     }
-    [dic setValue:_num_sort forKey:@"num_sort"];
+    if (_num_sort.length) {
+        
+        [dic setValue:_num_sort forKey:@"num_sort"];
+    }
+    if (_distance_sort.length) {
+        
+        [dic setValue:_distance_sort forKey:@"distance_sort"];
+    }
+    
     
     if ([UserModel defaultModel].token) {
         
@@ -237,8 +248,14 @@
         [dic setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"] forKey:@"latitude"];
         [dic setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"] forKey:@"longitude"];
     }
-    [dic setValue:_num_sort forKey:@"num_sort"];
-    
+    if (_num_sort.length) {
+        
+        [dic setValue:_num_sort forKey:@"num_sort"];
+    }
+    if (_distance_sort.length) {
+        
+        [dic setValue:_distance_sort forKey:@"distance_sort"];
+    }
     if ([UserModel defaultModel].token) {
         
         [dic setValue:[UserModel defaultModel].agent_id forKey:@"home_agent_id"];
@@ -311,15 +328,22 @@
                 [tempArr addObject:@{@"id":_cityArr[i][@"city_code"],@"param":_cityArr[i][@"city_name"]}];
             }
             self.boxView.dataArr = [NSMutableArray arrayWithArray:tempArr];
-            [tempArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [tempArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 
-                if (idx == 0) {
+                if ([obj[@"id"] integerValue] == [_city integerValue]) {
                     
                     tempArr[idx] = @(1);
                 }else{
                     
                     tempArr[idx] = @(0);
                 }
+//                if (idx == 0) {
+//
+//                    tempArr[idx] = @(1);
+//                }else{
+//
+//                    tempArr[idx] = @(0);
+//                }
             }];
             self.boxView.selectArr = [NSMutableArray arrayWithArray:tempArr];
             [self.boxView.mainTable reloadData];
@@ -328,24 +352,36 @@
         }
         case 2:{
             
+            _page = 1;
             _cityBtn.selected = NO;
-            
+            _seeBtn.selected = NO;
+            if ([_distance_sort integerValue] == 1) {
+                
+                _distance_sort = @"2";
+            }else{
+                
+                _distance_sort = @"1";
+            }
+            _num_sort = @"";
+            [self RequestMethod];
             [self.boxView removeFromSuperview];
             
             break;
         }
         case 3:{
             
+            _page = 1;
             _cityBtn.selected = NO;
-            
+            _distanceBtn.selected = NO;
             [self.boxView removeFromSuperview];
-            if ([_num_sort integerValue] == 1) {
-                
-                _num_sort = @"2";
-            }else{
+            if ([_num_sort integerValue] == 2) {
                 
                 _num_sort = @"1";
+            }else{
+                
+                _num_sort = @"2";
             }
+            _distance_sort = @"";
             [self RequestMethod];
             break;
         }
@@ -582,6 +618,8 @@
         SS(strongSelf);
         _boxView.boxWithOutUnlimitedViewConfirmBtnBlock = ^(NSString *ID,NSString *str) {
             
+            self->_page = 1;
+            strongSelf->_cityBtn.selected = NO;
             [strongSelf->_cityBtn setTitle:str forState:UIControlStateNormal];
             strongSelf->_city = [NSString stringWithFormat:@"%@",ID];
             
@@ -591,7 +629,7 @@
 
         _boxView.boxWithOutUnlimitedViewCancelBtnBlock = ^{
 
-            
+            strongSelf->_cityBtn.selected = NO;
         };
     }
     return _boxView;

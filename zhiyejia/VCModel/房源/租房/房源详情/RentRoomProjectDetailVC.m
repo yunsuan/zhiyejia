@@ -482,7 +482,7 @@
                     
                     if (error) {
                         
-                        [UIImage imageNamed:@"banner_default_2"];
+                        cell.bigImg.image = [UIImage imageNamed:@"banner_default_2"];
                     }
                 }];
             }else{

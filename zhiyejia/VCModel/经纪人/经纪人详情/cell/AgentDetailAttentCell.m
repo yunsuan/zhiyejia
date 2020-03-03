@@ -35,6 +35,7 @@
     
     _headImg = [[UIImageView alloc] init];
     _headImg.clipsToBounds = YES;
+    _headImg.layer.cornerRadius = 10 *SIZE;
     _headImg.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:_headImg];
     
