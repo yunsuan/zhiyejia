@@ -12,6 +12,6 @@ target 'zhiyejia' do
  pod 'FLAnimatedImage'
  pod 'CYLTabBarController'
  pod 'MBProgressHUD'
-
+ pod 'WechatOpenSDK'
 # pod 'YBImageBrowser'
 end

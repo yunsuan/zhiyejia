@@ -492,6 +492,13 @@
           
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataArr[indexPath.row]];
             [tempDic setValue:str forKey:@"is_focus"];
+            if ([str integerValue] == 1) {
+                
+                [tempDic setValue:[NSString stringWithFormat:@"%d",[tempDic[@"focus_num"] integerValue] + 1] forKey:@"focus_num"];
+            }else{
+                
+                [tempDic setValue:[NSString stringWithFormat:@"%d",[tempDic[@"focus_num"] integerValue] - 1] forKey:@"focus_num"];
+            }
             [self->_dataArr replaceObjectAtIndex:indexPath.row withObject:tempDic];
             [self->_table reloadData];
         };
@@ -503,6 +510,13 @@
           
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataArr[indexPath.row]];
             [tempDic setValue:str forKey:@"is_focus"];
+            if ([str integerValue] == 1) {
+                
+                [tempDic setValue:[NSString stringWithFormat:@"%d",[tempDic[@"focus_num"] integerValue] + 1] forKey:@"focus_num"];
+            }else{
+                
+                [tempDic setValue:[NSString stringWithFormat:@"%d",[tempDic[@"focus_num"] integerValue] - 1] forKey:@"focus_num"];
+            }
             [self->_dataArr replaceObjectAtIndex:indexPath.row withObject:tempDic];
             [self->_table reloadData];
         };

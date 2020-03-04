@@ -87,7 +87,6 @@
 		0C4192D2240B8A37002DA195 /* AgentRoomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192D1240B8A37002DA195 /* AgentRoomDetailVC.m */; };
 		0C4192D7240B97FA002DA195 /* AgentRoomDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192D6240B97FA002DA195 /* AgentRoomDetailHeader.m */; };
 		0C4192DA240B987F002DA195 /* AgentRoomDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192D9240B987F002DA195 /* AgentRoomDetailCell.m */; };
-		0C4192DD240B9ABD002DA195 /* AgentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192DC240B9ABC002DA195 /* AgentDetailVC.m */; };
 		0C4192E2240BAD0A002DA195 /* AgentRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192E1240BAD0A002DA195 /* AgentRoomCell.m */; };
 		0C4192E5240BAD1F002DA195 /* AgentCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192E4240BAD1F002DA195 /* AgentCommentCell.m */; };
 		0C4192E8240BB2CA002DA195 /* AgentCommentCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192E7240BB2CA002DA195 /* AgentCommentCustomCell.m */; };
@@ -154,6 +153,7 @@
 		0C6BECAA2240D9A90039BD0D /* DynamicListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECA92240D9A90039BD0D /* DynamicListVC.m */; };
 		0C6BECAF2240DA460039BD0D /* DynamicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECAE2240DA460039BD0D /* DynamicDetailVC.m */; };
 		0C6BECB22240DA580039BD0D /* DynamicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BECB12240DA580039BD0D /* DynamicListCell.m */; };
+		0C731947240FB63600961783 /* AgentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4192DC240B9ABC002DA195 /* AgentDetailVC.m */; };
 		0C81D5E123BD8694001C8DD1 /* DeamandSaleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D5E023BD8694001C8DD1 /* DeamandSaleCell.m */; };
 		0C81D5E423BD86B8001C8DD1 /* DemandBuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D5E323BD86B8001C8DD1 /* DemandBuyCell.m */; };
 		0C81D5E823BD961A001C8DD1 /* SecHouseSaleDemandDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C81D5E723BD961A001C8DD1 /* SecHouseSaleDemandDetailVC.m */; };
@@ -489,7 +489,7 @@
 		0C4192D8240B987F002DA195 /* AgentRoomDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentRoomDetailCell.h; sourceTree = "<group>"; };
 		0C4192D9240B987F002DA195 /* AgentRoomDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentRoomDetailCell.m; sourceTree = "<group>"; };
 		0C4192DB240B9ABC002DA195 /* AgentDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentDetailVC.h; sourceTree = "<group>"; };
-		0C4192DC240B9ABC002DA195 /* AgentDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentDetailVC.m; sourceTree = "<group>"; };
+		0C4192DC240B9ABC002DA195 /* AgentDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentDetailVC.m; sourceTree = "<group>"; wrapsLines = 0; };
 		0C4192E0240BAD0A002DA195 /* AgentRoomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentRoomCell.h; sourceTree = "<group>"; };
 		0C4192E1240BAD0A002DA195 /* AgentRoomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgentRoomCell.m; sourceTree = "<group>"; };
 		0C4192E3240BAD1F002DA195 /* AgentCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgentCommentCell.h; sourceTree = "<group>"; };
@@ -3520,8 +3520,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C731947240FB63600961783 /* AgentDetailVC.m in Sources */,
 				0C46137E23CF18A0007ADC9D /* AddNumeralCodeCollCell.m in Sources */,
-				0C4192DD240B9ABD002DA195 /* AgentDetailVC.m in Sources */,
 				0CE8222F221EB37000576742 /* MineHeaderView.m in Sources */,
 				0C00119F23C576F0005924FE /* SecHouseBuyDemandDetailRecommendPriceCell.m in Sources */,
 				0CF46D832224D7BB008816E6 /* NewRoomProjectHouseTypeCell.m in Sources */,

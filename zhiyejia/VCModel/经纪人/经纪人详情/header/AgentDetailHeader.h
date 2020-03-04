@@ -40,6 +40,8 @@ typedef void(^AgentDetailHeaderBlock)(NSInteger idx);
 
 @property (nonatomic, strong) GZQFlowLayout *layout;
 
+@property (nonatomic, strong) GZQFlowLayout *addressLayout;
+
 @property (nonatomic, strong) GZQFlowLayout *attentLayout;
 
 @property (nonatomic, strong) UICollectionView *coll;

@@ -14,6 +14,14 @@
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import <MapKit/MapKit.h>
+#import "YBImageBrowser.h"
+#import <MJRefresh.h>
+#import <Masonry.h>
+#import "UIImageView+WebCache.h"
+#import "MBProgressHUD.h"
+
+
+#import "ZZQAvatarPicker.h"
 
 #import "UserModel.h"
 #import "UserModelArchiver.h"
@@ -27,13 +35,6 @@
 #import "UIImage+WaterImg.h"
 #import "FailView.h"
 #import "WaitAnimation.h"
-
-#import "YBImageBrowser.h"
-#import <MJRefresh.h>
-#import <Masonry.h>
-#import "UIImageView+WebCache.h"
-#import "MBProgressHUD.h"
-#import "ZZQAvatarPicker.h"
 
 #define YQDversion @"1.0.1"
 

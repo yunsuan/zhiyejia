@@ -20,6 +20,8 @@
 
 #import "AgentDetailCommentView.h"
 
+#import <WXApi.h>
+
 @interface AgentDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -227,6 +229,29 @@
                 }
             }else if (idx == 3){
                 
+                WXMiniProgramObject *object = [WXMiniProgramObject object];
+//                object.webpageUrl = webpageUrl;//网页链接
+//                object.userName = @"gh_b5fe7a68ff6d";//小程序原始ID
+//                object.path = path;//小程序对应的页面路径
+//                object.hdImageData = hdImageData;//预览图二进制数据
+//                object.withShareTicket = withShareTicket;//用于分享出去的小程序被二次打开的时候可以获取更多的信息
+//                object.miniProgramType = programType;//对应小程序的类型，支持开发者区分开发版和体验版
+
+                WXMediaMessage *message = [WXMediaMessage message];
+                message.title = @"云算置业家";
+                message.description = @"";
+                message.thumbData = nil;  //兼容旧版本节点的图片，小于32KB，新版本优先
+                                          //使用WXMiniProgramObject的hdImageData属性
+                message.mediaObject = object;
+
+                SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+                req.bText = NO;
+                req.message = message;
+                req.scene = WXSceneSession;  //目前只支持会话
+                [WXApi sendReq:req completion:^(BOOL success) {
+                    
+                }];
+//                [WXApi sendReq:req];
                 
             }else{
                 

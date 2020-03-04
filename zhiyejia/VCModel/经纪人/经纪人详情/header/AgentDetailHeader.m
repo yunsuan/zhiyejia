@@ -128,25 +128,28 @@
     
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (collectionView == _attentColl) {
-        
-        return CGSizeMake(30 *SIZE, 30 *SIZE);
-    }else{
-        
-        return CGSizeMake(100 *SIZE, 37 *SIZE);
-    }
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    if (collectionView == _attentColl) {
+//        
+//        return CGSizeMake(30 *SIZE, 30 *SIZE);
+//    }else if (collectionView == _addressColl){
+//        
+//        return CGSizeMake(340 *SIZE, 37 *SIZE);
+//    }else{
+//        
+//        return CGSizeMake(100 *SIZE, 37 *SIZE);
+//    }
+//}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if (collectionView == _addressColl) {
         
-        TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TagCollCell" forIndexPath:indexPath];
+        TagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addressColl" forIndexPath:indexPath];
         if (!cell) {
             
-            cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 100 *SIZE, 37 *SIZE)];
+            cell = [[TagCollCell alloc] initWithFrame:CGRectMake(0, 0, 340 *SIZE, 37 *SIZE)];
         }
         cell.tag = indexPath.item;
         
@@ -259,6 +262,7 @@
     [_backView addSubview:_dealL];
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:2 *SIZE];
+    _layout.itemSize = CGSizeMake(100 *SIZE, 37 *SIZE);
     
     _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
     _coll.backgroundColor = [UIColor whiteColor];
@@ -273,11 +277,14 @@
     _regionL.text = @"服务区域";
     [self.contentView addSubview:_regionL];
     
-    _addressColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
+    _addressLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:2 *SIZE];
+    _addressLayout.itemSize = CGSizeMake(340 *SIZE, 37 *SIZE);
+    
+    _addressColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_addressLayout];
     _addressColl.backgroundColor = [UIColor whiteColor];
     _addressColl.delegate = self;
     _addressColl.dataSource = self;
-    [_addressColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"TagCollCell"];
+    [_addressColl registerClass:[TagCollCell class] forCellWithReuseIdentifier:@"addressColl"];
     [_backView addSubview:_addressColl];
     
     _blueView = [[UIView alloc] init];;
@@ -329,6 +336,7 @@
     [_shareBtn addSubview:_shareL];
     
     _attentLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:-10*SIZE];
+    _attentLayout.itemSize = CGSizeMake(30 *SIZE, 30 *SIZE);
 //    _attentLayout.minimumInteritemSpacing = -10 *SIZE;
 //    _attentLayout.minimumLineSpacing = - 10 *SIZE;
     _attentLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

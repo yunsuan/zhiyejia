@@ -7,6 +7,8 @@
 //
 #import <BMKLocationkit/BMKLocationComponent.h>
 
+#import <WXApi.h>
+
 #import "AppDelegate.h"
 #import "UpgradeTipsView.h"
 
@@ -22,11 +24,12 @@
 
 //云渠道百度地图
 static NSString *const kBaiduSDK = @"KUHjui3ENsYlHml2lOqGUGOLhuPDDbWq";
-//云渠道极光
+//置业家极光
 static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
+//置业家微信
+static NSString *const WXAppId = @"wx04f2d1a650af0c36";
 
-
-@interface AppDelegate ()<BMKLocationAuthDelegate,JPUSHRegisterDelegate>
+@interface AppDelegate ()<BMKLocationAuthDelegate,JPUSHRegisterDelegate,WXApiDelegate>
 {
     
     UpgradeTipsView *_updateView;
@@ -43,6 +46,7 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHome) name:@"goHome" object:nil];
     //注册通知，退出登陆时回到首页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(comeBackLoginVC) name:@"goLoginVC" object:nil];
+    [WXApi registerApp:WXAppId universalLink:@"https://www.goodhome.net.cn/"];
     
     [[BMKLocationAuth sharedInstance] checkPermisionWithKey:kBaiduSDK authDelegate:self];
     // 要使用百度地图，请先启动BaiduMapManager
@@ -231,6 +235,28 @@ static NSString *const kJpushAPPKey = @"724cb51c64ef6721d1773d9a";
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     
     [self UpdateRequest];
+}
+
+//微信
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler{
+
+    return [WXApi handleOpenUniversalLink:userActivity delegate:self];
 }
 
 #pragma mark ---  Jpush  ---
