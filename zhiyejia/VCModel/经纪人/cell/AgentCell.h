@@ -2,12 +2,11 @@
 //  AgentCell.h
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2020/3/1.
+//  Created by 谷治墙 on 2020/3/15.
 //  Copyright © 2020 xiaoq. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,13 +38,19 @@ typedef void(^AgentCellAttentBtnBlock)(NSInteger idx);
 
 @property (nonatomic, strong) UILabel *companyL;
 
-@property (nonatomic, strong) UILabel *scoreL;
+@property (nonatomic, strong) UIImageView *scoreImg1;
+
+@property (nonatomic, strong) UIImageView *scoreImg2;
+
+@property (nonatomic, strong) UIImageView *scoreImg3;
+
+@property (nonatomic, strong) UIImageView *scoreImg4;
+
+@property (nonatomic, strong) UIImageView *scoreImg5;
 
 @property (nonatomic, strong) UILabel *typeL;
 
 @property (nonatomic, strong) UILabel *takeNumL;
-
-@property (nonatomic, strong) UIView *line1;
 
 @property (nonatomic, strong) GZQFlowLayout *layout;
 

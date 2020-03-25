@@ -158,8 +158,8 @@
     
     cell.tag = indexPath.row;
     
-    cell.dataDic = _dataArr[indexPath.row];
-    
+//    cell.dataDic = _dataArr[indexPath.row];
+    cell.dataArr = _dataArr;
     
     return cell;
 }

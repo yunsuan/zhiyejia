@@ -60,7 +60,7 @@
     _dealL.text = [NSString stringWithFormat:@"成交量：%@",dataDic[@"deal_num"]];
     _scoreL.text = [NSString stringWithFormat:@"评分：%@分",dataDic[@"grade"]];
     _attentL.text = [NSString stringWithFormat:@"%@人关注 %@人浏览",dataDic[@"focus_info"][@"focus_num"],dataDic[@"browse_num"]];
-    _descL.text = [NSString stringWithFormat:@"个性签名：%@",dataDic[@"self_desc"]];
+    _descL.text = [NSString stringWithFormat:@"%@",dataDic[@"self_desc"]];
     if ([dataDic[@"is_focus"] integerValue] == 1) {
         
         [_attentBtn setTitle:@"取消关注" forState:UIControlStateNormal];
@@ -82,7 +82,7 @@
     [_addressColl reloadData];
     [_coll reloadData];
     [_attentColl reloadData];
-    [self reloadInputViews];
+    [self.contentView reloadInputViews];
     [_coll mas_updateConstraints:^(MASConstraintMaker *make) {
         
         make.height.mas_equalTo(_coll.collectionViewLayout.collectionViewContentSize.height);
@@ -209,54 +209,54 @@
     
     _backView = [[UIView alloc] init];;
     _backView.backgroundColor = CLWhiteColor;
+    
     _backView.layer.cornerRadius = 8 *SIZE;
-    _backView.layer.shadowColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:0.1].CGColor;
-    _backView.layer.shadowOffset = CGSizeMake(0,2);
-    _backView.layer.shadowOpacity = 1;
-    _backView.layer.shadowRadius = 7 *SIZE;
+    _backView.layer.shadowColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:0.6].CGColor;
+    _backView.layer.shadowOffset = CGSizeMake(0,1);
+    _backView.layer.shadowOpacity = 0.5;
     [self.contentView addSubview:_backView];
     
-    _headImg = [[UIImageView alloc] initWithFrame:CGRectMake(20 *SIZE, 20 *SIZE, 64 *SIZE, 64 *SIZE)];
-    _headImg.layer.cornerRadius = 32 *SIZE;
+    _headImg = [[UIImageView alloc] init];//WithFrame:CGRectMake(20 *SIZE, 20 *SIZE, 64 *SIZE, 64 *SIZE)];
+    _headImg.layer.cornerRadius = 23.5 *SIZE;
     _headImg.contentMode = UIViewContentModeScaleAspectFill;
     _headImg.clipsToBounds = YES;
     [_backView addSubview:_headImg];
     
     _titleL = [[UILabel alloc] init];
-    _titleL.textColor = CLTitleLabColor;
-    _titleL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _titleL.textColor = [UIColor blackColor];
+    _titleL.font = [UIFont systemFontOfSize:15 *SIZE];
     [_backView addSubview:_titleL];
     
     _scoreL = [[UILabel alloc] init];
-    _scoreL.textColor = CLContentLabColor;
+    _scoreL.textColor = CL98Color;
     _scoreL.font = [UIFont systemFontOfSize:11 *SIZE];
     [_backView addSubview:_scoreL];
     
     _companyL = [[UILabel alloc] init];
-    _companyL.textColor = CLContentLabColor;
+    _companyL.textColor = CL98Color;
     _companyL.font = [UIFont systemFontOfSize:11 *SIZE];
     [_backView addSubview:_companyL];
     
     _descL = [[UILabel alloc] init];
-    _descL.textColor = CLContentLabColor;
-    _descL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _descL.textColor = [UIColor blackColor];
+    _descL.font = [UIFont systemFontOfSize:13 *SIZE];
     _descL.numberOfLines = 0;
-    [_backView addSubview:_descL];
+    [self.contentView addSubview:_descL];
     
     _typeL = [[UILabel alloc] init];
-    _typeL.textColor = CLContentLabColor;
+    _typeL.textColor = CL98Color;
     _typeL.font = [UIFont systemFontOfSize:11 *SIZE];
     _typeL.textAlignment = NSTextAlignmentRight;
     [_backView addSubview:_typeL];
     
     _takeNumL = [[UILabel alloc] init];
-    _takeNumL.textColor = CLContentLabColor;
+    _takeNumL.textColor = CL98Color;
     _takeNumL.font = [UIFont systemFontOfSize:11 *SIZE];
     _takeNumL.textAlignment = NSTextAlignmentRight;
     [_backView addSubview:_takeNumL];
     
     _dealL = [[UILabel alloc] init];
-    _dealL.textColor = CLContentLabColor;
+    _dealL.textColor = CL98Color;
     _dealL.font = [UIFont systemFontOfSize:11 *SIZE];
     _dealL.textAlignment = NSTextAlignmentRight;
     [_backView addSubview:_dealL];
@@ -351,7 +351,7 @@
     
     _attentL = [[UILabel alloc] init];
     _attentL.textColor = CLContentLabColor;
-    _attentL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _attentL.font = [UIFont systemFontOfSize:13 *SIZE];
     [self.contentView addSubview:_attentL];
     
     _attentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -371,79 +371,72 @@
     
     [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self.contentView).offset(10 *SIZE);
-        make.width.mas_equalTo(340 *SIZE);
+        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.top.equalTo(self.contentView).offset(9 *SIZE);
+        make.width.mas_equalTo(342 *SIZE);
     }];
     
     [_headImg mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self->_backView).offset(10 *SIZE);
-        make.top.equalTo(self->_backView).offset(10 *SIZE);
-        make.width.height.mas_equalTo(60 *SIZE);
+        make.left.equalTo(self->_backView).offset(28 *SIZE);
+        make.top.equalTo(self->_backView).offset(25 *SIZE);
+        make.width.height.mas_equalTo(47 *SIZE);
     }];
     
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_backView).offset(80 *SIZE);
-        make.top.equalTo(self->_backView).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(180 *SIZE);
+        make.left.equalTo(self->_backView).offset(91 *SIZE);
+        make.top.equalTo(self->_backView).offset(15 *SIZE);
+        make.width.mas_lessThanOrEqualTo(140 *SIZE);
     }];
     
     [_sexImg mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self->_titleL.mas_right).offset(2 *SIZE);
-        make.top.equalTo(self->_backView).offset(14 *SIZE);
-        make.width.height.mas_equalTo(10 *SIZE);
+        make.left.equalTo(self->_titleL.mas_right).offset(7 *SIZE);
+        make.top.equalTo(self->_backView).offset(15 *SIZE);
+        make.width.height.mas_equalTo(14 *SIZE);
     }];
     
     [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self->_backView).offset(-10 *SIZE);
-        make.top.equalTo(self->_backView).offset(10 *SIZE);
+        make.right.equalTo(self->_backView).offset(-26 *SIZE);
+        make.top.equalTo(self->_backView).offset(18 *SIZE);
         make.width.mas_lessThanOrEqualTo(60 *SIZE);
     }];
     
     [_takeNumL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self->_backView).offset(-10 *SIZE);
+        make.right.equalTo(self->_backView).offset(-26 *SIZE);
         make.top.equalTo(self->_typeL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(60 *SIZE);
     }];
     
     [_dealL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self->_backView).offset(-10 *SIZE);
+        make.right.equalTo(self->_backView).offset(-26 *SIZE);
         make.top.equalTo(self->_takeNumL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(60 *SIZE);
     }];
     
     [_scoreL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_backView).offset(80 *SIZE);
-        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(180 *SIZE);
+        make.left.equalTo(self->_backView).offset(91 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
+        make.width.mas_lessThanOrEqualTo(140 *SIZE);
     }];
     
     [_companyL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_backView).offset(80 *SIZE);
-        make.top.equalTo(self->_scoreL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(180 *SIZE);
-    }];
-    
-    [_descL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_backView).offset(10 *SIZE);
-        make.top.equalTo(self->_companyL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(340 *SIZE);
+        make.left.equalTo(self->_backView).offset(91 *SIZE);
+        make.top.equalTo(self->_scoreL.mas_bottom).offset(9 *SIZE);
+        make.width.mas_lessThanOrEqualTo(160 *SIZE);
     }];
     
     [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self->_backView).offset(10 *SIZE);
-        make.top.equalTo(self->_descL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(320 *SIZE);
+        make.left.equalTo(self->_backView).offset(91 *SIZE);
+        make.top.equalTo(self->_companyL.mas_bottom).offset(8 *SIZE);
+        make.width.mas_equalTo(240 *SIZE);
         make.height.mas_equalTo(_coll.collectionViewLayout.collectionViewContentSize.height);
     }];
     
@@ -463,11 +456,18 @@
         make.bottom.equalTo(self->_backView.mas_bottom).offset(-10 *SIZE);
     }];
     
+    [_descL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(14 *SIZE);
+        make.top.equalTo(self->_backView.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(340 *SIZE);
+    }];
+    
     [_blueView mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_backView.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(340 *SIZE);
+        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.top.equalTo(self->_descL.mas_bottom).offset(17 *SIZE);
+        make.width.mas_equalTo(342 *SIZE);
 //        make.height.mas_equalTo(50 *SIZE);
     }];
     
@@ -498,7 +498,7 @@
     
     [_attentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(100 *SIZE);
+        make.left.equalTo(self.contentView).offset(116 *SIZE);
         make.top.equalTo(self->_blueView.mas_bottom).offset(20 *SIZE);
         make.width.mas_lessThanOrEqualTo(340 *SIZE);
 //        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);

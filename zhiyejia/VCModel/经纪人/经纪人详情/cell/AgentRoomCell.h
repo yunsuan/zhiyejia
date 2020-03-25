@@ -2,7 +2,7 @@
 //  AgentRoomCell.h
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2020/3/1.
+//  Created by 谷治墙 on 2020/3/15.
 //  Copyright © 2020 xiaoq. All rights reserved.
 //
 
@@ -10,39 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AgentRoomCellBlock)(NSInteger idx);
+
 @interface AgentRoomCell : UITableViewCell
 
-@property (nonatomic, strong) UIImageView *roomImg;
+@property (nonatomic, copy) AgentRoomCellBlock agentRoomCellBlock;
 
-@property (nonatomic, strong) UIView *specialView;
+@property (nonatomic, strong) UICollectionView *coll;
 
-@property (nonatomic, strong) UILabel *specialL;
+@property (nonatomic, strong) GZQFlowLayout *layout;
 
-@property (nonatomic, strong) UILabel *titleL;
+@property (nonatomic, strong) NSArray *dataArr;
 
-@property (nonatomic, strong) UILabel *roomNumL;
-
-@property (nonatomic, strong) UILabel *houseTypeL;
-
-@property (nonatomic, strong) UILabel *areaL;
-
-@property (nonatomic, strong) UILabel *typeL;
-
-@property (nonatomic, strong) UILabel *priceL;
-
-@property (nonatomic, strong) UILabel *stateL;
-
-@property (nonatomic, strong) UILabel *attentionL;
-
-@property (nonatomic, strong) UILabel *seeL;
-
-@property (nonatomic, strong) UIView *line;
-
-//@property (nonatomic, strong) UIButton *upBtn;
-//
-//@property (nonatomic, strong) UIButton *downBtn;
-
-@property (nonatomic, strong) NSDictionary *dataDic;
 @end
 
 NS_ASSUME_NONNULL_END

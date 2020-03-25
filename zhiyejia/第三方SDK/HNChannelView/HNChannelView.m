@@ -91,28 +91,29 @@ static CGFloat labelHeight = 40;
 
 
 - (void)configData {
+    
     __weak typeof(self) wself = self;
     dispatch_async(_queue, ^{
+        
         for (int i = 0 ; i < wself.myChannelArr.count; i++) {
+            
             HNChannelModel *model = [[HNChannelModel alloc]init];
             model.name = wself.myChannelArr[i];
             model.isMyChannel = YES;
+            
             if ([wself.myChannelArr[i] isEqualToString:@"推荐"]||[wself.myChannelArr[i] isEqualToString:@"关注"]) {
+                
                 model.isRegular = YES;
             }
             else{
+                
                 model.isRegular = NO;
             }
-            if ([wself.myChannelArr[i] isEqualToString:@"推荐"]) {
-                
-                
-            }else{
-                
-                [wself.datas addObject:model];
-            }
             
+            [wself.datas addObject:model];
         }
         for (int i = 0 ; i < wself.recommendChannelArr.count; i++) {
+            
             HNChannelModel *model = [[HNChannelModel alloc]init];
             model.name = wself.recommendChannelArr[i];
             model.isMyChannel = NO;

@@ -184,10 +184,10 @@
         return 0;
     }else if (section == 1){
         
-        return _roomArr.count;
+        return _roomArr.count? 1:0;
     }else{
         
-        return _commentArr.count;
+        return _commentArr.count? 1: 0;
     }
 }
 
@@ -466,8 +466,8 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = _roomArr[indexPath.row];
-        
+//        cell.dataDic = _roomArr[indexPath.row];
+        cell.dataArr = _roomArr;
         return cell;
     }else{
         
@@ -512,7 +512,9 @@
 
 - (void)initUI{
     
+    self.titleLabel.textColor = CLWhiteColor;
     self.titleLabel.text = @"经纪人详情";
+    self.navBackgroundView.backgroundColor = CLClearColor;
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStyleGrouped];
     _table.backgroundColor = CLWhiteColor;

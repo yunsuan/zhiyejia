@@ -27,6 +27,7 @@ PODS:
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.3.1)
+  - NMRangeSlider (1.2.1)
   - SDWebImage (5.5.1):
     - SDWebImage/Core (= 5.5.1)
   - SDWebImage/Core (5.5.1)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD
   - MJRefresh
+  - NMRangeSlider
   - SDWebImage
   - WechatOpenSDK
 
@@ -59,6 +61,7 @@ SPEC REPOS:
     - Masonry
     - MBProgressHUD
     - MJRefresh
+    - NMRangeSlider
     - SDWebImage
     - WechatOpenSDK
 
@@ -74,9 +77,10 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
+  NMRangeSlider: 317ded652431eb90501c8421d9cddc3930d891e6
   SDWebImage: 1245d058b7b8f59adef7a6da6bbafd4f1ab67041
   WechatOpenSDK: 8b3ba4239193d1112205c139c94e21934e8f369a
 
-PODFILE CHECKSUM: 043184dcc2d6abbe6100d56f63e0e96dd226e098
+PODFILE CHECKSUM: 2507374d82e0071a9c8edc4d30477511e55628e9
 
 COCOAPODS: 1.9.0

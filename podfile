@@ -13,5 +13,6 @@ target 'zhiyejia' do
  pod 'CYLTabBarController'
  pod 'MBProgressHUD'
  pod 'WechatOpenSDK'
+ pod 'NMRangeSlider'
 # pod 'YBImageBrowser'
 end

@@ -35,6 +35,7 @@
 #import "UIImage+WaterImg.h"
 #import "FailView.h"
 #import "WaitAnimation.h"
+#import "UITableView+EmptyData.h"
 
 #define YQDversion @"1.0.1"
 
@@ -84,7 +85,14 @@
 #define CLOrangeColor  COLOR(255, 205, 64, 1)
 #define CLYellowColor  COLOR(255, 235, 17, 1)
 
+#define CLNewTitleColor   COLOR(89, 87, 87, 1)
+#define CLNewContentColor   COLOR(157, 158, 158, 1)
+#define CLNewRedColor   COLOR(204, 51, 0, 1)
+#define CLNewBlueColor   COLOR(33, 106, 193, 1)
+#define CLNewLineColor   COLOR(231, 231, 231, 1)
+
 #define CL86Color   COLOR(86, 86, 86, 1)
+#define CL98Color   COLOR(98, 98, 98, 1)
 #define CL170Color   COLOR(170, 170, 170, 1)
 #define CL181Color   COLOR(181, 181, 181, 1)
 #define CL240Color   COLOR(240, 240, 240, 1)

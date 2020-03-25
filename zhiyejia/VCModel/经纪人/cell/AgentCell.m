@@ -2,7 +2,7 @@
 //  AgentCell.m
 //  zhiyejia
 //
-//  Created by 谷治墙 on 2020/3/1.
+//  Created by 谷治墙 on 2020/3/15.
 //  Copyright © 2020 xiaoq. All rights reserved.
 //
 
@@ -24,6 +24,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        _dataArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;
@@ -59,7 +60,7 @@
     _regionL.text = [NSString stringWithFormat:@"服务区域：%@",dataDic[@"service_area"]];
     _codeL.text = [NSString stringWithFormat:@"云算编号：%@",dataDic[@"account"]];
     _companyL.text = [NSString stringWithFormat:@"所属公司：%@",dataDic[@"company_name"]];
-    _scoreL.text = [NSString stringWithFormat:@"评分：%@分",dataDic[@"grade"]];
+//    _scoreL.text = [NSString stringWithFormat:@"评分：%@分",dataDic[@"grade"]];
     _typeL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_type"]];
     [_attentBtn setTitle:[NSString stringWithFormat:@"%@",dataDic[@"focus_num"]] forState:UIControlStateNormal];
     _distanceL.text = [NSString stringWithFormat:@"距我%@",dataDic[@"distance"]];
@@ -75,19 +76,81 @@
         [_attentBtn setImage:IMAGE_WITH_NAME(@"Focus") forState:UIControlStateNormal];
     }
     
+    switch ([dataDic[@"grade"] integerValue]) {
+        case 1:
+        {
+            
+            _scoreImg1.hidden = NO;
+            _scoreImg2.hidden = YES;
+            _scoreImg3.hidden = YES;
+            _scoreImg4.hidden = YES;
+            _scoreImg5.hidden = YES;
+            break;
+        }
+        case 2:
+        {
+            
+            _scoreImg1.hidden = NO;
+            _scoreImg2.hidden = NO;
+            _scoreImg3.hidden = YES;
+            _scoreImg4.hidden = YES;
+            _scoreImg5.hidden = YES;
+            break;
+        }
+        case 3:
+        {
+            
+            _scoreImg1.hidden = NO;
+            _scoreImg2.hidden = NO;
+            _scoreImg3.hidden = NO;
+            _scoreImg4.hidden = YES;
+            _scoreImg5.hidden = YES;
+            break;
+        }case 4:
+        {
+            
+            _scoreImg1.hidden = NO;
+            _scoreImg2.hidden = NO;
+            _scoreImg3.hidden = NO;
+            _scoreImg4.hidden = NO;
+            _scoreImg5.hidden = YES;
+            break;
+        }
+        case 5:
+        {
+            
+            _scoreImg1.hidden = NO;
+            _scoreImg2.hidden = NO;
+            _scoreImg3.hidden = NO;
+            _scoreImg4.hidden = NO;
+            _scoreImg5.hidden = NO;
+            break;
+        }
+        default:{
+            
+            _scoreImg1.hidden = YES;
+            _scoreImg2.hidden = YES;
+            _scoreImg3.hidden = YES;
+            _scoreImg4.hidden = YES;
+            _scoreImg5.hidden = YES;
+            break;
+        }
+    }
+    
     NSArray *arr;
-    if ([_dataDic[@"self_tags"] length]) {
+    if ([dataDic[@"self_tags"] length]) {
         
-        arr = [_dataDic[@"self_tags"] componentsSeparatedByString:@","];
-        _line1.hidden = NO;
+        arr = [dataDic[@"self_tags"] componentsSeparatedByString:@","];
+//        _line1.hidden = NO;
     }else{
         
         arr = @[];
-        _line1.hidden = YES;
+//        _line1.hidden = YES;
     }
     _dataArr = [NSMutableArray arrayWithArray:arr];
     
     [_coll reloadData];
+    [self.contentView reloadInputViews];
     [_coll mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(_coll.collectionViewLayout.collectionViewContentSize.height);
     }];
@@ -159,11 +222,31 @@
     _distanceL.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_distanceL];
     
-    _scoreL = [[UILabel alloc] init];
-    _scoreL.font = FONT(11 *SIZE);
-    _scoreL.textColor = CLTitleLabColor;
-    _scoreL.textAlignment = NSTextAlignmentRight;
-    [self.contentView addSubview:_scoreL];
+    for (int i = 0; i < 5; i++) {
+        
+        UIImageView *img = [[UIImageView alloc] initWithImage:IMAGE_WITH_NAME(@"矢量智能对象拷贝7")];
+        if (i == 0) {
+            
+            _scoreImg1 = img;
+            [self.contentView addSubview:_scoreImg1];
+        }else if (i == 1){
+            
+            _scoreImg2 = img;
+            [self.contentView addSubview:_scoreImg2];
+        }else if (i == 2){
+            
+            _scoreImg3 = img;
+            [self.contentView addSubview:_scoreImg3];
+        }else if (i == 3){
+            
+            _scoreImg4 = img;
+            [self.contentView addSubview:_scoreImg4];
+        }else{
+            
+            _scoreImg5 = img;
+            [self.contentView addSubview:_scoreImg5];
+        }
+    }
     
     _typeL = [[UILabel alloc] init];
     _typeL.font = FONT(11 *SIZE);
@@ -193,10 +276,6 @@
     [_attentBtn setTitleColor:CLTitleLabColor forState:UIControlStateNormal];
     _attentBtn.titleLabel.font = FONT(13 *SIZE);
     [self.contentView addSubview:_attentBtn];
-    
-    _line1 = [[UIView alloc] init];
-    _line1.backgroundColor = CLLineColor;
-    [self.contentView addSubview:_line1];
     
     _line2 = [[UIView alloc] init];
     _line2.backgroundColor = CLLineColor;
@@ -233,40 +312,88 @@
         make.width.mas_lessThanOrEqualTo(120 *SIZE);
     }];
     
-    [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_nameL.mas_right).offset(2 *SIZE);
-        make.top.equalTo(self.contentView).offset(12 *SIZE);
-        make.width.mas_lessThanOrEqualTo(40 *SIZE);
-    }];
-    
     [_sexImg mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self->_yearL.mas_right).offset(2 *SIZE);
+        make.left.equalTo(self->_nameL.mas_right).offset(2 *SIZE);
         make.top.equalTo(self.contentView).offset(14 *SIZE);
         make.width.height.mas_equalTo(10 *SIZE);
     }];
     
-    [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        make.top.equalTo(self.contentView).offset(5 *SIZE);
-        make.width.height.mas_equalTo(30 *SIZE);
+    [_yearL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(85 *SIZE);
+        make.top.equalTo(self->_nameL.mas_bottom).offset(12 *SIZE);
+        make.width.mas_lessThanOrEqualTo(40 *SIZE);
     }];
     
-    [_distanceL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_scoreImg1 mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_sexImg.mas_right).offset(2 *SIZE);
+        make.top.equalTo(self.contentView).offset(14 *SIZE);
+        make.width.height.mas_equalTo(10 *SIZE);
+    }];
+    
+    [_scoreImg2 mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_scoreImg1.mas_right).offset(2 *SIZE);
+        make.top.equalTo(self.contentView).offset(14 *SIZE);
+        make.width.height.mas_equalTo(10 *SIZE);
+    }];
+    
+    [_scoreImg3 mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_scoreImg2.mas_right).offset(2 *SIZE);
+        make.top.equalTo(self.contentView).offset(14 *SIZE);
+        make.width.height.mas_equalTo(10 *SIZE);
+    }];
+    
+    [_scoreImg4 mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_scoreImg3.mas_right).offset(2 *SIZE);
+        make.top.equalTo(self.contentView).offset(14 *SIZE);
+        make.width.height.mas_equalTo(10 *SIZE);
+    }];
+    
+    [_scoreImg5 mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self->_scoreImg4.mas_right).offset(2 *SIZE);
+        make.top.equalTo(self.contentView).offset(14 *SIZE);
+        make.width.height.mas_equalTo(10 *SIZE);
+    }];
+    
+    [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self->_phoneBtn.mas_left).offset(5 *SIZE);
-        make.top.equalTo(self.contentView).offset(12 *SIZE);
+        make.left.equalTo(self->_yearL.mas_right).offset(2 *SIZE);
+        make.top.equalTo(self->_nameL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(80 *SIZE);
     }];
     
+    [_companyL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(85 *SIZE);
+        make.top.equalTo(self->_yearL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(180 *SIZE);
+    }];
     
     [_regionL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(85 *SIZE);
-        make.top.equalTo(self->_nameL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_companyL.mas_bottom).offset(10 *SIZE);
         make.width.mas_lessThanOrEqualTo(180 *SIZE);
+    }];
+    
+    [_takeNumL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_regionL.mas_right).offset(5 *SIZE);
+        make.top.equalTo(self->_companyL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(80 *SIZE);
+    }];
+    
+    [_distanceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_takeNumL.mas_right).offset(5 *SIZE);
+        make.top.equalTo(self->_companyL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_lessThanOrEqualTo(80 *SIZE);
     }];
     
     [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -276,47 +403,18 @@
         make.width.mas_lessThanOrEqualTo(180 *SIZE);
     }];
     
-    [_companyL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(85 *SIZE);
-        make.top.equalTo(self->_codeL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(180 *SIZE);
-    }];
-    
-    [_scoreL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+    [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+       
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        make.top.equalTo(self->_nameL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(80 *SIZE);
-    }];
-    
-    [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        make.top.equalTo(self->_regionL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(80 *SIZE);
-    }];
-    
-    [_takeNumL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        make.top.equalTo(self->_typeL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(80 *SIZE);
-    }];
-    
-    [_line1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(85 *SIZE);
-        make.top.equalTo(self->_companyL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(265 *SIZE);
-        make.height.mas_equalTo(1 *SIZE);
+        make.top.equalTo(self.contentView).offset(30 *SIZE);
+        make.width.height.mas_equalTo(50 *SIZE);
     }];
     
     [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self->_line1.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(340 *SIZE);
+        make.left.equalTo(self.contentView).offset(85 *SIZE);
+        make.top.equalTo(self->_regionL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(250 *SIZE);
         make.height.mas_equalTo(_coll.collectionViewLayout.collectionViewContentSize.height);;
     }];
     
@@ -331,7 +429,7 @@
     [_line2 mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_coll.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_attentBtn.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(1 *SIZE);
         make.bottom.equalTo(self.contentView).offset(0 *SIZE);
